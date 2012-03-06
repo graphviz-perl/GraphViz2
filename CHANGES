@@ -1,7 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.00  Tue Mar  6 16:02:00 2012
-	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg.
+	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg. I use Perl V 5.14.2. 
 	  	The output is online at http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg
 	  - Re-write GraphViz2::Parse::ISA to draw multiple class hierarchies on 1 graph. This means the API for that class has changed.
 	  	Specifically, create() no longer exists. Call add() 1 or more times instead. Then, call generate_graph(). See the docs for details.
