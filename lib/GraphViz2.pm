@@ -1,6 +1,5 @@
 package GraphViz2;
 
-use open qw/:encoding(UTF-8) :std/;
 use strict;
 use warnings;
 
@@ -30,7 +29,7 @@ fieldhash my %scope            => 'scope';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.00';
+our $VERSION = '2.01';
 
 # -----------------------------------------------
 
@@ -542,6 +541,7 @@ sub run
 		my($name)     = File::Spec -> catfile($temp_dir, 'graphviz2.dot');
 
 		open(OUT, '>', $name);
+		binmode OUT;
 		print OUT $self -> dot_input;
 		close OUT;
 
@@ -555,6 +555,7 @@ sub run
 		if ($output_file)
 		{
 			open(OUT, '>', $output_file) || die "Can't open(> $output_file): $!";
+			binmode OUT;
 			print OUT $stdout;
 			close OUT;
 
@@ -1278,12 +1279,9 @@ Here, [] indicates an optional parameter.
 
 =head2 o How do I include utf8 characters in labels?
 
-Since V 2.00, L<GraphViz2> incorporates patches which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg>.
+Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg>.
 
-Examine scripts/utf8.pl for how to do it. Note that that script contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
-
-Also, GraphViz2.pm contains 'use open qw/:encoding(UTF-8) :std/;'. Then if you examine sub run(), you'll see that I do I<not> use binmode at all. That too is something you'll need to be
-careful about.
+scripts/utf8.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
 
 =head2 o How do I print output files?
 
@@ -1679,7 +1677,7 @@ Outputs to ./html/trivial.svg by default.
 
 Demonstrates using utf8 characters in labels.
 
-outputs to ./html/utf8.html.
+outputs to ./html/utf8.svg by default.
 
 =head1 TODO
 

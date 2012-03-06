@@ -59,7 +59,7 @@
    "provides" : {
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
-         "version" : "2.00"
+         "version" : "2.01"
       },
       "GraphViz2::DBI" : {
          "file" : "lib/GraphViz2/DBI.pm",
@@ -112,5 +112,5 @@
          "http://opensource.org/licenses/artistic-license.php"
       ]
    },
-   "version" : "2.00"
+   "version" : "2.01"
 }

@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.01  Wed Mat  7 08:50:00 2012
+	  - I only tested V 2.00 by outputting to SVG (a text format), but outputting to a binary format such as PNG was broken.
+	  	So, remove the 'use open qw/:encoding(UTF-8) :std/;', and restore binmode, in GraphViz2.pm.
+	  - Remove log to screen in utf8.pl, since Log::Handler doesn't accept utf8 as a logger option.
+	  - Copy scripts/utf8.pl to scripts/utf8.test.pl and edit to display just 5 delta characters. See html/utf8.test.svg. PNG is ok too.
+		This demonstrates (hopefully) we can get the correct output on a binary format despite the 'Wide character in print...' message.
+
 2.00  Tue Mar  6 16:02:00 2012
 	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg. I'm using Perl V 5.14.2. 
 	  	Sample output is online at http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg.

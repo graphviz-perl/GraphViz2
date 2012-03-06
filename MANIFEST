@@ -40,6 +40,7 @@ html/sub.sub.graph.svg
 html/table.tx
 html/trivial.svg
 html/utf8.svg
+html/utf8.test.svg
 lib/GraphViz2.pm
 lib/GraphViz2/Data/Grapher.pm
 lib/GraphViz2/DBI.pm
@@ -93,6 +94,7 @@ scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
 scripts/trivial.pl
 scripts/utf8.pl
+scripts/utf8.test.pl
 t/calc.input
 t/calc.output
 t/calc3.output
