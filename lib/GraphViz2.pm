@@ -1283,6 +1283,18 @@ Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<
 
 scripts/utf8.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
 
+=head2 o Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
+
+AFAICT this is a problem with Perl. I use V 5.14.2, and even setting binmode on the output files in sub run() does not stop this message.
+
+And since it's potentially a binary output such as PNG, using Encode::encode() can't be the solution.
+
+Examine the output from scripts/utf8.test.pl, i.e. html/utf8.test.svg and you'll see it's correct. Then run:
+
+	perl scripts/utf8.test.pl png
+
+and examine html/utf8.test.png and you'll see it matches html/utf8.test.svg in showing 5 deltas. So, I I<think> it's all working.
+
 =head2 o How do I print output files?
 
 Under Unix, output as PDF, and then try: lp -o fitplot html/parse.marpa.pdf.
