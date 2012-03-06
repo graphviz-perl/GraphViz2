@@ -17,7 +17,7 @@ name: GraphViz2
 provides:
   GraphViz2:
     file: lib/GraphViz2.pm
-    version: 2.00
+    version: 2.01
   GraphViz2::DBI:
     file: lib/GraphViz2/DBI.pm
     version: 2.00
@@ -80,4 +80,4 @@ requires:
   XML::Tiny: 2.06
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 2.00
+version: 2.01
