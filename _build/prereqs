@@ -1,0 +1,37 @@
+do{ my $x = {
+       'build_requires' => {
+                             'Test::More' => '0.94',
+                             'Test::Pod' => '1.44'
+                           },
+       'conflicts' => {},
+       'requires' => {
+                       'Set::Array' => '0.23',
+                       'Scalar::Util' => '1.23',
+                       'Capture::Tiny' => '0.1',
+                       'File::Spec' => '3.33',
+                       'File::Which' => '1.09',
+                       'Text::Xslate' => '1.2',
+                       'Pod::Simple' => '3.16',
+                       'HTML::TreeBuilder' => '4.2',
+                       'Date::Format' => '2.24',
+                       'Data::Section::Simple' => '0.02',
+                       'HTTP::Tiny' => '0.012',
+                       'Log::Handler' => '0.71',
+                       'DBI' => '1.616',
+                       'Try::Tiny' => '0.09',
+                       'Perl6::Slurp' => '0.03',
+                       'Class::Load' => '0.17',
+                       'Hash::FieldHash' => '0.1',
+                       'Parse::RecDescent' => '1.965001',
+                       'HTML::Entities::Interpolate' => '1.04',
+                       'File::Temp' => '0.22',
+                       'XML::Tiny' => '2.06',
+                       'Class::ISA' => '0.36',
+                       'Algorithm::Dependency' => '1.11',
+                       'File::Basename' => '2.77',
+                       'XML::Bare' => '0.45',
+                       'Tree::DAG_Node' => '1.06'
+                     },
+       'recommends' => {}
+     };
+$x; }

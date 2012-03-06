@@ -1,0 +1,99 @@
+			  {   # Graph stuff.
+				  lhs => 'graph_definition',
+				  rhs => [qw/graph_sequence/],
+			  },
+			  {
+				  lhs => 'graph_sequence', # 1 of 2.
+				  rhs => [qw/node_definition/],
+			  },
+			  {
+				  lhs => 'graph_sequence', # 2 of 2.
+				  rhs => [qw/graph_sequence edge_definition node_definition/],
+			  },
+			  {   # Node stuff.
+				  lhs => 'node_definition',
+				  rhs => [qw/node_sequence/],
+				  min => 0,
+			  },
+			  {
+				  lhs => 'node_sequence', # 1 of 2.
+				  rhs => [qw/node_statement/],
+			  },
+			  {
+				  lhs => 'node_statement',
+				  rhs => [qw/start_node node_name end_node attr_definition/],
+			  },
+			  {
+				  lhs => 'node_sequence', # 2 of 2.
+				  rhs => [qw/node_statement daisy_chain/],
+			  },
+			  {
+				  lhs    => 'start_node',
+				  rhs    => [qw/left_bracket/],
+				  action => 'start_node',
+			  },
+			  {
+				  lhs    => 'node_name',
+				  rhs    => [qw/node_name_id/],
+				  min    => 0,
+				  action => 'node_name_id',
+			  },
+			  {
+				  lhs    => 'end_node',
+				  rhs    => [qw/right_bracket/],
+				  action => 'end_node',
+			  },
+			  {   # Attribute stuff.
+				  lhs => 'attr_definition',
+				  rhs => [qw/attr_statement/],
+				  min => 0,
+			  },
+			  {
+				  lhs => 'attr_statement',
+				  rhs => [qw/start_attribute attr_sequence end_attribute/],
+			  },
+			  {
+				  lhs    => 'start_attribute',
+				  rhs    => [qw/left_brace/],
+				  action => 'start_attribute',
+			  },
+			  {
+				  lhs => 'attr_sequence',
+				  rhs => [qw/attr_declaration/],
+				  min => 1,
+			  },
+			  {
+				  lhs => 'attr_declaration',
+				  rhs => [qw/attr_name colon attr_value attr_terminator/],
+			  },
+			  {
+				  lhs    => 'attr_name',
+				  rhs    => [qw/attr_name_id/],
+				  min    => 1,
+				  action => 'attr_name_id',
+			  },
+			  {
+				  lhs    => 'attr_value',
+				  rhs    => [qw/attr_value_id/],
+				  min    => 1,
+				  action => 'attr_value_id',
+			  },
+			  {
+				  lhs => 'attr_terminator',
+				  rhs => [qw/semi_colon/],
+				  min => 1,
+			  },
+			  {
+				  lhs    => 'end_attribute',
+				  rhs    => [qw/right_brace/],
+				  action => 'end_attribute',
+			  },
+			  {   # Edge stuff.
+				  lhs    => 'edge_definition',
+				  rhs    => [qw/edge_name attr_definition/],
+			  },
+			  {
+				  lhs    => 'edge_name',
+				  rhs    => [qw/edge_id/],
+				  action => 'edge_id',
+			  },

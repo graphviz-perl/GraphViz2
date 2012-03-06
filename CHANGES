@@ -1,0 +1,110 @@
+Revision history for Perl extension GraphViz2.
+
+2.00  Tue Mar  6 16:02:00 2012
+	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg.
+	  	The output is online at http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg
+	  - Re-write GraphViz2::Parse::ISA to draw multiple class hierarchies on 1 graph. This means the API for that class has changed.
+	  	Specifically, create() no longer exists. Call add() 1 or more times instead. Then, call generate_graph(). See the docs for details.
+
+1.13  Sun Dec 25 10:33:00 2011
+	  - Change <img...> to <object...> in the demo creation code, to keep poor old FireFox happy.
+	  - Change various things in html/graphviz2.index.tx to we validate as XHTML 1.0 Strict.
+	  - Unreleased.
+
+1.12  Wed Dec 14 11:22:00 2011
+	  - Add 5 scripts, scripts/macro.*.pl, to demonstrate using a Perl sub as a macro to generate both cluster and non-cluster sub-graphs.
+	  - Update the TODO in GraphViz2.pm, since it erroneously gave the impression the current code did not handle compound clusters.
+	  - Re-generate the demo. See: http://savage.net.au/Perl-modules/html/graphviz2/.
+	  - Adopt Flavio Poletti's suggestion of trying to pipe to dot, in Build.PL/Makefile.PL, rather than using File::Which,
+	  	to see if dot (Graphviz) is installed. This (hopefully) solves the problem of using File::Which on systems where it is
+		not installed, before Build.PL/Makefile.PL has a chance to tell the user that File::Which is required. See: RT#73077.
+	  - No code changes in *.pm files.
+
+1.11  Tue Nov  8 10:21:00 2011
+	  - Fix bug where double quotes in HTML labels were being escaped and should not have been.
+	  	Many thanx to Fitz Elliott for the report and initial patch. See https://rt.cpan.org/Ticket/Display.html?id=72259.
+	  - Patched scripts/html.labels.pl as per Fitz's suggested test code.
+	  - Rename t/lib/Parent.pm to t/lib/Adult.pm to avoid a reported problem with "use parent 'Parent';" under Windows.
+	  	This affect various files. See https://rt.cpan.org/Public/Bug/Display.html?id=69076.
+
+1.10  Thu Sep  1 10:45:00 2011
+	  - Fix bug in GraphViz in handling of nodes whose shape is none or plaintext, and whose label is HTML.
+	  - Fix bug in scripts/generate.png.sh to add png parameter to 'perl -Ilib scripts/generate.demo.pl png'.
+	  - HTML labels work without any code changes, so references to them not working have been removed from the docs.
+	  - GraphViz2 is called by the now-released Graph::Easy::Marpa, so remove that item from the TODO list.
+	  - Fix doc referring to scripts/generate.index.pl. It now refers to scripts/generate.demo.pl.
+	  - Add DOCTYPE and Content-type to html/graphviz.index.tx. Output by scripts/generate.demo.pl, html/index.html, now handles UTF-8 properly.
+	  - Add alt to the <img ...> tags output by scripts/generate.demo.pl.
+	  - Add scripts/html.labels.pl. This code includes a demo of using ports.
+	  - Reorder methods in GraphViz2::Utils to be in alphabetical order.
+
+1.09  Thu Jul 21 14:13:00 2011
+	  - Patch parameter validation to allow for output image types such as png:gd etc.
+	  	Only the prefix before the first ':' is validated.
+
+1.08  Thu Jul 21 11:53:00 2011
+	  - Change the behaviour of sub log() in GraphViz.pm. Now if called with $level eq 'error', it dies with $message.
+	  - Change references to the color darkblue to blue, so it's compatible with both the X11 and SVG color schemes.
+	  - Likewise change chartreuse to lawngreen.
+	  - Rename scripts/generate.index.pl to scripts/generate.demo.pl, as a more meaningful name.
+	  - Patch scripts/generate.demo.pl to accept the output image type as a command line parameter.
+	  - Use this new feature to generate png files, and upload them to the demo site
+	  	http://savage.net.au/Perl-modules/html/graphviz2/ even though png is often uglier than svg.
+		I did this because Iceweasel (Firefox) V 3.5.16 was not displaying svgs within the index file,
+		even though they are fine when displayed directly.
+	  - Add scripts/generate.png.sh.
+	  - Note: scripts/jointed.edges.pl must call dot with -Tpng:gd and not -Tpng, for unknown reasons.
+	  - Make both scripts/generate.png.sh and scripts/generate.svg.sh redirect their log files to /tmp,
+	  	so that we don't have to ship the logs, and also so they don't keep changing and hence need checking in.
+	  - Remove ./dbi.schema.log from the distro.
+
+1.07  Mon Jul  4 15:46:00 2011
+	  - Use Date::Format to add a date stamp at the end of html/index.html, as output by generate.index.pl.
+
+1.06  Tue Jun 28 11:10:00 2011
+	  - Change usage of File::Temp -> newdir to fix problems testing on BSD-based systems.
+	  - Add scripts/jointed.edges.pl.
+	  	This demo - in Graph::Easy syntax - ships with Graph::Easy::Marpa.
+	  - Re-write generate.index.pl to put all demo data (where available) and images on 1 page.
+	  - Upload demo to (new location) http://savage.net.au/Perl-modules/html/graphviz2/index.html.
+
+1.05  Fri Jun 24 12:40:00 2011
+	  - Implement GraphViz2::Parse::Marpa, along with scripts/parse.marpa.pl and t/sample.marpa.1.dat.
+	  	The output is html/parse.marpa.svg.
+	  - Implement GraphViz2::Parse::STT, along with scripts/parse.stt.pl and t/sample.stt.1.dat.
+	  	The output is html/parse.stt.svg.
+	  - Add use File::Spec to t/test.t
+
+1.04  Wed Jun 22  9:36:00 2011
+	  - Reduce required version of File::Basename to 2.77, which came with Perl 5.10.1.
+	  - Stop trying to write to t/html/, and use File::Temp for a directory instead.
+	  	That way, it doesn't matter who owns t/html/, nor whether or not it's writable.
+
+1.03  Sun Jun 19 16:27:00 2011
+	  - Tweak File::Temp -> new to be File::Temp ->new(EXLOCK => 0) for BSD-based systems.
+
+1.02  Fri Jun 17  8:36:00 2011
+	  - Add the pre-requisite Log::Handler to Build.PL and Makefile.PL.
+	  - Release HTML::Entities::Interpolate V 1.04 and Set::Array V 0.23 to CPAN.
+	  - Add README file.
+	  - Clean up TODO list.
+
+1.01  Wed Jun 15 15:00:00 2011
+	  - Quote cluster/subgraph names so they may contain weird characters.
+	  - Add method dependency(data => $depend) to GraphViz2.pm, which accepts an object of type
+	  	Algorithm::Dependency. See scripts/dependency.pl and html/dependency.svg.
+	  - Add GraphViz2::Parse::ISA, and scripts/parse.isa.pl, and the t/lib/Parent hierarchy.
+
+1.00  Wed Jun 15 14:26:00 2011
+	  - This is a re-write of GraphViz. The method parameter lists are incompatible.
+	  	Sorry, but it now supports all options and attributes in Graphviz V 2.23.6.
+	  - Rewrite GraphViz, GraphViz::Data::Grapher, GraphViz::Parse::RecDescent, GraphViz::Parse::Yacc and GraphViz::Parse::Yapp.
+	  	The core code of *::RecDescent, *::Yacc and *::Yapp has been copied from GraphViz, with tiny changes.
+	  - GraphViz2::Data::Grapher uses Tree::DAG_Node to hold information, before calling external plotting programs.
+	  	The tree is available for you to process whether or not you actually plot the graph.
+	  - GraphViz::Regex renamed GraphViz2::Parse::Regexp.
+	  - GraphViz::XML renamed GraphViz2::Parse::XML. And it uses XML::Tiny by default.
+	  	One demo shows how to use XML::Bare instead.
+	  - All new documentation.
+	  - All new demos, in scripts/*.pl. These are documented in GraphViz's POD.
+	  - All demo output included, in html/*.html and html/*.svg.
