@@ -1225,8 +1225,6 @@ to 10.
 
 $output_file is the name of the file into which the output from the external program is written.
 
-Perl's binmode is called on this file.
-
 There is no default value for $output_file. If a value is not supplied for $output_file, the only way
 to recover the output of the external program is to call dot_output().
 
@@ -1277,6 +1275,15 @@ Gets or sets the verbosity level, for when a logging object is not used.
 Here, [] indicates an optional parameter.
 
 =head1 FAQ
+
+=head2 o How do I include utf8 characters in labels?
+
+Since V 2.00, L<GraphViz2> incorporates patches which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg>.
+
+Examine scripts/utf8.pl for how to do it. Note that that script contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
+
+Also, GraphViz2.pm contains 'use open qw/:encoding(UTF-8) :std/;'. Then if you examine sub run(), you'll see that I do I<not> use binmode at all. That too is something you'll need to be
+careful about.
 
 =head2 o How do I print output files?
 
@@ -1508,7 +1515,7 @@ Inputs from ./t/sample.html, and outputs to ./html/parse.html.svg by default.
 
 =head2 scripts/parse.isa.pl
 
-Demonstrates graphing a Perl class hierarchy.
+Demonstrates combining 2 Perl class hierarchies on the same graph.
 
 Outputs to ./html/parse.isa.svg by default.
 
@@ -1667,6 +1674,12 @@ Outputs to ./html/sub.sub.graph.svg by default.
 Demonstrates a trivial 3-node graph, with colors, just to get you started.
 
 Outputs to ./html/trivial.svg by default.
+
+=head2 scripts/utf8.pl
+
+Demonstrates using utf8 characters in labels.
+
+outputs to ./html/utf8.html.
 
 =head1 TODO
 
