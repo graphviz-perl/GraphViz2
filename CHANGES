@@ -1,5 +1,8 @@
 Revision history for Perl extension GraphViz2.
 
+2.02  ....
+	  - Add scripts/utf8.test.pl to the list of scripts shipped with this module.
+
 2.01  Wed Mar  7 08:50:00 2012
 	  - I only tested V 2.00 by outputting to SVG (a text format), but outputting to a binary format such as PNG was broken.
 	  	So, remove the 'use open qw/:encoding(UTF-8) :std/;', and restore binmode, in GraphViz2.pm.

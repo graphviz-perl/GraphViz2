@@ -1689,7 +1689,13 @@ Outputs to ./html/trivial.svg by default.
 
 Demonstrates using utf8 characters in labels.
 
-outputs to ./html/utf8.svg by default.
+Outputs to ./html/utf8.svg by default.
+
+=head2 scripts/utf8.test.pl
+
+Demonstrates using utf8 characters in labels, even if you get the message 'Wide character in print...' using binmode, does not corrupt the output file.
+
+Outputs to ./html/utf8.test.svg by default.
 
 =head1 TODO
 
