@@ -281,7 +281,7 @@ sub _init
 		. ${$self -> global}{name}
 		. "\n{\n";
 
-	$self -> command -> push($command); 
+	$self -> command -> push($command);
 
 	$self -> default_graph;
 	$self -> default_node;
@@ -640,20 +640,20 @@ Or, hit L<http://savage.net.au/Perl-modules/html/graphviz2/index.html>.
 =head2 Perl code
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
-	
+
 	use Log::Handler;
-	
+
 	# ---------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -663,7 +663,7 @@ Or, hit L<http://savage.net.au/Perl-modules/html/graphviz2/index.html>.
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph) = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -672,39 +672,39 @@ Or, hit L<http://savage.net.au/Perl-modules/html/graphviz2/index.html>.
 		 logger => $logger,
 		 node   => {shape => 'oval'},
 		);
-	
+
 	$graph -> add_node(name => 'Carnegie', shape => 'circle');
 	$graph -> add_node(name => 'Murrumbeena', shape => 'box', color => 'green');
 	$graph -> add_node(name => 'Oakleigh',    color => 'blue');
-	
+
 	$graph -> add_edge(from => 'Murrumbeena', to    => 'Carnegie', arrowsize => 2);
 	$graph -> add_edge(from => 'Murrumbeena', to    => 'Oakleigh', color => 'brown');
-	
+
 	$graph -> push_subgraph
 	(
 	 name  => 'cluster_1',
 	 graph => {label => 'Child'},
 	 node  => {color => 'magenta', shape => 'diamond'},
 	);
-	
+
 	$graph -> add_node(name => 'Chadstone', shape => 'hexagon');
 	$graph -> add_node(name => 'Waverley', color => 'orange');
-	
+
 	$graph -> add_edge(from => 'Chadstone', to => 'Waverley');
-	
+
 	$graph -> pop_subgraph;
-	
+
 	$graph -> default_node(color => 'cyan');
-	
+
 	$graph -> add_node(name => 'Malvern');
 	$graph -> add_node(name => 'Prahran', shape => 'trapezium');
-	
+
 	$graph -> add_edge(from => 'Malvern', to => 'Prahran');
 	$graph -> add_edge(from => 'Malvern', to => 'Murrumbeena');
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "sub.graph.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 This program ships as scripts/sub.graph.pl. See L</Scripts Shipped with this Module>.
@@ -1266,7 +1266,7 @@ Validate the given attributes within the given context.
 Returns $self to allow method chaining.
 
 $context is one of 'edge', 'global', 'graph', 'node' or 'output_format'.
- 
+
 You wouldn't normally need to use this method.
 
 =head2 verbose([$integer])
