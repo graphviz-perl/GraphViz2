@@ -2,6 +2,10 @@
 
 DIR=/tmp
 
+if [ -z $DBI_DSN ]; then
+	echo Warning: DBI_DSN not set for scripts/dbi.schema.pl.
+fi
+
 perl -Ilib scripts/anonymous.pl        png > $DIR/anonymous.log
 perl -Ilib scripts/cluster.pl          png > $DIR/cluster.log
 perl -Ilib scripts/dbi.schema.pl       png > $DIR/dbi.schema.log
