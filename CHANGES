@@ -1,7 +1,11 @@
 Revision history for Perl extension GraphViz2.
 
-2.02  ....
-	  - Add scripts/utf8.test.pl to the list of scripts shipped with this module.
+2.02  Thu Apr 19 11:51:00 2012
+	- Accept patch from Lee as in RT#76459, to replace the code which writes the dot input file to
+		a file with binmode, and just pass the data to dot via IPC::Run.
+		Happily, this allows me to eliminate 'use open qw/:encoding(UTF-8) :std/;' in t/test.t.
+	- Update the pre-reqs in Build.PL and Makefile.PL.
+	- Add scripts/utf8.test.pl to the list of scripts shipped with this module.
 
 2.01  Wed Mar  7 08:50:00 2012
 	  - I only tested V 2.00 by outputting to SVG (a text format), but outputting to a binary format such as PNG was broken.
@@ -12,7 +16,7 @@ Revision history for Perl extension GraphViz2.
 	  - Add FAQ topic regarding this 'Wide character in print...' problem.
 
 2.00  Tue Mar  6 16:02:00 2012
-	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg. I'm using Perl V 5.14.2. 
+	  - Support utf8 in labels. This required changes to GraphViz2.pm. See scripts/utf8.pl and html/utf8.svg. I'm using Perl V 5.14.2.
 	  	Sample output is online at http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg.
 	  - Add an item to the FAQ about how to write scripts using utf8.
 	  - Re-write GraphViz2::Parse::ISA to draw multiple class hierarchies on 1 graph. This means the API for that class has changed.

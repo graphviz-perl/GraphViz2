@@ -3,14 +3,14 @@ package GraphViz2;
 use strict;
 use warnings;
 
-use Capture::Tiny 'capture';
-
 use Data::Section::Simple 'get_data_section';
 
 use File::Temp ();
 use File::Which; # For which().
 
 use Hash::FieldHash ':all';
+
+use IPC::Run;
 
 use Set::Array;
 
@@ -29,7 +29,7 @@ fieldhash my %scope            => 'scope';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.01';
+our $VERSION = '2.02';
 
 # -----------------------------------------------
 
@@ -535,18 +535,9 @@ sub run
 		$self -> dot_input(join('', @{$self -> command -> print} ) . "}\n");
 		$self -> log(debug => $self -> dot_input);
 
-		# The EXLOCK option is for BSD-based systems.
+		my($stdout, $stderr);
 
-		my($temp_dir) = File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-		my($name)     = File::Spec -> catfile($temp_dir, 'graphviz2.dot');
-
-		open(OUT, '>', $name);
-		binmode OUT;
-		print OUT $self -> dot_input;
-		close OUT;
-
-		$Capture::Tiny::TIMEOUT = $timeout;
-		my($stdout, $stderr)    = capture{system $driver, "-T$format", $name};
+		IPC::Run::run([$driver, "-T$format"], \$self -> dot_input, \$stdout, \$stderr);
 
 		die $stderr if ($stderr);
 
@@ -1285,9 +1276,7 @@ scripts/utf8.pl contains 'use utf8;' because of the utf8 characters embedded in 
 
 =head2 o Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
 
-AFAICT this is a problem with Perl. I use V 5.14.2, and even setting binmode on the output files in sub run() does not stop this message.
-
-And since it's potentially a binary output such as PNG, using Encode::encode() can't be the solution.
+As of V 2.02, you should not get this from GraphViz2. So, I suggest you study your own code very, very carefully :-(.
 
 Examine the output from scripts/utf8.test.pl, i.e. html/utf8.test.svg and you'll see it's correct. Then run:
 
@@ -1693,7 +1682,7 @@ Outputs to ./html/utf8.svg by default.
 
 =head2 scripts/utf8.test.pl
 
-Demonstrates using utf8 characters in labels, even if you get the message 'Wide character in print...' using binmode, does not corrupt the output file.
+Demonstrates using utf8 characters in labels.
 
 Outputs to ./html/utf8.test.svg by default.
 

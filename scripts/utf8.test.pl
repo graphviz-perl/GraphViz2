@@ -17,7 +17,7 @@ my($graph) = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
-	 graph  => {label => '5 deltas, despite message:\nWide character in print...', rankdir => 'TB'},
+	 graph  => {label => '5 deltas', rankdir => 'TB'},
 	 node   => {shape => 'oval'},
 	);
 
