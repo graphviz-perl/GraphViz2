@@ -29,5 +29,7 @@ perl -Ilib scripts/quote.pl            > $DIR/quote.log
 perl -Ilib scripts/sub.graph.pl        > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl    > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl          > $DIR/trivial.log
+perl -Ilib scripts/utf8.pl             > $DIR/utf8.log
+perl -Ilib scripts/utf8.test.pl        > $DIR/utf8.test.log
 
 perl -Ilib scripts/generate.demo.pl

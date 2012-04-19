@@ -33,5 +33,7 @@ perl -Ilib scripts/quote.pl            png > $DIR/quote.log
 perl -Ilib scripts/sub.graph.pl        png > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl    png > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl          png > $DIR/trivial.log
+perl -Ilib scripts/utf8.pl             png > $DIR/utf8.log
+perl -Ilib scripts/utf8.test.pl        png > $DIR/utf8.test.log
 
 perl -Ilib scripts/generate.demo.pl    png
