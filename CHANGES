@@ -6,6 +6,7 @@ Revision history for Perl extension GraphViz2.
 		Happily, this allows me to eliminate 'use open qw/:encoding(UTF-8) :std/;' in t/test.t.
 	- Update the pre-reqs in Build.PL and Makefile.PL.
 	- Add scripts/utf8.test.pl to the list of scripts shipped with this module.
+	- Add scripts/utf8* to scripts/generate.*.sh.
 
 2.01  Wed Mar  7 08:50:00 2012
 	  - I only tested V 2.00 by outputting to SVG (a text format), but outputting to a binary format such as PNG was broken.
