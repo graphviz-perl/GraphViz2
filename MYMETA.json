@@ -4,7 +4,7 @@
       "Ron Savage <ron@savage.net.au>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.113640",
+   "generated_by" : "Module::Build version 0.4, CPAN::Meta::Converter version 2.120630",
    "license" : [
       "artistic_1"
    ],
@@ -42,17 +42,21 @@
             "HTML::TreeBuilder" : "4.2",
             "HTTP::Tiny" : "0.012",
             "Hash::FieldHash" : "0.1",
+            "IPC::Run" : "0.9",
             "Log::Handler" : "0.71",
             "Parse::RecDescent" : "1.965001",
             "Perl6::Slurp" : "0.03",
-            "Pod::Simple" : "3.16",
             "Scalar::Util" : "1.23",
             "Set::Array" : "0.23",
             "Text::Xslate" : "1.2",
             "Tree::DAG_Node" : "1.06",
             "Try::Tiny" : "0.09",
             "XML::Bare" : "0.45",
-            "XML::Tiny" : "2.06"
+            "XML::Tiny" : "2.06",
+            "parent" : "0.225",
+            "strict" : "1.04",
+            "utf8" : "1.09",
+            "warnings" : "1.12"
          }
       }
    },
