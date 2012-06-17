@@ -11,7 +11,7 @@ use Hash::FieldHash ':all';
 
 fieldhash my %graph => 'graph';
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 
 # -----------------------------------------------
 
@@ -19,7 +19,7 @@ sub create
 {
 	my($self, %arg)      = @_;
 	my($regexp)          = $arg{regexp};
-	my($stdout, $stderr) = capture{system $^X, '-e', qq|use re "debug";qr/$regexp/;|};
+	my($stdout, $stderr) = capture{system $^X, '-e', qq|use re 'debug'; qr/$regexp/;|};
 
     my(%following);
     my($last_id);
@@ -36,7 +36,7 @@ sub create
     my @todo = (1);
 
     if ( not defined $last_id ) {
-        $self -> graph ->add_node(name=>"Error compiling regexp");
+        $self -> graph ->add_node(name => 'Error compiling regexp');
         return $self;
     }
 
@@ -188,21 +188,21 @@ L<GraphViz2::Parse::Regexp> - Visualize a Perl regular expression as a graph
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Parse::Regexp;
-	
+
 	use Log::Handler;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -212,7 +212,7 @@ L<GraphViz2::Parse::Regexp> - Visualize a Perl regular expression as a graph
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph)  = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -222,12 +222,12 @@ L<GraphViz2::Parse::Regexp> - Visualize a Perl regular expression as a graph
 		 node   => {color => 'blue', shape => 'oval'},
 		);
 	my($g) = GraphViz2::Parse::Regexp -> new(graph => $graph);
-	
+
 	$g -> create(regexp => '(([abcd0-9])|(foo))');
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.regexp.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/parse.regexp.pl (L<GraphViz2/Scripts Shipped with this Module>).

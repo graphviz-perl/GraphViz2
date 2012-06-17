@@ -1,5 +1,10 @@
 Revision history for Perl extension GraphViz2.
 
+2.03  Mon Jun 18  9:47:00 2012
+	- Switch from double to single quotes in line 22 of GraphViz2::Parse::Regexp, so the resultant string,
+		treated as Perl code, runs on Windows. Reported by Max Maischein as RT#77869.
+	- Also, slightly reformat line 39 of that module.
+
 2.02  Thu Apr 19 11:51:00 2012
 	- Accept patch from Lee as in RT#76459, to replace the code which writes the dot input file to
 		a file with binmode, and just pass the data to dot via IPC::Run.
