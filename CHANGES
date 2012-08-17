@@ -1,5 +1,8 @@
 Revision history for Perl extension GraphViz2.
 
+2.04  Fri Aug 17 10:48:00 2012
+	- Add Perl V 5.14.2 to the pre-reqs, for the utf8 stuff.
+
 2.03  Mon Jun 18  9:47:00 2012
 	- Switch from double to single quotes in line 22 of GraphViz2::Parse::Regexp, so the resultant string,
 		treated as Perl code, runs on Windows. Reported by Max Maischein as RT#77869.
