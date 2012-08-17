@@ -45,6 +45,7 @@ Module::Build -> new
 	Log::Handler                => 0.71,
 	parent                      => 0.225,
 	Parse::RecDescent           => 1.965001,
+	perl                        => '5.14.2', # For the utf stuff.
 	Perl6::Slurp                => 0.03,
 	Scalar::Util                => 1.23,
 	Set::Array                  => 0.23,
