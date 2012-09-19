@@ -2,9 +2,10 @@ Revision history for Perl extension GraphViz2.
 
 2.04  Fri Aug 17 10:48:00 2012
 	- Add Perl V 5.14.2 to the pre-reqs, for the utf8 stuff.
-	- Re-write to subgraph handling code, which was broken up to V 2.03.
-		Add samples, script/rank.sub.graph.*.pl, demonstrating various subgraph name effects and node rankings.
-		E.g. script/rank.sub.graph.[12].pl use a subgraph to force a set of nodes to be horizontally aligned.
+	- Re-write the subgraph handling code, which was broken up to V 2.03.
+		Add samples, script/rank.sub.graph.[1234].pl, to demonstrate subgraph name effects and node rankings.
+		script/rank.sub.graph.[12].pl use a subgraph to force a set of nodes to be horizontally aligned.
+		script/rank.sub.graph.[34].pl show the effect of subgraph name changes on the same data.
 
 2.03  Mon Jun 18  9:47:00 2012
 	- Switch from double to single quotes in line 22 of GraphViz2::Parse::Regexp, so the resultant string,

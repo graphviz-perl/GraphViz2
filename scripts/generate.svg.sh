@@ -30,6 +30,10 @@ perl -Ilib scripts/parse.xml.pp.pl     > $DIR/parse.xml.pp.log
 perl -Ilib scripts/parse.yacc.pl       > $DIR/parse.yacc.log
 perl -Ilib scripts/parse.yapp.pl       > $DIR/parse.yapp.log
 perl -Ilib scripts/quote.pl            > $DIR/quote.log
+perl -Ilib scripts/rank.sub.graph.1.pl > $DIR/rank.sub.graph.1.log
+perl -Ilib scripts/rank.sub.graph.2.pl > $DIR/rank.sub.graph.2.log
+perl -Ilib scripts/rank.sub.graph.3.pl > $DIR/rank.sub.graph.3.log
+perl -Ilib scripts/rank.sub.graph.4.pl > $DIR/rank.sub.graph.4.log
 perl -Ilib scripts/sub.graph.pl        > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl    > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl          > $DIR/trivial.log

@@ -34,6 +34,10 @@ perl -Ilib scripts/parse.xml.pp.pl     png > $DIR/parse.xml.pp.log
 perl -Ilib scripts/parse.yacc.pl       png > $DIR/parse.yacc.log
 perl -Ilib scripts/parse.yapp.pl       png > $DIR/parse.yapp.log
 perl -Ilib scripts/quote.pl            png > $DIR/quote.log
+perl -Ilib scripts/rank.sub.graph.1.pl png > $DIR/rank.sub.graph.1.log
+perl -Ilib scripts/rank.sub.graph.2.pl png > $DIR/rank.sub.graph.2.log
+perl -Ilib scripts/rank.sub.graph.3.pl png > $DIR/rank.sub.graph.3.log
+perl -Ilib scripts/rank.sub.graph.4.pl png > $DIR/rank.sub.graph.4.log
 perl -Ilib scripts/sub.graph.pl        png > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl    png > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl          png > $DIR/trivial.log

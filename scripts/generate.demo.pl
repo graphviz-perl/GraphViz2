@@ -20,7 +20,7 @@ my($format)     = shift || 'svg';
 my($util)       = GraphViz2::Utils -> new;
 my(%annotation) = $util -> get_annotations;
 my(%script)     = $util -> get_scripts;
-my(%image_file)  = $util -> get_files($format);
+my(%image_file) = $util -> get_files($format);
 my($templater)  = Text::Xslate -> new
 (
   input_layer => '',
@@ -45,7 +45,7 @@ for my $key (keys %script)
 				(
 				 'table.tx',
 				 {
-					 data => [map{ {td => $_} } split(/\n/, slurp(File::Spec -> catfile(map{s/'//g; $_} @data) ) )],
+					 data => [map{ {td => $_} } split(/\n/, slurp(File::Spec -> catfile(map{s/\'//g; $_} @data) ) )],
 				 }
 				);
 

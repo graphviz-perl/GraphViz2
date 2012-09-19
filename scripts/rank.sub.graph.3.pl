@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Demonstrates subgraphs used to rank nodes horizontally (long version).
+# Annotation: Demonstrates subgraph name effects (non-cluster version).
 
 use strict;
 use warnings;
@@ -57,6 +57,7 @@ $graph -> pop_subgraph;
 
 $graph -> push_subgraph
 (
+	name     => 'Subgraph 2',
 	subgraph => {rank => 'same'},
 );
 
@@ -66,6 +67,6 @@ $graph -> add_node(name => 'Murrumbeena');
 $graph -> pop_subgraph;
 
 my($format)      = shift || 'svg';
-my($output_file) = shift || File::Spec -> catfile('html', "rank.sub.graph.1.$format");
+my($output_file) = shift || File::Spec -> catfile('html', "rank.sub.graph.3.$format");
 
 $graph -> run(format => $format, output_file => $output_file);
