@@ -35,6 +35,10 @@ html/parse.xml.pp.svg
 html/parse.yacc.svg
 html/parse.yapp.svg
 html/quote.svg
+html/rank.sub.graph.1.svg
+html/rank.sub.graph.2.svg
+html/rank.sub.graph.3.svg
+html/rank.sub.graph.4.svg
 html/sub.graph.svg
 html/sub.sub.graph.svg
 html/table.tx
@@ -89,6 +93,10 @@ scripts/parse.xml.pp.pl
 scripts/parse.yacc.pl
 scripts/parse.yapp.pl
 scripts/quote.pl
+scripts/rank.sub.graph.1.pl
+scripts/rank.sub.graph.2.pl
+scripts/rank.sub.graph.3.pl
+scripts/rank.sub.graph.4.pl
 scripts/report.valid.attributes.pl
 scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
