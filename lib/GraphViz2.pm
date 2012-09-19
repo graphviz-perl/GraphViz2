@@ -26,10 +26,11 @@ fieldhash my %logger           => 'logger';
 fieldhash my %node             => 'node';
 fieldhash my %node_hash        => 'node_hash';
 fieldhash my %scope            => 'scope';
+fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.03';
+our $VERSION = '2.04';
 
 # -----------------------------------------------
 
@@ -209,6 +210,26 @@ sub default_node
 
 # -----------------------------------------------
 
+sub default_subgraph
+{
+	my($self, %arg) = @_;
+
+	$self -> validate_params('subgraph', %arg);
+
+	my($scope)        = $self -> scope -> last;
+	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
+	my($tos)          = $self -> scope -> length - 1;
+
+	$self -> command -> push($self -> stringify_attributes('subgraph', $$scope{subgraph}, 1) );
+	$self -> scope -> fill($scope, $tos, 1);
+	$self -> log(debug => 'Default subgraph: ' . join(', ', map{"$_ => $$scope{subgraph}{$_}"} sort keys %{$$scope{subgraph} }) );
+
+	return $self;
+
+} # End of default_subgraph.
+
+# -----------------------------------------------
+
 sub dependency
 {
 	my($self, %arg) = @_;
@@ -256,20 +277,23 @@ sub _init
 	$$arg{node}                       ||= {}; # Caller can set.
 	$$arg{node_hash}                  = {};
 	$$arg{scope}                      = Set::Array -> new;
+	$$arg{subgraph}                   ||= {}; # Caller can set.
 	$$arg{valid_attributes}           = {};
 	$$arg{verbose}                    ||= 0;  # Caller can set.
 	$self                             = from_hash($self, $arg);
 
 	$self -> load_valid_attributes;
-	$self -> validate_params('global', %{$self -> global});
-	$self -> validate_params('graph',  %{$self -> graph});
-	$self -> validate_params('node',   %{$self -> node});
-	$self -> validate_params('edge',   %{$self -> edge});
+	$self -> validate_params('global',   %{$self -> global});
+	$self -> validate_params('graph',    %{$self -> graph});
+	$self -> validate_params('node',     %{$self -> node});
+	$self -> validate_params('edge',     %{$self -> edge});
+	$self -> validate_params('subgraph', %{$self -> subgraph});
 	$self -> scope -> push
 		({
-			edge  => $self -> edge,
-			graph => $self -> graph,
-			node  => $self -> node,
+			edge     => $self -> edge,
+			graph    => $self -> graph,
+			node     => $self -> node,
+			subgraph => $self -> subgraph,
 		 });
 
 	my(%global) = %{$self -> global};
@@ -404,24 +428,25 @@ sub push_subgraph
 	my($name) = delete $arg{name};
 	$name     = defined($name) ? $name : '';
 
-	$self -> validate_params('graph',  %{$arg{graph} });
-	$self -> validate_params('node',   %{$arg{node} });
-	$self -> validate_params('edge',   %{$arg{edge} });
+	$self -> validate_params('graph',    %{$arg{graph} });
+	$self -> validate_params('node',     %{$arg{node} });
+	$self -> validate_params('edge',     %{$arg{edge} });
+	$self -> validate_params('subgraph', %{$arg{subgraph} });
 
 	# Child inherits parent attributes.
 
-	my($scope) = $self -> scope -> last;
+	my($scope)        = $self -> scope -> last;
+	$$scope{edge}     = {%{$$scope{edge} },     %{$arg{edge} } };
+	$$scope{graph}    = {%{$$scope{graph} },    %{$arg{graph} } };
+	$$scope{node}     = {%{$$scope{node} },     %{$arg{node} } };
+	$$scope{subgraph} = {%{$$scope{subgraph} }, %{$arg{subgraph} } };
 
-	$self -> scope -> push
-		({
-			edge  => {%{$$scope{edge} },  %{$arg{edge} } },
-			graph => {%{$$scope{graph} }, %{$arg{graph} } },
-			node  => {%{$$scope{node} },  %{$arg{node} } },
-		 });
-	$self -> command -> push(qq|subgraph "$name" {\n|);
+	$self -> scope -> push($scope);
+	$self -> command -> push(qq|\nsubgraph "$name" {\n|);
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;
+	$self -> default_subgraph;
 
 	return $self;
 
@@ -576,7 +601,11 @@ sub stringify_attributes
 		$dot .= $$option{$key} =~ /^<.+>$/ ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;
 	}
 
-	if ($bracket && $dot)
+	if ($context eq 'subgraph')
+	{
+		$dot .= "\n";
+	}
+	elsif ($bracket && $dot)
 	{
 		$dot = "$context [ $dot]\n";
 	}
