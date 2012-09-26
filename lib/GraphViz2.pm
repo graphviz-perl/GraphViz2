@@ -1707,7 +1707,7 @@ Tests which run dot directly show this is a bug in L<Graphviz|http://www.graphvi
 
 For example, in this graph, it looks like \r only works after \l (node d), but not always (nodes b, c).
 
-Call this x.dot:
+Call this x.gv:
 
 	digraph G {
 		rankdir=LR;
@@ -1720,7 +1720,7 @@ Call this x.dot:
 
 and use the command:
 
-	dot -Tsvg x.dot
+	dot -Tsvg x.gv > x.svg
 
 See L<the Graphviz docs|http://www.graphviz.org/content/attrs#kescString> for escString, where they write 'l to mean \l, for some reason.
 
