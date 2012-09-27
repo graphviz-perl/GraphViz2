@@ -955,7 +955,7 @@ This key is optional.
 
 Provides a logger object so $logger_object -> $level($message) can be called at certain times.
 
-See "Why such a different approach to logging?" in the "FAQ" for details.
+See "Why such a different approach to logging?" in the </FAQ> for details.
 
 Retrieve and update the value with the logger() method.
 
@@ -1339,13 +1339,37 @@ Here, [] indicates an optional parameter.
 
 =head1 FAQ
 
-=head2 o How do I include utf8 characters in labels?
+=head2 Why do I get error messages like the following?
+
+	Error: <stdin>:1: syntax error near line 1
+	context: digraph >>>  Graph <<<  {
+
+Graphviz reserves some words as keywords, meaning they can't be used as an ID, e.g. for the name of the graph.
+So, don't do this:
+
+	strict graph graph{...}
+	strict graph Graph{...}
+	strict graph strict{...}
+	etc...
+
+Likewise for non-strict graphs, and digraphs. You can however add double-quotes around such reserved words:
+
+	strict graph "graph"{...}
+
+Even better, use a more meaningful name for your graph...
+
+The keywords are: node, edge, graph, digraph, subgraph and strict. Compass points are not keywords.
+
+See L<keywords|http://www.graphviz.org/content/dot-language> in the discussion of the syntax of DOT
+for details.
+
+=head2 How do I include utf8 characters in labels?
 
 Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg>.
 
 scripts/utf8.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
 
-=head2 o Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
+=head2 Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
 
 As of V 2.02, you should not get this from GraphViz2. So, I suggest you study your own code very, very carefully :-(.
 
@@ -1355,11 +1379,11 @@ Examine the output from scripts/utf8.test.pl, i.e. html/utf8.test.svg and you'll
 
 and examine html/utf8.test.png and you'll see it matches html/utf8.test.svg in showing 5 deltas. So, I I<think> it's all working.
 
-=head2 o How do I print output files?
+=head2 How do I print output files?
 
 Under Unix, output as PDF, and then try: lp -o fitplot html/parse.marpa.pdf.
 
-=head2 o I'm having trouble with special characters in node names and labels
+=head2 I'm having trouble with special characters in node names and labels
 
 L<GraphViz2> escapes these characters in those contexts: []{}.
 
