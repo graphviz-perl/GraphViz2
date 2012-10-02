@@ -62,7 +62,7 @@ for my $from (sort keys %$node_hash)
 	my($s)    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
 
 	$logger -> log(notice => "Node: $from");
-	$logger -> log(notice => "    Attributes: $s");
+	$logger -> log(notice => "\tAttributes: $s");
 
 	for my $to (sort keys %{$$edge_hash{$from} })
 	{
@@ -71,8 +71,8 @@ for my $from (sort keys %$node_hash)
 			$attr = $$edge{attributes};
 			$s    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
 
-			$logger -> log(notice => "    Edge: $from$$edge{from_port} -> $to$$edge{to_port}");
-			$logger -> log(notice => "        Attributes: $s");
+			$logger -> log(notice => "\tEdge: $from$$edge{from_port} -> $to$$edge{to_port}");
+			$logger -> log(notice => "\t\tAttributes: $s");
 		}
 	}
 }
