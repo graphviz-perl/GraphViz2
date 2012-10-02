@@ -97,6 +97,7 @@ scripts/rank.sub.graph.1.pl
 scripts/rank.sub.graph.2.pl
 scripts/rank.sub.graph.3.pl
 scripts/rank.sub.graph.4.pl
+scripts/report.nodes.and.edges.pl
 scripts/report.valid.attributes.pl
 scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
