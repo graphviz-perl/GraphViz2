@@ -1201,6 +1201,49 @@ external program is stored in the buffer controlled by dot_output().
 
 This output is available even if run() does not write the output to a file.
 
+=head2 edge_hash()
+
+Returns, at the end of the run, a hashref keyed by node name, specifically the node at the arrowI<tail> end of
+the hash, i.e. where the edge starts from.
+
+Use this to get a list of all nodes and the edges which leave those nodes, the corresponding destination
+nodes, and the attributes of each edge.
+
+	my($node_hash) = $graph -> node_hash;
+	my($edge_hash) = $graph -> edge_hash;
+
+	for my $from (sort keys %$node_hash)
+	{
+		my($attr) = $$node_hash{$from}{attributes};
+		my($s)    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
+
+		print "Node: $from\n";
+		print "\tAttributes: $s\n";
+
+		for my $to (sort keys %{$$edge_hash{$from} })
+		{
+			for my $edge (@{$$edge_hash{$from}{$to} })
+			{
+				$attr = $$edge{attributes};
+				$s    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
+
+				print "\tEdge: $from$$edge{from_port} -> $to$$edge{to_port}\n";
+				print "\t\tAttributes: $s\n";
+			}
+		}
+	}
+
+If the edge has no attributes, the value of the I<attributes> sub-key defaults {}.
+
+If I<from_port> is not provided by the caller, it defaults to '' (the empty string). If it is provided,
+it contains a leading ':'. Likewise for I<to_port>.
+
+Note: If the caller adds the same edge two (or more) times, the attributes from each call are
+I<not> coalesced (unlike L</node_hash()>), meaning the attributes from each call are stored separately
+in an array.
+
+See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) for a complete example.
+
 =head2 load_valid_attributes()
 
 Load various sets of valid attributes from within the source code of this module, using L<Data::Section::Simple>.
@@ -1228,6 +1271,31 @@ If called with $level eq 'error', it dies with $message.
 Gets or sets the log object.
 
 Here, [] indicates an optional parameter.
+
+=head2 node_hash()
+
+Returns, at the end of the run, a hashref keyed by node name. Use this to get a list of all nodes
+and their attributes.
+
+	my($node_hash) = $graph -> node_hash;
+
+	for my $name (sort keys %$node_hash)
+	{
+		my($attr) = $$node_hash{$name}{attributes};
+		my($s)    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
+
+		print "Node: $name\n";
+		print "\tAttributes: $s\n";
+	}
+
+If the node has no attributes, the value of the I<attributes> sub-key defaults to {}.
+
+Note: If the caller adds the same node two (or more) times, the attributes from each call are
+I<coalesced> (unlike L</edge_hash()>), meaning all attributes from all calls are combined under the
+I<attributes> sub-key.
+
+See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) for a complete example,
+including usage of the corresponding L</edge_hash()> method.
 
 =head2 pop_subgraph()
 
