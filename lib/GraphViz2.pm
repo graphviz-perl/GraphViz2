@@ -1233,14 +1233,21 @@ nodes, and the attributes of each edge.
 		}
 	}
 
-If the edge has no attributes, the value of the I<attributes> sub-key defaults {}.
+If the caller adds the same edge two (or more) times, the attributes from each call are
+I<not> coalesced (unlike L</node_hash()>), but rather the attributes from each call are stored separately
+in an arrayref.
+
+A bit more formally then, $$edge_hash{$from_node}{$to_node} is an arrayref where each element describes
+one edge, and which defaults to:
+
+	{
+		attributes => {},
+		from_port  => $from_port,
+		to_port    => $to_port,
+	}
 
 If I<from_port> is not provided by the caller, it defaults to '' (the empty string). If it is provided,
 it contains a leading ':'. Likewise for I<to_port>.
-
-Note: If the caller adds the same edge two (or more) times, the attributes from each call are
-I<not> coalesced (unlike L</node_hash()>), meaning the attributes from each call are stored separately
-in an array.
 
 See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) for a complete example.
 
@@ -1288,11 +1295,16 @@ and their attributes.
 		print "\tAttributes: $s\n";
 	}
 
-If the node has no attributes, the value of the I<attributes> sub-key defaults to {}.
-
-Note: If the caller adds the same node two (or more) times, the attributes from each call are
+If the caller adds the same node two (or more) times, the attributes from each call are
 I<coalesced> (unlike L</edge_hash()>), meaning all attributes from all calls are combined under the
 I<attributes> sub-key.
+
+A bit more formally then, $$node_hash{$node_name} is a hashref where each element describes one node, and
+which defaults to:
+
+	{
+		attributes => {},
+	}
 
 See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) for a complete example,
 including usage of the corresponding L</edge_hash()> method.
