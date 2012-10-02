@@ -1873,6 +1873,14 @@ Demonstrates the effect of the name of a subgraph, when that name starts with 'c
 
 Outputs to ./html/rank.sub.graph.4.svg by default.
 
+=head2 scripts/report.nodes.and.edges.pl
+
+Demonstates how to access the data returned by L</edge_hash()> and L</node_hash()>.
+
+Prints node and edge attributes.
+
+Outputs to STDOUT.
+
 =head2 scripts/report.valid.attributes.pl
 
 Prints all current (V 2.23.6) L<Graphviz|http://www.graphviz.org/> attributes, along with a few global ones I've invented for the purpose of writing this module.

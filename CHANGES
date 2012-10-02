@@ -1,6 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.05  Tue Oct  2 10:20:00 2012
+	- No fundamental code changes, so no need to upgrade, unless you need the following new features.
 	- After a request from Jack Maney, author of the Perl module Hypatia:
 		o Document the mutator node_hash(), which returns a hashref keyed by node name.
 			Use this to get a list of all nodes and their attributes.
@@ -9,6 +10,7 @@ Revision history for Perl extension GraphViz2.
 			Use this to learn all sorts of things about the edge.
 		o Add scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) to demonstrate
 			how to access this data.
+		o Update to POD to match.
 
 2.04  Fri Aug 17 10:48:00 2012
 	- Add Perl V 5.14.2 to the pre-reqs, for the utf8 stuff.
