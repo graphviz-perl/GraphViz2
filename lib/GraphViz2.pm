@@ -20,6 +20,7 @@ fieldhash my %command          => 'command';
 fieldhash my %dot_input        => 'dot_input';
 fieldhash my %dot_output       => 'dot_output';
 fieldhash my %edge             => 'edge';
+fieldhash my %edge_hash        => 'edge_hash';
 fieldhash my %global           => 'global';
 fieldhash my %graph            => 'graph';
 fieldhash my %logger           => 'logger';
@@ -75,7 +76,26 @@ sub add_edge
 		}
 	}
 
+	# Add these nodes to the hashref of all nodes, if necessary.
+
 	$self -> node_hash($node) if ($new);
+
+	# Add this edge to the hashref of all edges.
+
+	my($edge)          = $self -> edge_hash;
+	$$edge{$from}      = {} if (! $$edge{$from});
+	$$edge{$from}{$to} = [] if (! $$edge{$from}{$to});
+
+	push @{$$edge{$from}{$to} },
+	{
+		attributes => {%arg},
+		from_port  => $port{$from} || '',
+		to_port    => $port{$to}   || '',
+	};
+
+	$self -> edge_hash($edge);
+
+	# Add this edge to the DOT output string.
 
 	my($dot) = $self -> stringify_attributes(qq|"$from"$port{$from} ${$self -> global}{label} "$to"$port{$to}|, {%arg}, 1);
 
@@ -262,6 +282,7 @@ sub _init
 	$$arg{dot_input}                  = '';
 	$$arg{dot_output}                 = '';
 	$$arg{edge}                       ||= {}; # Caller can set.
+	$$arg{edge_hash}                  = {};
 	$$arg{global}                     ||= {}; # Caller can set.
 	$$arg{global}{directed}           = $$arg{global}{directed} ? 'digraph' : 'graph';
 	$$arg{global}{driver}             ||= which('dot');

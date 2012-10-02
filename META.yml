@@ -17,40 +17,40 @@ name: GraphViz2
 provides:
   GraphViz2:
     file: lib/GraphViz2.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::DBI:
     file: lib/GraphViz2/DBI.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Data::Grapher:
     file: lib/GraphViz2/Data/Grapher.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::ISA:
     file: lib/GraphViz2/Parse/ISA.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::Marpa:
     file: lib/GraphViz2/Parse/Marpa.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::RecDescent:
     file: lib/GraphViz2/Parse/RecDescent.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::Regexp:
     file: lib/GraphViz2/Parse/Regexp.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::STT:
     file: lib/GraphViz2/Parse/STT.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::XML:
     file: lib/GraphViz2/Parse/XML.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::Yacc:
     file: lib/GraphViz2/Parse/Yacc.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Parse::Yapp:
     file: lib/GraphViz2/Parse/Yapp.pm
-    version: 2.04
+    version: 2.05
   GraphViz2::Utils:
     file: lib/GraphViz2/Utils.pm
-    version: 2.04
+    version: 2.05
 requires:
   Algorithm::Dependency: 1.11
   Capture::Tiny: 0.1
@@ -85,4 +85,4 @@ requires:
   warnings: 1.12
 resources:
   license: http://opensource.org/licenses/artistic-license.php
-version: 2.04
+version: 2.05
