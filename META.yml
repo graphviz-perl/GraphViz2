@@ -84,5 +84,5 @@ requires:
   utf8: 1.09
   warnings: 1.12
 resources:
-  license: http://opensource.org/licenses/artistic-license.php
+  license: http://www.perlfoundation.org/artistic_license_1_0
 version: 2.05
