@@ -463,7 +463,7 @@ sub push_subgraph
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %{$arg{subgraph} } };
 
 	$self -> scope -> push($scope);
-	$self -> command -> push(qq|\nsubgraph "$name" {\n|);
+	$self -> command -> push(qq|\nsubgraph "$name"\n{\n|);
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;
