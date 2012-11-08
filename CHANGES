@@ -1,6 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.06  Thu Nov  8 12:38:00 2012
+	- No code changes.
 	- For pre-reqs such as strict, warnings, etc, which ship with Perl, set the version # to 0.
 		Reported as RT#80663 by Father Chrysostomos for Tree::DAG_Node.
 
