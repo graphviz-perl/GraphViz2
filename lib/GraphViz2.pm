@@ -31,7 +31,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.05';
+our $VERSION = '2.06';
 
 # -----------------------------------------------
 

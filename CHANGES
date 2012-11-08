@@ -1,5 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
+2.06  Thu Nov  8 12:38:00 2012
+	- For pre-reqs such as strict, warnings, etc, which ship with Perl, set the version # to 0.
+		Reported as RT#80663 by Father Chrysostomos for Tree::DAG_Node.
+
 2.05  Tue Oct  2 10:20:00 2012
 	- No fundamental code changes, so no need to upgrade, unless you need the following new features.
 	- After a request from Jack Maney, author of the Perl module Hypatia:

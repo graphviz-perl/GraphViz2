@@ -11,7 +11,7 @@ use Perl6::Slurp;
 
 fieldhash my %graph => 'graph';
 
-our $VERSION = '2.05';
+our $VERSION = '2.06';
 
 # -----------------------------------------------
 
