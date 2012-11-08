@@ -51,13 +51,13 @@
             "Text::Xslate" : "1.2",
             "Tree::DAG_Node" : "1.06",
             "Try::Tiny" : "0.09",
-            "XML::Bare" : "0.45",
+            "XML::Bare" : "0",
             "XML::Tiny" : "2.06",
             "parent" : "0.225",
             "perl" : "v5.14.2",
-            "strict" : "1.04",
-            "utf8" : "1.09",
-            "warnings" : "1.12"
+            "strict" : "0",
+            "utf8" : "0",
+            "warnings" : "0"
          }
       }
    },
