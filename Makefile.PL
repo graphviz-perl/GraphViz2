@@ -30,7 +30,7 @@ WriteMakefile
  },
 	DISTNAME  => 'GraphViz2',
 	NAME      => 'GraphViz2',
-	LICENSE   => 'perl_5',
+	LICENSE   => 'artistic_2',
  PL_FILES  => {},
  PREREQ_PM =>
  {
