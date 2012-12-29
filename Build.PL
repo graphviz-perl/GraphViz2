@@ -12,7 +12,7 @@ else
 Module::Build -> new
 (
  module_name    => 'GraphViz2',
- license        => 'artistic',
+ license        => 'perl_5',
  dist_abstract  => "A wrapper for AT&T's Graphviz",
  dist_author    => 'Ron Savage <ron@savage.net.au>',
  build_requires =>

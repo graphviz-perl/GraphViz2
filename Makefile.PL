@@ -28,8 +28,9 @@ WriteMakefile
 	 COMPRESS => 'gzip',
 	 SUFFIX   => 'gz'
  },
- DISTNAME  => 'GraphViz2',
- NAME      => 'GraphViz2',
+	DISTNAME  => 'GraphViz2',
+	NAME      => 'GraphViz2',
+	LICENSE   => 'perl_5',
  PL_FILES  => {},
  PREREQ_PM =>
  {
