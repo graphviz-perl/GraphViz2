@@ -59,7 +59,7 @@ WriteMakefile
 	Set::Array                  => 0.23,
 	strict                      => 0,
  	Test::More                => 0.94,
- 	Test::Pod                   => 1.45,
+# 	Test::Pod                   => 1.45, # Make it optional. See t/pod.t
 	Text::Xslate                => 1.2000,
 	Tree::DAG_Node              => 1.06,
 	Try::Tiny                   => 0.09,
