@@ -40,7 +40,7 @@ my($graph) = GraphViz2 -> new
 my($dbh) = DBI -> connect($ENV{DBI_DSN}, $ENV{DBI_USER}, $ENV{DBI_PASS});
 my($g)   = GraphViz2::DBI -> new(dbh => $dbh, graph => $graph);
 
-$g -> create(name => 'App-Office-CMS');
+$g -> create(name => '');
 
 my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "dbi.schema.$format");
