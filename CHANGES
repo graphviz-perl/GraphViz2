@@ -3,7 +3,9 @@ Revision history for Perl extension GraphViz2.
 2.07  Unreleased
 	- Remove the string 'App-Office-CMS' from scripts/dbi.schema.pl. That is, the create() method is
 		called as $g -> create(name => ''). This has the effect of removing the global node from the
-		resultant graph. All tables were descendents of this node.
+		resultant graph. All tables were descendents of this node, but with schemas of dozens or hundreds
+		of tables, it became confusing.
+	- Patch dbi.schema.pl to set the DBI connect attr sqlite_unicode and foreign_keys pragma if using SQLite.
 
 2.06  Thu Nov  8 12:38:00 2012
 	- No code changes.
