@@ -1,8 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
 2.07  Unreleased
-	- Remove the string 'App-Office-CMS' from scripts/dbi.schema.pl. This has the effect of removing
-		the global node of which all tables are descendents.
+	- Remove the string 'App-Office-CMS' from scripts/dbi.schema.pl. That is, the create() method is
+		called as $g -> create(name => ''). This has the effect of removing the global node from the
+		resultant graph. All tables were descendents of this node.
 
 2.06  Thu Nov  8 12:38:00 2012
 	- No code changes.
