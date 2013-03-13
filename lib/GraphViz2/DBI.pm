@@ -115,13 +115,7 @@ sub get_table_info
 
 		if ($vendor eq 'SQLITE')
 		{
-			my($row_ara) = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
-
-			# Skip tables without foreign keys.
-
-			next if ($#$row_ara < 0);
-
-			for my $row (@$row_ara)
+			for my $row (@{$dbh -> selectall_arrayref("pragma foreign_key_list($table_name)")})
 			{
 				push @foreign_info, [$$row[4], $$row[2], $$row[3] ];
 			}
@@ -332,7 +326,26 @@ Returns the graph object, either the one supplied to new() or the one created du
 
 =head1 FAQ
 
-See L<GraphViz2/FAQ> and L<GraphViz2/Scripts Shipped with this Module>.
+=head2 Does GraphViz2::DBI work with SQLite databases?
+
+Yes. As of V 2.07, this module uses SQLite's "pragma foreign_key_list($table_name)" to emulate L<DBI>'s
+$dbh -> foreign_key_info(...).
+
+=head2 What is returned by SQLite's "pragma foreign_key_list($table_name)"?
+
+	Fields returned are:
+	0: COUNT   (0, 1, ...)
+	1: KEY_SEQ (0, or column # (1, 2, ...) within multi-column key)
+	2: FKTABLE_NAME
+	3: PKCOLUMN_NAME
+	4: FKCOLUMN_NAME
+	5: UPDATE_RULE
+	6: DELETE_RULE
+	7: 'NONE' (Constant string)
+
+=head2 Are any sample scripts shipped with this module?
+
+Yes. See L<GraphViz2/FAQ> and L<GraphViz2/Scripts Shipped with this Module>.
 
 =head1 Thanks
 
