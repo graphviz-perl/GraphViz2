@@ -1887,6 +1887,12 @@ Prints all current (V 2.23.6) L<Graphviz|http://www.graphviz.org/> attributes, a
 
 Outputs to STDOUT.
 
+=head2 scripts/sqlite.foreign.keys.pl
+
+Demonstrates how to find foreign key info by calling SQLite's pragma foreign_key_list.
+
+Outputs to STDOUT.
+
 =head2 scripts/sub.graph.pl
 
 Demonstrates a graph combined with a subgraph.
