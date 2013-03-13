@@ -117,11 +117,14 @@ sub get_table_info
 		{
 			my($row_ara) = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
 
+			# Skip tables without foreign keys.
+
 			next if ( ($#$row_ara < 0) || (! defined $$row_ara[4]) );
 
-			print STDERR "$table_name. 4: $$row_ara[4]. 3: $$row_ara[3]. \n";
-
-			$table_data{$table_name}{foreign_keys} = [sort $$row_ara[4], $table_name, $$row_ara[3] ];
+			for my $i (0 .. $#$row)
+			{
+				push @foreign_info, [$$row_ara[4], $table_name, $$row_ara[3] ];
+			}
 		}
 		else
 		{
@@ -132,9 +135,9 @@ sub get_table_info
 			{
 				push @foreign_info, [$$column_data{'fk_column_name'}, $$column_data{'uk_table_name'}, $$column_data{'uk_column_name'}];
 			}
-
-			$table_data{$table_name}{foreign_keys} = [sort @foreign_info];
 		}
+
+		$table_data{$table_name}{foreign_keys} = [@foreign_info];
 	}
 
 	$self -> table_info(\%table_data);
