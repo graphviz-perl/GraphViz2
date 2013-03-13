@@ -125,7 +125,7 @@ sub get_table_info
 			{
 				push @foreign_info, [$$row_ara[4], $table_name, $$row_ara[3] ];
 
-				print "Push $$row_ara[4], $table_name, $$row_ara[3]. \n";
+				print STDERR "Push $$row_ara[4], $table_name, $$row_ara[3]. \n";
 			}
 		}
 		else
