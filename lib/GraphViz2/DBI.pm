@@ -119,6 +119,8 @@ sub get_table_info
 
 			next if ($#$row_ara < 0);
 
+			print STDERR "$table_name. 4: $$row_ara[4]. 3: $$row_ara[3]. \n";
+
 			$table_data{$table_name}{foreign_keys} = [sort $$row_ara[4], $table_name, $$row_ara[3] ];
 		}
 		else
