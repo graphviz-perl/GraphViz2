@@ -129,7 +129,7 @@ sub get_table_info
 
 			for my $row (@$row_ara)
 			{
-				push @foreign_info, [$$row[4], $table_name, $$row[3] ];
+				push @foreign_info, [$$row[4], $$row[2], $$row[3] ];
 
 				for my $i (0 .. $#$row)
 				{
