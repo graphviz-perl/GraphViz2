@@ -117,7 +117,7 @@ sub get_table_info
 		{
 			my($row_ara) = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
 
-			next if ($#$row_ara < 0);
+			next if ( ($#$row_ara < 0) || (! defined $$row_ara[4]) );
 
 			print STDERR "$table_name. 4: $$row_ara[4]. 3: $$row_ara[3]. \n";
 
