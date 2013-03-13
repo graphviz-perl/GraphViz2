@@ -4,12 +4,11 @@ author:
   - 'Ron Savage <ron@savage.net.au>'
 build_requires:
   Test::More: 0.94
-  Test::Pod: 1.44
 configure_requires:
   Module::Build: 0.38
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4003, CPAN::Meta::Converter version 2.120630'
-license: artistic
+generated_by: 'Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921'
+license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -17,40 +16,40 @@ name: GraphViz2
 provides:
   GraphViz2:
     file: lib/GraphViz2.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::DBI:
     file: lib/GraphViz2/DBI.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Data::Grapher:
     file: lib/GraphViz2/Data/Grapher.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::ISA:
     file: lib/GraphViz2/Parse/ISA.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::Marpa:
     file: lib/GraphViz2/Parse/Marpa.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::RecDescent:
     file: lib/GraphViz2/Parse/RecDescent.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::Regexp:
     file: lib/GraphViz2/Parse/Regexp.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::STT:
     file: lib/GraphViz2/Parse/STT.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::XML:
     file: lib/GraphViz2/Parse/XML.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::Yacc:
     file: lib/GraphViz2/Parse/Yacc.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Parse::Yapp:
     file: lib/GraphViz2/Parse/Yapp.pm
-    version: 2.06
+    version: 2.07
   GraphViz2::Utils:
     file: lib/GraphViz2/Utils.pm
-    version: 2.06
+    version: 2.07
 requires:
   Algorithm::Dependency: 1.11
   Capture::Tiny: 0.1
@@ -84,5 +83,5 @@ requires:
   utf8: 0
   warnings: 0
 resources:
-  license: http://www.perlfoundation.org/artistic_license_1_0
-version: 2.06
+  license: http://www.perlfoundation.org/artistic_license_2_0
+version: 2.07
