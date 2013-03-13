@@ -127,9 +127,9 @@ sub get_table_info
 
 			my(@name) = (qw/COUNT KEY_SEQ FKTABLE_NAME PKCOLUMN_NAME FKCOLUMN_NAME UPDATE_RULE DELETE_RULE UNKNOWN/);
 
-			for my $row (0 .. $#$row_ara)
+			for my $row (@$row_ara)
 			{
-#				push @foreign_info, [$$row[4], $table_name, $$row[3] ];
+				push @foreign_info, [$$row[4], $table_name, $$row[3] ];
 
 				for my $i (0 .. $#$row)
 				{
