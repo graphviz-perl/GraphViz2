@@ -121,8 +121,6 @@ sub get_table_info
 
 			next if ($#$row_ara < 0);
 
-			my(@name) = (qw/COUNT KEY_SEQ FKTABLE_NAME PKCOLUMN_NAME FKCOLUMN_NAME UPDATE_RULE DELETE_RULE UNKNOWN/);
-
 			for my $row (@$row_ara)
 			{
 				push @foreign_info, [$$row[4], $$row[2], $$row[3] ];
@@ -139,7 +137,7 @@ sub get_table_info
 			}
 		}
 
-		$table_data{$table_name}{foreign_keys} = [@foreign_info];
+		$table_data{$table_name}{foreign_keys} = [sort{$$a[1] cmp $$b[1]} @foreign_info];
 	}
 
 	$self -> table_info(\%table_data);
