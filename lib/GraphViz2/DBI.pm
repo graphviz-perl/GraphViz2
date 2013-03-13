@@ -119,17 +119,20 @@ sub get_table_info
 
 			# Skip tables without foreign keys.
 
-			print STDERR "1 $table_name. Foreign key: Count: $#$row_ara. \n";
-
 			next if ($#$row_ara < 0);
 
-			print STDERR "2 $table_name. Foreign key: \n";
+			print STDERR "2 $table_name. Foreign keys: \n";
+
+			my(@name) = (qw/COUNT KEY_SEQ FKTABLE_NAME PKCOLUMN_NAME FKCOLUMN_NAME UPDATE_RULE DELETE_RULE UNKNOWN/);
 
 			for my $i (0 .. $#$row_ara)
 			{
 				push @foreign_info, [$$row_ara[4], $table_name, $$row_ara[3] ];
 
-				print STDERR "Push $$row_ara[4], $table_name, $$row_ara[3]. \n";
+				for my $i (0 .. 7)
+				{
+					print STDERR "$i: $name[$i] => $$row_ara[$i]. \n";
+				}
 			}
 		}
 		else
