@@ -112,10 +112,15 @@ sub get_table_info
 	for my $table_name (sort keys %table_data)
 	{
 		@foreign_info = ();
-		$sth          = $dbh -> foreign_key_info(undef, undef, undef, $self -> catalog, $self -> schema, $table_name);
 
-		if (defined $sth)
+		if ($vendor eq 'SQLITE')
 		{
+			my($row_ara)                           = $dbh -> selectall_arrayref("pragma foreign_key_list($table)");
+			$table_data{$table_name}{foreign_keys} = [sort $$row_ara[4], $table_name, $$row_ara[3] ];
+		}
+		else
+		{
+			$sth        = $dbh -> foreign_key_info(undef, undef, undef, $self -> catalog, $self -> schema, $table_name) || next;
 			$table_info = $sth -> fetchall_arrayref({});
 
 			for $column_data (@$table_info)
@@ -181,23 +186,23 @@ L<GraphViz2::DBI> - Visualize a database schema as a graph
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use DBI;
-	
+
 	use GraphViz2;
 	use GraphViz2::DBI;
-	
+
 	use Log::Handler;
-	
+
 	# ---------------
-	
+
 	exit 0 if (! $ENV{DBI_DSN});
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -207,7 +212,7 @@ L<GraphViz2::DBI> - Visualize a database schema as a graph
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph) = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -216,14 +221,19 @@ L<GraphViz2::DBI> - Visualize a database schema as a graph
 		 logger => $logger,
 		 node   => {color => 'blue', shape => 'oval'},
 		);
-	my($dbh) = DBI -> connect($ENV{DBI_DSN}, $ENV{DBI_USER}, $ENV{DBI_PASS});
-	my($g)   = GraphViz2::DBI -> new(dbh => $dbh, graph => $graph);
-	
-	$g -> create(name => 'App-Office-CMS');
-	
+	my($attr)              = {};
+	$$attr{sqlite_unicode} = 1 if ($ENV{DBI_DSN} =~ /SQLite/i);
+	my($dbh)               = DBI -> connect($ENV{DBI_DSN}, $ENV{DBI_USER}, $ENV{DBI_PASS}, $attr);
+
+	$dbh -> do('PRAGMA foreign_keys = ON') if ($ENV{DBI_DSN} =~ /SQLite/i);
+
+	my($g) = GraphViz2::DBI -> new(dbh => $dbh, graph => $graph);
+
+	$g -> create(name => '');
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "dbi.schema.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/dbi.schema.pl (L<GraphViz2/Scripts Shipped with this Module>).
