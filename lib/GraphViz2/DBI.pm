@@ -121,20 +121,11 @@ sub get_table_info
 
 			next if ($#$row_ara < 0);
 
-			next if ($table_name =~ /track/i);
-
-			print STDERR "2 $table_name. Foreign keys: \n";
-
 			my(@name) = (qw/COUNT KEY_SEQ FKTABLE_NAME PKCOLUMN_NAME FKCOLUMN_NAME UPDATE_RULE DELETE_RULE UNKNOWN/);
 
 			for my $row (@$row_ara)
 			{
 				push @foreign_info, [$$row[4], $$row[2], $$row[3] ];
-
-				for my $i (0 .. $#$row)
-				{
-					print STDERR "$i: $name[$i] => $$row[$i]. \n";
-				}
 			}
 		}
 		else
