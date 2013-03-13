@@ -119,7 +119,7 @@ sub get_table_info
 
 			# Skip tables without foreign keys.
 
-			print STDERR "1 $table_name. Foreign key: \n";
+			print STDERR "1 $table_name. Foreign key: Count: $#$row_ara. \n";
 
 			next if ( ($#$row_ara < 0) || (! defined $$row_ara[4]) );
 
