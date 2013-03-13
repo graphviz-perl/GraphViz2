@@ -1,6 +1,8 @@
 Revision history for Perl extension GraphViz2.
 
-2.07  Unreleased
+2.07  Wed Mar 13 13:24:00 2013
+	- Extend GraphViz2::DBI to handle SQLite using pragma foreign_key_list($table_name).
+	- Add scripts/sqlite.foreign.keys.pl to help analyze that pragma's output.
 	- Remove the string 'App-Office-CMS' from scripts/dbi.schema.pl. That is, the create() method is
 		called as $g -> create(name => ''). This has the effect of removing the global node from the
 		resultant graph. All tables were descendents of this node, but with schemas of dozens or hundreds
