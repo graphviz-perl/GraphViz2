@@ -121,7 +121,7 @@ sub get_table_info
 
 			next if ( ($#$row_ara < 0) || (! defined $$row_ara[4]) );
 
-			for my $i (0 .. $#$row)
+			for my $i (0 .. $#$row_ara)
 			{
 				push @foreign_info, [$$row_ara[4], $table_name, $$row_ara[3] ];
 			}
