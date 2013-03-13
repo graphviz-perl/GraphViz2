@@ -104,8 +104,6 @@ sub get_table_info
 			};
 
 		$column_sth -> finish;
-
-		print STDERR "$table_name. Col info. ", join(', ', @column_name), ". \n";
 	}
 
 	my($column_data);
@@ -117,13 +115,15 @@ sub get_table_info
 
 		if ($vendor eq 'SQLITE')
 		{
-			print STDERR "Foreign key: \n";
-
 			my($row_ara) = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
 
 			# Skip tables without foreign keys.
 
+			print STDERR "1 $table_name. Foreign key: \n";
+
 			next if ( ($#$row_ara < 0) || (! defined $$row_ara[4]) );
+
+			print STDERR "2 $table_name. Foreign key: \n";
 
 			for my $i (0 .. $#$row_ara)
 			{
