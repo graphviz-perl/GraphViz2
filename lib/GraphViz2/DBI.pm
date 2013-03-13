@@ -115,7 +115,10 @@ sub get_table_info
 
 		if ($vendor eq 'SQLITE')
 		{
-			my($row_ara)                           = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
+			my($row_ara) = $dbh -> selectall_arrayref("pragma foreign_key_list($table_name)");
+
+			next if ($#$row_ara < 0);
+
 			$table_data{$table_name}{foreign_keys} = [sort $$row_ara[4], $table_name, $$row_ara[3] ];
 		}
 		else
