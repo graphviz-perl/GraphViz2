@@ -137,7 +137,7 @@ sub get_table_info
 			}
 		}
 
-		$table_data{$table_name}{foreign_keys} = [sort{$$a[1] cmp $$b[1]} @foreign_info];
+		$table_data{$table_name}{foreign_keys} = [@foreign_info];
 	}
 
 	$self -> table_info(\%table_data);
