@@ -1602,8 +1602,12 @@ See also scripts/macro.*.pl below.
 
 =head2 scripts/dbi.schema.pl
 
-If the environment vaiables DBI_DSN, DBI_USER and DBI_PASS are set (the latter 2 are optional), then this demonstrates building a
-graph from a database schema.
+If the environment vaiables DBI_DSN, DBI_USER and DBI_PASS are set (the latter 2 are optional [e.g. for SQLite]),
+then this demonstrates building a graph from a database schema.
+
+Also, for Postgres, you can set DBI_SCHEMA to a list of schemas, e.g. when processing the MusicBrainz database.
+
+For details, see L<http://blogs.perl.org/users/ron_savage/2013/03/graphviz2-and-the-dread-musicbrainz-db.html>.
 
 Outputs to ./html/dbi.schema.svg by default.
 
