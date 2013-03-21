@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.08  Thu mar 21 13:16:00 2013
+	- Add $ENV{DBI_SCHEMA} to scripts/dbi.schema.pl.
+	- For the MusicBrainz database, use DBI_SCHEMA=musicbrainz,cover_art_archive,report,statistics.
+		See http://musicbrainz.org/doc/MusicBrainz_Database for details.
+		Users of cpanm will want 'cpanm Carton' instead of 'sudo cpan Carton' in Perl dependencies.
+		See https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md for details.
+
 2.07  Wed Mar 13 13:24:00 2013
 	- Extend GraphViz2::DBI to handle SQLite using pragma foreign_key_list($table_name).
 	- Add scripts/sqlite.foreign.keys.pl to help analyze that pragma's output.
