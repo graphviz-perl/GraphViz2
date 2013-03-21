@@ -1,6 +1,6 @@
 Revision history for Perl extension GraphViz2.
 
-2.08  Thu mar 21 13:16:00 2013
+2.08  Thu Mar 21 13:16:00 2013
 	- Add $ENV{DBI_SCHEMA} to scripts/dbi.schema.pl.
 	- For the MusicBrainz database, use DBI_SCHEMA=musicbrainz,cover_art_archive,report,statistics.
 		See http://musicbrainz.org/doc/MusicBrainz_Database for details.
