@@ -1,5 +1,20 @@
 Revision history for Perl extension GraphViz2.
 
+2.09  Fri May 31 09:57:00 2013
+	- Re-write the code in Build.PL and Makefile.PL which checks for Graphviz (dot) being installed,
+		since the previous code, using a pipe, was failing on some versions of Windows.
+	- Assume Config.pm is installed, and hence remove it from the pre-reqs.
+		This also stops a warning message generated because Config's version # is undef.
+	- Likewise assume File::Spec and File::Temp are installed, and 'recent enough'.
+		This is because the new code uses these 3 modules before specifying the pre-reqs.
+	- Bump the pre-req for Perl from 5.10.0 to 5.14, since we 'use feature qw/unicode_strings/.
+	- Re-write the code in Build.PL and Makefile.PL which checks for Perl being 'recent enough',
+		since the previous code, using a pre-req of "perl => '5.10.0'" generates a warning message
+		when using Makefile.PL (for my current Perl V 5.14.2). Now we analyze $Config{version}.
+	- One CPAN Tester found tests failing even though Graphviz was installed.
+		The problem was that the Times font was missing. The new code should fail during 'perl Build.PL',
+		or 'perl Makefile.PL', rather than during testing, which is good.
+
 2.08  Thu Mar 21 13:16:00 2013
 	- Add $ENV{DBI_SCHEMA} to scripts/dbi.schema.pl.
 	- For the MusicBrainz database, use DBI_SCHEMA=musicbrainz,cover_art_archive,report,statistics.
