@@ -1,6 +1,6 @@
 digraph Perl
 {
-graph [ label="Simple records" ]
+graph [ label="Record demo 1 - Nested records using strings as labels" ]
 node [ shape="record" ]
 edge [ color="grey" ]
 "struct1" [ label="<f0> left|<f1> mid dle|<f2> right" ]
