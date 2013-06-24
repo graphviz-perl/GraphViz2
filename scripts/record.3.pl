@@ -37,12 +37,12 @@ my($graph) = GraphViz2 -> new
 );
 
 $graph -> add_node(name => 'Alphabet',
-label => '<p_a> p_a@a |{<p_b> p_b@b | c |{<p_d> p_d@d | e | f |{ g |<p_h> p_h@h | i | j |{ k | l | m |<p_n> p_n@n | o | p}| q | r |<p_s> p_s@s | t }| u | v |<p_w> p_w@w }| x |<p_y> p_y@y }| z');
+label => '<port_a> a:port_a |{<port_b> b:port_b | c |{<port_d> d:port_d | e | f |{ g |<port_h> h:port_h | i | j |{ k | l | m |<port_n> n:port_n | o | p}| q | r |<port_s> s:port_s | t }| u | v |<port_w> w:port_w }| x |<port_y> y:port_y }| z');
 
-$graph -> add_edge(from => 'Alphabet:p_a', to => 'Alphabet:p_n', color => 'maroon');
-$graph -> add_edge(from => 'Alphabet:p_b', to => 'Alphabet:p_s', color => 'blue');
-$graph -> add_edge(from => 'Alphabet:p_d', to => 'Alphabet:p_w', color => 'red');
-$graph -> add_edge(from => 'Alphabet:p_h', to => 'Alphabet:p_y', color => 'green');
+$graph -> add_edge(from => 'Alphabet:port_a', to => 'Alphabet:port_n', color => 'maroon');
+$graph -> add_edge(from => 'Alphabet:port_b', to => 'Alphabet:port_s', color => 'blue');
+$graph -> add_edge(from => 'Alphabet:port_d', to => 'Alphabet:port_w', color => 'red');
+$graph -> add_edge(from => 'Alphabet:port_y', to => 'Alphabet:port_h', color => 'green');
 
 my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "record.$id.$format");

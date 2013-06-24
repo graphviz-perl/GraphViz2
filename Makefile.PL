@@ -38,7 +38,7 @@ sub is_dot_installed
 
 sub is_perl_recent
 {
-	# We want Perl V 5.12 or later, because we 'use feature qw/say unicode_strings/'.
+	# We want Perl V 5.14 or later, because we 'use feature qw/say unicode_strings/'.
 
 	my(@version) = split(/\./, $Config{version});
 
