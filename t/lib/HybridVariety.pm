@@ -2,6 +2,6 @@ package HybridVariety;
 
 use parent qw/GoldenDelicious GrannySmith/;
 
-our $VERSION = '2.09';
+our $VERSION = '2.10';
 
 1;
