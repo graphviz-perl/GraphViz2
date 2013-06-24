@@ -2002,6 +2002,7 @@ r
 @@ arrow
 box
 crow
+curve
 diamond
 dot
 inv
@@ -2044,15 +2045,18 @@ edgetarget => edge
 edgetooltip => edge
 epsilon => graph
 esep => graph
-fillcolor => node, cluster
+fillcolor => node, edge, cluster
 fixedsize => node
 fontcolor => edge, node, graph, cluster
 fontname => edge, node, graph, cluster
 fontnames => graph
 fontpath => graph
 fontsize => edge, node, graph, cluster
+forcelabels => graph
+gradientangle => node, cluster, graph
 group => node
 headURL => edge
+head_lp => edge
 headclip => edge
 headhref => edge
 headlabel => edge
@@ -2061,8 +2065,9 @@ headtarget => edge
 headtooltip => edge
 height => node
 href => graph, cluster, node, edge
-id => graph, node, edge
+id => graph, cluster, node, edge
 image => node
+imagepath => graph
 imagescale => node
 label => edge, node, graph, cluster
 labelURL => edge
@@ -2079,8 +2084,10 @@ labelloc => node, graph, cluster
 labeltarget => edge
 labeltooltip => edge
 landscape => graph
-layer => edge, node
+layer => edge, node, cluster
+layerlistsep => graph
 layers => graph
+layerselect => graph
 layersep => graph
 layout => graph
 len => edge
@@ -2091,7 +2098,7 @@ lheight => graph, cluster
 lp => edge, graph, cluster
 ltail => edge
 lwidth => graph, cluster
-margin => node, graph
+margin => node, cluster, graph
 maxiter => graph
 mclimit => graph
 mindist => graph
@@ -2149,9 +2156,10 @@ smoothing => graph
 sortv => graph, cluster, node
 splines => graph
 start => graph
-style => edge, node, cluster
+style => edge, node, cluster, graph
 stylesheet => graph
 tailURL => edge
+tail_lp => edge
 tailclip => edge
 tailhref => edge
 taillabel => edge
@@ -2166,6 +2174,8 @@ viewport => graph
 voro_margin => graph
 weight => edge
 width => node
+xlabel => edge, node
+xlp => node, edge
 z => node
 
 @@ global
@@ -2183,8 +2193,10 @@ timeout
 Mcircle
 Mdiamond
 Msquare
+assembly
 box
 box3d
+cds
 circle
 component
 diamond
@@ -2192,14 +2204,19 @@ doublecircle
 doubleoctagon
 egg
 ellipse
+fivepoverhang
 folder
 hexagon
 house
+insulator
 invhouse
 invtrapezium
 invtriangle
+larrow
+lpromoter
 none
 note
+noverhang
 octagon
 oval
 parallelogram
@@ -2207,14 +2224,27 @@ pentagon
 plaintext
 point
 polygon
+primersite
+promoter
+proteasesite
+proteinstab
+rarrow
 rect
 rectangle
+restrictionsite
+ribosite
+rnastab
+rpromoter
 septagon
+signature
 square
 tab
+terminator
+threepoverhang
 trapezium
 triangle
 tripleoctagon
+utr
 
 @@ output_format
 bmp
@@ -2250,5 +2280,6 @@ vml
 vmlz
 vrml
 wbmp
+webp
 xdot
 xlib

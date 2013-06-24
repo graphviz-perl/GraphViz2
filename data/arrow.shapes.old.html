@@ -11,11 +11,10 @@
 <link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/fckeditor/fckeditor.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?y" />
   <script type="text/javascript" src="/misc/jquery.js?y"></script>
 <script type="text/javascript" src="/misc/drupal.js?y"></script>
@@ -33,7 +32,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <table border="0" cellpadding="0" cellspacing="0" id="header">
   <tr>
     <td id="logo">
-      <a href="/" title="Home"><img src="/app.png" alt="Home" /></a>      <h1 class='site-name'><a href="/" title="Home">Graphviz - Graph Visualization Software</a></h1>      <div class='site-slogan'>Drawing graphs since 1988</div>    </td>
+      <a href="/" title="Home"><img src="/app.png" alt="Home" /></a>      <h1 class='site-name'><a href="/" title="Home">Graphviz - Graph Visualization Software</a></h1>          </td>
     <td id="menu">
             <ul class="links" id="navlist"><li class="menu-237 first"><a href="/Forum" title="">Forums</a></li>
 <li class="menu-238"><a href="/wiki/" title="Graphviz Wiki">Wiki</a></li>
@@ -45,7 +44,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
  <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
 </div>
 <input type="submit" name="op" id="edit-submit-1" value="Search"  class="form-submit" />
-<input type="hidden" name="form_build_id" id="form-baad4ffb4dd8df701b4ebf80377e1d44" value="form-baad4ffb4dd8df701b4ebf80377e1d44"  />
+<input type="hidden" name="form_build_id" id="form-3d53b835aa6c19d86211e6a6da750fe1" value="form-3d53b835aa6c19d86211e6a6da750fe1"  />
 <input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
 </div>
 
@@ -62,8 +61,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
     <td id="sidebar-left">
         <div class="block block-menu" id="block-menu-menu-menu-user-navigation">
     <h2 class="title"></h2>
-    <div class="content"><ul class="menu"><li class="leaf first"><a href="/Home.php" title="Home Page">Home</a></li>
-<li class="leaf"><a href="/About.php" title="About">About</a></li>
+    <div class="content"><ul class="menu"><li class="leaf first"><a href="/About.php" title="About">About</a></li>
 <li class="leaf"><a href="/Download.php" title="Download">Download</a></li>
 <li class="leaf"><a href="/News.php" title="News">News</a></li>
 <li class="leaf"><a href="/Gallery.php" title="Gallery">Gallery</a></li>
@@ -72,7 +70,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <li class="leaf"><a href="/content/graphviz-issue-tracker" title="Issue and Bug Tracking">Bug and Issue Tracking</a></li>
 <li class="leaf"><a href="/MailingList.php" title="Mailing List">Mailing List</a></li>
 <li class="leaf"><a href="/License.php" title="License">License</a></li>
-<li class="leaf"><a href="/Resources.php" title="Resources">Resources</a></li>
+<li class="leaf"><a href="/content/resources" title="Resources">Resources</a></li>
 <li class="leaf"><a href="/Credits.php" title="Credits">Credits</a></li>
 <li class="collapsed"><a href="/Forum" title="Forum Link">Forums</a></li>
 <li class="leaf"><a href="/content/faq" title="Frequently Asked Questions">FAQ</a></li>
@@ -93,7 +91,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <input type="submit" name="op" id="edit-submit" value="Log in"  class="form-submit" />
 <div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
 <li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
-</ul></div><input type="hidden" name="form_build_id" id="form-bbad54dd978ef6896b29829981b4a5f2" value="form-bbad54dd978ef6896b29829981b4a5f2"  />
+</ul></div><input type="hidden" name="form_build_id" id="form-c94ca2e43d147a0fef58f5a427cc2f01" value="form-c94ca2e43d147a0fef58f5a427cc2f01"  />
 <input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
 
 </div></form>
@@ -153,11 +151,6 @@ Vertical bars | separate alternatives.
 <TR>
   <TD ALIGN=RIGHT></td>
   <TD ALIGN=LEFT>|</td>
-  <TD ALIGN=LEFT><B>curve</b></td>
-</tr>
-<TR>
-  <TD ALIGN=RIGHT></td>
-  <TD ALIGN=LEFT>|</td>
   <TD ALIGN=LEFT><B>diamond</b></td>
 </tr>
 <TR>
@@ -198,19 +191,18 @@ The primitive shapes are:
   <TR>
     <TD>"box"<TD><IMG SRC="/doc/info/a_box.gif" />
     <TD>"crow"<TD><IMG SRC="/doc/info/a_crow.gif" />
-    <TD>"curve"<TD><IMG SRC="/doc/info/a_curve.gif" />
     <TD>"diamond"<TD><IMG SRC="/doc/info/a_diamond.gif" />
+  </td></td></td></td></td></td></tr>
+  <TR>
     <TD>"dot"<TD><IMG SRC="/doc/info/a_dot.gif" />
-  </td></td></td></td></td></td></td></td></td></td></tr>
-  <TR>
-  </tr>
-  <TR>
     <TD>"inv"<TD><IMG SRC="/doc/info/a_inv.gif" />
     <TD>"none"<TD><IMG SRC="/doc/info/a_none.gif" />
+  </td></td></td></td></td></td></tr>
+  <TR>
     <TD>"normal"<TD><IMG SRC="/doc/info/a_normal.gif" />
     <TD>"tee"<TD><IMG SRC="/doc/info/a_tee.gif" />
     <TD>"vee"<TD><IMG SRC="/doc/info/a_open.gif" />
-  </td></td></td></td></td></td></td></td></td></td></tr>
+  </td></td></td></td></td></td></tr>
 </table>
 </center>
 </p><P>
@@ -376,32 +368,22 @@ on the right side of the edge.
     <TD>lvee
     <TD>rvee
   </td></td></td></tr>
-  <TR ALIGN=CENTER>
-    <TD><IMG SRC="/doc/info/aa_curve.gif" />
-    <TD><IMG SRC="/doc/info/aa_lcurve.gif" />
-    <TD><IMG SRC="/doc/info/aa_rcurve.gif" />
-  </td></td></td></tr>
-  <TR ALIGN=CENTER>
-    <TD>curve
-    <TD>lcurve
-    <TD>rcurve
-  </td></td></td></tr>
 </table>
 </center>
 </p></div>
       </div>
   <div class="block block-comment" id="block-comment-0">
     <h2 class="title">Recent comments</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/manual-install-zip-windows-path-problem#comment-1272">There were some unwanted</a><br />2 days 4 hours ago</li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect#comment-1271">No, 2.28 is a release</a><br />5 days 5 hours ago</li>
-<li><a href="/content/memory-leek-or-missing-some-dispose-function#comment-1269">Ok finaly i have time to test</a><br />5 days 10 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1268">Well, there should be an</a><br />1 week 22 hours ago</li>
-<li><a href="/content/multicolor-edges#comment-1267">Sorry, yes, the parallel edge</a><br />1 week 22 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1266">I want more and more ...</a><br />1 week 2 days ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1265">Graphviz provides a small</a><br />1 week 3 days ago</li>
-<li><a href="/content/what-really-needed-graph-visualization-rest-web-service-cloud#comment-1264">Actually, we have been</a><br />1 week 4 days ago</li>
-<li><a href="/content/help-embedding-svg-files#comment-1263">What machine are you running</a><br />1 week 4 days ago</li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz#comment-1262">Graphviz is a collection of</a><br />1 week 5 days ago</li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/bus-style-edge#comment-253">RE:  &quot;Bus&quot; style edge.</a><br />8 hours 6 min ago</li>
+<li><a href="/content/bus-style-edge#comment-252">&quot;Bus&quot; style edge.</a><br />12 hours 6 min ago</li>
+<li><a href="/content/pdf-version-generated-dot-tpdf#comment-251">PDF version generated by dot -Tpdf</a><br />12 hours 6 min ago</li>
+<li><a href="/content/bus-style-edge#comment-250">RE:  &quot;Bus&quot; style edge.</a><br />2 days 2 hours ago</li>
+<li><a href="/content/pdf-version-generated-dot-tpdf#comment-249">PDF version generated by dot -Tpdf</a><br />2 days 22 hours ago</li>
+<li><a href="/content/python-bindings-are-not-installed-0#comment-248">python bindings are not installed</a><br />4 days 2 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-247">&quot;Bus&quot; style edge.</a><br />4 days 4 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-246">&quot;Bus&quot; style edge.</a><br />4 days 4 hours ago</li>
+<li><a href="/content/there-change-log-available#comment-245">Failed to build and install Grapviz 2.28.0 on zLinux</a><br />4 days 9 hours ago</li>
+<li class="last"><a href="/content/there-change-log-available#comment-244">Failed to build and install Grapviz 2.28.0 on zLinux</a><br />4 days 9 hours ago</li>
 </ul></div></div>
  </div>
               </div>
@@ -409,11 +391,11 @@ on the right side of the edge.
     <td id="sidebar-right">
         <div class="block block-forum" id="block-forum-1">
     <h2 class="title">New forum topics</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/avoid-stretching-table-inside-td">Avoid stretching table inside td.</a></li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect" title="1 comment">Smyrna.exe failed to start because its side-by-side configuration is incorrect</a></li>
-<li><a href="/content/multicolor-edges" title="1 comment">Multicolor edges</a></li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow" title="3 comments">Help！ How to custom graphviz lines (not arrow)?</a></li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz" title="1 comment">can i read text file into graphviz </a></li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/flows">Flow&#039;s</a></li>
+<li><a href="/content/how-prevent-unnecesary-link-crossing-0">How to prevent unnecesary link crossing</a></li>
+<li><a href="/content/background-image">Background image</a></li>
+<li><a href="/content/python-bindings-are-not-installed-0" title="1 comment">python bindings are not installed</a></li>
+<li class="last"><a href="/content/python-bindings-are-not-installed">python bindings are not installed </a></li>
 </ul></div><div class="more-link"><a href="/forum" title="Read the latest forum topics.">more</a></div></div>
  </div>
     </td>  </tr>

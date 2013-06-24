@@ -11,11 +11,10 @@
 <link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?y" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/fckeditor/fckeditor.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?y" />
 <link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?y" />
   <script type="text/javascript" src="/misc/jquery.js?y"></script>
 <script type="text/javascript" src="/misc/drupal.js?y"></script>
@@ -33,7 +32,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <table border="0" cellpadding="0" cellspacing="0" id="header">
   <tr>
     <td id="logo">
-      <a href="/" title="Home"><img src="/app.png" alt="Home" /></a>      <h1 class='site-name'><a href="/" title="Home">Graphviz - Graph Visualization Software</a></h1>      <div class='site-slogan'>Drawing graphs since 1988</div>    </td>
+      <a href="/" title="Home"><img src="/app.png" alt="Home" /></a>      <h1 class='site-name'><a href="/" title="Home">Graphviz - Graph Visualization Software</a></h1>          </td>
     <td id="menu">
             <ul class="links" id="navlist"><li class="menu-237 first"><a href="/Forum" title="">Forums</a></li>
 <li class="menu-238"><a href="/wiki/" title="Graphviz Wiki">Wiki</a></li>
@@ -45,7 +44,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
  <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
 </div>
 <input type="submit" name="op" id="edit-submit-1" value="Search"  class="form-submit" />
-<input type="hidden" name="form_build_id" id="form-aeb07f61f646970f77f0b96fbd9108dc" value="form-aeb07f61f646970f77f0b96fbd9108dc"  />
+<input type="hidden" name="form_build_id" id="form-9c666365e24e147c9c9ae7fc8e7dcc77" value="form-9c666365e24e147c9c9ae7fc8e7dcc77"  />
 <input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
 </div>
 
@@ -62,8 +61,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
     <td id="sidebar-left">
         <div class="block block-menu" id="block-menu-menu-menu-user-navigation">
     <h2 class="title"></h2>
-    <div class="content"><ul class="menu"><li class="leaf first"><a href="/Home.php" title="Home Page">Home</a></li>
-<li class="leaf"><a href="/About.php" title="About">About</a></li>
+    <div class="content"><ul class="menu"><li class="leaf first"><a href="/About.php" title="About">About</a></li>
 <li class="leaf"><a href="/Download.php" title="Download">Download</a></li>
 <li class="leaf"><a href="/News.php" title="News">News</a></li>
 <li class="leaf"><a href="/Gallery.php" title="Gallery">Gallery</a></li>
@@ -72,7 +70,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <li class="leaf"><a href="/content/graphviz-issue-tracker" title="Issue and Bug Tracking">Bug and Issue Tracking</a></li>
 <li class="leaf"><a href="/MailingList.php" title="Mailing List">Mailing List</a></li>
 <li class="leaf"><a href="/License.php" title="License">License</a></li>
-<li class="leaf"><a href="/Resources.php" title="Resources">Resources</a></li>
+<li class="leaf"><a href="/content/resources" title="Resources">Resources</a></li>
 <li class="leaf"><a href="/Credits.php" title="Credits">Credits</a></li>
 <li class="collapsed"><a href="/Forum" title="Forum Link">Forums</a></li>
 <li class="leaf"><a href="/content/faq" title="Frequently Asked Questions">FAQ</a></li>
@@ -93,7 +91,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <input type="submit" name="op" id="edit-submit" value="Log in"  class="form-submit" />
 <div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
 <li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
-</ul></div><input type="hidden" name="form_build_id" id="form-1d7c11386cd34c3f0c84ea85a2351ac5" value="form-1d7c11386cd34c3f0c84ea85a2351ac5"  />
+</ul></div><input type="hidden" name="form_build_id" id="form-1434d055fbf55e39fc128ca9482b8ae9" value="form-1434d055fbf55e39fc128ca9482b8ae9"  />
 <input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
 
 </div></form>
@@ -188,8 +186,6 @@ formats need to be interpreted in this manner.
 </td><TD>VRML</td> </tr>
  <TR><TD ALIGN=CENTER><A NAME=awbmp HREF=#dwbmp>wbmp</a>
 </td><TD>Wireless BitMap format</td> </tr>
- <TR><TD ALIGN=CENTER><A NAME=awebp HREF=#dwebp>webp</a>
-</td><TD>Image format for the Web</td> </tr>
  <TR><TD ALIGN=CENTER><A NAME=axlib HREF=#dxlib>xlib</a>
 </td><TD>Xlib canvas</td> </tr>
 </table>
@@ -370,15 +366,10 @@ formats used by the gd library. The latter is compressed.
 
 <DT><A NAME=dimap HREF=#aimap><STRONG>imap</strong></a>
 ,<DT><A NAME=dcmapx HREF=#acmapx><STRONG>cmapx</strong></a>
-<DD>Produces map files for server-side and client-side image maps.
+<DD>Produces map files for server-side and client-side image maps,
 These can be used in a web page with
-a graphical form of the output, e.g. in JPEG, GIF or PNG format, to attach
-links to nodes and edges. 
-Graphviz generates an object's map information only if the object has a non-trival 
-<A HREF=attrs#dURL>URL</a> or <A HREF=attrs#dhref>href</a>
-attribute, or if it has an explicit <A HREF=attrs#dtooltip>tooltip</a> attribute.
-<P>
-For example, to create a server-side map
+a graphical form of the output, e.g. in JPEG or GIF format, to attach
+links to nodes and edges. For example, to create a server-side map
 given the dot file
 <PRE>
 /* x.gv */
@@ -394,7 +385,7 @@ dot -Timap -ox.map -Tgif -ox.gif x.gv
 </pre>
 and then refer to it in a web page:
 <XMP>
-<A HREF="x.map"><IMG SRC="/doc/info/x.gif" ismap="ismap" /></a>
+<A HREF="x.map"><IMG SRC="x.gif" ismap="ismap" /></a>
 </xmp>
 For client-side maps, one again generates two output files:
 <PRE>
@@ -402,7 +393,7 @@ dot -Tcmapx -ox.map -Tgif -ox.gif x.gv
 </pre>
 and uses the HTML
 <XMP>
-<IMG SRC="/doc/info/x.gif" USEMAP="#mainmap" />
+<IMG SRC="x.gif" USEMAP="#mainmap" />
 ... [content of x.map] ...
 </xmp>
 Note that the name given in the USEMAP attribute must be the same
@@ -415,7 +406,7 @@ in the IMG attribute, and x.map will look like
 ... 
 </map>
 </xmp>
-</p><P>
+<P>
 <A HREF=attrs#dURL>URLs</a> can be attached to the root
 graph, nodes and edges. If a node has a URL, clicking in the node
 will activate the link.
@@ -618,16 +609,10 @@ a node is drawn as a 3D sphere.
 <DD>Produces output in the Wireless BitMap (WBMP) format, optimized for
 mobile computing.
 
-<DT><A NAME=dwebp HREF=#awebp><STRONG>webp</strong></a>
-<DD>Produces output in the image format for the Web (WEBP) format, optimized for
-web devices such as tablets.
-See Wikipedia's <a href="http://en.wikipedia.org/wiki/Webp">WebP</a>
-or Google's <a href="http://code.google.com/speed/webp/">webp</a> pages.
-
 <DT><A NAME=dxlib HREF=#axlib><STRONG>xlib</strong></a>
 <DD>Creates an <A HREF="http://en.wikipedia.org/wiki/Xlib" target="blank">Xlib</a> window and displays the output there.
 
-</dd></dt></dd></dt></dd></dt></p></dd></dt></p></dd></dt></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></p></dd></dt></dd></dt></p></dd></dt></dt></p></dd></dt></dd></dt></dt></dt></dd></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></dd></dt></dd></dt></dd></dt></dt></dd></dt></dd></dt></p></dd></dt></p></spacer></p></spacer></p></dd></dt></dt></dt></dd></dt></dl>
+</dd></dt></dd></dt></p></dd></dt></p></dd></dt></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></p></dd></dt></dd></dt></p></dd></dt></dt></p></dd></dt></dd></dt></dt></dt></dd></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></dd></dt></dd></dt></dd></dt></dt></dd></dt></dd></dt></p></dd></dt></p></spacer></p></spacer></p></dd></dt></dt></dt></dd></dt></dl>
 <HR />
 <H1 align=CENTER><A NAME=dimage_fmts>Image Formats</a></h1>
 <HR />
@@ -644,7 +629,7 @@ plugin library.
 This presents the most general case. A given installation may not provide
 one of the plugins, in which case, that transformation is not possible.
 <BR />
-<IMG WIDTH="80%" SRC="/doc/info/plugins.png" />
+<IMG WIDTH="80%" SRC="plugins.png" />
 <HR />
 <H2>Notes</h2>
 <OL TYPE="1">
@@ -660,16 +645,16 @@ Note, in particular, that "'E" is not a unique id for multiedges.
       </div>
   <div class="block block-comment" id="block-comment-0">
     <h2 class="title">Recent comments</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/manual-install-zip-windows-path-problem#comment-1272">There were some unwanted</a><br />2 days 4 hours ago</li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect#comment-1271">No, 2.28 is a release</a><br />5 days 5 hours ago</li>
-<li><a href="/content/memory-leek-or-missing-some-dispose-function#comment-1269">Ok finaly i have time to test</a><br />5 days 11 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1268">Well, there should be an</a><br />1 week 22 hours ago</li>
-<li><a href="/content/multicolor-edges#comment-1267">Sorry, yes, the parallel edge</a><br />1 week 22 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1266">I want more and more ...</a><br />1 week 2 days ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1265">Graphviz provides a small</a><br />1 week 3 days ago</li>
-<li><a href="/content/what-really-needed-graph-visualization-rest-web-service-cloud#comment-1264">Actually, we have been</a><br />1 week 4 days ago</li>
-<li><a href="/content/help-embedding-svg-files#comment-1263">What machine are you running</a><br />1 week 4 days ago</li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz#comment-1262">Graphviz is a collection of</a><br />1 week 5 days ago</li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/there-rankrandom#comment-254">Is there a rank=&quot;random&quot;?</a><br />11 hours 57 min ago</li>
+<li><a href="/content/bus-style-edge#comment-253">RE:  &quot;Bus&quot; style edge.</a><br />1 day 3 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-252">&quot;Bus&quot; style edge.</a><br />1 day 7 hours ago</li>
+<li><a href="/content/pdf-version-generated-dot-tpdf#comment-251">PDF version generated by dot -Tpdf</a><br />1 day 7 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-250">RE:  &quot;Bus&quot; style edge.</a><br />2 days 21 hours ago</li>
+<li><a href="/content/pdf-version-generated-dot-tpdf#comment-249">PDF version generated by dot -Tpdf</a><br />3 days 17 hours ago</li>
+<li><a href="/content/python-bindings-are-not-installed-0#comment-248">python bindings are not installed</a><br />4 days 21 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-247">&quot;Bus&quot; style edge.</a><br />4 days 23 hours ago</li>
+<li><a href="/content/bus-style-edge#comment-246">&quot;Bus&quot; style edge.</a><br />4 days 23 hours ago</li>
+<li class="last"><a href="/content/there-change-log-available#comment-245">Failed to build and install Grapviz 2.28.0 on zLinux</a><br />5 days 4 hours ago</li>
 </ul></div></div>
  </div>
               </div>
@@ -677,11 +662,11 @@ Note, in particular, that "'E" is not a unique id for multiedges.
     <td id="sidebar-right">
         <div class="block block-forum" id="block-forum-1">
     <h2 class="title">New forum topics</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/avoid-stretching-table-inside-td">Avoid stretching table inside td.</a></li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect" title="1 comment">Smyrna.exe failed to start because its side-by-side configuration is incorrect</a></li>
-<li><a href="/content/multicolor-edges" title="1 comment">Multicolor edges</a></li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow" title="3 comments">Help！ How to custom graphviz lines (not arrow)?</a></li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz" title="1 comment">can i read text file into graphviz </a></li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/still-having-issues-fdp-layouts">Still having issues with fdp layouts.</a></li>
+<li><a href="/content/labels-nodes-output-dot">Labels of the nodes in the output of dot</a></li>
+<li><a href="/content/there-rankrandom" title="1 comment">Is there a rank=&quot;random&quot;?</a></li>
+<li><a href="/content/flows">Flow&#039;s</a></li>
+<li class="last"><a href="/content/how-prevent-unnecesary-link-crossing-0">How to prevent unnecesary link crossing</a></li>
 </ul></div><div class="more-link"><a href="/forum" title="Read the latest forum topics.">more</a></div></div>
  </div>
     </td>  </tr>

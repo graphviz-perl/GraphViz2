@@ -50,7 +50,7 @@ for $td (@td)
 
 $root -> delete();
 
-$file_name = File::Spec -> catfile('data', 'node.shapes.dat')
+$file_name = File::Spec -> catfile('data', 'node.shapes.dat');
 
 open(OUT, '>', $file_name) || die "Can't open(> $file_name): $!";
 print OUT map{"$_\n"} sort @shape;
