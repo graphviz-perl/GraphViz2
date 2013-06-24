@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Demonstrates simple records.
+# Annotation: Nested records using strings as labels.
 
 use strict;
 use warnings;
@@ -31,7 +31,7 @@ my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},
 	global => {directed => 1},
-	graph  => {label => 'Simple records'},
+	graph  => {label => "Record demo $id - Nested records using strings as labels"},
 	logger => $logger,
 	node   => {shape => 'record'},
 );

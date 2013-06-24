@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 141)">
 <title>Perl</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-141 676,-141 676,5 -4,5"/>
-<text text-anchor="middle" x="335.5" y="-7.8" font-family="Times,serif" font-size="14.00">Simple records</text>
+<text text-anchor="middle" x="335.5" y="-7.8" font-family="Times,serif" font-size="14.00">Record demo 1 &#45; Nested records using strings as labels</text>
 <!-- struct1 -->
 <g id="node1" class="node"><title>struct1</title>
 <polygon fill="none" stroke="black" points="0,-99 0,-135 136,-135 136,-99 0,-99"/>

@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.10  Mon Jun 24 11:05:00 2013
+	- Update reserved words (arrow shapes etc) stored within the source code, by running scripts/extract.*.pl
+		and storing the output in lib/GraphViz2.pm after the __DATA__ token. Yes, I know this is hard-coding.
+		See the amazing module Data::Section::Simple for details.
+	- Rename CHANGES to Changes as per CPAN::Changes::SPEC.
+	- Reformat the POD in lib/GraphViz2.pm slightly.
+
 2.09  Fri May 31 09:57:00 2013
 	- Re-write the code in Build.PL and Makefile.PL which checks for Graphviz (dot) being installed,
 		since the previous code, using a pipe, was failing on some versions of Windows.
