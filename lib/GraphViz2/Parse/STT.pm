@@ -107,23 +107,23 @@ L<GraphViz2::Parse::STT> - Visualize a Set::FA::Element state transition table a
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Parse::STT;
-	
+
 	use Log::Handler;
-	
+
 	use Perl6::Slurp;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -133,23 +133,23 @@ L<GraphViz2::Parse::STT> - Visualize a Set::FA::Element state transition table a
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph)  = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
-		 global => {directed => 1, record_orientation => 'horizontal'},
+		 global => {directed => 1},
 		 graph  => {rankdir => 'TB'},
 		 logger => $logger,
 		 node   => {color => 'green', shape => 'oval'},
 		);
 	my($g)  = GraphViz2::Parse::STT -> new(graph => $graph);
 	my $stt = slurp(File::Spec -> catfile('t', 'sample.stt.1.dat') );
-	
+
 	$g -> create(stt => $stt);
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.stt.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/parse.stt.pl (L<GraphViz2/Scripts Shipped with this Module>).

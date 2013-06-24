@@ -32,7 +32,7 @@ $logger -> add
 my($graph)  = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
-	 global => {directed => 1, record_orientation => 'horizontal'},
+	 global => {directed => 1},
 	 graph  => {rankdir => 'LR'},
 	 logger => $logger,
 	 node   => {color => 'green', shape => 'oval'},

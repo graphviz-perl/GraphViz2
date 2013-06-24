@@ -42,7 +42,7 @@ sub is_perl_recent
 
 	my(@version) = split(/\./, $Config{version});
 
-	die "Please install Perl V 5.12 or later\n" if ($version[1] < 12);
+	die "Please install Perl V 5.14 or later\n" if ($version[1] < 14);
 
 } # End of is_perl_recent.
 

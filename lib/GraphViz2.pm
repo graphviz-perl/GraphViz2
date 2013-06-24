@@ -1168,19 +1168,51 @@ Here, [] indicates an optional parameter.
 %hash is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
 the same way as the node parameters in the calls to default_node(%hash), new(node => {}) and push_subgraph(node => {}).
 
-The attribute name 'label' may point to a string or an arrayref. If it is an arrayref:
+The attribute name 'label' may point to a string or an arrayref.
+
+See scripts/html.label.pl and scripts/record.*.pl for sample code.
+
+=head3 If it is a string...
+
+The string is the label.
+
+The string may contain ports and orientation markers ({}).
+
+=head3 If it is an arrayref of strings...
 
 =over 4
 
+=item o The shape of the node is forced to be a record
+
+=item o Each element in the array defines a field in the record
+
+These fields are combined into a single node
+
 =item o Each element is treated as a label
 
-=item o Each label is given a port number (1 .. N)
+=item o Each label is given a port name (1 .. N) of the form "port<$port_count>"
 
-=item o Each label + port appears in a separate, small, rectangle within the final node
+=item o Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
-=item o These rectangles are combined into a single node
+=back
 
-=item o The shape of this node is forced to be a record
+=head3 If it is an arrayref of hashrefs...
+
+=over 4
+
+=item o The shape of the node is forced to be a record
+
+=item o Each element in the array defines a field in the record
+
+=item o Each element is treated as a hashref with keys 'text' and 'port'
+
+The 'port' key is optional.
+
+=item o The value of the 'text' key is the label
+
+=item o The value of the 'port' key is the port
+
+The format is "<$port_name>".
 
 =item o Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
@@ -1837,14 +1869,6 @@ The default for L<GraphViz2::Parse::ISA> is to plot from the bottom to the top (
 This is the opposite of L<GraphViz2>.
 
 See also dependency.pl, above.
-
-=head2 scripts/parse.marpa.pl
-
-Demonstrates graphing a L<Marpa>-style grammar.
-
-Inputs from t/sample.marpa.1 and outputs to ./html/parse.marpa.svg by default.
-
-The input grammar was extracted from L<Graph::Easy::Marpa::Parser> V 0.70, before the grammar supported L<Graph::Easy>'s groups.
 
 =head2 scripts/parse.recdescent.pl
 

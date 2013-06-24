@@ -21,7 +21,6 @@ perl -Ilib scripts/macro.5.pl          > $DIR/macro.5.log
 perl -Ilib scripts/parse.data.pl       > $DIR/parse.data.log
 perl -Ilib scripts/parse.html.pl       > $DIR/parse.hml.log
 perl -Ilib scripts/parse.isa.pl        > $DIR/parse.isa.log
-perl -Ilib scripts/parse.marpa.pl      > $DIR/parse.marpa.log
 perl -Ilib scripts/parse.recdescent.pl > $DIR/parse.recdescent.log
 perl -Ilib scripts/parse.regexp.pl     > $DIR/parse.regexp.log
 perl -Ilib scripts/parse.stt.pl        > $DIR/parse.stt.log
@@ -34,6 +33,9 @@ perl -Ilib scripts/rank.sub.graph.1.pl > $DIR/rank.sub.graph.1.log
 perl -Ilib scripts/rank.sub.graph.2.pl > $DIR/rank.sub.graph.2.log
 perl -Ilib scripts/rank.sub.graph.3.pl > $DIR/rank.sub.graph.3.log
 perl -Ilib scripts/rank.sub.graph.4.pl > $DIR/rank.sub.graph.4.log
+perl -Ilib scripts/record.1.pl         > $DIR/record.1.log
+perl -Ilib scripts/record.2.pl         > $DIR/record.2.log
+perl -Ilib scripts/record.3.pl         > $DIR/record.3.log
 perl -Ilib scripts/sub.graph.pl        > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl    > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl          > $DIR/trivial.log
