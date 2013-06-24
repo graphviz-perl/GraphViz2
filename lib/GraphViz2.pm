@@ -72,8 +72,6 @@ sub add_edge
 		{
 			$new = 1;
 
-			$self -> log(debug => "=> Add node $name");
-
 			$self -> add_node(name => $name);
 		}
 	}
@@ -129,23 +127,45 @@ sub add_node
 
 	if (ref $label eq 'ARRAY')
 	{
-		my($lab, @label);
+		my($port_count) = 0;
 
-		for my $port (1 .. scalar @$label)
+		my(@label);
+		my($port);
+		my($text);
+
+		for my $index (0 .. scalar @$label - 1)
 		{
+			if (ref $$label[$index] eq 'HASH')
+			{
+				$port = $$label[$index]{port} || 0;
+				$text = $$label[$index]{text} || '';
+			}
+			else
+			{
+				$port_count++;
+
+				$port = "<port$port_count>";
+				$text = $$label[$index];
+			}
+
 			# HTML labels affect this code. Patches here must be replicated below.
 
-			($lab = $$label[$port - 1]) =~ s#([[\]])#\\$1#g;
-			$lab  =~ s#"#\\"#g if ($lab !~ /^</); # Escape double quotes if it's not an HTML label.
+			$text =~ s#([[\]])#\\$1#g;
+			$text =~ s#"#\\"#g if ($text !~ /^</); # Escape double quotes if it's not an HTML label.
 
-			push @label, "<port$port> $lab";
+			if (ref $$label[$index] eq 'HASH')
+			{
+				push @label, $port ? "$port $text" : $text;
+			}
+			else
+			{
+				push @label, "$port $text";
+			}
 		}
 
-		my(%global)      = %{$self -> global};
-		my($orientation) = $global{record_orientation};
-		$arg{label}      = join('|', @label);
-		$arg{label}      = "{$arg{label}}" if ($orientation eq 'vertical');
-		$arg{shape}      = 'record';
+		my(%global) = %{$self -> global};
+		$arg{label} = join('|', @label);
+		$arg{shape} = 'record';
 	}
 	elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($arg{label} =~ /^</) ) ) )
 	{
@@ -279,31 +299,30 @@ sub dependency
 
 sub _init
 {
-	my($self, $arg)                   = @_;
-	$$arg{command}                    = Set::Array -> new;
-	$$arg{dot_input}                  = '';
-	$$arg{dot_output}                 = '';
-	$$arg{edge}                       ||= {}; # Caller can set.
-	$$arg{edge_hash}                  = {};
-	$$arg{global}                     ||= {}; # Caller can set.
-	$$arg{global}{directed}           = $$arg{global}{directed} ? 'digraph' : 'graph';
-	$$arg{global}{driver}             ||= which('dot');
-	$$arg{global}{format}             ||= 'svg';
-	$$arg{global}{label}              ||= $$arg{global}{directed} eq 'digraph' ? '->' : '--';
-	$$arg{global}{name}               ||= 'Perl';
-	$$arg{global}{record_orientation} = $$arg{global}{record_orientation} && $$arg{global}{record_orientation} =~ /^(horizontal)$/ ? $1 : 'vertical';
-	$$arg{global}{record_shape}       = $$arg{global}{record_shape} && $$arg{global}{record_shape} =~ /^(M?record)$/ ? $1 : 'Mrecord';
-	$$arg{global}{strict}             ||= 0;
-	$$arg{global}{timeout}            ||= 10;
-	$$arg{graph}                      ||= {}; # Caller can set.
-	$$arg{logger}                     ||= ''; # Caller can set.
-	$$arg{node}                       ||= {}; # Caller can set.
-	$$arg{node_hash}                  = {};
-	$$arg{scope}                      = Set::Array -> new;
-	$$arg{subgraph}                   ||= {}; # Caller can set.
-	$$arg{valid_attributes}           = {};
-	$$arg{verbose}                    ||= 0;  # Caller can set.
-	$self                             = from_hash($self, $arg);
+	my($self, $arg)             = @_;
+	$$arg{command}              = Set::Array -> new;
+	$$arg{dot_input}            = '';
+	$$arg{dot_output}           = '';
+	$$arg{edge}                 ||= {}; # Caller can set.
+	$$arg{edge_hash}            = {};
+	$$arg{global}               ||= {}; # Caller can set.
+	$$arg{global}{directed}     = $$arg{global}{directed} ? 'digraph' : 'graph';
+	$$arg{global}{driver}       ||= which('dot');
+	$$arg{global}{format}       ||= 'svg';
+	$$arg{global}{label}        ||= $$arg{global}{directed} eq 'digraph' ? '->' : '--';
+	$$arg{global}{name}         ||= 'Perl';
+	$$arg{global}{record_shape} = $$arg{global}{record_shape} && $$arg{global}{record_shape} =~ /^(M?record)$/ ? $1 : 'Mrecord';
+	$$arg{global}{strict}       ||= 0;
+	$$arg{global}{timeout}      ||= 10;
+	$$arg{graph}                ||= {}; # Caller can set.
+	$$arg{logger}               ||= ''; # Caller can set.
+	$$arg{node}                 ||= {}; # Caller can set.
+	$$arg{node_hash}            = {};
+	$$arg{scope}                = Set::Array -> new;
+	$$arg{subgraph}             ||= {}; # Caller can set.
+	$$arg{valid_attributes}     = {};
+	$$arg{verbose}              ||= 0;  # Caller can set.
+	$self                       = from_hash($self, $arg);
 
 	$self -> load_valid_attributes;
 	$self -> validate_params('global',   %{$self -> global});
@@ -900,6 +919,10 @@ This key is optional.
 
 =item o record_orientation => /^(?:horizontal|vertical)$/
 
+Ignored as of V 2.10. This option will be removed in a future version.
+
+The following text applies to prior versions:
+
 This option affects how records are plotted. The value must be 'horizontal' or 'vertical'.
 
 The default is 'vertical', which suits L<GraphViz2::DBI>.
@@ -1150,7 +1173,7 @@ The attribute name 'label' may point to a string or an arrayref. If it is an arr
 
 =item o Each label is given a port number (1 .. N)
 
-=item o Each label + port appears in a separate, small, rectangle
+=item o Each label + port appears in a separate, small, rectangle within the final node
 
 =item o These rectangles are combined into a single node
 
@@ -1522,14 +1545,6 @@ You don't have to quote all node names in L<Graphviz|http://www.graphviz.org/>, 
 =head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
 
 Because the latter knows the data is a class structure. The former makes no assumptions about the nature of the data.
-
-=head2 I'm having trouble with ports
-
-The code in L<GraphViz2>'s add_edge() method assumes my convention that port names match /:port\d{1,}/.
-
-This matches the code in the add_node() method, where port names are generated.
-
-If you adopt this convention, you should have no problems.
 
 =head2 What happened to GraphViz::No?
 

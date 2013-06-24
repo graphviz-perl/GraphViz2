@@ -17,23 +17,23 @@ use Log::Handler;
 my($logger) = Log::Handler -> new;
 
 $logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel       => 'debug',
-		 message_layout => '%m',
-		 minlevel       => 'error',
-	 }
-	);
+(
+	screen =>
+	{
+		maxlevel       => 'debug',
+		message_layout => '%m',
+		minlevel       => 'error',
+	}
+);
 
 my($graph) = GraphViz2 -> new
-	(
-	 edge   => {color => 'grey'},
-	 global => {directed => 1, record_orientation => 'horizontal'},
-	 graph  => {rankdir => 'TB'},
-	 logger => $logger,
-	 node   => {shape => 'oval'},
-	);
+(
+	edge   => {color => 'grey'},
+	global => {directed => 1},
+	graph  => {rankdir => 'TB'},
+	logger => $logger,
+	node   => {shape => 'oval'},
+);
 
 $graph -> default_node(shape     => 'circle', style => 'filled');
 $graph -> default_edge(arrowsize => 4);
