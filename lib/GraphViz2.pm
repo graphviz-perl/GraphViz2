@@ -133,7 +133,7 @@ sub add_node
 		{
 			# HTML labels affect this code. Patches here must be replicated below.
 
-			($lab = $$label[$port - 1]) =~ s#([[\]{}])#\\$1#g;
+			($lab = $$label[$port - 1]) =~ s#([[\]])#\\$1#g;
 			$lab  =~ s#"#\\"#g if ($lab !~ /^</); # Escape double quotes if it's not an HTML label.
 
 			push @label, "<port$port> $lab";
@@ -153,7 +153,7 @@ sub add_node
 	{
 		# HTML labels affect this code. Patches here must be replicated above.
 
-		$arg{label} =~ s#([[\]{}])#\\$1#g;
+		$arg{label} =~ s#([[\]])#\\$1#g;
 		$arg{label} =~ s#"#\\"#g if ($arg{label} !~ /^</); # Escape double quotes if it's not an HTML label.
 	}
 
