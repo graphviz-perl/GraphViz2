@@ -1023,9 +1023,11 @@ This mechanism has the effect of hard-coding L<Graphviz|http://www.graphviz.org/
 
 Nevertheless, the implementation of these lists is handled differently from the way it was done in V 2.
 
-V 3 ships with a set of scripts, scripts/extract.*.pl, which retrieve pages from the L<Graphviz|http://www.graphviz.org/> web site and
-extract the current lists of valid attributes. These are then copied manually into the source code of L<GraphViz2>, meaning any time those
-lists change on the L<Graphviz|http://www.graphviz.org/> web site, it's a trivial matter to update the lists stored within this module.
+V 2 ships with a set of scripts, scripts/extract.*.pl, which retrieve pages from the
+L<Graphviz|http://www.graphviz.org/> web site and extract the current lists of valid attributes.
+
+These are then copied manually into the source code of L<GraphViz2>, meaning any time those lists change on the
+L<Graphviz|http://www.graphviz.org/> web site, it's a trivial matter to update the lists stored within this module.
 
 See L<GraphViz2/Scripts Shipped with this Module>.
 
