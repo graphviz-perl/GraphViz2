@@ -103,312 +103,7 @@
   <td><object data = "./parse.isa.svg">scripts/parse.isa.pl</object><br /><br />15 - Demonstrates graphing a Perl class hierarchy.</td>
 </tr>
 <tr>
-  <td>Input file # 16 - scripts/parse.marpa.pl:<br /><div class = "center">
-<table>
-<tr>
-  <td>			  {   # Graph stuff.</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;graph_definition&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/graph_sequence/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;graph_sequence&#39;, # 1 of 2.</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/node_definition/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;graph_sequence&#39;, # 2 of 2.</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/graph_sequence edge_definition node_definition/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {   # Node stuff.</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;node_definition&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/node_sequence/],</td>
-</tr>
-<tr>
-  <td>				  min =&gt; 0,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;node_sequence&#39;, # 1 of 2.</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/node_statement/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;node_statement&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/start_node node_name end_node attr_definition/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;node_sequence&#39;, # 2 of 2.</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/node_statement daisy_chain/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;start_node&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/left_bracket/],</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;start_node&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;node_name&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/node_name_id/],</td>
-</tr>
-<tr>
-  <td>				  min    =&gt; 0,</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;node_name_id&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;end_node&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/right_bracket/],</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;end_node&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {   # Attribute stuff.</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;attr_definition&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/attr_statement/],</td>
-</tr>
-<tr>
-  <td>				  min =&gt; 0,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;attr_statement&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/start_attribute attr_sequence end_attribute/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;start_attribute&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/left_brace/],</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;start_attribute&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;attr_sequence&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/attr_declaration/],</td>
-</tr>
-<tr>
-  <td>				  min =&gt; 1,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;attr_declaration&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/attr_name colon attr_value attr_terminator/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;attr_name&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/attr_name_id/],</td>
-</tr>
-<tr>
-  <td>				  min    =&gt; 1,</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;attr_name_id&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;attr_value&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/attr_value_id/],</td>
-</tr>
-<tr>
-  <td>				  min    =&gt; 1,</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;attr_value_id&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs =&gt; &#39;attr_terminator&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs =&gt; [qw/semi_colon/],</td>
-</tr>
-<tr>
-  <td>				  min =&gt; 1,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;end_attribute&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/right_brace/],</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;end_attribute&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {   # Edge stuff.</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;edge_definition&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/edge_name attr_definition/],</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-<tr>
-  <td>			  {</td>
-</tr>
-<tr>
-  <td>				  lhs    =&gt; &#39;edge_name&#39;,</td>
-</tr>
-<tr>
-  <td>				  rhs    =&gt; [qw/edge_id/],</td>
-</tr>
-<tr>
-  <td>				  action =&gt; &#39;edge_id&#39;,</td>
-</tr>
-<tr>
-  <td>			  },</td>
-</tr>
-</table>
-</div>
-</td>
-  <td><object data = "./parse.marpa.svg">scripts/parse.marpa.pl</object><br /><br />16 - Demonstrates graphing a Marpa grammar.</td>
-</tr>
-<tr>
-  <td>Input file # 17 - scripts/parse.recdescent.pl:<br /><div class = "center">
+  <td>Input file # 16 - scripts/parse.recdescent.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>	test1:	&quot;(&quot; &#39;the&#39; &quot;$::first&quot; /te+st/ is (&#39;easy&#39;)(s?)</td>
@@ -626,14 +321,14 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.recdescent.svg">scripts/parse.recdescent.pl</object><br /><br />17 - Demonstrates graphing a Parse::RecDescent-style grammar.</td>
+  <td><object data = "./parse.recdescent.svg">scripts/parse.recdescent.pl</object><br /><br />16 - Demonstrates graphing a Parse::RecDescent-style grammar.</td>
 </tr>
 <tr>
-  <td>Input file # 18 - scripts/parse.regexp.pl:<br /></td>
-  <td><object data = "./parse.regexp.svg">scripts/parse.regexp.pl</object><br /><br />18 - Demonstrates graphing a Perl regular expression.</td>
+  <td>Input file # 17 - scripts/parse.regexp.pl:<br /></td>
+  <td><object data = "./parse.regexp.svg">scripts/parse.regexp.pl</object><br /><br />17 - Demonstrates graphing a Perl regular expression.</td>
 </tr>
 <tr>
-  <td>Input file # 19 - scripts/parse.stt.pl:<br /><div class = "center">
+  <td>Input file # 18 - scripts/parse.stt.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>[&#39;foo&#39;, &#39;b&#39;, &#39;bar&#39;],</td>
@@ -656,10 +351,10 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.stt.svg">scripts/parse.stt.pl</object><br /><br />19 - Demonstrates graphing a Set::FA::Element's state transition table.</td>
+  <td><object data = "./parse.stt.svg">scripts/parse.stt.pl</object><br /><br />18 - Demonstrates graphing a Set::FA::Element's state transition table.</td>
 </tr>
 <tr>
-  <td>Input file # 20 - scripts/parse.xml.bare.pl:<br /><div class = "center">
+  <td>Input file # 19 - scripts/parse.xml.bare.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>&lt;person&gt;</td>
@@ -706,10 +401,10 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.xml.bare.svg">scripts/parse.xml.bare.pl</object><br /><br />20 - Demonstrates using XML::Bare to parse XML.</td>
+  <td><object data = "./parse.xml.bare.svg">scripts/parse.xml.bare.pl</object><br /><br />19 - Demonstrates using XML::Bare to parse XML.</td>
 </tr>
 <tr>
-  <td>Input file # 21 - scripts/parse.xml.pp.pl:<br /><div class = "center">
+  <td>Input file # 20 - scripts/parse.xml.pp.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>&lt;person&gt;</td>
@@ -756,10 +451,10 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.xml.pp.svg">scripts/parse.xml.pp.pl</object><br /><br />21 - Demonstrates using XML::Tiny to parse XML.</td>
+  <td><object data = "./parse.xml.pp.svg">scripts/parse.xml.pp.pl</object><br /><br />20 - Demonstrates using XML::Tiny to parse XML.</td>
 </tr>
 <tr>
-  <td>Input file # 22 - scripts/parse.yacc.pl:<br /><div class = "center">
+  <td>Input file # 21 - scripts/parse.yacc.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>   0  $accept : list $end</td>
@@ -2147,10 +1842,10 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.yacc.svg">scripts/parse.yacc.pl</object><br /><br />22 - Demonstrates graphing a byacc-style grammar.</td>
+  <td><object data = "./parse.yacc.svg">scripts/parse.yacc.pl</object><br /><br />21 - Demonstrates graphing a byacc-style grammar.</td>
 </tr>
 <tr>
-  <td>Input file # 23 - scripts/parse.yapp.pl:<br /><div class = "center">
+  <td>Input file # 22 - scripts/parse.yapp.pl:<br /><div class = "center">
 <table>
 <tr>
   <td>Conflicts:</td>
@@ -3253,65 +2948,65 @@
 </table>
 </div>
 </td>
-  <td><object data = "./parse.yapp.svg">scripts/parse.yapp.pl</object><br /><br />23 - Demonstrates graphing a yapp-style grammar.</td>
+  <td><object data = "./parse.yapp.svg">scripts/parse.yapp.pl</object><br /><br />22 - Demonstrates graphing a yapp-style grammar.</td>
 </tr>
 <tr>
-  <td>Input file # 24 - scripts/quote.pl:<br /></td>
-  <td><object data = "./quote.svg">scripts/quote.pl</object><br /><br />24 - Demonstrates (1) newlines and double-quotes in node names and labels, (2) justification - with a Graphviz bug.</td>
+  <td>Input file # 23 - scripts/quote.pl:<br /></td>
+  <td><object data = "./quote.svg">scripts/quote.pl</object><br /><br />23 - Demonstrates (1) newlines and double-quotes in node names and labels, (2) justification - with a Graphviz bug.</td>
 </tr>
 <tr>
-  <td>Input file # 25 - scripts/rank.sub.graph.1.pl:<br /></td>
-  <td><object data = "./rank.sub.graph.1.svg">scripts/rank.sub.graph.1.pl</object><br /><br />25 - Demonstrates subgraphs used to rank nodes horizontally (succinct version of code).</td>
+  <td>Input file # 24 - scripts/rank.sub.graph.1.pl:<br /></td>
+  <td><object data = "./rank.sub.graph.1.svg">scripts/rank.sub.graph.1.pl</object><br /><br />24 - Demonstrates subgraphs used to rank nodes horizontally (succinct version of code).</td>
 </tr>
 <tr>
-  <td>Input file # 26 - scripts/rank.sub.graph.2.pl:<br /></td>
-  <td><object data = "./rank.sub.graph.2.svg">scripts/rank.sub.graph.2.pl</object><br /><br />26 - Demonstrates subgraphs used to rank nodes horizontally (long version).</td>
+  <td>Input file # 25 - scripts/rank.sub.graph.2.pl:<br /></td>
+  <td><object data = "./rank.sub.graph.2.svg">scripts/rank.sub.graph.2.pl</object><br /><br />25 - Demonstrates subgraphs used to rank nodes horizontally (long version).</td>
 </tr>
 <tr>
-  <td>Input file # 27 - scripts/rank.sub.graph.3.pl:<br /></td>
-  <td><object data = "./rank.sub.graph.3.svg">scripts/rank.sub.graph.3.pl</object><br /><br />27 - Demonstrates subgraph name effects (non-cluster version).</td>
+  <td>Input file # 26 - scripts/rank.sub.graph.3.pl:<br /></td>
+  <td><object data = "./rank.sub.graph.3.svg">scripts/rank.sub.graph.3.pl</object><br /><br />26 - Demonstrates subgraph name effects (non-cluster version).</td>
 </tr>
 <tr>
-  <td>Input file # 28 - scripts/rank.sub.graph.4.pl:<br /></td>
-  <td><object data = "./rank.sub.graph.4.svg">scripts/rank.sub.graph.4.pl</object><br /><br />28 - Demonstrates subgraph name effects (cluster version).</td>
+  <td>Input file # 27 - scripts/rank.sub.graph.4.pl:<br /></td>
+  <td><object data = "./rank.sub.graph.4.svg">scripts/rank.sub.graph.4.pl</object><br /><br />27 - Demonstrates subgraph name effects (cluster version).</td>
 </tr>
 <tr>
-  <td>Input file # 29 - scripts/record.1.pl:<br /></td>
-  <td><object data = "./record.1.svg">scripts/record.1.pl</object><br /><br />29 - Nested records using strings as labels.</td>
+  <td>Input file # 28 - scripts/record.1.pl:<br /></td>
+  <td><object data = "./record.1.svg">scripts/record.1.pl</object><br /><br />28 - Nested records using strings as labels.</td>
 </tr>
 <tr>
-  <td>Input file # 30 - scripts/record.2.pl:<br /></td>
-  <td><object data = "./record.2.svg">scripts/record.2.pl</object><br /><br />30 - Nested records using an arrayref of hashrefs as labels.</td>
+  <td>Input file # 29 - scripts/record.2.pl:<br /></td>
+  <td><object data = "./record.2.svg">scripts/record.2.pl</object><br /><br />29 - Nested records using an arrayref of hashrefs as labels.</td>
 </tr>
 <tr>
-  <td>Input file # 31 - scripts/record.3.pl:<br /></td>
-  <td><object data = "./record.3.svg">scripts/record.3.pl</object><br /><br />31 - Deeply nested records using strings as labels.</td>
+  <td>Input file # 30 - scripts/record.3.pl:<br /></td>
+  <td><object data = "./record.3.svg">scripts/record.3.pl</object><br /><br />30 - Deeply nested records using strings as labels.</td>
 </tr>
 <tr>
-  <td>Input file # 32 - scripts/sub.graph.pl:<br /></td>
-  <td><object data = "./sub.graph.svg">scripts/sub.graph.pl</object><br /><br />32 - Demonstrates a subgraph (with a frame because the subgroup is called cluster_*).</td>
+  <td>Input file # 31 - scripts/sub.graph.pl:<br /></td>
+  <td><object data = "./sub.graph.svg">scripts/sub.graph.pl</object><br /><br />31 - Demonstrates a subgraph (with a frame because the subgroup is called cluster_*).</td>
 </tr>
 <tr>
-  <td>Input file # 33 - scripts/sub.sub.graph.pl:<br /></td>
-  <td><object data = "./sub.sub.graph.svg">scripts/sub.sub.graph.pl</object><br /><br />33 - Demonstrates a subsubgraph.</td>
+  <td>Input file # 32 - scripts/sub.sub.graph.pl:<br /></td>
+  <td><object data = "./sub.sub.graph.svg">scripts/sub.sub.graph.pl</object><br /><br />32 - Demonstrates a subsubgraph.</td>
 </tr>
 <tr>
-  <td>Input file # 34 - scripts/trivial.pl:<br /></td>
-  <td><object data = "./trivial.svg">scripts/trivial.pl</object><br /><br />34 - Demonstrates a trivial 3-node graph, with colors.</td>
+  <td>Input file # 33 - scripts/trivial.pl:<br /></td>
+  <td><object data = "./trivial.svg">scripts/trivial.pl</object><br /><br />33 - Demonstrates a trivial 3-node graph, with colors.</td>
 </tr>
 <tr>
-  <td>Input file # 35 - scripts/utf8.pl:<br /></td>
-  <td><object data = "./utf8.svg">scripts/utf8.pl</object><br /><br />35 - Demonstrates utf8 chars in labels.</td>
+  <td>Input file # 34 - scripts/utf8.pl:<br /></td>
+  <td><object data = "./utf8.svg">scripts/utf8.pl</object><br /><br />34 - Demonstrates utf8 chars in labels.</td>
 </tr>
 <tr>
-  <td>Input file # 36 - scripts/utf8.test.pl:<br /></td>
-  <td><object data = "./utf8.test.svg">scripts/utf8.test.pl</object><br /><br />36 - Demonstrates utf8 chars in labels.</td>
+  <td>Input file # 35 - scripts/utf8.test.pl:<br /></td>
+  <td><object data = "./utf8.test.svg">scripts/utf8.test.pl</object><br /><br />35 - Demonstrates utf8 chars in labels.</td>
 </tr>
 </table>
 
 <table align="center">
 	<tr>
-		<td>Last updated</td><td>2013-06-24 19:34:41</td>
+		<td>Last updated</td><td>2013-06-24 20:01:13</td>
 	</tr>
 	<tr>
 		<td align="center" colspan="2"><a href="http://savage.net.au/">Ron's Home page</td>
