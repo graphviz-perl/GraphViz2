@@ -52,7 +52,7 @@ sub add_edge
 	my($new)  = 0;
 	my($node) = $self -> node_hash;
 
-	my($port, %port);
+	my(@node);
 
 	for my $name ($from, $to)
 	{
@@ -60,12 +60,15 @@ sub add_edge
 
 		if ($name =~ m/^([^:]+)(:[^:]*)$/)
 		{
-			$name        = $1;
-			$port{$name} = $2;
+			$name = $1;
+
+			$self -> log(debug => "==> Found node $name");
+
+			push @node, [$name, $2];
 		}
 		else
 		{
-			$port{$name} = '';
+			push @node, [$name, ''];
 		}
 
 		if (! defined $$node{$name})
@@ -89,15 +92,15 @@ sub add_edge
 	push @{$$edge{$from}{$to} },
 	{
 		attributes => {%arg},
-		from_port  => $port{$from} || '',
-		to_port    => $port{$to}   || '',
+		from_port  => $node[0][1],
+		to_port    => $node[1][1],
 	};
 
 	$self -> edge_hash($edge);
 
 	# Add this edge to the DOT output string.
 
-	my($dot) = $self -> stringify_attributes(qq|"$from"$port{$from} ${$self -> global}{label} "$to"$port{$to}|, {%arg});
+	my($dot) = $self -> stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, {%arg});
 
 	$self -> command -> push($dot);
 	$self -> log(debug => "Added edge: $dot");
@@ -1986,7 +1989,7 @@ Demonstrates a string as a label, containing both ports and orientation ({}) mar
 
 Outputs to ./html/record.1.svg by default.
 
-See also scripts/html.labels.pl and scripts/record.2.pl for other label techniques.
+See also scripts/html.labels.pl and scripts/record.*.pl for other label techniques.
 
 =head2 scripts/record.2.pl
 
@@ -1994,7 +1997,15 @@ Demonstrates an arrayref of hashrefs as a label, containing both ports and orien
 
 Outputs to ./html/record.2.svg by default.
 
-See also scripts/html.labels.pl and scripts/record.1.pl for other label techniques.
+See also scripts/html.labels.pl and scripts/record.*.pl for other label techniques.
+
+=head2 scripts/record.3.pl
+
+Demonstrates a string as a label, containing ports and deeply nested orientation ({}) markers.
+
+Outputs to ./html/record.3.svg by default.
+
+See also scripts/html.labels.pl and scripts/record.*.pl for other label techniques.
 
 =head2 scripts/rank.sub.graph.4.pl
 
