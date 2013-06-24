@@ -7,6 +7,7 @@ Revision history for Perl extension GraphViz2.
 	- Remove restriction that port names in calls to add_edge() had to start with 'port'.
 		This was due to my misreading of the Graphviz docs, where all examples used a 'port' prefix.
 		See scripts/record.1.pl.
+	- Write an extended FAQ point about labels and ports, basically on scripts/record.*.pl.
 	- Update words/tokens (arrow shapes etc) stored within the source code, by running scripts/extract.*.pl
 		and storing the output in lib/GraphViz2.pm after the __DATA__ token. Yes, I know this is hard-coding.
 		See the amazing module Data::Section::Simple for details.

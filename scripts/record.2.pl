@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Nested records using strings as labels.
+# Annotation: Nested records using an arrayref of hashrefs as labels.
 
 use strict;
 use warnings;
@@ -31,7 +31,7 @@ my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},
 	global => {directed => 1},
-	graph  => {label => "Record demo $id - Nested records using strings as labels"},
+	graph  => {label => "Record demo $id - Nested records using an arrayref of hashrefs as labels"},
 	logger => $logger,
 	node   => {shape => 'record'},
 );

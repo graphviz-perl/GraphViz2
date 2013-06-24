@@ -58,7 +58,7 @@ sub add_edge
 	{
 		# Remove port, if any, from name.
 
-		if ($name =~ m/^(.+)(:.+)$/)
+		if ($name =~ m/^([^:]+)(:[^:]*)$/)
 		{
 			$name        = $1;
 			$port{$name} = $2;
@@ -1523,7 +1523,7 @@ Double-quotes are escaped when the label is I<not> an HTML label. See scripts/ht
 
 It would be nice to also escape | and <, but these characters are used in specifying ports in records.
 
-See the next point for details.
+See the next couple of points for details.
 
 =head2 A warning about L<Graphviz|http://www.graphviz.org/> and ports
 
@@ -1541,6 +1541,88 @@ The L<Graphviz|http://www.graphviz.org/> syntax for ports is a bit unusual:
 =back
 
 You don't have to quote all node names in L<Graphviz|http://www.graphviz.org/>, but some, such as digits, must be quoted, so I've decided to quote them all.
+
+=head2 How labels interact with ports
+
+You can specify labels with ports in these ways:
+
+=over 4
+
+=item o As a string
+
+From scripts/record.1.pl:
+
+	$graph -> add_node(name => 'struct3', label => "hello\nworld |{ b |{c|<here> d|e}| f}| g | h");
+
+Here, the string contains ports and orientation ({}) markers.
+
+Clearly, you must specify the field separator character '|' explicitly.
+
+Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again, from scripts/record.1.pl:
+
+$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
+
+The same label is specified in the next case.
+
+=item o As an arrayref of hashrefs
+
+From scripts/record.2.pl:
+
+	$graph -> add_node(name => 'struct3', label =>
+	[
+		{
+			text => "hello\nworld",
+		},
+		{
+			text => '{b',
+		},
+		{
+			text => '{c',
+		},
+		{
+			port => '<here>',
+			text => 'd',
+		},
+		{
+			text => 'e}',
+		},
+		{
+			text => 'f}',
+		},
+		{
+			text => 'g',
+		},
+		{
+			text => 'h',
+		},
+	]);
+
+Each hashref is a field, and hence you do not specify the field separator character '|'.
+
+Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again, from scripts/record.2.pl:
+
+$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
+
+The same label is specified in the previous case.
+
+=item o As an arrayref of strings
+
+From scripts/html.labels.pl:
+
+	$graph -> add_node(name => 'Oakleigh', shape => 'record', color => 'blue',
+		label => ['West Oakleigh', 'East Oakleigh']);
+
+Here, again, you do not specify the field separator character '|'.
+
+What happens is that each string is taken to be the label of a field, and each field is given
+an auto-generated port name of the form "<port$n>", where $n starts from 1.
+
+Here's how you refer to those ports, again from scripts/html.labels.pl:
+
+	$graph -> add_edge(from => 'Murrumbeena', to => 'Oakleigh:port2',
+		color => 'green', label => '<Drive<br/>Run<br/>Sprint>');
+
+=back
 
 =head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
 
@@ -1694,7 +1776,11 @@ This program was reverse-engineered from graphs/undirected/Heawood.gv in the dis
 
 Demonstrates a trivial 3-node graph, with colors and HTML labels.
 
+Also demonstrates an arrayref of strings as a label.
+
 Outputs to ./html/html.labels.svg by default.
+
+See also scripts/record.*.pl for other label techniques.
 
 =head2 scripts/macro.1.pl
 
@@ -1893,6 +1979,22 @@ Outputs to ./html/rank.sub.graph.2.svg by default.
 Demonstrates the effect of the name of a subgraph, when that name does not start with 'cluster'.
 
 Outputs to ./html/rank.sub.graph.3.svg by default.
+
+=head2 scripts/record.1.pl
+
+Demonstrates a string as a label, containing both ports and orientation ({}) markers.
+
+Outputs to ./html/record.1.svg by default.
+
+See also scripts/html.labels.pl and scripts/record.2.pl for other label techniques.
+
+=head2 scripts/record.2.pl
+
+Demonstrates an arrayref of hashrefs as a label, containing both ports and orientation ({}) markers.
+
+Outputs to ./html/record.2.svg by default.
+
+See also scripts/html.labels.pl and scripts/record.1.pl for other label techniques.
 
 =head2 scripts/rank.sub.graph.4.pl
 
