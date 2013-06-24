@@ -58,7 +58,7 @@ sub add_edge
 	{
 		# Remove port, if any, from name.
 
-		if ($name =~ m/^(.+)(:port\d{1,})$/)
+		if ($name =~ m/^(.+)(:.+)$/)
 		{
 			$name        = $1;
 			$port{$name} = $2;
@@ -71,6 +71,8 @@ sub add_edge
 		if (! defined $$node{$name})
 		{
 			$new = 1;
+
+			$self -> log(debug => "=> Add node $name");
 
 			$self -> add_node(name => $name);
 		}
@@ -97,7 +99,7 @@ sub add_edge
 
 	# Add this edge to the DOT output string.
 
-	my($dot) = $self -> stringify_attributes(qq|"$from"$port{$from} ${$self -> global}{label} "$to"$port{$to}|, {%arg}, 1);
+	my($dot) = $self -> stringify_attributes(qq|"$from"$port{$from} ${$self -> global}{label} "$to"$port{$to}|, {%arg});
 
 	$self -> command -> push($dot);
 	$self -> log(debug => "Added edge: $dot");
@@ -158,7 +160,7 @@ sub add_node
 	}
 
 	$$node{$name}{attributes} = {%arg};
-	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg}, 1);
+	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg});
 
 	$self -> command -> push($dot);
 	$self -> node_hash($node);
@@ -180,7 +182,7 @@ sub default_edge
 	$$scope{edge} = {%{$$scope{edge} }, %arg};
 	my($tos)      = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('edge', $$scope{edge}, 1) );
+	$self -> command -> push($self -> stringify_attributes('edge', $$scope{edge}) );
 	$self -> scope -> fill($scope, $tos, 1);
 	$self -> log(debug => 'Default edge: ' . join(', ', map{"$_ => $$scope{edge}{$_}"} sort keys %{$$scope{edge} }) );
 
@@ -200,7 +202,7 @@ sub default_graph
 	$$scope{graph} = {%{$$scope{graph} }, %arg};
 	my($tos)       = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('graph', $$scope{graph}, 1) );
+	$self -> command -> push($self -> stringify_attributes('graph', $$scope{graph}) );
 	$self -> scope -> fill($scope, $tos, 1);
 	$self -> log(debug => 'Default graph: ' . join(', ', map{"$_ => $$scope{graph}{$_}"} sort keys %{$$scope{graph} }) );
 
@@ -220,7 +222,7 @@ sub default_node
 	$$scope{node} = {%{$$scope{node} }, %arg};
 	my($tos)      = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('node', $$scope{node}, 1) );
+	$self -> command -> push($self -> stringify_attributes('node', $$scope{node}) );
 	$self -> scope -> fill($scope, $tos, 1);
 	$self -> log(debug => 'Default node: ' . join(', ', map{"$_ => $$scope{node}{$_}"} sort keys %{$$scope{node} }) );
 
@@ -240,7 +242,7 @@ sub default_subgraph
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
 	my($tos)          = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('subgraph', $$scope{subgraph}, 1) );
+	$self -> command -> push($self -> stringify_attributes('subgraph', $$scope{subgraph}) );
 	$self -> scope -> fill($scope, $tos, 1);
 	$self -> log(debug => 'Default subgraph: ' . join(', ', map{"$_ => $$scope{subgraph}{$_}"} sort keys %{$$scope{subgraph} }) );
 
@@ -614,7 +616,7 @@ sub run
 
 sub stringify_attributes
 {
-	my($self, $context, $option, $bracket) = @_;
+	my($self, $context, $option) = @_;
 	my($dot) = '';
 
 	for my $key (sort keys %$option)
@@ -626,7 +628,7 @@ sub stringify_attributes
 	{
 		$dot .= "\n";
 	}
-	elsif ($bracket && $dot)
+	elsif ($dot)
 	{
 		$dot = "$context [ $dot]\n";
 	}
@@ -1416,7 +1418,7 @@ This method performs a series of tasks:
 
 =back
 
-=head2 stringify_attributes($context, $option, $bracket)
+=head2 stringify_attributes($context, $option)
 
 Returns a string suitable to writing to the output stream.
 
@@ -1488,7 +1490,11 @@ Under Unix, output as PDF, and then try: lp -o fitplot html/parse.marpa.pdf.
 
 =head2 I'm having trouble with special characters in node names and labels
 
-L<GraphViz2> escapes these characters in those contexts: []{}.
+L<GraphViz2> escapes these characters in those contexts: [].
+
+Escpaing the 2 chars [] started with V 2.10. Previously, all of []{} were escaped, but {} are used in records
+to control the orientation of fields, so they should not have been escaped in the first place.
+See scripts/record.1.pl.
 
 Double-quotes are escaped when the label is I<not> an HTML label. See scripts/html.labels.pl for sample code using font color.
 

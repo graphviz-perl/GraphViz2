@@ -28,8 +28,8 @@
 </g>
 <!-- struct1&#45;&gt;struct2 -->
 <g id="edge1" class="edge"><title>struct1:f1&#45;&gt;struct2:f0</title>
-<path fill="none" stroke="grey" d="M101,-129C101,-99.586 58.9147,-107.547 49.0509,-86.8922"/>
-<polygon fill="grey" stroke="grey" points="52.4573,-86.0812 47,-77 45.6031,-87.5023 52.4573,-86.0812"/>
+<path fill="none" stroke="blue" d="M101,-129C101,-99.586 58.9147,-107.547 49.0509,-86.8922"/>
+<polygon fill="blue" stroke="blue" points="52.4573,-86.0812 47,-77 45.6031,-87.5023 52.4573,-86.0812"/>
 </g>
 <!-- struct3 -->
 <g id="node3" class="node"><title>struct3</title>
@@ -53,8 +53,8 @@
 </g>
 <!-- struct1&#45;&gt;struct3 -->
 <g id="edge2" class="edge"><title>struct1:f2&#45;&gt;struct3:here</title>
-<path fill="none" stroke="grey" d="M152,-129C152,-116.94 172.081,-93.5316 187.976,-76.8922"/>
-<polygon fill="grey" stroke="grey" points="190.859,-78.9492 195.336,-69.3469 185.848,-74.0614 190.859,-78.9492"/>
+<path fill="none" stroke="green" d="M152,-129C152,-116.94 172.081,-93.5316 187.976,-76.8922"/>
+<polygon fill="green" stroke="green" points="190.859,-78.9492 195.336,-69.3469 185.848,-74.0614 190.859,-78.9492"/>
 </g>
 </g>
 </svg>
