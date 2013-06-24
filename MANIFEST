@@ -14,7 +14,6 @@ data/output.formats.dat
 data/output.formats.html
 data/output.formats.old.html
 data/record.1.dot
-data/record.2.dot
 html/anonymous.svg
 html/cluster.svg
 html/dbi.schema.svg
@@ -32,7 +31,6 @@ html/macro.5.svg
 html/parse.data.svg
 html/parse.html.svg
 html/parse.isa.svg
-html/parse.marpa.svg
 html/parse.recdescent.svg
 html/parse.regexp.svg
 html/parse.stt.svg
@@ -47,6 +45,7 @@ html/rank.sub.graph.3.svg
 html/rank.sub.graph.4.svg
 html/record.1.svg
 html/record.2.svg
+html/record.3.svg
 html/sub.graph.svg
 html/sub.sub.graph.svg
 html/table.tx
@@ -92,7 +91,6 @@ scripts/macro.5.pl
 scripts/parse.data.pl
 scripts/parse.html.pl
 scripts/parse.isa.pl
-scripts/parse.marpa.pl
 scripts/parse.recdescent.pl
 scripts/parse.regexp.pl
 scripts/parse.stt.pl
@@ -106,6 +104,8 @@ scripts/rank.sub.graph.2.pl
 scripts/rank.sub.graph.3.pl
 scripts/rank.sub.graph.4.pl
 scripts/record.1.pl
+scripts/record.2.pl
+scripts/record.3.pl
 scripts/report.nodes.and.edges.pl
 scripts/report.valid.attributes.pl
 scripts/sqlite.foreign.keys.pl
@@ -127,7 +127,6 @@ t/lib/GrannySmith.pm
 t/lib/HybridVariety.pm
 t/pod.t
 t/sample.html
-t/sample.marpa.1.dat
 t/sample.recdescent.1.dat
 t/sample.recdescent.2.dat
 t/sample.stt.1.dat
