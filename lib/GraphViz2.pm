@@ -1579,7 +1579,7 @@ The L<Graphviz|http://www.graphviz.org/> syntax for ports is a bit unusual:
 
 Let me repeat - that is Graphviz syntax, not GraphViz2 syntax. In Perl, you must do this:
 
-	$graph -> add_edge(from => 'struct1:f1', to => 'struct2:f0',   color => 'blue');
+	$graph -> add_edge(from => 'struct1:f1', to => 'struct2:f0', color => 'blue');
 
 You don't have to quote all node names in L<Graphviz|http://www.graphviz.org/>, but some, such as digits, must be quoted, so I've decided to quote them all.
 
