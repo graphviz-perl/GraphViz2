@@ -1595,9 +1595,9 @@ From scripts/record.1.pl:
 
 	$graph -> add_node(name => 'struct3', label => "hello\nworld |{ b |{c|<here> d|e}| f}| g | h");
 
-Here, the string contains ports and orientation ({}) markers.
+Here, the string contains a port (<here>), field markers (|), and orientation markers ({}).
 
-Clearly, you must specify the field separator character '|' explicitly.
+Clearly, you must specify the field separator character '|' explicitly. In the next 2 cases, it is implicit.
 
 Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again, from scripts/record.1.pl:
 
@@ -1665,7 +1665,7 @@ Here's how you refer to those ports, again from scripts/html.labels.pl:
 
 =back
 
-See also the docs for the L</add_node(name => $node_name, [%hash])> method.
+See also the docs for the C<< add_node(name => $node_name, [%hash]) >> method.
 
 =head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
 
@@ -2017,7 +2017,7 @@ Outputs to ./html/rank.sub.graph.3.svg by default.
 
 =head2 scripts/record.1.pl
 
-Demonstrates a string as a label, containing both ports and orientation ({}) markers.
+Demonstrates a string as a label, containing both ports and orientation markers ({}).
 
 Outputs to ./html/record.1.svg by default.
 
@@ -2025,7 +2025,7 @@ See also scripts/html.labels.pl and scripts/record.*.pl for other label techniqu
 
 =head2 scripts/record.2.pl
 
-Demonstrates an arrayref of hashrefs as a label, containing both ports and orientation ({}) markers.
+Demonstrates an arrayref of hashrefs as a label, containing both ports and orientation markers ({}).
 
 Outputs to ./html/record.2.svg by default.
 
@@ -2033,7 +2033,7 @@ See also scripts/html.labels.pl and scripts/record.*.pl for other label techniqu
 
 =head2 scripts/record.3.pl
 
-Demonstrates a string as a label, containing ports and deeply nested orientation ({}) markers.
+Demonstrates a string as a label, containing ports and deeply nested orientation markers ({}).
 
 Outputs to ./html/record.3.svg by default.
 
