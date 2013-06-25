@@ -1170,8 +1170,6 @@ the same way as the node parameters in the calls to default_node(%hash), new(nod
 
 The attribute name 'label' may point to a string or an arrayref.
 
-See scripts/html.label.pl and scripts/record.*.pl for sample code.
-
 =head3 If it is a string...
 
 The string is the label.
@@ -1217,6 +1215,10 @@ The format is "<$port_name>".
 =item o Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
 =back
+
+See scripts/html.label.pl and scripts/record.*.pl for sample code.
+
+See also the FAQ topic L</How labels interact with ports>.
 
 For more details on this complex topic, see L<Records|http://www.graphviz.org/content/node-shapes#record> and L<Ports|http://www.graphviz.org/content/attrs#kportPos>.
 
@@ -1544,19 +1546,19 @@ and examine html/utf8.test.png and you'll see it matches html/utf8.test.svg in s
 
 =head2 How do I print output files?
 
-Under Unix, output as PDF, and then try: lp -o fitplot html/parse.marpa.pdf.
+Under Unix, output as PDF, and then try: lp -o fitplot html/parse.stt.pdf (or whatever).
 
 =head2 I'm having trouble with special characters in node names and labels
 
-L<GraphViz2> escapes these characters in those contexts: [].
+L<GraphViz2> escapes these 2 characters in those contexts: [].
 
-Escpaing the 2 chars [] started with V 2.10. Previously, all of []{} were escaped, but {} are used in records
+Escaping the 2 chars [] started with V 2.10. Previously, all of []{} were escaped, but {} are used in records
 to control the orientation of fields, so they should not have been escaped in the first place.
 See scripts/record.1.pl.
 
 Double-quotes are escaped when the label is I<not> an HTML label. See scripts/html.labels.pl for sample code using font color.
 
-It would be nice to also escape | and <, but these characters are used in specifying ports in records.
+It would be nice to also escape | and <, but these characters are used in specifying fields and ports in records.
 
 See the next couple of points for details.
 
@@ -1574,6 +1576,10 @@ The L<Graphviz|http://www.graphviz.org/> syntax for ports is a bit unusual:
 =item o This doesn't: "node_name:port5"
 
 =back
+
+Let me repeat - that is Graphviz syntax, not GraphViz2 syntax. In Perl, you must do this:
+
+	$graph -> add_edge(from => 'struct1:f1', to => 'struct2:f0',   color => 'blue');
 
 You don't have to quote all node names in L<Graphviz|http://www.graphviz.org/>, but some, such as digits, must be quoted, so I've decided to quote them all.
 
@@ -1658,6 +1664,8 @@ Here's how you refer to those ports, again from scripts/html.labels.pl:
 		color => 'green', label => '<Drive<br/>Run<br/>Sprint>');
 
 =back
+
+See also the docs for the L</add_node(name => $node_name, [%hash])> method.
 
 =head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
 
