@@ -41,7 +41,7 @@ $graph -> add_node(name => 'struct2', label => '<f0> one|<f1> two');
 $graph -> add_node(name => 'struct3', label =>
 [
 	{
-		text => "hello\nworld",
+		text => "hello\\nworld",
 	},
 	{
 		text => '{b',

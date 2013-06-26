@@ -31,7 +31,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.10';
+our $VERSION = '2.11';
 
 # -----------------------------------------------
 
@@ -61,8 +61,6 @@ sub add_edge
 		if ($name =~ m/^([^:]+)(:[^:]*)$/)
 		{
 			$name = $1;
-
-			$self -> log(debug => "==> Found node $name");
 
 			push @node, [$name, $2];
 		}
