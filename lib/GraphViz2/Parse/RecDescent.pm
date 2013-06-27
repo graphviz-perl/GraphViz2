@@ -11,7 +11,7 @@ use Parse::RecDescent;
 
 fieldhash my %graph => 'graph';
 
-our $VERSION = '2.11';
+our $VERSION = '2.12';
 
 # -----------------------------------------------
 

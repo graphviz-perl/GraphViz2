@@ -31,7 +31,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.11';
+our $VERSION = '2.12';
 
 # -----------------------------------------------
 
@@ -122,7 +122,7 @@ sub add_node
 	$$node{$name}{attributes} = {} if (! $$node{$name}{attributes});
 	$$node{$name}{attributes} = {%{$$node{$name}{attributes} }, %arg};
 	%arg                      = %{$$node{$name}{attributes} };
-	my($label)                = $arg{label};
+	my($label)                = $arg{label} || '';
 
 	# Handle ports.
 
@@ -168,11 +168,11 @@ sub add_node
 		$arg{label} = join('|', @label);
 		$arg{shape} = 'record';
 	}
-	elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($arg{label} =~ /^</) ) ) )
+	elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) )
 	{
 		# Do not escape anything.
 	}
-	elsif ($arg{label})
+	elsif ($label)
 	{
 		# HTML labels affect this code. Patches here must be replicated above.
 

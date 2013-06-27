@@ -1,5 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
+2.12  Thu Jun 27 14:40:00 2013
+	- Add scripts/plaintext.pl, which generates a 'Use of uninitialized value...' error under V 2.11 and,
+		after the fix, does not do so under V 2.12. Many thanx to Larry Marso for the (private email) report.
+
 2.11  Thu Jun 27 09:21:00 2013
 	- Correct spelling of Kent Fredric's name below, with apologies.
 	- Patch scripts/record.1.pl and scripts/record.2.pl to use '\\n' to get a literal '\n' in the output dot
