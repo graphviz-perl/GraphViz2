@@ -38,6 +38,7 @@ html/parse.xml.bare.svg
 html/parse.xml.pp.svg
 html/parse.yacc.svg
 html/parse.yapp.svg
+html/plaintext.svg
 html/quote.svg
 html/rank.sub.graph.1.svg
 html/rank.sub.graph.2.svg
@@ -98,6 +99,7 @@ scripts/parse.xml.bare.pl
 scripts/parse.xml.pp.pl
 scripts/parse.yacc.pl
 scripts/parse.yapp.pl
+scripts/plaintext.pl
 scripts/quote.pl
 scripts/rank.sub.graph.1.pl
 scripts/rank.sub.graph.2.pl
