@@ -38,7 +38,7 @@ my($graph) = GraphViz2 -> new
 
 $graph -> add_node(name => 'struct1', label => '<f0> left|<f1> mid dle|<f2> right');
 $graph -> add_node(name => 'struct2', label => '<f0> one|<f1> two');
-$graph -> add_node(name => 'struct3', label => "hello\nworld |{ b |{c|<here> d|e}| f}| g | h");
+$graph -> add_node(name => 'struct3', label => "hello\\nworld |{ b |{c|<here> d|e}| f}| g | h");
 
 $graph -> add_edge(from => 'struct1:f1', to => 'struct2:f0',   color => 'blue');
 $graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
