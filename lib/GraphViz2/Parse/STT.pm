@@ -9,7 +9,7 @@ use Hash::FieldHash ':all';
 
 fieldhash my %graph => 'graph';
 
-our $VERSION = '2.13';
+our $VERSION = '2.14';
 
 # -----------------------------------------------
 

@@ -1,5 +1,15 @@
 Revision history for Perl extension GraphViz2.
 
+2.14  Mon Jul  1 10:09:00 2013
+	- Patch push_subgraph() to correctly handle the case of an unnamed subgraph.
+		The code was outputting 'subgraph "" {...}'. The extra "" are now suppressed.
+		The code also handles the case of the name being undef.
+		There are no doc changes because the docs described precisely what should have happened, thusly:
+			So, without $name, 'subgraph {' is written to the output stream.
+			With $name, 'subgraph "$name" {' is written to the output stream.
+		Many thanx (again) to Larry Marso for reporting this, with sample code.
+	- Add scripts/unnamed.sub.graph.pl.
+
 2.13  Fri Jun 28 12:02:00 2013
 	- Oops - Patch scripts/record.1.pl as was allegedly done for V 2.11.
 

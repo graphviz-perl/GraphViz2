@@ -51,6 +51,7 @@ html/sub.graph.svg
 html/sub.sub.graph.svg
 html/table.tx
 html/trivial.svg
+html/unnamed.sub.graph.svg
 html/utf8.svg
 html/utf8.test.svg
 lib/GraphViz2.pm
@@ -114,6 +115,7 @@ scripts/sqlite.foreign.keys.pl
 scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
 scripts/trivial.pl
+scripts/unnamed.sub.graph.pl
 scripts/utf8.pl
 scripts/utf8.test.pl
 t/calc.input

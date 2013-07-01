@@ -31,7 +31,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.13';
+our $VERSION = '2.14';
 
 # -----------------------------------------------
 
@@ -469,7 +469,7 @@ sub push_subgraph
 {
 	my($self, %arg) = @_;
 	my($name) = delete $arg{name};
-	$name     = defined($name) ? $name : '';
+	$name     = defined($name) && length($name) ? qq|"$name"| : '';
 
 	$self -> validate_params('graph',    %{$arg{graph} });
 	$self -> validate_params('node',     %{$arg{node} });
@@ -485,7 +485,7 @@ sub push_subgraph
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %{$arg{subgraph} } };
 
 	$self -> scope -> push($scope);
-	$self -> command -> push(qq|\nsubgraph "$name"\n{\n|);
+	$self -> command -> push(qq|\nsubgraph $name\n{\n|);
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;
