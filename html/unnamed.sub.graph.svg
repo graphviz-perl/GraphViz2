@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 135)">
 <title>Perl</title>
 <polygon fill="white" stroke="white" points="-4,5 -4,-135 303,-135 303,5 -4,5"/>
-<text text-anchor="middle" x="149" y="-7.8" font-family="Times,serif" font-size="14.00">Named/Unnamed subgraphs</text>
+<text text-anchor="middle" x="149" y="-7.8" font-family="Times,serif" font-size="14.00">Named and unnamed subgraphs</text>
 <!-- Chadstone -->
 <g id="node1" class="node"><title>Chadstone</title>
 <polygon fill="none" stroke="magenta" points="119.304,-113 91.6521,-131 36.3479,-131 8.6959,-113 36.3479,-95 91.6521,-95 119.304,-113"/>
