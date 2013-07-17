@@ -3,16 +3,12 @@ Changelog.ini
 Changes
 data/arrow.shapes.dat
 data/arrow.shapes.html
-data/arrow.shapes.old.html
 data/attributes.dat
 data/attributes.html
-data/attributes.old.html
 data/node.shapes.dat
 data/node.shapes.html
-data/node.shapes.old.html
 data/output.formats.dat
 data/output.formats.html
-data/output.formats.old.html
 data/record.1.dot
 html/anonymous.svg
 html/circo.svg

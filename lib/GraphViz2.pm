@@ -304,7 +304,7 @@ sub escape_some_chars
 		{
 			# Escape if not escaped.
 
-			if ( ($i > 0) && ($s[$i - 1] ne '\\') )
+			if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) )
 			{
 				$label .= '\\';
 			}
@@ -315,7 +315,7 @@ sub escape_some_chars
 			{
 				# It's not a HTML label. Escape if not escaped.
 
-				if ( ($i > 0) && ($s[$i - 1] ne '\\') )
+				if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) )
 				{
 					$label .= '\\';
 				}
