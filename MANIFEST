@@ -15,6 +15,7 @@ data/output.formats.html
 data/output.formats.old.html
 data/record.1.dot
 html/anonymous.svg
+html/circo.svg
 html/cluster.svg
 html/dbi.schema.svg
 html/dependency.svg
@@ -72,6 +73,7 @@ META.json
 META.yml
 README
 scripts/anonymous.pl
+scripts/circo.pl
 scripts/cluster.pl
 scripts/dbi.schema.pl
 scripts/dependency.pl
