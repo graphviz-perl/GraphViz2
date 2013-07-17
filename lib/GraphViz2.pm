@@ -300,39 +300,29 @@ sub escape_some_chars
 
 	for my $i (0 .. $#s)
 	{
-		if ($s[$i] eq '[') || ($s[$i] eq ']')
+		if ( ($s[$i] eq '[') || ($s[$i] eq ']') )
 		{
 			# Escape if not escaped.
 
-			if ( ($i > 0) && ($s[$i - 1] eq '\\')
+			if ( ($i > 0) && ($s[$i - 1] ne '\\') )
 			{
-				$label .= $s[$i];
-			}
-			else
-			{
-				$label .= "\\$s[$i]";
+				$label .= '\\';
 			}
 		}
 		elsif ($s[$i] eq '"')
 		{
-			if (substr($label, 0, 1) eq '<')
+			if (substr($s, 0, 1) ne '<')
 			{
-				# It's a HTML label. Do nothing.
-			}
-			else
-			{
-				# Escape if not escaped.
+				# It's not a HTML label. Escape if not escaped.
 
-				if ( ($i > 0) && ($s[$i - 1] eq '\\')
+				if ( ($i > 0) && ($s[$i - 1] ne '\\') )
 				{
-					$label .= $s[$i];
-				}
-				else
-				{
-					$label .= "\\$s[$i]";
+					$label .= '\\';
 				}
 			}
 		}
+
+		$label .= $s[$i];
 	}
 
 	return $label;
