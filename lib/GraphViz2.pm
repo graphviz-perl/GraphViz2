@@ -31,7 +31,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.14';
+our $VERSION = '2.15';
 
 # -----------------------------------------------
 
@@ -149,10 +149,7 @@ sub add_node
 				$text = $$label[$index];
 			}
 
-			# HTML labels affect this code. Patches here must be replicated below.
-
-			$text =~ s#([[\]])#\\$1#g;
-			$text =~ s#"#\\"#g if ($text !~ /^</); # Escape double quotes if it's not an HTML label.
+			$text = $self -> escape_some_chars($text);
 
 			if (ref $$label[$index] eq 'HASH')
 			{
@@ -174,10 +171,7 @@ sub add_node
 	}
 	elsif ($label)
 	{
-		# HTML labels affect this code. Patches here must be replicated above.
-
-		$arg{label} =~ s#([[\]])#\\$1#g;
-		$arg{label} =~ s#"#\\"#g if ($arg{label} !~ /^</); # Escape double quotes if it's not an HTML label.
+		$arg{label} = $self -> escape_some_chars($arg{label});
 	}
 
 	$$node{$name}{attributes} = {%arg};
@@ -295,6 +289,55 @@ sub dependency
 	return $self;
 
 } # End of dependency.
+
+# -----------------------------------------------
+
+sub escape_some_chars
+{
+	my($self, $s) = @_;
+	my(@s)        = split(//, $s);
+	my($label)    = '';
+
+	for my $i (0 .. $#s)
+	{
+		if ($s[$i] eq '[') || ($s[$i] eq ']')
+		{
+			# Escape if not escaped.
+
+			if ( ($i > 0) && ($s[$i - 1] eq '\\')
+			{
+				$label .= $s[$i];
+			}
+			else
+			{
+				$label .= "\\$s[$i]";
+			}
+		}
+		elsif ($s[$i] eq '"')
+		{
+			if (substr($label, 0, 1) eq '<')
+			{
+				# It's a HTML label. Do nothing.
+			}
+			else
+			{
+				# Escape if not escaped.
+
+				if ( ($i > 0) && ($s[$i - 1] eq '\\')
+				{
+					$label .= $s[$i];
+				}
+				else
+				{
+					$label .= "\\$s[$i]";
+				}
+			}
+		}
+	}
+
+	return $label;
+
+} # End of escape_some_chars.
 
 # -----------------------------------------------
 
