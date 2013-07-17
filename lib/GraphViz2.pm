@@ -633,7 +633,7 @@ sub run
 
 	try
 	{
-		$self -> dot_input(join('', @{$self -> command -> print} ) . "}\n");
+		$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
 		$self -> log(debug => $self -> dot_input);
 
 		my($stdout, $stderr);
