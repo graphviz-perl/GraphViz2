@@ -1,6 +1,6 @@
 Revision history for Perl extension GraphViz2.
 
-2.15  Unreleased
+2.15  Mon Jul 29 14:42:00 2013
 	- Add scripts/circo.pl and it's output html/circo.svg.
 	- For non-HTML labels, escape double-quotes if they are not already escaped.
 		This allows pathological labels such as '\"'.
