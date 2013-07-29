@@ -77,9 +77,11 @@ WriteMakefile
  PREREQ_PM =>
  {
 	Algorithm::Dependency       => 1.110,
+	Algorithm::Dependency::Source::HoA => 1.110,
 	Capture::Tiny               => 0.10,
 	Class::ISA                  => 0.36,
 	Class::Load                 => 0.17,
+	Config                      => 0,
 	Date::Format                => 2.24,
 	Data::Section::Simple       => 0.02,
 	DBI                         => 1.616,

@@ -27,9 +27,11 @@
       "runtime" : {
          "requires" : {
             "Algorithm::Dependency" : "1.11",
+            "Algorithm::Dependency::Source::HoA" : "1.11",
             "Capture::Tiny" : "0.1",
             "Class::ISA" : "0.36",
             "Class::Load" : "0.17",
+            "Config" : "0",
             "DBI" : "1.616",
             "Data::Section::Simple" : "0.02",
             "Date::Format" : "2.24",
