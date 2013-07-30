@@ -11,7 +11,8 @@ Revision history for Perl extension GraphViz2.
 		Makefile.PL checker a bit quieter.
 	- Add Config V 0 to pre-reqs.
 	- Move t/pod.t to xt/author/.
-	- Switch from IPC::Run to IPC::Run3.
+	- Switch from IPC::Run to IPC::Run3. This after a discussion with Larry Knibb re the fact that his code is
+		hanging under Apache (mod_cgi) on Windows. He suggested using qx//, but I've gone for IPC::Run3.
 	- For all modules and some scripts, convert:
 			use strict;
 			use warnings;
