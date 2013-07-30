@@ -81,10 +81,6 @@
          "file" : "lib/GraphViz2/Parse/ISA.pm",
          "version" : "2.15"
       },
-      "GraphViz2::Parse::Marpa" : {
-         "file" : "lib/GraphViz2/Parse/Marpa.pm",
-         "version" : "2.15"
-      },
       "GraphViz2::Parse::RecDescent" : {
          "file" : "lib/GraphViz2/Parse/RecDescent.pm",
          "version" : "2.15"

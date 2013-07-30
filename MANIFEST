@@ -55,7 +55,6 @@ lib/GraphViz2.pm
 lib/GraphViz2/Data/Grapher.pm
 lib/GraphViz2/DBI.pm
 lib/GraphViz2/Parse/ISA.pm
-lib/GraphViz2/Parse/Marpa.pm
 lib/GraphViz2/Parse/RecDescent.pm
 lib/GraphViz2/Parse/Regexp.pm
 lib/GraphViz2/Parse/STT.pm
