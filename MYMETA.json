@@ -54,6 +54,8 @@
             "Try::Tiny" : "0.09",
             "XML::Bare" : "0",
             "XML::Tiny" : "2.06",
+            "charnames" : "0",
+            "open" : "0",
             "parent" : "0.225",
             "perl" : "v5.14.2",
             "strict" : "0",
