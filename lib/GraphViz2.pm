@@ -1,7 +1,11 @@
 package GraphViz2;
 
 use strict;
+use utf8;
 use warnings;
+use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
+use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
+use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use Data::Section::Simple 'get_data_section';
 
@@ -10,7 +14,7 @@ use File::Which; # For which().
 
 use Hash::FieldHash ':all';
 
-use IPC::Run;
+use IPC::Run3; # For run3().
 
 use Set::Array;
 
@@ -638,7 +642,18 @@ sub run
 
 		my($stdout, $stderr);
 
-		IPC::Run::run([$driver, "-T$format"], \$self -> dot_input, \$stdout, \$stderr);
+#		IPC::Run::run([$driver, "-T$format"], \$self -> dot_input, \$stdout, \$stderr);
+
+		run3
+			[$driver, "-T$format"],
+			\$self -> dot_input,
+			\$stdout,
+			\$stderr,
+			{
+				binmode_stdin  => ':utf8',
+				binmode_stdout => ':utf8',
+				binmode_stderr => ':utf8',
+			};
 
 		die $stderr if ($stderr);
 
@@ -647,7 +662,7 @@ sub run
 		if ($output_file)
 		{
 			open(OUT, '>', $output_file) || die "Can't open(> $output_file): $!";
-			binmode OUT;
+			#binmode OUT;
 			print OUT $stdout;
 			close OUT;
 
@@ -1933,7 +1948,9 @@ Inputs from t/sample.stt.1.dat and outputs to ./html/parse.stt.svg by default.
 
 The input grammar was extracted from L<Set::FA::Element>.
 
-You can patch the *.pl to read from t/sample.stt.2.dat, which was output by L<Graph::Easy::Marpa::DFA> V 0.70.
+You can patch the scripts/parse.stt.pl to read from t/sample.stt.2.dat instead of t/sample.stt.1.dat.
+t/sample.stt.2.dat was extracted from a obsolete version of L<Graph::Easy::Marpa>, i.e. V 1.*. The Marpa-based
+parts of the latter module were completely rewritten for V 2.*.
 
 =head2 scripts/parse.yacc.pl
 

@@ -1,7 +1,11 @@
 package GraphViz2::Parse::ISA;
 
 use strict;
+use utf8;
 use warnings;
+use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
+use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
+use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use Algorithm::Dependency;
 use Algorithm::Dependency::Source::HoA;
@@ -172,21 +176,21 @@ L<GraphViz2::Parse::ISA> - Visualize N Perl class hierarchies as a graph
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Parse::ISA;
-	
+
 	use Log::Handler;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -196,7 +200,7 @@ L<GraphViz2::Parse::ISA> - Visualize N Perl class hierarchies as a graph
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph) = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -206,16 +210,16 @@ L<GraphViz2::Parse::ISA> - Visualize N Perl class hierarchies as a graph
 		 node   => {color => 'blue', shape => 'Mrecord'},
 		);
 	my($parser) = GraphViz2::Parse::ISA -> new(graph => $graph);
-	
+
 	unshift @INC, 't/lib';
 
 	$parser -> add(class => 'Adult::Child::Grandchild', ignore => []);
 	$parser -> add(class => 'Hybrid', ignore => []);
 	$parser -> generate_graph;
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.code.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/parse.isa.pl (L<GraphViz2/Scripts Shipped with this Module>).
