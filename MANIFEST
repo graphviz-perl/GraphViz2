@@ -99,6 +99,7 @@ scripts/parse.xml.pp.pl
 scripts/parse.yacc.pl
 scripts/parse.yapp.pl
 scripts/plaintext.pl
+scripts/pod2html.sh
 scripts/quote.pl
 scripts/rank.sub.graph.1.pl
 scripts/rank.sub.graph.2.pl

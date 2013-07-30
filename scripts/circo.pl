@@ -7,7 +7,7 @@ use File::Spec;
 
 use GraphViz2;
 
-use IPC::Run;
+use IPC::Run3; # For run().
 
 use Log::Handler;
 
@@ -53,8 +53,7 @@ $graph -> run;
 
 my($stdout, $stderr);
 
-IPC::Run::run
-(
+run3
 	[
 		'circo',
 		'-Gpage=8.25,10.75',
@@ -64,8 +63,7 @@ IPC::Run::run
 	],
 	\$graph -> dot_input,
 	\$stdout,
-	\$stderr
-);
+	\$stderr;
 
 die $stderr if ($stderr);
 
@@ -80,16 +78,14 @@ my($circo_output) = $stdout;
 my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "circo.$format");
 
-IPC::Run::run
-(
+run3
 	[
 		'dot',
 		"-T$format",
 	],
 	\$circo_output,
 	\$stdout,
-	\$stderr
-);
+	\$stderr;
 
 die $stderr if ($stderr);
 

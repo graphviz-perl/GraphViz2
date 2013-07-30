@@ -43,7 +43,7 @@
             "HTML::TreeBuilder" : "4.2",
             "HTTP::Tiny" : "0.012",
             "Hash::FieldHash" : "0.1",
-            "IPC::Run" : "0.9",
+            "IPC::Run3" : "0.046",
             "Log::Handler" : "0.71",
             "Parse::RecDescent" : "1.965001",
             "Perl6::Slurp" : "0.03",

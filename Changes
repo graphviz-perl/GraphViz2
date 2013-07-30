@@ -12,7 +12,7 @@ Revision history for Perl extension GraphViz2.
 	- Add Config V 0 to pre-reqs.
 	- Move t/pod.t to xt/author/.
 	- Switch from IPC::Run to IPC::Run3.
-	- For all modules and scripts, convert:
+	- For all modules and some scripts, convert:
 			use strict;
 			use warnings;
 		into:

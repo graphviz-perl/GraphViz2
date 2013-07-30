@@ -104,7 +104,7 @@ $class -> new
 	HTML::Entities::Interpolate => 1.04,
 	HTML::TreeBuilder           => 4.2,
 	HTTP::Tiny                  => 0.012,
-	IPC::Run                    => 0.90,
+	IPC::Run3                   => 0.046,
 	Log::Handler                => 0.71,
 	parent                      => 0.225,
 	Parse::RecDescent           => 1.965001,
