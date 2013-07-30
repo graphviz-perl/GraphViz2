@@ -13,6 +13,9 @@ Revision history for Perl extension GraphViz2.
 	- Move t/pod.t to xt/author/.
 	- Switch from IPC::Run to IPC::Run3. This after a discussion with Larry Knibb re the fact that his code is
 		hanging under Apache (mod_cgi) on Windows. He suggested using qx//, but I've gone for IPC::Run3.
+		The other reason to switch is the overly-long bug list for IPC::Run, including Larry's report RT#87397.
+		I went thru the same issues with Lee when switching from system() to IPC::Run for V 2.02. See RT#76459.
+		IPC::Run3 has the advantage of letting me set binmode on various file handles.
 	- For all modules and some scripts, convert:
 			use strict;
 			use warnings;
