@@ -127,7 +127,6 @@ t/lib/Adult/Child2.pm
 t/lib/GoldenDelicious.pm
 t/lib/GrannySmith.pm
 t/lib/HybridVariety.pm
-t/pod.t
 t/sample.html
 t/sample.recdescent.1.dat
 t/sample.recdescent.2.dat
@@ -135,3 +134,4 @@ t/sample.stt.1.dat
 t/sample.stt.2.dat
 t/sample.xml
 t/test.t
+xt/author/pod.t
