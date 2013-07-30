@@ -1,6 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.15  Mon Jul 29 14:42:00 2013
+	- Remove GraphViz2::Parse::Marpa, until it's re-written to use Jeffrey Kegler's code to dump a grammar.
 	- Add scripts/circo.pl and it's output html/circo.svg.
 	- For non-HTML labels, escape double-quotes if they are not already escaped.
 		This allows pathological labels such as '\"'.
