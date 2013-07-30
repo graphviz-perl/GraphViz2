@@ -642,8 +642,6 @@ sub run
 
 		my($stdout, $stderr);
 
-#		IPC::Run::run([$driver, "-T$format"], \$self -> dot_input, \$stdout, \$stderr);
-
 		run3
 			[$driver, "-T$format"],
 			\$self -> dot_input,

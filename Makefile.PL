@@ -79,6 +79,7 @@ WriteMakefile
 	Algorithm::Dependency       => 1.110,
 	Algorithm::Dependency::Source::HoA => 1.110,
 	Capture::Tiny               => 0.10,
+	charnames                   => 0,
 	Class::ISA                  => 0.36,
 	Class::Load                 => 0.17,
 	Config                      => 0,
@@ -95,6 +96,7 @@ WriteMakefile
 	HTTP::Tiny                  => 0.012,
 	IPC::Run3                   => 0.046,
 	Log::Handler                => 0.71,
+	open                        => 0,
 	parent                      => 0.225,
 	Parse::RecDescent           => 1.965001,
 	perl                        => '5.14.2', # For the utf stuff.
