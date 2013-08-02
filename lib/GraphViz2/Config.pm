@@ -1,0 +1,168 @@
+package Graph::Easy::Marpa::Config;
+
+use strict;
+use utf8;
+use warnings;
+use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
+use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
+use charnames qw(:full :short);  # Unneeded in v5.16.
+
+use Config::Tiny;
+
+use File::HomeDir;
+
+use Moo;
+
+use Path::Tiny; # For path().
+
+has config =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has config_file_path =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+#	isa      => 'Str',
+	required => 0,
+);
+
+has section =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+#	isa      => 'Str',
+	required => 0,
+);
+
+our $VERSION = '2.00';
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self) = @_;
+	my($path) = path(File::HomeDir -> my_dist_config('Graph-Easy-Marpa'), '.htgraph.easy.marpa.conf');
+
+	$self -> read($path);
+
+} # End of BUILD.
+
+# -----------------------------------------------
+
+sub read
+{
+	my($self, $path) = @_;
+
+	$self -> config_file_path($path);
+
+	# Check [global].
+
+	$self -> config(Config::Tiny -> read($path) );
+
+	if (Config::Tiny -> errstr)
+	{
+		die Config::Tiny -> errstr;
+	}
+
+	$self -> section('global');
+
+	if (! ${$self -> config}{$self -> section})
+	{
+		die "Config file '$path' does not contain the section [@{[$self -> section]}]\n";
+	}
+
+	# Check [x] where x is host=x within [global].
+
+	$self -> section(${$self -> config}{$self -> section}{'host'});
+
+	if (! ${$self -> config}{$self -> section})
+	{
+		die "Config file '$path' does not contain the section [@{[$self -> section]}]\n";
+	}
+
+	# Move desired section into config, so caller can just use $self -> config to get a hashref.
+
+	$self -> config(${$self -> config}{$self -> section});
+
+}	# End of read.
+
+# --------------------------------------------------
+
+1;
+
+=pod
+
+=head1 NAME
+
+Graph::Easy::Marpa::Config - A Marpa-based parser for Graph::Easy::Marpa-style Graphviz files
+
+=head1 Synopsis
+
+See L<Graph::Easy::Marpa>.
+
+=head1 Description
+
+L<Graph::Easy::Marpa> provides a Marpa-based parser for Graph::Easy-style Graphviz files.
+
+=head1 Methods
+
+=head2 _init()
+
+For use by subclasses.
+
+Sets default values for object attributes.
+
+=head2 new()
+
+For use by subclasses.
+
+=head2 read()
+
+read() is called by new(). It does the actual reading of the config file.
+
+If the file can't be read, die is called.
+
+The path to the config file is determined by:
+
+	path(File::HomeDir -> my_dist_config('Graph-Easy-Marpa'), '.htgraph.easy.marpa.conf');
+
+During installation, you should have run scripts/copy.config.pl, which uses the same code, to move the config file
+from the config/ directory in the disto into an OS-dependent directory.
+
+The run-time code uses this module to look in the same directory as used by scripts/copy.config.pl.
+
+=head1 Version Numbers
+
+Version numbers < 1.00 represent development versions. From 1.00 up, they are production versions.
+
+=head1 Machine-Readable Change Log
+
+The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
+
+=head1 Support
+
+Email the author, or log a bug on RT:
+
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=Graph::Easy::Marpa>.
+
+=head1 Author
+
+L<Graph::Easy::Marpa> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2011.
+
+Home page: L<http://savage.net.au/index.html>.
+
+=head1 Copyright
+
+Australian copyright (c) 2011, Ron Savage.
+
+	All Programs of mine are 'OSI Certified Open Source Software';
+	you can redistribute them and/or modify them under the terms of
+	The Artistic License, a copy of which is available at:
+	http://www.opensource.org/licenses/index.html
+
+=cut

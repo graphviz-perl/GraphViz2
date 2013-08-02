@@ -12,7 +12,7 @@ use Data::Section::Simple 'get_data_section';
 use File::Temp ();
 use File::Which; # For which().
 
-use Hash::FieldHash ':all';
+use Moo;
 
 use IPC::Run3; # For run3().
 
@@ -20,22 +20,167 @@ use Set::Array;
 
 use Try::Tiny;
 
-fieldhash my %command          => 'command';
-fieldhash my %dot_input        => 'dot_input';
-fieldhash my %dot_output       => 'dot_output';
-fieldhash my %edge             => 'edge';
-fieldhash my %edge_hash        => 'edge_hash';
-fieldhash my %global           => 'global';
-fieldhash my %graph            => 'graph';
-fieldhash my %logger           => 'logger';
-fieldhash my %node             => 'node';
-fieldhash my %node_hash        => 'node_hash';
-fieldhash my %scope            => 'scope';
-fieldhash my %subgraph         => 'subgraph';
-fieldhash my %verbose          => 'verbose';
-fieldhash my %valid_attributes => 'valid_attributes';
+has command =>
+(
+	default  => sub{return Set::Array -> new},
+	is       => 'rw',
+#	isa      => 'Set::Array',
+	required => 0,
+);
+
+has dot_input =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+#	isa      => 'Str',
+	required => 0,
+);
+
+has dot_output =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+#	isa      => 'Str',
+	required => 0,
+);
+
+has edge =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has edge_hash =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has global =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has graph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has logger =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+#	isa      => 'Str',
+	required => 0,
+);
+
+has node =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has node_hash =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has scope =>
+(
+	default  => sub{return Set::Array -> new},
+	is       => 'rw',
+#	isa      => 'Set::Array',
+	required => 0,
+);
+
+has subgraph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
+has verbose =>
+(
+	default  => sub{return 0},
+	is       => 'rw',
+#	isa      => 'Int',
+	required => 0,
+);
+
+has valid_attributes =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
 
 our $VERSION = '2.16';
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self)   = @_;
+	my($global) =
+	{
+		directed     => $$arg{global}{directed} ? 'digraph' : 'graph',
+		driver       => which('dot'),
+		format       => 'svg',
+		label        => $$arg{global}{directed} eq 'digraph' ? '->' : '--',
+		name         => 'Perl',
+		record_shape => $$arg{global}{record_shape} && $$arg{global}{record_shape} =~ /^(M?record)$/ ? $1 : 'Mrecord',
+		strict       => 0,
+		timeout      => 10,
+	};
+
+	$self -> load_valid_attributes;
+	$self -> validate_params('global',   %{$self -> global});
+	$self -> validate_params('graph',    %{$self -> graph});
+	$self -> validate_params('node',     %{$self -> node});
+	$self -> validate_params('edge',     %{$self -> edge});
+	$self -> validate_params('subgraph', %{$self -> subgraph});
+	$self -> scope -> push
+		({
+			edge     => $self -> edge,
+			graph    => $self -> graph,
+			node     => $self -> node,
+			subgraph => $self -> subgraph,
+		 });
+
+	my(%global) = %{$self -> global};
+
+	$self -> log(debug => "Default global: $_ => $global{$_}") for sort keys %global;
+
+	my($command) = (${$self -> global}{strict} ? 'strict ' : '')
+		. (${$self -> global}{directed} . ' ')
+		. ${$self -> global}{name}
+		. "\n{\n";
+
+	$self -> command -> push($command);
+
+	$self -> default_graph;
+	$self -> default_node;
+	$self -> default_edge;
+
+} # End of BUILD.
 
 # -----------------------------------------------
 
@@ -335,68 +480,6 @@ sub escape_some_chars
 
 # -----------------------------------------------
 
-sub _init
-{
-	my($self, $arg)             = @_;
-	$$arg{command}              = Set::Array -> new;
-	$$arg{dot_input}            = '';
-	$$arg{dot_output}           = '';
-	$$arg{edge}                 ||= {}; # Caller can set.
-	$$arg{edge_hash}            = {};
-	$$arg{global}               ||= {}; # Caller can set.
-	$$arg{global}{directed}     = $$arg{global}{directed} ? 'digraph' : 'graph';
-	$$arg{global}{driver}       ||= which('dot');
-	$$arg{global}{format}       ||= 'svg';
-	$$arg{global}{label}        ||= $$arg{global}{directed} eq 'digraph' ? '->' : '--';
-	$$arg{global}{name}         ||= 'Perl';
-	$$arg{global}{record_shape} = $$arg{global}{record_shape} && $$arg{global}{record_shape} =~ /^(M?record)$/ ? $1 : 'Mrecord';
-	$$arg{global}{strict}       ||= 0;
-	$$arg{global}{timeout}      ||= 10;
-	$$arg{graph}                ||= {}; # Caller can set.
-	$$arg{logger}               ||= ''; # Caller can set.
-	$$arg{node}                 ||= {}; # Caller can set.
-	$$arg{node_hash}            = {};
-	$$arg{scope}                = Set::Array -> new;
-	$$arg{subgraph}             ||= {}; # Caller can set.
-	$$arg{valid_attributes}     = {};
-	$$arg{verbose}              ||= 0;  # Caller can set.
-	$self                       = from_hash($self, $arg);
-
-	$self -> load_valid_attributes;
-	$self -> validate_params('global',   %{$self -> global});
-	$self -> validate_params('graph',    %{$self -> graph});
-	$self -> validate_params('node',     %{$self -> node});
-	$self -> validate_params('edge',     %{$self -> edge});
-	$self -> validate_params('subgraph', %{$self -> subgraph});
-	$self -> scope -> push
-		({
-			edge     => $self -> edge,
-			graph    => $self -> graph,
-			node     => $self -> node,
-			subgraph => $self -> subgraph,
-		 });
-
-	my(%global) = %{$self -> global};
-
-	$self -> log(debug => "Default global: $_ => $global{$_}") for sort keys %global;
-
-	my($command) = (${$self -> global}{strict} ? 'strict ' : '')
-		. (${$self -> global}{directed} . ' ')
-		. ${$self -> global}{name}
-		. "\n{\n";
-
-	$self -> command -> push($command);
-
-	$self -> default_graph;
-	$self -> default_node;
-	$self -> default_edge;
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
 sub load_valid_attributes
 {
 	my($self) = @_;
@@ -474,18 +557,6 @@ sub log
 	return $self;
 
 } # End of log.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
 
 # -----------------------------------------------
 
@@ -839,7 +910,7 @@ is to provide access to all the latest options available to users of L<Graphviz|
 GraphViz2 V 1 is not backwards compatible with GraphViz V 2, despite the considerable similarity. It was not possible to maintain compatibility
 while extending support to all the latest features of L<Graphviz|http://www.graphviz.org/>.
 
-To ensure L<GraphViz2> is a light-weight module, L<Hash::FieldHash> has been used to provide getters and setters,
+To ensure L<GraphViz2> is a light-weight module, L<Moo> has been used to provide getters and setters,
 rather than L<Moose>.
 
 =head2 What is a Graph?
@@ -1771,9 +1842,9 @@ L</logger($logger_object)>.
 The 2 demo programs L</scripts/parse.html.pl> and L</scripts/parse.xml.bare.pl>, which both use L<XML::Bare>, assume your XML has a single
 parent container for all other containers. The programs use this container to provide a name for the root node of the graph.
 
-=head2 Why did you choose L<Hash::FieldHash> over L<Moose>?
+=head2 Why did you choose L<Moo> over L<Moose>?
 
-My policy is to use L<Hash::FieldHash> for stand-alone modules and L<Moose> for applications.
+L<Moo> is light-weight.
 
 =head1 Scripts Shipped with this Module
 

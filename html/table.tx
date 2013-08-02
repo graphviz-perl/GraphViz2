@@ -1,9 +1,0 @@
-<div class = "center">
-<table>
-:for $data -> $row {
-<tr>
-  <td><: $row.td :></td>
-</tr>
-:}
-</table>
-</div>

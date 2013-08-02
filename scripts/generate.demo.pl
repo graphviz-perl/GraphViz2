@@ -8,7 +8,7 @@ use Date::Format;
 use File::Spec;
 
 use GraphViz2;
-use GraphViz2::Utils;
+use GraphViz2::Filer;
 
 use Perl6::Slurp;
 
@@ -17,10 +17,10 @@ use Text::Xslate 'mark_raw';
 # ------------------------------------------------
 
 my($format)     = shift || 'svg';
-my($util)       = GraphViz2::Utils -> new;
+my($util)       = GraphViz2::Filer -> new;
 my(%annotation) = $util -> get_annotations;
 my(%script)     = $util -> get_scripts;
-my(%image_file) = $util -> get_files($format);
+my(%image_file) = $util -> get_files('html', $format);
 my($templater)  = Text::Xslate -> new
 (
   input_layer => '',

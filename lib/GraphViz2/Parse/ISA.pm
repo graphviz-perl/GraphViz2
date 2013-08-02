@@ -15,12 +15,25 @@ use Class::Load 'try_load_class';
 
 use GraphViz2;
 
-use Hash::FieldHash ':all';
+use Moo;
 
 use Tree::DAG_Node;
 
-fieldhash my %graph => 'graph';
-fieldhash my %isa   => 'isa';
+hash graph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+has => isa
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'HashRef',
+	required => 0,
+);
 
 our $VERSION = '2.16';
 
@@ -55,6 +68,29 @@ sub add
 
 # -----------------------------------------------
 
+sub BUILD
+{
+	my($self) = @_;
+
+	if (! $self -> graph)
+	{
+		$self -> graph
+		(
+			GraphViz2 -> new
+			(
+				edge   => {color => 'grey'},
+				global => {directed => 1},
+				graph  => {rankdir => 'BT'},
+				logger => '',
+				node   => {color => 'blue', shape => 'Mrecord'},
+			)
+		);
+	}
+
+} # End of BUILD.
+
+# -----------------------------------------------
+
 sub _build_dependency
 {
 	my($self, $tree, $isa) = @_;
@@ -79,46 +115,6 @@ sub generate_graph
 	return $self -> graph -> dependency(data => Algorithm::Dependency -> new(source => Algorithm::Dependency::Source::HoA -> new($self -> isa) ) );
 
 } # End of generate_graph.
-
-# -----------------------------------------------
-
-sub _init
-{
-	my($self, $arg) = @_;
-	$$arg{graph}    ||= {}; # Caller can set.
-	$$arg{isa}      = {};
-	$self           = from_hash($self, $arg);
-
-	if (! $self -> graph)
-	{
-		$self -> graph
-			(
-			 GraphViz2 -> new
-			 (
-			  edge   => {color => 'grey'},
-			  global => {directed => 1},
-			  graph  => {rankdir => 'BT'},
-			  logger => '',
-			  node   => {color => 'blue', shape => 'Mrecord'},
-			 )
-			);
-	}
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
 
 # -----------------------------------------------
 

@@ -5,13 +5,39 @@ use warnings;
 
 use GraphViz2;
 
-use Hash::FieldHash ':all';
+use Moo;
 
 use Parse::RecDescent;
 
-fieldhash my %graph => 'graph';
+hash graph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
 
 our $VERSION = '2.16';
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self) = @_;
+
+	$self -> graph
+	(
+		GraphViz2 -> new
+		(
+			edge   => {color => 'grey'},
+			global => {directed => 1},
+			graph  => {rankdir => 'TB'},
+			logger => '',
+			node   => {color => 'blue', shape => 'oval'},
+		)
+	);
+
+} # End of BUILD.
 
 # -----------------------------------------------
 
@@ -111,37 +137,6 @@ sub create
 
 # -----------------------------------------------
 
-sub _init
-{
-	my($self, $arg) = @_;
-	$$arg{graph}    ||= GraphViz2 -> new
-		(
-		 edge   => {color => 'grey'},
-		 global => {directed => 1},
-		 graph  => {rankdir => 'TB'},
-		 logger => '',
-		 node   => {color => 'blue', shape => 'oval'},
-		);
-	$self = from_hash($self, $arg);
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
-
-# -----------------------------------------------
-
 1;
 
 =pod
@@ -153,25 +148,25 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Parse::RecDescent;
-	
+
 	use Log::Handler;
-	
+
 	use Parse::RecDescent;
-	
+
 	use Perl6::Slurp;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -181,7 +176,7 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph) = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -193,12 +188,12 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 	my($g)      = GraphViz2::Parse::RecDescent -> new(graph => $graph);
 	my $grammar = slurp(File::Spec -> catfile('t', 'sample.recdescent.1.dat') );
 	my($parser) = Parse::RecDescent -> new($grammar);
-	
+
 	$g -> create(name => 'Grammar', grammar => $parser);
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.recdescent.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/parse.recdescent.pl (L<GraphViz2/Scripts Shipped with this Module>).

@@ -5,13 +5,39 @@ use warnings;
 
 use GraphViz2;
 
-use Hash::FieldHash ':all';
+use Moo;
 
 use Perl6::Slurp;
 
-fieldhash my %graph => 'graph';
+hash graph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
 
 our $VERSION = '2.16';
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self) = @_;
+
+	$self -> graph
+	(
+		GraphViz2 -> new
+		(
+			edge   => {color => 'grey'},
+			global => {directed => 1},
+			graph  => {rankdir => 'TB'},
+			logger => '',
+			node   => {color => 'blue', shape => 'oval'},
+		)
+	);
+
+} # End of BUILD.
 
 # -----------------------------------------------
 
@@ -84,37 +110,6 @@ sub create
 
 # -----------------------------------------------
 
-sub _init
-{
-	my($self, $arg) = @_;
-	$$arg{graph}    ||= GraphViz2 -> new
-		(
-		 edge   => {color => 'grey'},
-		 global => {directed => 1},
-		 graph  => {concentrate => 1, rankdir => 'TB'},
-		 logger => '',
-		 node   => {color => 'blue', shape => 'oval'},
-		);
-	$self = from_hash($self, $arg);
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
-
-# -----------------------------------------------
-
 1;
 
 =pod
@@ -126,21 +121,21 @@ L<GraphViz2::Parse::Yacc> - Visualize a yacc grammar as a graph
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Parse::Yacc;
-	
+
 	use Log::Handler;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -150,7 +145,7 @@ L<GraphViz2::Parse::Yacc> - Visualize a yacc grammar as a graph
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($graph)  = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -160,12 +155,12 @@ L<GraphViz2::Parse::Yacc> - Visualize a yacc grammar as a graph
 		 node   => {color => 'blue', shape => 'oval'},
 		);
 	my($g) = GraphViz2::Parse::Yacc -> new(graph => $graph);
-	
+
 	$g -> create(file_name => File::Spec -> catfile('t', 'calc3.output') );
-	
+
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.yacc.$format");
-	
+
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/parse.yacc.pl (L<GraphViz2/Scripts Shipped with this Module>).

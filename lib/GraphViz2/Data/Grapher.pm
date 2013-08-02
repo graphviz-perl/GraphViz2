@@ -5,18 +5,45 @@ use warnings;
 
 use GraphViz2;
 
-use Hash::FieldHash ':all';
-
 use HTML::Entities::Interpolate;
+
+use Moo;
 
 use Scalar::Util qw(blessed reftype);
 
 use Tree::DAG_Node;
 
-fieldhash my %current => 'current';
-fieldhash my %graph   => 'graph';
-fieldhash my %logger  => 'logger';
-fieldhash my %tree    => 'tree';
+has current =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Str',
+	required => 0,
+);
+
+has graph =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+has logger =>
+(
+	default  => sub{return ''},
+	is       => 'rw',
+	#isa     => 'Log::Handler',
+	required => 0,
+);
+
+has tree =>
+(
+	default  => sub{return Tree::DAG_Node -> new},
+	is       => 'rw',
+	#isa     => 'Tree::DAG_Node',
+	required => 0,
+);
 
 our $VERSION = '2.16';
 
@@ -74,6 +101,31 @@ sub add_record
 	return $self;
 
 } # End of add_record;
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self) = @_;
+
+	$self -> graph
+	(
+		GraphViz2 -> new
+		(
+			edge   => {color => 'grey'},
+			global => {directed => 1},
+			graph  => {rankdir => 'TB'},
+			logger => $self -> logger,
+			node   => {color => 'blue', shape => 'oval'},
+		)
+	);
+
+	# Make the root the 'current' node.
+	# get_reftype() will use current().
+
+	$self -> current($self -> tree);
+
+} # End of BUILD.
 
 # -----------------------------------------------
 
@@ -269,45 +321,6 @@ sub DESTROY
 
 # -----------------------------------------------
 
-sub _init
-{
-	my($self, $arg) = @_;
-	$$arg{current}  = '';
-	$$arg{logger}   ||= ''; # Caller can set.
-	$$arg{graph}    ||= GraphViz2 -> new
-		(
-		 edge   => {color => 'grey'},
-		 global => {directed => 1},
-		 graph  => {rankdir => 'TB'},
-		 logger => $$arg{logger},
-		 node   => {color => 'blue', shape => 'oval'},
-		);
-	$$arg{tree} = Tree::DAG_Node -> new;
-	$self       = from_hash($self, $arg);
-
-	# Make the root the 'current' node.
-	# get_reftype() will use current().
-
-	$self -> current($self -> tree);
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
-
-# -----------------------------------------------
-
 1;
 
 =pod
@@ -319,21 +332,21 @@ L<GraphViz2::Data::Grapher> - Visualize a data structure as a graph
 =head1 Synopsis
 
 	#!/usr/bin/env perl
-	
+
 	use strict;
 	use warnings;
-	
+
 	use File::Spec;
-	
+
 	use GraphViz2;
 	use GraphViz2::Data::Grapher;
-	
+
 	use Log::Handler;
-	
+
 	# ------------------------------------------------
-	
+
 	my($logger) = Log::Handler -> new;
-	
+
 	$logger -> add
 		(
 		 screen =>
@@ -343,13 +356,13 @@ L<GraphViz2::Data::Grapher> - Visualize a data structure as a graph
 			 minlevel       => 'error',
 		 }
 		);
-	
+
 	my($sub) = sub{};
-	my($s)   = 
+	my($s)   =
 	{
-		A => 
+		A =>
 		{
-			a => 
+			a =>
 			{
 			},
 			bbbbbb => $sub,
@@ -360,9 +373,9 @@ L<GraphViz2::Data::Grapher> - Visualize a data structure as a graph
 		{
 			b =>
 			{
-				a => 
+				a =>
 				{
-					a => 
+					a =>
 					{
 					},
 					b => sub{},
@@ -372,7 +385,7 @@ L<GraphViz2::Data::Grapher> - Visualize a data structure as a graph
 		},
 		els => [qw(element_1 element_2 element_3)],
 	};
-	
+
 	my($graph) = GraphViz2 -> new
 		(
 		 edge   => {color => 'grey'},
@@ -381,22 +394,22 @@ L<GraphViz2::Data::Grapher> - Visualize a data structure as a graph
 		 logger => $logger,
 		 node   => {color => 'blue', shape => 'oval'},
 		);
-	
+
 	my($g)           = GraphViz2::Data::Grapher -> new(graph => $graph, logger => $logger);
 	my($format)      = shift || 'svg';
 	my($output_file) = shift || File::Spec -> catfile('html', "parse.data.$format");
-	
+
 	$g -> create(name => 's', thing => $s);
 	$graph -> run(format => $format, output_file => $output_file);
-	
+
 	# If you did not provide a GraphViz2 object, do this
 	# to get access to the auto-created GraphViz2 object.
-	
+
 	#$g -> create(name => 's', thing => $s);
 	#$g -> graph -> run(format => $format, output_file => $output_file);
-	
+
 	# Or even
-	
+
 	#$g -> create(name => 's', thing => $s)
 	#-> graph
 	#-> run(format => $format, output_file => $output_file);

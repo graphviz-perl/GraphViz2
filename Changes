@@ -9,7 +9,14 @@ Revision history for Perl extension GraphViz2.
 		an unknown Graphviz problem. Let's hope /your/ version of Graphviz is up-to-date.
 	- Patch scripts/circo.pl: Add comment searched for by t/test.t, which is used to label html/index.html.
 	- Add scripts/generate.sh.pl to generate scripts/generate.png.sh and scripts/generate.svg.sh.
-		This adds 2 tests, and 2 images to the demo page, and fixes various typos in the *.sh files.
+		This adds 2 tests, and 2 images to the demo page, and fixes various typos in those *.sh files.
+	- Switch from Hash::FieldHash to Moo.
+	- Add config/.htgraphviz2 to help the author generate the demo.
+	- Add GraphViz2::Config.pm, and split GraphViz2::Filer off from GraphViz2::Utils, which also helps
+		generate the demo.
+	- Switch from Hash::FieldHash to Moo.
+	- Switch from Perl6::Slurp to File::Slurp. I needed File::Slurp's write_file for the new script
+		scripts/generate.sh.pl, so I decided to use it everywhere.
 
 2.15  Mon Jul 29 14:42:00 2013
 	- Remove GraphViz2::Parse::Marpa, until it's re-written to use Jeffrey Kegler's code to dump a grammar.

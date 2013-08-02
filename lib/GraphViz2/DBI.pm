@@ -9,17 +9,84 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use GraphViz2;
 
-use Hash::FieldHash ':all';
+use Moo;
 
-fieldhash my %catalog    => 'catalog';
-fieldhash my %dbh        => 'dbh';
-fieldhash my %graph      => 'graph';
-fieldhash my %schema     => 'schema';
-fieldhash my %table      => 'table';
-fieldhash my %table_info => 'table_info';
-fieldhash my %type       => 'type';
+hash catalog =>
+(
+	default  => sub{return undef},
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+hash dbh =>
+(
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 1,
+);
+
+hash graph =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+hash schema =>
+(
+	default  => sub{return undef},
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+hash table =>
+(
+	default  => sub{return '%'},
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+hash table_info =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
+
+hash type =>
+(
+	default  => sub{return 'TABLE'},
+	is       => 'rw',
+	#isa     => 'GraphViz2',
+	required => 0,
+);
 
 our $VERSION = '2.16';
+
+# -----------------------------------------------
+
+sub BUILD
+{
+	my($self) = @_;
+
+	$self -> graph
+	(
+		GraphViz2 -> new
+		(
+			edge   => {color => 'grey'},
+			global => {directed => 1},
+			graph  => {rankdir => 'TB'},
+			logger => '',
+			node   => {color => 'blue', shape => 'oval'},
+		)
+	);
+
+} # End of BUILD.
 
 # -----------------------------------------------
 
@@ -141,43 +208,6 @@ sub get_table_info
 	$self -> table_info(\%table_data);
 
 } # End of get_table_info.
-
-# -----------------------------------------------
-
-sub _init
-{
-	my($self, $arg) = @_;
-	$$arg{catalog}  ||= undef; # Caller can set.
-	$$arg{dbh}      = $$arg{dbh} || die 'Error: You must supply a dbh';
-	$$arg{graph}    ||= GraphViz2 -> new
-		(
-		 edge   => {color => 'grey'},
-		 global => {directed => 1},
-		 graph  => {rankdir => 'TB'},
-		 logger => '',
-		 node   => {color => 'blue', shape => 'oval'},
-		);
-	$$arg{schema}     ||= undef;   # Caller can set.
-	$$arg{table}      ||= '%';     # Caller can set.
-	$$arg{table_info} = {};
-	$$arg{type}       ||= 'TABLE'; # Caller can set.
-	$self             = from_hash($self, $arg);
-
-	return $self;
-
-} # End of _init.
-
-# -----------------------------------------------
-
-sub new
-{
-	my($class, %arg) = @_;
-	my($self)        = bless {}, $class;
-	$self            = $self -> _init(\%arg);
-
-	return $self;
-
-}	# End of new.
 
 # -----------------------------------------------
 
