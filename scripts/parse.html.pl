@@ -13,7 +13,7 @@ use GraphViz2::Data::Grapher;
 
 use Log::Handler;
 
-use File::Slurp; # For slurp().
+use File::Slurp; # For read_file().
 
 use XML::Bare;
 
@@ -39,7 +39,7 @@ my($graph) = GraphViz2 -> new
 	 logger => $logger,
 	 node   => {color => 'blue', shape => 'oval'},
 	);
-my $xml   = slurp(File::Spec -> catfile('t', 'sample.html'), {chomp => 1});
+my $xml   = read_file(File::Spec -> catfile('t', 'sample.html'), {chomp => 1});
 my($g)    = GraphViz2::Data::Grapher -> new(graph => $graph);
 my($bare) = XML::Bare -> new(text => $xml) -> simple;
 my(@key)  = sort keys %$bare;

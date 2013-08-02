@@ -13,7 +13,7 @@ use GraphViz2::Parse::STT;
 
 use Log::Handler;
 
-use File::Slurp; # For slurp().
+use File::Slurp; # For read_file().
 
 # ------------------------------------------------
 
@@ -38,7 +38,7 @@ my($graph)  = GraphViz2 -> new
 	 node   => {color => 'green', shape => 'oval'},
 	);
 my($g)  = GraphViz2::Parse::STT -> new(graph => $graph);
-my $stt = slurp(File::Spec -> catfile('t', 'sample.stt.1.dat') );
+my $stt = read_file(File::Spec -> catfile('t', 'sample.stt.1.dat') );
 
 $g -> create(stt => $stt);
 
