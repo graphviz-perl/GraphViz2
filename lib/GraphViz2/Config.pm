@@ -46,7 +46,7 @@ our $VERSION = '2.00';
 sub BUILD
 {
 	my($self) = @_;
-	my($path) = path(File::HomeDir -> my_dist_config('Graph-Easy-Marpa'), '.htgraph.easy.marpa.conf');
+	my($path) = path(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
 
 	$self -> read($path);
 
@@ -129,7 +129,7 @@ If the file can't be read, die is called.
 
 The path to the config file is determined by:
 
-	path(File::HomeDir -> my_dist_config('Graph-Easy-Marpa'), '.htgraph.easy.marpa.conf');
+	path(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
 
 During installation, you should have run scripts/copy.config.pl, which uses the same code, to move the config file
 from the config/ directory in the disto into an OS-dependent directory.
