@@ -20,7 +20,7 @@ perl -Ilib scripts/macro.3.pl           png > $DIR/macro.3.log
 perl -Ilib scripts/macro.4.pl           png > $DIR/macro.4.log
 perl -Ilib scripts/macro.5.pl           png > $DIR/macro.5.log
 perl -Ilib scripts/parse.data.pl        png > $DIR/parse.data.log
-perl -Ilib scripts/parse.html.pl        png > $DIR/parse.hml.log
+perl -Ilib scripts/parse.html.pl        png > $DIR/parse.html.log
 perl -Ilib scripts/parse.isa.pl         png > $DIR/parse.isa.log
 perl -Ilib scripts/parse.recdescent.pl  png > $DIR/parse.recdescent.log
 perl -Ilib scripts/parse.regexp.pl      png > $DIR/parse.regexp.log
@@ -41,7 +41,7 @@ perl -Ilib scripts/record.3.pl          png > $DIR/record.3.log
 perl -Ilib scripts/sub.graph.pl         png > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl     png > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl           png > $DIR/trivial.log
-perl -Ilib scripts/unnamed.sub.graph.pl png > $DIR/sub.graph.log
+perl -Ilib scripts/unnamed.sub.graph.pl png > $DIR/unnamed.sub.graph.log
 perl -Ilib scripts/utf8.pl              png > $DIR/utf8.log
 perl -Ilib scripts/utf8.test.pl         png > $DIR/utf8.test.log
 

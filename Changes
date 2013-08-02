@@ -8,8 +8,8 @@ Revision history for Perl extension GraphViz2.
 	- Remove special case code in scripts/jointed.edges.pl. It used png:gd instead of png, to work round
 		an unknown Graphviz problem. Let's hope /your/ version of Graphviz is up-to-date.
 	- Patch scripts/circo.pl: Add comment searched for by t/test.t, which is used to label html/index.html.
-	- Add some scripts to scripts/generate.*.sh: circo.pl, plaintext.pl and unnamed.sub.graph.pl.
-		This adds 2 tests, and 2 images to the demo page.
+	- Add scripts/generate.sh.pl to generate scripts/generate.png.sh and scripts/generate.svg.sh.
+		This adds 2 tests, and 2 images to the demo page, and fixes various typos in the *.sh files.
 
 2.15  Mon Jul 29 14:42:00 2013
 	- Remove GraphViz2::Parse::Marpa, until it's re-written to use Jeffrey Kegler's code to dump a grammar.

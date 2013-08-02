@@ -82,7 +82,7 @@ sub get_scripts
 	my($dir_name) = 'scripts';
 
 	opendir(INX, $dir_name);
-	my(@file_name) = sort grep{! -d $_ && /\.pl$/} readdir INX;
+	my(@file_name) = sort grep{! /(?:generate.*|report.*|sqlite.*)/} grep{! -d $_ && /\.pl$/} readdir INX;
 	closedir INX;
 
 	my(@line);
