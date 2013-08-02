@@ -42,7 +42,11 @@ for (keys %script)
 	$width = length($_) if (length($_) > $width);
 }
 
-my(@output) = <<'EOS';
+my($offset);
+
+for my $format (qw/png svg/)
+{
+	my(@output) = <<'EOS';
 #!/bin/bash
 
 DIR=/tmp
@@ -53,10 +57,6 @@ fi
 
 EOS
 
-my($offset);
-
-for my $format (qw/png svg/)
-{
 	for my $key (sort keys %script)
 	{
 		$offset = ' ' x ($width - length($key) );

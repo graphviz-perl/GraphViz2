@@ -7,6 +7,7 @@ Revision history for Perl extension GraphViz2.
 		Previously, names like '' or '0' were ignored, and such values defaulted to 'Perl'.
 	- Add scripts/record.4.pl to demonstrate setting record-style node attributes.
 	- Fix names of html/utf8*.svg and png files, as output by scripts/utf8*.pl.
+	- Fix scripts/generate.sh.pl which generates scripts/generate.(png,svg).sh.
 
 2.16  Fri Aug  2 10:54:00 2013
 	- Patch GraphViz2.pm to handle both SVG and (eg) PNG output. I failed to test this properly.
