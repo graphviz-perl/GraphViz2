@@ -8,15 +8,17 @@ use Date::Format;
 use File::Spec;
 
 use GraphViz2;
+use GraphViz2::Config;
 use GraphViz2::Filer;
 
-use File::Slurp; # For slurp().
+use File::Slurp; # For read_file().
 
 use Text::Xslate 'mark_raw';
 
 # ------------------------------------------------
 
 my($format)     = shift || 'svg';
+my($config)     = GraphViz2::Config -> new;
 my($util)       = GraphViz2::Filer -> new;
 my(%annotation) = $util -> get_annotations;
 my(%script)     = $util -> get_scripts;
@@ -24,7 +26,7 @@ my(%image_file) = $util -> get_files('html', $format);
 my($templater)  = Text::Xslate -> new
 (
   input_layer => '',
-  path        => 'html',
+  path        => $$config{template_path},
 );
 
 my(@data, %data);
@@ -33,7 +35,7 @@ my($line, @line);
 for my $key (keys %script)
 {
 	$data{$key} = '';
-	$line       = slurp $script{$key};
+	$line       = read_file $script{$key};
 	@line       = split(/\n/, $line);
 
 	for $line (@line)
@@ -45,7 +47,7 @@ for my $key (keys %script)
 				(
 				 'table.tx',
 				 {
-					 data => [map{ {td => $_} } split(/\n/, slurp(File::Spec -> catfile(map{s/\'//g; $_} @data) ) )],
+					 data => [map{ {td => $_} } split(/\n/, read_file(File::Spec -> catfile(map{s/\'//g; $_} @data) ) )],
 				 }
 				);
 
