@@ -12,7 +12,7 @@ use File::Slurp;    # For read_file().
 
 use Moo;
 
-our $VERSION = '2.00';
+our $VERSION = '2.16';
 
 # ------------------------------------------------
 
@@ -77,7 +77,7 @@ sub get_scripts
 	my($dir_name) = 'scripts';
 
 	opendir(INX, $dir_name);
-	my(@file_name) = sort grep{! /(?:.*config.*|generate.*|report.*|sqlite.*)/} grep{! -d $_ && /\.pl$/} readdir INX;
+	my(@file_name) = sort grep{! -d $_ && /\.pl$/} readdir INX;
 	closedir INX;
 
 	my(@line);

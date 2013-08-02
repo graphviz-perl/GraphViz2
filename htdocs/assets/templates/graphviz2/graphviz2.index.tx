@@ -17,8 +17,8 @@
 <table border = "1">
 :for $data -> $row {
 <tr>
-  <td>Input file # <: $row.count :> - <: $row.input :>:<br /><: $row.ge :></td>
-  <td><: $row.title :><br /><object data = "<: $row.image :>"></object><br />Output file # <: $row.count :> - <: $row.output :></td>
+  <td>Input file # <: $row.count :> - <: $row.script_name :>:<br /><: $row.note :></td>
+  <td><: $row.note :><br /><object data = "<: $row.image :>"></object><br />Output file # <: $row.count :> - <: $row.image_name :></td>
 </tr>
 :}
 </table>

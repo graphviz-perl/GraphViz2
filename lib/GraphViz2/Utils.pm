@@ -32,7 +32,7 @@ has config =>
 	required => 0,
 );
 
-our $VERSION = '2.00';
+our $VERSION = '2.16';
 
 # ------------------------------------------------
 
@@ -59,31 +59,30 @@ sub generate_demo_environment
 sub generate_demo_index
 {
 	my($self)          = @_;
-	my($data_dir_name) = 'data';
 	my($html_dir_name) = 'html';
-	my(%data_file)     = GraphViz2::Filer -> new -> get_files($data_dir_name, 'ge');
+	my(%script_file)   = GraphViz2::Filer -> new -> get_scripts;
 
 	my($html_name);
 	my($line, @line);
-	my($name);
+	my($note);
 
-	for my $key (sort keys %data_file)
+	for my $key (sort keys %script_file)
 	{
-		$name      = "$data_dir_name/$key.ge";
-		$line      = slurp $name, {utf8 => 1};
+		$line      = slurp $script_file{$key}, {utf8 => 1};
 		@line      = split(/\n/, $line);
+		$note      = $line[3];
+		$note      =~ s/Annotation: //;
 		$html_name = "$html_dir_name/$key.svg";
 
-		$data_file{$key} =
+		$script_file{$key} =
 		{
-			ge     => join('<br />', map{$Entitize{$_} || ''} @line),
-			input  => $name,
-			output => -e $html_name ? $html_name : 'None',
-			title  => $line[0],
+			image_name  => -e $html_name ? $html_name : '',
+			note        => $note,
+			script_name => $script_file{$key},
 		};
 	}
 
-	my(@key)       = sort keys %data_file;
+	my(@key)       = sort keys %script_file;
 	my($config)    = $self -> config;
 	my($templater) = Text::Xslate -> new
 	(
@@ -93,7 +92,7 @@ sub generate_demo_index
 	my($count) = 0;
 	my($index) = $templater -> render
 	(
-	'graph.easy.index.tx',
+	'graphviz2.index.tx',
 	{
 		default_css     => "$$config{css_url}/default.css",
 		data =>
@@ -101,12 +100,11 @@ sub generate_demo_index
 			map
 			{
 				{
-					count  => ++$count,
-					ge     => mark_raw($data_file{$_}{ge}),
-					image  => "./$_.svg",
-					input  => mark_raw($data_file{$_}{input}),
-					output => mark_raw($data_file{$_}{output}),
-					title  => mark_raw($data_file{$_}{title}),
+					count       => ++$count,
+					image       => "./$_.svg",
+					image_name  => $script_file{$_}{image_name},
+					note        => $script_file{$_}{note},
+					script_name => $script_file{$_}{script_name},
 				};
 			} @key
 			],
