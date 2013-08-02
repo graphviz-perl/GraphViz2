@@ -38,6 +38,6 @@ $graph -> add_edge(from => 'Two',   to => 'Five', label => 'Label has a ☃');
 $graph -> add_edge(from => 'Four',  to => 'Five', label => 'Label has a ✔');
 
 my($format)      = shift || 'svg';
-my($output_file) = shift || File::Spec -> catfile('html', "utf8.$format");
+my($output_file) = shift || File::Spec -> catfile('html', "utf8.1.$format");
 
 $graph -> run(format => $format, output_file => $output_file);

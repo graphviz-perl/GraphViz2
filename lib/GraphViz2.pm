@@ -132,7 +132,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.16';
+our $VERSION = '2.17';
 
 # -----------------------------------------------
 
@@ -146,8 +146,8 @@ sub BUILD
 		directed     => $$options{directed} ? 'digraph' : 'graph',
 		driver       => $dot,
 		format       => 'svg',
-		label        => $$options{directed} ? '->' : '--',
-		name         => $$options{name} ? $$options{name} : 'Perl',
+		label        => $$options{directed}      ? '->'                    : '--',
+		name         => defined($$options{name}) ? $$options{name}         : 'Perl',
 		record_shape => ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
 		strict       => 0,
 		timeout      => 10,
@@ -318,9 +318,9 @@ sub add_node
 			}
 		}
 
-		my(%global) = %{$self -> global};
 		$arg{label} = join('|', @label);
-		$arg{shape} = 'record';
+		my(%global) = %{$self -> global};
+		$arg{shape} = $arg{shape} || $global{record_shape};
 	}
 	elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) )
 	{
@@ -1305,7 +1305,19 @@ The string may contain ports and orientation markers ({}).
 
 =over 4
 
-=item o The shape of the node is forced to be a record
+=item o The node is forced to be a record
+
+The actual shape, 'record' or 'Mrecord', is set globally, with:
+
+	my($graph) = GraphViz2 -> new
+	(
+		global => {record_shape => 'record'}, # Override default 'Mrecord'.
+		...
+	);
+
+Or set locally with:
+
+	$graph -> add_node(name => 'Three', label => ['Good', 'Bad'], shape => 'record');
 
 =item o Each element in the array defines a field in the record
 
@@ -1323,7 +1335,9 @@ These fields are combined into a single node
 
 =over 4
 
-=item o The shape of the node is forced to be a record
+=item o The node is forced to be a record
+
+The actual shape, 'record' or 'Mrecord', can be set globally or locally, as explained just above.
 
 =item o Each element in the array defines a field in the record
 
@@ -1341,7 +1355,7 @@ The format is "<$port_name>".
 
 =back
 
-See scripts/html.label.pl and scripts/record.*.pl for sample code.
+See scripts/html.labels.pl and scripts/record.*.pl for sample code.
 
 See also the FAQ topic L</How labels interact with ports>.
 
@@ -2181,6 +2195,12 @@ Demonstrates a string as a label, containing ports and deeply nested orientation
 Outputs to ./html/record.3.svg by default.
 
 See also scripts/html.labels.pl and scripts/record.*.pl for other label techniques.
+
+=head2 scripts/record.4.pl
+
+Demonstrates setting node shapes by default and explicitly.
+
+Outputs to ./html/record.4.svg by default.
 
 =head2 scripts/rank.sub.graph.4.pl
 

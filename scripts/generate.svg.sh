@@ -38,6 +38,7 @@ perl -Ilib scripts/rank.sub.graph.4.pl  png > $DIR/rank.sub.graph.4.log
 perl -Ilib scripts/record.1.pl          png > $DIR/record.1.log
 perl -Ilib scripts/record.2.pl          png > $DIR/record.2.log
 perl -Ilib scripts/record.3.pl          png > $DIR/record.3.log
+perl -Ilib scripts/record.4.pl          png > $DIR/record.4.log
 perl -Ilib scripts/sub.graph.pl         png > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl     png > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl           png > $DIR/trivial.log
@@ -76,6 +77,7 @@ perl -Ilib scripts/rank.sub.graph.4.pl  svg > $DIR/rank.sub.graph.4.log
 perl -Ilib scripts/record.1.pl          svg > $DIR/record.1.log
 perl -Ilib scripts/record.2.pl          svg > $DIR/record.2.log
 perl -Ilib scripts/record.3.pl          svg > $DIR/record.3.log
+perl -Ilib scripts/record.4.pl          svg > $DIR/record.4.log
 perl -Ilib scripts/sub.graph.pl         svg > $DIR/sub.graph.log
 perl -Ilib scripts/sub.sub.graph.pl     svg > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl           svg > $DIR/trivial.log

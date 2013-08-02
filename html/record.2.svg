@@ -33,7 +33,7 @@
 </g>
 <!-- struct3 -->
 <g id="node3" class="node"><title>struct3</title>
-<polygon fill="none" stroke="black" points="166,-23.5 166,-92.5 329,-92.5 329,-23.5 166,-23.5"/>
+<path fill="none" stroke="black" d="M178,-23.5C178,-23.5 317,-23.5 317,-23.5 323,-23.5 329,-29.5 329,-35.5 329,-35.5 329,-80.5 329,-80.5 329,-86.5 323,-92.5 317,-92.5 317,-92.5 178,-92.5 178,-92.5 172,-92.5 166,-86.5 166,-80.5 166,-80.5 166,-35.5 166,-35.5 166,-29.5 172,-23.5 178,-23.5"/>
 <text text-anchor="middle" x="190" y="-61.8" font-family="Times,serif" font-size="14.00">hello</text>
 <text text-anchor="middle" x="190" y="-46.8" font-family="Times,serif" font-size="14.00">world</text>
 <polyline fill="none" stroke="black" points="214,-23.5 214,-92.5 "/>

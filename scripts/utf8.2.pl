@@ -27,6 +27,6 @@ my($graph) = GraphViz2 -> new
 $graph -> add_node(name => '5 deltas',  label => 'ΔΔΔΔΔ');
 
 my($format)      = shift || 'svg';
-my($output_file) = shift || File::Spec -> catfile('html', "utf8.test.$format");
+my($output_file) = shift || File::Spec -> catfile('html', "utf8.2.$format");
 
 $graph -> run(format => $format, output_file => $output_file);

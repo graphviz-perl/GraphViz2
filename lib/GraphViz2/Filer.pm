@@ -12,7 +12,7 @@ use File::Slurp;    # For read_file().
 
 use Moo;
 
-our $VERSION = '2.16';
+our $VERSION = '2.17';
 
 # ------------------------------------------------
 
