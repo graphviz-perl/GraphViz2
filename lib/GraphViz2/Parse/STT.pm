@@ -7,7 +7,7 @@ use GraphViz2;
 
 use Moo;
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',

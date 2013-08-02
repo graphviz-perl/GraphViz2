@@ -9,7 +9,7 @@ use Moo;
 
 use Parse::RecDescent;
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',

@@ -6,6 +6,7 @@
 use strict;
 use warnings;
 
+use File::Slurp; # For read_file().
 use File::Spec;
 
 use GraphViz2;
@@ -14,8 +15,6 @@ use GraphViz2::Parse::RecDescent;
 use Log::Handler;
 
 use Parse::RecDescent;
-
-use File::Slurp;
 
 # ------------------------------------------------
 
@@ -40,7 +39,7 @@ my($graph) = GraphViz2 -> new
 	 node   => {color => 'blue', shape => 'oval'},
 	);
 my($g)      = GraphViz2::Parse::RecDescent -> new(graph => $graph);
-my $grammar = slurp(File::Spec -> catfile('t', 'sample.recdescent.1.dat') );
+my $grammar = read_file(File::Spec -> catfile('t', 'sample.recdescent.1.dat') );
 my($parser) = Parse::RecDescent -> new($grammar);
 
 $g -> create(name => 'Grammar', grammar => $parser);

@@ -19,7 +19,7 @@ use Moo;
 
 use Tree::DAG_Node;
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
@@ -27,7 +27,7 @@ hash graph =>
 	required => 0,
 );
 
-has => isa
+has isa =>
 (
 	default  => sub{return {} },
 	is       => 'rw',

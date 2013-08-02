@@ -9,7 +9,7 @@ use Moo;
 
 use XML::Tiny;
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',

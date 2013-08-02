@@ -9,7 +9,7 @@ use Moo;
 
 use File::Slurp; # For read_file().
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
