@@ -51,6 +51,7 @@ html/rank.sub.graph.4.svg
 html/record.1.svg
 html/record.2.svg
 html/record.3.svg
+html/record.4.svg
 html/sub.graph.svg
 html/sub.sub.graph.svg
 html/trivial.svg
@@ -118,6 +119,7 @@ scripts/rank.sub.graph.4.pl
 scripts/record.1.pl
 scripts/record.2.pl
 scripts/record.3.pl
+scripts/record.4.pl
 scripts/report.nodes.and.edges.pl
 scripts/report.valid.attributes.pl
 scripts/sqlite.foreign.keys.pl
