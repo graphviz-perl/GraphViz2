@@ -94,7 +94,8 @@ $class -> new
 		Class::ISA                  => 0.36,
 		Class::Load                 => 0.17,
 		Config                      => 0,
-		Date::Format                => 2.24,
+		Config::Tiny                => 2.14,
+		Date::Simple                => 3.03,
 		Data::Section::Simple       => 0.02,
 		DBI                         => 1.616,
 		File::Basename              => 2.77,
@@ -115,6 +116,7 @@ $class -> new
 		Parse::RecDescent           => 1.965001,
 		Path::Tiny                  => 0.025,
 		perl                        => '5.14.2', # For the utf stuff.
+		Perl6::Slurp                => 0.051003,
 		Scalar::Util                => 1.23,
 		Set::Array                  => 0.23,
 		strict                      => 0,

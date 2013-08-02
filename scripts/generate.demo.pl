@@ -10,7 +10,7 @@ use File::Spec;
 use GraphViz2;
 use GraphViz2::Filer;
 
-use Perl6::Slurp;
+use File::Slurp; # For slurp().
 
 use Text::Xslate 'mark_raw';
 

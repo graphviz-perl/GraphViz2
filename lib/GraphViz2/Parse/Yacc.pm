@@ -7,7 +7,7 @@ use GraphViz2;
 
 use Moo;
 
-use Perl6::Slurp;
+use File::Slurp; # For slurp().
 
 hash graph =>
 (

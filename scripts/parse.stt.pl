@@ -13,7 +13,7 @@ use GraphViz2::Parse::STT;
 
 use Log::Handler;
 
-use Perl6::Slurp;
+use File::Slurp; # For slurp().
 
 # ------------------------------------------------
 

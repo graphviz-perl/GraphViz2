@@ -15,7 +15,7 @@ use Log::Handler;
 
 use Parse::RecDescent;
 
-use Perl6::Slurp;
+use File::Slurp;
 
 # ------------------------------------------------
 

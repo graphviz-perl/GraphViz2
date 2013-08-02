@@ -11,7 +11,7 @@ use File::Spec;
 use GraphViz2;
 use GraphViz2::Data::Grapher;
 
-use Perl6::Slurp;
+use File::Slurp; # For slurp().
 
 use Log::Handler;
 

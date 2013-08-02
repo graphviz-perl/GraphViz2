@@ -161,7 +161,7 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 
 	use Parse::RecDescent;
 
-	use Perl6::Slurp;
+	use File::Slurp; # For slurp().
 
 	# ------------------------------------------------
 

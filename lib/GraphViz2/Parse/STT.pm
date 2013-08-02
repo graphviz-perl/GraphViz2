@@ -116,7 +116,7 @@ L<GraphViz2::Parse::STT> - Visualize a Set::FA::Element state transition table a
 
 	use Log::Handler;
 
-	use Perl6::Slurp;
+	use File::Slurp; # For slurp().
 
 	# ------------------------------------------------
 

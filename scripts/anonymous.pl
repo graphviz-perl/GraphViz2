@@ -36,9 +36,9 @@ my($graph) = GraphViz2 -> new
 	);
 
 $graph -> add_node(name => '', label => ''); # Same as add_node().
-$graph -> add_node(name => "Anonymous label 1", label => '');
-$graph -> add_node(name => "Anonymous label 2", label => '');
-$graph -> add_edge(from => '', to => ''); # This uses the name, and hence the first node.
+$graph -> add_node(name => 'Anonymous label 1', label => '');
+$graph -> add_node(name => 'Anonymous label 2', label => '');
+$graph -> add_edge(from => '', to => ''); # This uses the name '', and hence the first node.
 
 my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "anonymous.$format");
