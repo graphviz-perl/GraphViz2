@@ -99,7 +99,7 @@ sub read
 
 =head1 NAME
 
-GraphViz2::Config - A Marpa-based parser for GraphViz2-style Graphviz files
+GraphViz2::Config - A wrapper for AT&T's Graphviz
 
 =head1 Synopsis
 
@@ -107,7 +107,7 @@ See L<GraphViz2>.
 
 =head1 Description
 
-L<GraphViz2> provides a Marpa-based parser for Graph::Easy-style Graphviz files.
+L<GraphViz2> provides a wrapper for AT&T's Graphviz.
 
 =head1 Methods
 
