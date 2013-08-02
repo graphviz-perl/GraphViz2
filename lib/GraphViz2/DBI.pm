@@ -11,7 +11,7 @@ use GraphViz2;
 
 use Moo;
 
-hash catalog =>
+has catalog =>
 (
 	default  => sub{return undef},
 	is       => 'rw',
@@ -19,14 +19,14 @@ hash catalog =>
 	required => 0,
 );
 
-hash dbh =>
+has dbh =>
 (
 	is       => 'rw',
 	#isa     => 'GraphViz2',
 	required => 1,
 );
 
-hash graph =>
+has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
@@ -34,7 +34,7 @@ hash graph =>
 	required => 0,
 );
 
-hash schema =>
+has schema =>
 (
 	default  => sub{return undef},
 	is       => 'rw',
@@ -42,7 +42,7 @@ hash schema =>
 	required => 0,
 );
 
-hash table =>
+has table =>
 (
 	default  => sub{return '%'},
 	is       => 'rw',
@@ -50,7 +50,7 @@ hash table =>
 	required => 0,
 );
 
-hash table_info =>
+has table_info =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
@@ -58,7 +58,7 @@ hash table_info =>
 	required => 0,
 );
 
-hash type =>
+has type =>
 (
 	default  => sub{return 'TABLE'},
 	is       => 'rw',

@@ -17,6 +17,10 @@ Revision history for Perl extension GraphViz2.
 	- Switch from Hash::FieldHash to Moo.
 	- Use File::Slurp except where I need Perl6::Slurp's utf8 option. I needed File::Slurp's write_file for
 		the new script scripts/generate.sh.pl, so I decided to use it in most places.
+	- Rename scripts/utf8.pl to scripts/utf8.1.pl.
+	- Rename scripts/utf8.test.pl to scripts/utf8.2.pl.
+	- Rename html/utf8.svg to html/utf8.1.svg.
+	- Rename html/utf8.test.svg to html/utf8.2.svg.
 
 2.15  Mon Jul 29 14:42:00 2013
 	- Remove GraphViz2::Parse::Marpa, until it's re-written to use Jeffrey Kegler's code to dump a grammar.

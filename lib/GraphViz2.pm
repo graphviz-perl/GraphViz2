@@ -147,7 +147,7 @@ sub BUILD
 		driver       => $dot,
 		format       => 'svg',
 		label        => $$options{directed} ? '->' : '--',
-		name         => 'Perl',
+		name         => $$options{name} ? $$options{name} : 'Perl',
 		record_shape => ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
 		strict       => 0,
 		timeout      => 10,
