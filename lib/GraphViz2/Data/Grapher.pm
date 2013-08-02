@@ -18,7 +18,7 @@ fieldhash my %graph   => 'graph';
 fieldhash my %logger  => 'logger';
 fieldhash my %tree    => 'tree';
 
-our $VERSION = '2.15';
+our $VERSION = '2.16';
 
 # -----------------------------------------------
 # This is a function.

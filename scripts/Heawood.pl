@@ -38,7 +38,7 @@ my($graph) = GraphViz2 -> new
 $graph -> default_edge(color => 'black');
 $graph -> default_node
 (
- fontname => "Arial",
+ fontname => ($^O eq 'darwin') ? "ArialMT" : "Arial",
  label    => "\\N",
  shape    => "circle",
  width    => "0.50000",

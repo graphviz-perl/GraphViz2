@@ -73,7 +73,6 @@ $graph -> add_edge(from => 'Chadstone', to => 'two', %headless_arrow);
 $graph -> add_edge(from => 'two',       to => 'Waverley', sametail => 1);
 
 my($format)      = shift || 'svg';
-my($suffix)      = $format eq 'png:gd' ? 'png' : $format;
-my($output_file) = shift || File::Spec -> catfile('html', "jointed.edges.$suffix");
+my($output_file) = shift || File::Spec -> catfile('html', "jointed.edges.$format");
 
 $graph -> run(format => $format, output_file => $output_file);

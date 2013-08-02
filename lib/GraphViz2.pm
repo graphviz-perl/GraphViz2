@@ -35,7 +35,7 @@ fieldhash my %subgraph         => 'subgraph';
 fieldhash my %verbose          => 'verbose';
 fieldhash my %valid_attributes => 'valid_attributes';
 
-our $VERSION = '2.15';
+our $VERSION = '2.16';
 
 # -----------------------------------------------
 
@@ -642,6 +642,9 @@ sub run
 
 		my($stdout, $stderr);
 
+		# Usage of utf8 here relies on ISO-8859-1 match Unicode for low chars.
+		# It saves me the effort of determining if the input contains Unicode.
+
 		run3
 			[$driver, "-T$format"],
 			\$self -> dot_input,
@@ -649,8 +652,8 @@ sub run
 			\$stderr,
 			{
 				binmode_stdin  => ':utf8',
-				binmode_stdout => ':utf8',
-				binmode_stderr => ':utf8',
+				binmode_stdout => ':raw',
+				binmode_stderr => ':raw',
 			};
 
 		die $stderr if ($stderr);
@@ -659,8 +662,7 @@ sub run
 
 		if ($output_file)
 		{
-			open(OUT, '>', $output_file) || die "Can't open(> $output_file): $!";
-			#binmode OUT;
+			open(OUT, '> :raw', $output_file) || die "Can't open(> $output_file): $!";
 			print OUT $stdout;
 			close OUT;
 

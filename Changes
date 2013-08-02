@@ -1,5 +1,16 @@
 Revision history for Perl extension GraphViz2.
 
+2.16  Fri Aug  2 10:54:00 2013
+	- Patch GraphViz2.pm to handle both SVG and (eg) PNG output. I failed to test this properly.
+		Thanx to Kent Fredric for this. See RT#87525.
+	- Patch scripts/Heawood.pl to use font ArialMT instead of Arial when running under Darwin (OSX). Grrrr.
+		Thanx to David Jack Olrik for this. See RT#87478.
+	- Remove special case code in scripts/jointed.edges.pl. It used png:gd instead of png, to work round
+		an unknown Graphviz problem. Let's hope /your/ version of Graphviz is up-to-date.
+	- Patch scripts/circo.pl: Add comment searched for by t/test.t, which is used to label html/index.html.
+	- Add some scripts to scripts/generate.*.sh: circo.pl and unnamed.sub.graph.pl.
+		This adds 2 tests, and 2 images to the demo page.
+
 2.15  Mon Jul 29 14:42:00 2013
 	- Remove GraphViz2::Parse::Marpa, until it's re-written to use Jeffrey Kegler's code to dump a grammar.
 	- Add scripts/circo.pl and it's output html/circo.svg.

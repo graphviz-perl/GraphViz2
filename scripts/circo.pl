@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+#
+# Note: t/test.t searches for the next line.
+# Annotation: Demonstrates calling circo instead of dot.
 
 use strict;
 use warnings;
@@ -73,7 +76,7 @@ my($circo_output) = $stdout;
 #print $circo_output;
 #print '-' x 50, "\n";
 
-# Generate the dot (svg) output.
+# Generate the dot output.
 
 my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "circo.$format");

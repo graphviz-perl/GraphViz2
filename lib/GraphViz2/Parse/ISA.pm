@@ -22,7 +22,7 @@ use Tree::DAG_Node;
 fieldhash my %graph => 'graph';
 fieldhash my %isa   => 'isa';
 
-our $VERSION = '2.15';
+our $VERSION = '2.16';
 
 # -----------------------------------------------
 

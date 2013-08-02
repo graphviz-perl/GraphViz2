@@ -19,7 +19,7 @@ fieldhash my %table      => 'table';
 fieldhash my %table_info => 'table_info';
 fieldhash my %type       => 'type';
 
-our $VERSION = '2.15';
+our $VERSION = '2.16';
 
 # -----------------------------------------------
 
