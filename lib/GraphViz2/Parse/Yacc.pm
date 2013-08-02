@@ -7,7 +7,7 @@ use GraphViz2;
 
 use Moo;
 
-use File::Slurp; # For slurp().
+use File::Slurp; # For read_file().
 
 hash graph =>
 (
@@ -51,7 +51,7 @@ sub create
 	my($rule, $rule_label);
 	my($text);
 
-	for my $line (slurp($arg{file_name}, {chomp => 1}) )
+	for my $line (read_file($arg{file_name}, {chomp => 1}) )
 	{
 		if ( ($line !~ /\w/) || ($line !~ /^\s+\d+\s+/) )
 		{

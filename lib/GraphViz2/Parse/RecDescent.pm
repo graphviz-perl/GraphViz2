@@ -161,7 +161,7 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 
 	use Parse::RecDescent;
 
-	use File::Slurp; # For slurp().
+	use File::Slurp; # For read_file().
 
 	# ------------------------------------------------
 
@@ -186,7 +186,7 @@ L<GraphViz2::Parse::RecDescent> - Visualize a Parse::RecDescent grammar as a gra
 		 node   => {color => 'blue', shape => 'oval'},
 		);
 	my($g)      = GraphViz2::Parse::RecDescent -> new(graph => $graph);
-	my $grammar = slurp(File::Spec -> catfile('t', 'sample.recdescent.1.dat') );
+	my $grammar = read_file(File::Spec -> catfile('t', 'sample.recdescent.1.dat') );
 	my($parser) = Parse::RecDescent -> new($grammar);
 
 	$g -> create(name => 'Grammar', grammar => $parser);

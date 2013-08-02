@@ -8,6 +8,7 @@ use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use File::Basename; # For basename().
+use File::Slurp;    # For read_file().
 
 use Moo;
 
@@ -32,7 +33,7 @@ sub get_annotations
 
 	for my $file_name (@file_name)
 	{
-		@line = slurp(File::Spec -> catfile($dir_name, $file_name), {chomp => 1});
+		@line = read_file(File::Spec -> catfile($dir_name, $file_name), {chomp => 1});
 
 		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (.+)$/) )
 		{
@@ -84,7 +85,7 @@ sub get_scripts
 
 	for my $file_name (map{File::Spec -> catfile($dir_name, $_)} @file_name)
 	{
-		@line = slurp($file_name, {chomp => 1});
+		@line = read_file($file_name, {chomp => 1});
 
 		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (?:.+)$/) )
 		{
