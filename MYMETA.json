@@ -32,10 +32,13 @@
             "Class::ISA" : "0.36",
             "Class::Load" : "0.17",
             "Config" : "0",
+            "Config::Tiny" : "2.14",
             "DBI" : "1.616",
             "Data::Section::Simple" : "0.02",
-            "Date::Format" : "2.24",
+            "Date::Simple" : "3.03",
             "File::Basename" : "2.77",
+            "File::Copy" : "2.21",
+            "File::HomeDir" : "0.99",
             "File::Slurp" : "9999.19",
             "File::Spec" : "3.33",
             "File::Temp" : "0.22",
@@ -43,11 +46,12 @@
             "HTML::Entities::Interpolate" : "1.04",
             "HTML::TreeBuilder" : "4.2",
             "HTTP::Tiny" : "0.012",
-            "Hash::FieldHash" : "0.1",
             "IPC::Run3" : "0.046",
             "Log::Handler" : "0.71",
+            "Moo" : "1.002",
             "Parse::RecDescent" : "1.965001",
-            "File::Slurp" : "0.03",
+            "Path::Tiny" : "0.025",
+            "Perl6::Slurp" : "0.051003",
             "Scalar::Util" : "1.23",
             "Set::Array" : "0.23",
             "Text::Xslate" : "1.2",
@@ -66,6 +70,10 @@
       }
    },
    "provides" : {
+      "Graph::Easy::Marpa::Config" : {
+         "file" : "lib/GraphViz2/Config.pm",
+         "version" : "2.00"
+      },
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
          "version" : "2.16"
@@ -77,6 +85,10 @@
       "GraphViz2::Data::Grapher" : {
          "file" : "lib/GraphViz2/Data/Grapher.pm",
          "version" : "2.16"
+      },
+      "GraphViz2::Filer" : {
+         "file" : "lib/GraphViz2/Filer.pm",
+         "version" : "2.00"
       },
       "GraphViz2::Parse::ISA" : {
          "file" : "lib/GraphViz2/Parse/ISA.pm",
@@ -108,7 +120,7 @@
       },
       "GraphViz2::Utils" : {
          "file" : "lib/GraphViz2/Utils.pm",
-         "version" : "2.16"
+         "version" : "2.00"
       }
    },
    "release_status" : "stable",
