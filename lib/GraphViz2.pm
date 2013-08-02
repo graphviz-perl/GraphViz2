@@ -1655,19 +1655,19 @@ for details.
 
 =head2 How do I include utf8 characters in labels?
 
-Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.svg>.
+Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.1.svg>.
 
-scripts/utf8.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
+scripts/utf8.1.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
 
 =head2 Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
 
 As of V 2.02, you should not get this from GraphViz2. So, I suggest you study your own code very, very carefully :-(.
 
-Examine the output from scripts/utf8.test.pl, i.e. html/utf8.test.svg and you'll see it's correct. Then run:
+Examine the output from scripts/utf8.2.pl, i.e. html/utf8.2.svg and you'll see it's correct. Then run:
 
-	perl scripts/utf8.test.pl png
+	perl scripts/utf8.2.pl png
 
-and examine html/utf8.test.png and you'll see it matches html/utf8.test.svg in showing 5 deltas. So, I I<think> it's all working.
+and examine html/utf8.2.png and you'll see it matches html/utf8.2.svg in showing 5 deltas. So, I I<think> it's all working.
 
 =head2 How do I print output files?
 
@@ -2226,17 +2226,17 @@ Demonstrates a trivial 3-node graph, with colors, just to get you started.
 
 Outputs to ./html/trivial.svg by default.
 
-=head2 scripts/utf8.pl
+=head2 scripts/utf8.1.pl
 
 Demonstrates using utf8 characters in labels.
 
-Outputs to ./html/utf8.svg by default.
+Outputs to ./html/utf8.1.svg by default.
 
-=head2 scripts/utf8.test.pl
+=head2 scripts/utf8.2.pl
 
 Demonstrates using utf8 characters in labels.
 
-Outputs to ./html/utf8.test.svg by default.
+Outputs to ./html/utf8.2.svg by default.
 
 =head1 TODO
 
