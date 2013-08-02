@@ -12,7 +12,7 @@
 <body>
 	<h1>Index of sample files created by <a href="http://metacpan.org/release/GraphViz2">GraphViz2</a> V <: $version :>.</h1>
 
-	<p>All scripts and input files required to generate these examples are shipped in the GraphViz2 distro's html/ dir. Output files are in there too.</p>
+	<p>All scripts and input files required to generate these examples are shipped with the GraphViz2 distro. Output files are shipped too.</p>
 
 <table border = "1">
 :for $data -> $row {
