@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Nested records using strings as labels.
+# Annotation: Set record-style node labels and shapes in various ways.
 
 use strict;
 use warnings;
