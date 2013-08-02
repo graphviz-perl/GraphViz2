@@ -78,6 +78,7 @@ scripts/extract.node.shapes.pl
 scripts/extract.output.formats.pl
 scripts/generate.demo.pl
 scripts/generate.png.sh
+scripts/generate.sh.pl
 scripts/generate.svg.sh
 scripts/Heawood.pl
 scripts/html.labels.pl

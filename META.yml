@@ -58,6 +58,7 @@ requires:
   Data::Section::Simple: 0.02
   Date::Format: 2.24
   File::Basename: 2.77
+  File::Slurp: 9999.19
   File::Spec: 3.33
   File::Temp: 0.22
   File::Which: 1.09
