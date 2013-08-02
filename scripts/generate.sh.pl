@@ -15,7 +15,7 @@ use Capture::Tiny 'capture';
 use File::Slurp; # For write_file().
 use File::Spec;
 
-use GraphViz2::Utils;
+use GraphViz2::Filer;
 
 # ------------------------------------------------
 
@@ -34,7 +34,7 @@ EOS
 
 # ------------------------------------------------
 
-my(%script) = GraphViz2::Utils -> new -> get_scripts;
+my(%script) = GraphViz2::Filer -> new -> get_scripts;
 my($width)  = 0;
 
 for (keys %script)
@@ -57,8 +57,6 @@ my($offset);
 
 for my $format (qw/png svg/)
 {
-	next if ($format eq 'png');
-
 	for my $key (sort keys %script)
 	{
 		$offset = ' ' x ($width - length($key) );

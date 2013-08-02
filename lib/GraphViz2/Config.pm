@@ -1,4 +1,4 @@
-package Graph::Easy::Marpa::Config;
+package GraphViz2::Config;
 
 use strict;
 use utf8;
@@ -99,15 +99,15 @@ sub read
 
 =head1 NAME
 
-Graph::Easy::Marpa::Config - A Marpa-based parser for Graph::Easy::Marpa-style Graphviz files
+GraphViz2::Config - A Marpa-based parser for GraphViz2-style Graphviz files
 
 =head1 Synopsis
 
-See L<Graph::Easy::Marpa>.
+See L<GraphViz2>.
 
 =head1 Description
 
-L<Graph::Easy::Marpa> provides a Marpa-based parser for Graph::Easy-style Graphviz files.
+L<GraphViz2> provides a Marpa-based parser for Graph::Easy-style Graphviz files.
 
 =head1 Methods
 
@@ -148,11 +148,11 @@ The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes
 
 Email the author, or log a bug on RT:
 
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=Graph::Easy::Marpa>.
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2>.
 
 =head1 Author
 
-L<Graph::Easy::Marpa> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2011.
+L<GraphViz2> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2011.
 
 Home page: L<http://savage.net.au/index.html>.
 
