@@ -29,6 +29,7 @@ perl -Ilib scripts/parse.xml.bare.pl    png > $DIR/parse.xml.bare.log
 perl -Ilib scripts/parse.xml.pp.pl      png > $DIR/parse.xml.pp.log
 perl -Ilib scripts/parse.yacc.pl        png > $DIR/parse.yacc.log
 perl -Ilib scripts/parse.yapp.pl        png > $DIR/parse.yapp.log
+perl -Ilib scripts/plaintext.pl         png > $DIR/plaintext.log
 perl -Ilib scripts/quote.pl             png > $DIR/quote.log
 perl -Ilib scripts/rank.sub.graph.1.pl  png > $DIR/rank.sub.graph.1.log
 perl -Ilib scripts/rank.sub.graph.2.pl  png > $DIR/rank.sub.graph.2.log
