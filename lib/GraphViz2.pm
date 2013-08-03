@@ -1045,16 +1045,6 @@ The default is 'Perl' :-).
 
 This key is optional.
 
-=item o record_orientation => /^(?:horizontal|vertical)$/
-
-Ignored as of V 2.10. This option will be removed in a future version.
-
-The following text applies to prior versions:
-
-This option affects how records are plotted. The value must be 'horizontal' or 'vertical'.
-
-The default is 'vertical', which suits L<GraphViz2::DBI>.
-
 =item o record_shape => /^(?:M?record)$/
 
 This option affects the shape of records. The value must be 'Mrecord' or 'record'.
