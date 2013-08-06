@@ -16,7 +16,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.94"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
@@ -54,6 +54,7 @@
             "Perl6::Slurp" : "0.051003",
             "Scalar::Util" : "1.23",
             "Set::Array" : "0.23",
+            "Test::More" : "0.94",
             "Text::Xslate" : "1.2",
             "Tree::DAG_Node" : "1.06",
             "Try::Tiny" : "0.09",

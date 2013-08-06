@@ -132,7 +132,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.17';
+our $VERSION = '2.18';
 
 # -----------------------------------------------
 
@@ -152,11 +152,6 @@ sub BUILD
 		strict       => 0,
 		timeout      => 10,
 	};
-
-	for my $key (sort keys %$global)
-	{
-		print "$key => $$global{$key}. \n";
-	}
 
 	$self -> global($global);
 	$self -> load_valid_attributes;

@@ -5,6 +5,8 @@ use ExtUtils::MakeMaker;
 use File::Spec;
 use File::Temp;
 
+require 5.014002; # For the utf8 stuff.
+
 # -----------------------------------------------
 
 sub is_dot_installed
@@ -36,25 +38,12 @@ sub is_dot_installed
 
 # -----------------------------------------------
 
-sub is_perl_recent
-{
-	# We want Perl V 5.14 or later, because we 'use feature qw/say unicode_strings/'.
-
-	my(@version) = split(/\./, $Config{version});
-
-	die "Please install Perl V 5.14 or later\n" if ($version[1] < 14);
-
-} # End of is_perl_recent.
-
-# -----------------------------------------------
-
 is_dot_installed();
-is_perl_recent();
 
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-WriteMakefile
+my(%params) =
 (
 	($] ge '5.005') ?
 	(
@@ -72,7 +61,6 @@ WriteMakefile
 	},
 	DISTNAME  => 'GraphViz2',
 	NAME      => 'GraphViz2',
-	LICENSE   => 'artistic_2',
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
@@ -104,7 +92,6 @@ WriteMakefile
 		parent                      => 0.225,
 		Parse::RecDescent           => 1.965001,
 		Path::Tiny                  => 0.025,
-		perl                        => '5.14.2', # For the utf stuff.
 		Perl6::Slurp                => 0.051003,
 		Scalar::Util                => 1.23,
 		Set::Array                  => 0.23,
@@ -121,3 +108,22 @@ WriteMakefile
 	},
 	VERSION_FROM => 'lib/GraphViz2.pm',
 );
+
+if ( ($ExtUtils::MakeMaker::VERSION =~ /^\d\.\d\d$/) && ($ExtUtils::MakeMaker::VERSION > 6.30) )
+{
+	$params{LICENSE} = 'artistic_2';
+}
+
+if ($ExtUtils::MakeMaker::VERSION ge '6.46')
+{
+	$params{META_MERGE} =
+	{
+		resources =>
+		{
+			bugtracker => 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
+			license    => 'http://www.perlfoundation.org/artistic_license_2_0',
+		},
+	};
+}
+
+WriteMakefile(%params);

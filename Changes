@@ -1,5 +1,10 @@
 Revision history for Perl extension GraphViz2.
 
+2.18  Wed Aug  7 09:22:00 2013
+	- Remove print from sub BUILD() left over from debugging.
+	- Update Build.PL and Makefile.PL to include bugtracker and license items.
+		Also replace the Perl version checking code with a simple 'require 5.014.002; # For the utf8 stuff.'.
+
 2.17  Sat Aug  3 08:58:00 2013
 	- Fix handling of record shapes. E.g. label => [] ignored global default shape 'Mrecord'.
 		Thanx to Kent Fredric for this report. See RT#87560.

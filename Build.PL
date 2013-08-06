@@ -5,6 +5,8 @@ use File::Temp;
 
 use Module::Build;
 
+require 5.014002; # For the utf8 stuff.
+
 # -----------------------------------------------
 
 sub is_dot_installed
@@ -36,20 +38,7 @@ sub is_dot_installed
 
 # -----------------------------------------------
 
-sub is_perl_recent
-{
-	# We want Perl V 5.14 or later, because we 'use feature qw/say unicode_strings/'.
-
-	my(@version) = split(/\./, $Config{version});
-
-	die "Please install Perl V 5.14 or later\n" if ($version[1] < 14);
-
-} # End of is_perl_recent.
-
-# -----------------------------------------------
-
 is_dot_installed();
-is_perl_recent();
 
 my $class = Module::Build->subclass(code => <<'EOF');
 
@@ -78,7 +67,7 @@ $class -> new
 	dist_author    => 'Ron Savage <ron@savage.net.au>',
 	build_requires =>
 	{
-		Test::More=> 0.94,
+		Test::More => 0.94,
 # 	 	Test::Pod  => 1.45, # Make it optional. See t/pod.t
 	},
 	configure_requires =>
@@ -115,7 +104,6 @@ $class -> new
 		parent                      => 0.225,
 		Parse::RecDescent           => 1.965001,
 		Path::Tiny                  => 0.025,
-		perl                        => '5.14.2', # For the utf stuff.
 		Perl6::Slurp                => 0.051003,
 		Scalar::Util                => 1.23,
 		Set::Array                  => 0.23,
@@ -127,5 +115,10 @@ $class -> new
 		warnings                    => 0,
 		XML::Bare                   => 0,
 		XML::Tiny                   => 2.06,
+	},
+	resources =>
+	{
+		bugtracker => 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
+		license    => 'http://www.perlfoundation.org/artistic_license_2_0',
 	},
 ) -> create_build_script();
