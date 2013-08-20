@@ -9,6 +9,8 @@ Revision history for Perl extension GraphViz2.
 		but in new(...), the value of 'format' was ignored, and the value of 'subgraph' generated an error
 		referring to '... not a valid attribute ...'.
 		Thanx to Larry Knibb for reporting this problem, for 'driver'.
+	- Remove reference to GraphViz2::Parse::Marpa from scripts/pod2html.sh. See comment below for V 2.15.
+		This module has been replaced by MarpaX::Grammar::GraphViz2, which depends on MarpaX::Grammar::Parser.
 
 2.18  Wed Aug  7 09:22:00 2013
 	- Remove print from sub BUILD() left over from debugging.
