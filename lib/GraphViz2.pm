@@ -9,7 +9,6 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 
 use Data::Section::Simple 'get_data_section';
 
-use File::Temp ();
 use File::Which; # For which().
 
 use Moo;
