@@ -1,5 +1,15 @@
 Revision history for Perl extension GraphViz2.
 
+2.19  Tue Aug 20 10:44:00 2013
+	- Remove the global graph attribute 'record_orientation', as forewarned in V 2.10, in June.
+	- Fix handling of some global attributes.
+		Previously, some options mentioned in the call to new(...) were not set by that call.
+		The options affected were: 'driver', 'format', 'strict', 'subgraph' and 'timeout'.
+		The options 'driver', 'format', and 'timeout' could be set in the call to run(...),
+		but in new(...), the value of 'format' was ignored, and the value of 'subgraph' generated an error
+		referring to '... not a valid attribute ...'.
+		Thanx to Larry Knibb for reporting this problem, for 'driver'.
+
 2.18  Wed Aug  7 09:22:00 2013
 	- Remove print from sub BUILD() left over from debugging.
 	- Update Build.PL and Makefile.PL to include bugtracker and license items.

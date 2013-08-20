@@ -132,7 +132,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.18';
+our $VERSION = '2.19';
 
 # -----------------------------------------------
 
@@ -143,14 +143,15 @@ sub BUILD
 	my($dot)     = which('dot');
 	my($global)  =
 	{
-		directed     => $$options{directed} ? 'digraph' : 'graph',
-		driver       => $dot,
-		format       => 'svg',
-		label        => $$options{directed}      ? '->'                    : '--',
-		name         => defined($$options{name}) ? $$options{name}         : 'Perl',
+		directed     => $$options{directed}      ? 'digraph'         : 'graph',
+		driver       => $$options{driver}        ? $$options{driver} : $dot,
+		format       => $$options{format}        ? $$options{format} : 'svg',
+		label        => $$options{directed}      ? '->'              : '--',
+		name         => defined($$options{name}) ? $$options{name}   : 'Perl',
 		record_shape => ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
-		strict       => 0,
-		timeout      => 10,
+		strict       => defined($$options{strict})  ? $$options{strict}   :  0,
+		subgraph     => $$options{subgraph}         ? $$options{subgraph} : {},
+		timeout      => defined($$options{timeout}) ? $$options{timeout}  : 10,
 	};
 
 	$self -> global($global);
@@ -2498,9 +2499,9 @@ driver
 format
 label
 name
-record_orientation
 record_shape
 strict
+subgraph
 timeout
 
 @@ node
