@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Demonstrates a 3-node graph, with colors, HTML labels and ports.
+# Annotation: Demonstrates a HTML label without a table.
 
 use strict;
 use warnings;
@@ -26,11 +26,12 @@ $logger -> add
 	}
 );
 
+my($id)    = 1;
 my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},
 	global => {directed => 1},
-	graph  => {rankdir => 'TB'},
+	graph  => {label => "HTML label demo # $id - Using \\< ... \\>", rankdir => 'TB'},
 	logger => $logger,
 	node   => {shape => 'oval'},
 );
@@ -54,6 +55,6 @@ $graph -> add_edge(from => 'Murrumbeena', to => 'Oakleigh:port1', color => 'brow
 $graph -> add_edge(from => 'Murrumbeena', to => 'Oakleigh:port2', color => 'green', label => '<Drive<br/>Run<br/>Sprint>');
 
 my($format)      = shift || 'svg';
-my($output_file) = shift || File::Spec -> catfile('html', "html.labels.$format");
+my($output_file) = shift || File::Spec -> catfile('html', "html.labels.$id.$format");
 
 $graph -> run(format => $format, output_file => $output_file);

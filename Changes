@@ -7,6 +7,8 @@ Revision history for Perl extension GraphViz2.
 		This allows '.' to match newlines within HTML lables. This fixes a bug (not yet reported :-).
 	- Both these changes allow HTML labels to be more nicely formatted in the source code of the module
 		which uses GraphViz2 (such as MarpaX::Grammar::GraphViz2).
+	- Split scripts/html.labels.pl into scripts/html.labels.1.pl and scripts/html.labels.2.pl.
+		These demonstrate the 2 types of HTML labels.
 	- Document sub escape_some_chars().
 	- Add an FAQ item on using whitespace in HTML labels.
 
