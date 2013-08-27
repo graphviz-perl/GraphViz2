@@ -131,7 +131,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.19';
+our $VERSION = '2.20';
 
 # -----------------------------------------------
 
@@ -763,7 +763,9 @@ sub stringify_attributes
 
 	for my $key (sort keys %$option)
 	{
-		$dot .= $$option{$key} =~ /^<.+>$/ ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;
+		$$option{$key} =~ s/^\s+(<)/$1/;
+		$$option{$key} =~ s/(>)\s+$/$1/;
+		$dot           .= ($$option{$key} =~ /^<.+>$/s) ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;
 	}
 
 	if ($context eq 'subgraph')
@@ -1439,6 +1441,12 @@ it contains a leading ':'. Likewise for I<to_port>.
 
 See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.pl) for a complete example.
 
+=head2 escape_some_chars($s)
+
+Escapes various chars in various circumstances, because some chars are treated specially by Graphviz.
+
+See the L</FAQ> for a discussion of this tricky topic.
+
 =head2 load_valid_attributes()
 
 Load various sets of valid attributes from within the source code of this module, using L<Data::Section::Simple>.
@@ -1449,7 +1457,7 @@ These attributes are used to validate attributes in many situations.
 
 You wouldn't normally need to use this method.
 
-=head2 sub log([$level, $message])
+=head2 log([$level, $message])
 
 Logs the message at the given log level.
 
@@ -1671,6 +1679,16 @@ and examine html/utf8.2.png and you'll see it matches html/utf8.2.svg in showing
 =head2 How do I print output files?
 
 Under Unix, output as PDF, and then try: lp -o fitplot html/parse.stt.pdf (or whatever).
+
+=head2 Can I include spaces and newlines in HTML labels?
+
+Yes. The code removes leading and trailing whitespace on HTML labels before calling 'dot'.
+
+Also, the code, and 'dot', both accept newlines embedded within such labels.
+
+Together, these allow HTML labels to be formatted nicely in the calling code.
+
+See <the Graphviz docs|http://www.graphviz.org/content/node-shapes#record> for their discussion on whitespace.
 
 =head2 I'm having trouble with special characters in node names and labels
 

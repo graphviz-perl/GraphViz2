@@ -1,5 +1,15 @@
 Revision history for Perl extension GraphViz2.
 
+2.20  Tue Aug 27 16:22:00 2013
+	- In sub stringify_attributes(), remove leading and trailing whitespace from HTML tables like so:
+		s/^\s+(<)/$1/ and s/(>)\s+$/$1/. This is formatting sugar, but it also affects the next regexp.
+	- In the same sub, change a regexp from /^<.+>$/ to /^<.+>$/s. Note trailing 's'.
+		This allows '.' to match newlines within HTML lables. This fixes a bug (not yet reported :-).
+	- Both these changes allow HTML labels to be more nicely formatted in the source code of the module
+		which uses GraphViz2 (such as MarpaX::Grammar::GraphViz2).
+	- Document sub escape_some_chars().
+	- Add an FAQ item on using whitespace in HTML labels.
+
 2.19  Tue Aug 20 10:44:00 2013
 	- Remove the global graph attribute 'record_orientation', as forewarned in V 2.10, in June.
 	- Fix handling of some global attributes.
