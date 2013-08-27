@@ -26,7 +26,7 @@ $logger -> add
 	}
 );
 
-my($id)    = 1;
+my($id)    = 2;
 my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},

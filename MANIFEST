@@ -93,7 +93,8 @@ scripts/generate.png.sh
 scripts/generate.sh.pl
 scripts/generate.svg.sh
 scripts/Heawood.pl
-scripts/html.labels.pl
+scripts/html.labels.1.pl
+scripts/html.labels.2.pl
 scripts/jointed.edges.pl
 scripts/macro.1.pl
 scripts/macro.2.pl
