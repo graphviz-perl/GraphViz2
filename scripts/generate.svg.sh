@@ -48,3 +48,7 @@ perl -Ilib scripts/utf8.1.pl            svg > $DIR/utf8.1.log
 perl -Ilib scripts/utf8.2.pl            svg > $DIR/utf8.2.log
 
 perl -Ilib scripts/generate.demo.pl svg
+
+cp html/* $DR/Perl-modules/html/graphviz2/
+
+echo Also, copy demo files to the real web site...
