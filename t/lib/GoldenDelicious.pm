@@ -1,5 +1,5 @@
 package GoldenDelicious;
 
-our $VERSION = '2.20';
+our $VERSION = '2.21';
 
 1;

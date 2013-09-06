@@ -10,10 +10,9 @@ use charnames qw(:full :short);  # Unneeded in v5.16.
 use Config::Tiny;
 
 use File::HomeDir;
+use File::Spec;
 
 use Moo;
-
-use Path::Tiny; # For path().
 
 has config =>
 (
@@ -39,14 +38,14 @@ has section =>
 	required => 0,
 );
 
-our $VERSION = '2.20';
+our $VERSION = '2.21';
 
 # -----------------------------------------------
 
 sub BUILD
 {
 	my($self) = @_;
-	my($path) = path(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
+	my($path) = File::Spec -> catfile(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
 
 	$self -> read($path);
 
@@ -129,7 +128,7 @@ If the file can't be read, die is called.
 
 The path to the config file is determined by:
 
-	path(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
+	File::Spec -> catfile(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
 
 During installation, you should have run scripts/copy.config.pl, which uses the same code, to move the config file
 from the config/ directory in the disto into an OS-dependent directory.
