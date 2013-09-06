@@ -53,6 +53,7 @@ html/record.1.svg
 html/record.2.svg
 html/record.3.svg
 html/record.4.svg
+html/sub.graph.frames.svg
 html/sub.graph.svg
 html/sub.sub.graph.svg
 html/trivial.svg
@@ -125,6 +126,7 @@ scripts/record.4.pl
 scripts/report.nodes.and.edges.pl
 scripts/report.valid.attributes.pl
 scripts/sqlite.foreign.keys.pl
+scripts/sub.graph.frames.pl
 scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
 scripts/trivial.pl
