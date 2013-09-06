@@ -1550,18 +1550,14 @@ the same way as the node parameters in the calls to default_node(%hash), new(nod
 
 subgraph => {..} is for setting attributes applicable to clusters and subgraphs.
 
-Currently the only subgraph attribute is I<rank>, but clusters have many attributes available.
+Currently the only subgraph attribute is C<rank>, but clusters have many attributes available.
 
 See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
 
 A typical usage would be push_subgraph(subgraph => {rank => 'same'}) so that all nodes mentioned within the subgraph
 are constrained to be horizontally aligned.
 
-See scripts/rank.sub.graph.[12].pl for sample code.
-
-Possible values for the I<rank> key are: max, min, same, sink and source.
-
-See the L<Graphviz 'rank' docs|http://www.graphviz.org/content/attrs#drank> for details.
+See scripts/rank.sub.graph.[12].pl and scripts/sub.graph.frames.pl for sample code.
 
 =head2 report_valid_attributes()
 
