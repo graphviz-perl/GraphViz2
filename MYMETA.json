@@ -70,7 +70,7 @@
    "provides" : {
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
-         "version" : "2.21"
+         "version" : "2.22"
       },
       "GraphViz2::Config" : {
          "file" : "lib/GraphViz2/Config.pm",
@@ -127,5 +127,5 @@
          "http://www.perlfoundation.org/artistic_license_2_0"
       ]
    },
-   "version" : "2.21"
+   "version" : "2.22"
 }
