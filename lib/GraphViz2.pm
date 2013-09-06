@@ -131,7 +131,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.21';
+our $VERSION = '2.22';
 
 # -----------------------------------------------
 
@@ -794,10 +794,9 @@ sub validate_params
 
 	for my $a (sort keys %attributes)
 	{
-		if (! $attr{$context}{$a})
-		{
-			$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
-		}
+		next if ($attr{$context}{$a} || ( ($context eq 'subgraph') && $attr{cluster}{$a}) );
+
+		$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
 	}
 
 	return $self;
@@ -906,8 +905,6 @@ It is called GraphViz2 so that pre-existing code using (the Perl module) GraphVi
 
 To avoid confusion, when I use L<GraphViz2> (note the capital V), I'm referring to this Perl module, and
 when I use L<Graphviz|http://www.graphviz.org/> (lower-case v) I'm referring to the underlying tool (which is in fact a set of programs).
-
-This version of GraphViz2 targets V 2.23.6+ of L<Graphviz|http://www.graphviz.org/>.
 
 Version 1.00 of L<GraphViz2> is a complete re-write, by Ron Savage, of GraphViz V 2, which was written by Leon Brocard. The point of the re-write
 is to provide access to all the latest options available to users of L<Graphviz|http://www.graphviz.org/>.
@@ -1215,7 +1212,7 @@ At the moment, due to design defects (IMHO) in the underlying L<Graphviz|http://
 
 =item o A global frame
 
-I can't see how to make the graph at level 0 in the scope stack have a frame.
+I can't see how to make the graph as a whole (at level 0 in the scope stack) have a frame.
 
 =item o Frame color
 
@@ -1231,14 +1228,18 @@ This contradicts what happens at the global level, in that specifying color ther
 
 =item o Frame visibility
 
-A subgraph is currently forced to have a frame, unless you rig it by specifying a color the same as the background.
+A subgraph whose name starts with 'cluster' is currently forced to have a frame, unless you rig it by specifying a
+color the same as the background.
+
+For sample code, see scripts/sub.graph.frames.pl.
 
 =back
 
+Also, check L<the pencolor docs|http://www.graphviz.org/content/attrs#dpencolor> for how the color of the frame is
+chosen by cascading thru a set of options.
+
 I've posted an email to the L<Graphviz|http://www.graphviz.org/> mailing list suggesting a new option, framecolor, so deal with
 this issue, including a special color of 'invisible'.
-
-I'm using V 2.26.3 of L<Graphviz|http://www.graphviz.org/> as I write this (2011-06-06).
 
 =head1 Methods
 
@@ -1374,6 +1375,15 @@ Returns $self to allow method chaining.
 
 %hash is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
 the same way as the node parameters in the calls to new(node => {}) and push_subgraph(node => {}).
+
+=head2 default_subgraph(%hash)
+
+Sets defaults attributes for clusters and subgraphs.
+
+Returns $self to allow method chaining.
+
+%hash is any cluster or subgraph attribute accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
+the same way as the subgraph parameter in the calls to new(subgraph => {}) and push_subgraph(subgraph => {}).
 
 =head2 dot_input()
 
@@ -1538,8 +1548,11 @@ the same way as the graph parameters in the calls to default_graph(%hash), new(g
 node => {...} is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
 the same way as the node parameters in the calls to default_node(%hash), new(node => {}) and push_subgraph(node => {}).
 
-subgraph => {..} is for setting attributes applicable to subgraphs. Currently the only such
-attribute is I<rank>.
+subgraph => {..} is for setting attributes applicable to clusters and subgraphs.
+
+Currently the only subgraph attribute is I<rank>, but clusters have many attributes available.
+
+See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
 
 A typical usage would be push_subgraph(subgraph => {rank => 'same'}) so that all nodes mentioned within the subgraph
 are constrained to be horizontally aligned.
@@ -1622,6 +1635,8 @@ You wouldn't normally need to use this method.
 
 Validate the given attributes within the given context.
 
+Also, if $context is 'subgraph', attributes are allowed to be in the 'cluster' context.
+
 Returns $self to allow method chaining.
 
 $context is one of 'edge', 'global', 'graph', 'node' or 'output_format'.
@@ -1635,6 +1650,14 @@ Gets or sets the verbosity level, for when a logging object is not used.
 Here, [] indicates an optional parameter.
 
 =head1 FAQ
+
+=head2 Which version of Graphviz do you use?
+
+GraphViz2 targets V 2.30.1+ of L<Graphviz|http://www.graphviz.org/>.
+
+This affects the list of available attributes per graph item (node, edge, cluster, etc) available.
+
+See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
 
 =head2 Why do I get error messages like the following?
 
@@ -1808,6 +1831,22 @@ Here's how you refer to those ports, again from scripts/html.labels.1.pl:
 =back
 
 See also the docs for the C<< add_node(name => $node_name, [%hash]) >> method.
+
+=head2 How do I specify attributes for clusters?
+
+Just use subgraph => {...}, because the code (as of V 2.22) accepts attributes belonging to either clusters or subgraphs.
+
+An example attribute is C<pencolor>, which is used for clusters but not for subgraphs:
+
+	$graph -> push_subgraph
+	(
+		graph    => {label => 'Child the Second'},
+		name     => 'cluster Second subgraph',
+		node     => {color => 'magenta', shape => 'diamond'},
+		subgraph => {pencolor => 'white'}, # White hides the cluster's frame.
+	);
+
+See scripts/sub.graph.frames.pl.
 
 =head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
 
@@ -2227,7 +2266,7 @@ Outputs to STDOUT.
 
 =head2 scripts/report.valid.attributes.pl
 
-Prints all current (V 2.23.6) L<Graphviz|http://www.graphviz.org/> attributes, along with a few global ones I've invented for the purpose of writing this module.
+Prints all current L<Graphviz|http://www.graphviz.org/> attributes, along with a few global ones I've invented for the purpose of writing this module.
 
 Outputs to STDOUT.
 
@@ -2236,6 +2275,12 @@ Outputs to STDOUT.
 Demonstrates how to find foreign key info by calling SQLite's pragma foreign_key_list.
 
 Outputs to STDOUT.
+
+=head2 scripts/sub.graph.frames.pl
+
+Demonstrates clusters with and without frames.
+
+Outputs to ./html/sub.graph.frames.svg by default.
 
 =head2 scripts/sub.graph.pl
 

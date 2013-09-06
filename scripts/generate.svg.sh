@@ -41,6 +41,7 @@ perl -Ilib scripts/record.2.pl          svg > $DIR/record.2.log
 perl -Ilib scripts/record.3.pl          svg > $DIR/record.3.log
 perl -Ilib scripts/record.4.pl          svg > $DIR/record.4.log
 perl -Ilib scripts/sub.graph.pl         svg > $DIR/sub.graph.log
+perl -Ilib scripts/sub.graph.frames.pl  svg > $DIR/sub.graph.frames.log
 perl -Ilib scripts/sub.sub.graph.pl     svg > $DIR/sub.sub.graph.log
 perl -Ilib scripts/trivial.pl           svg > $DIR/trivial.log
 perl -Ilib scripts/unnamed.sub.graph.pl svg > $DIR/unnamed.sub.graph.log
