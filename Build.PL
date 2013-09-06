@@ -83,7 +83,7 @@ $class -> new
 		Class::ISA                  => 0.36,
 		Class::Load                 => 0.17,
 		Config                      => 0,
-		Config::Tiny                => 2.14,
+		Config::Tiny                => 2.16,
 		Date::Simple                => 3.03,
 		Data::Section::Simple       => 0.02,
 		DBI                         => 1.616,
