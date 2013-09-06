@@ -60,7 +60,7 @@ requires:
   Class::ISA: 0.36
   Class::Load: 0.17
   Config: 0
-  Config::Tiny: 2.14
+  Config::Tiny: 2.16
   DBI: 1.616
   Data::Section::Simple: 0.02
   Date::Simple: 3.03
