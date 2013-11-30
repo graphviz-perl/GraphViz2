@@ -4,6 +4,7 @@ author:
   - 'Ron Savage <ron@savage.net.au>'
 build_requires:
   Test::More: 0.94
+  Test::Version: 1.002003
 configure_requires:
   Module::Build: 0.38
 dynamic_config: 1

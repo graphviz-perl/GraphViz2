@@ -151,4 +151,5 @@ t/sample.stt.1.dat
 t/sample.stt.2.dat
 t/sample.xml
 t/test.t
+t/version.t
 xt/author/pod.t

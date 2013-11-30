@@ -12,6 +12,9 @@ Revision history for Perl extension GraphViz2.
 		o Add 'xdot1.2' as an attribute of 'output format'.
 		o Add 'xdot1.4' as an attribute of 'output format'.
 		See RT#91073. Many thanx for Kent Fredric for bringing this to my attention.
+	- Add t/version.t, which uses Test::Version.
+	- Update pre-reqs.
+	- Add use strict/warnings to Build.PL and Makefile.PL.
 
 2.22  Fri Sep  6 16:03:00 2013
 	- Fix handling of graph attributes which are for clusters but not for subgraphs.
