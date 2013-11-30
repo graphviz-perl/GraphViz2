@@ -6,20 +6,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <title>Output Formats | Graphviz - Graph Visualization Software</title>
-  <link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?y" />
-  <script type="text/javascript" src="/misc/jquery.js?y"></script>
-<script type="text/javascript" src="/misc/drupal.js?y"></script>
-<script type="text/javascript" src="/sites/all/modules/mollom/mollom.js?y"></script>
+  <link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?W" />
+  <script type="text/javascript" src="/misc/jquery.js?W"></script>
+<script type="text/javascript" src="/misc/drupal.js?W"></script>
+<script type="text/javascript" src="/sites/all/modules/mollom/mollom.js?W"></script>
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--
 jQuery.extend(Drupal.settings, { "basePath": "/" });
@@ -45,7 +45,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
  <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
 </div>
 <input type="submit" name="op" id="edit-submit-1" value="Search"  class="form-submit" />
-<input type="hidden" name="form_build_id" id="form-aeb07f61f646970f77f0b96fbd9108dc" value="form-aeb07f61f646970f77f0b96fbd9108dc"  />
+<input type="hidden" name="form_build_id" id="form-b22f2c7e0c2417fe1fdb150d0a43f2a7" value="form-b22f2c7e0c2417fe1fdb150d0a43f2a7"  />
 <input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
 </div>
 
@@ -93,7 +93,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <input type="submit" name="op" id="edit-submit" value="Log in"  class="form-submit" />
 <div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
 <li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
-</ul></div><input type="hidden" name="form_build_id" id="form-1d7c11386cd34c3f0c84ea85a2351ac5" value="form-1d7c11386cd34c3f0c84ea85a2351ac5"  />
+</ul></div><input type="hidden" name="form_build_id" id="form-4df623a805e13a5d300df04a12e5fb33" value="form-4df623a805e13a5d300df04a12e5fb33"  />
 <input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
 
 </div></form>
@@ -136,6 +136,8 @@ formats need to be interpreted in this manner.
  <TR><TD ALIGN=CENTER><A NAME=acanon HREF=#dcanon>canon</a>
 <BR /><A NAME=adot HREF=#ddot>dot</a>
 <BR /><A NAME=axdot HREF=#dxdot>xdot</a>
+<BR /><A NAME=axdot1.2 HREF=#dxdot1.2>xdot1.2</a>
+<BR /><A NAME=axdot1.4 HREF=#dxdot1.4>xdot1.4</a>
 </td><TD>DOT</td> </tr>
  <TR><TD ALIGN=CENTER><A NAME=acmap HREF=#dcmap>cmap</a>
 </td><TD>Client-side imagemap (deprecated)</td> </tr>
@@ -202,6 +204,8 @@ formats need to be interpreted in this manner.
 <DT><A NAME=dcanon HREF=#acanon><STRONG>canon</strong></a>
 ,<DT><A NAME=ddot HREF=#adot><STRONG>dot</strong></a>
 ,<DT><A NAME=dxdot HREF=#axdot><STRONG>xdot</strong></a>
+,<DT><A NAME=dxdot1.2 HREF=#axdot1.2><STRONG>xdot1.2</strong></a>
+,<DT><A NAME=dxdot1.4 HREF=#axdot1.4><STRONG>xdot1.4</strong></a>
 <DD>These formats produce output in the
 <A HREF=dot-language>dot language</a>.
 Using <B>canon</b> produces a prettyprinted version of the input,
@@ -234,16 +238,20 @@ The <B>xdot</b> format extends the
 how graph components are drawn. It relies on additional attributes
 for nodes, edges and graphs.
 </p><P>
-The format is preliminary; comments and
+The format is fluid; comments and
 suggestions for better representations are welcome.
 To allow for changes in the format, Graphviz attaches the attribute
 <TT>xdotversion</tt> to the graph.
+If the <TT>xdotversion</tt> attribute is set in the input graph, the renderer
+will only output features supported by that version. Note that the formats <TT>xdot1.2</tt>
+and <TT>xdot1.4</tt> are equivalent to setting <TT>xdotversion=1.2</tt> and <TT>xdotversion=1.4</tt>,
+respectively.
 </p><P>
 Additional drawing attributes can appear on nodes, edges, clusters and 
 on the graph itself. There are six new attributes: 
 <SPACER TYPE=VERTICAL size=10>
 <TABLE  border bgcolor=beige>
-<TR><TD>_draw_<TD colspan=2>Drawing operations
+<TR><TD>_draw_<TD colspan=2>General drawing without labels
 <TR><TD>_ldraw_<TD colspan=2>Label drawing
 <TR><TD>_hdraw_<TD>Head arrowhead<TD>Edge only
 <TR><TD>_tdraw_<TD>Tail arrowhead<TD>Edge only
@@ -281,6 +289,8 @@ was in the original specification.)
 n bytes following '-'. The text should be left-aligned (centered,
 right-aligned) on the point if j is -1 (0, 1), respectively. The value
 w gives the width of the text as computed by the library.
+<TR><TD>t f
+<TD>Set font characteristics. The integer f is the OR of BOLD=1, ITALIC=2, UNDERLINE=4, SUPERSCRIPT=8, SUBSCRIPT=16, and STRIKE-THROUGH=32.
 <TR><TD>C n -<I>b<sub>1</sub>b<sub>2</sub>...b<sub>n</sub></i>
 <TD>Set fill color. The color value consists of the
 n bytes following '-'. (1.1)
@@ -301,18 +311,41 @@ consists of the n bytes following '-'. This is usually a bitmap
 image. Note that the image size, even when converted from pixels to
 points, might be different from the required size (w,h). It is
 assumed the renderer will perform the necessary scaling. (1.2)
-</td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></table>
+</td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></td></td></tr></table>
 <P>
 Note that the filled figures (ellipses, polygons and B-Splines)
 imply two operations: first, drawing the filled figure with the
 current fill color; second, drawing an unfilled figure with the
 current pen color, pen width and pen style.
 </p><P>
+Within the context of a single drawing attribute, e.g., <TT>_draw_</tt>, there is
+an implicit state for the graphical attributes. That is, once a color, style, font, or
+font characteristic is set, it remains valid for all relevant drawing operations
+until the value is reset by another xdot cmd.
+</p><P>
 Style values which can be incorporated in the graphics model do not
 appear in xdot output. In particular, the style values
 <TT>filled</tt>, <TT>rounded</tt>, <TT>diagonals</tt>, and <TT>invis</tt>
 will not appear. Indeed, if style contains <TT>invis</tt>, 
 there will not be any xdot output at all.
+</p><P>
+With version 1.4 of xdot, color strings may now encode linear and radial gradients. Linear
+gradients have the form <br />
+&nbsp;&nbsp;&nbsp;&nbsp;'[' x<sub>0</sub> y<sub>0</sub> x<sub>1</sub> y<sub>1</sub> n [<I>color-stop</i>]<sup>+</sup> ']'<br />
+where (x<sub>0</sub>,y<sub>0</sub>) and (x<sub>1</sub>,y<sub>1</sub>) define the starting and
+ending points of the gradient line segment, and n gives the number of <I>color-stops</i>. Each
+<I>color-stop</i> has the form<br />
+&nbsp;&nbsp;&nbsp;&nbsp;v m -<I>b<sub>1</sub>b<sub>2</sub>...b<sub>m</sub></i><br />
+where v is a number in the range [0,1] defining a position on the gradient line segment, with
+color specified by the m byte string <I>b<sub>1</sub>b<sub>2</sub>...b<sub>m</sub></i>, 
+the same format as used for colors in the 'c' and 'C' operations.
+</p><P>
+Radial gradients have the form<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'(' x<sub>0</sub> y<sub>0</sub> r<sub>0</sub> x<sub>1</sub> y<sub>1</sub> r<sub>1</sub> n [<I>color-stop</i>]<sup>+</sup> ')' <br />
+where x<sub><i>j</i></sub> y<sub><i>j</i></sub> r<sub><i>j</i></sub>, for <i>j</i>=0,1, specify
+the center and radius of the start and ending circle, and n gives the number of <I>color-stops</i>.
+A <I>color-stop</i> has the same format as defined for linear gradients, again given the fractional
+offset and its associated color. 
 </p><P>
 In handling text alignment, the application may want to recompute the
 string width using its own rendering primitives.
@@ -330,12 +363,16 @@ Note though that if
 an edge or node is invisible, no drawing operations are attached to it.
 </p><P>
 Version info:
-<TABLE  border >
-<TR><TH>Xdot version</th><TH>Graphviz version</th></tr>
-<TR><TD>1.0</td><TD>1.9</td></tr>
-<TR><TD>1.1</td><TD>2.8</td></tr>
-<TR><TD>1.2</td><TD>2.13</td></tr>
-</table>
+<TABLE  border="1" >
+<TR><TH>Xdot version</th><TH>Graphviz version</th><TH>Modification</th></tr>
+<TR><TD>1.0</td> <TD>1.9</td><TD> </td></tr>
+<TR><TD>1.1</td> <TD>2.8</td><TD>First plug-in version</td></tr>
+<TR><TD>1.2</td><TD>2.13</td><TD>Support image operator <b>I</b></td></tr>
+<TR><TD>1.3</td><TD>2.31</td><TD>Add numerical precision
+<TR><TD>1.4</td><TD>2.32</td><TD>Add gradient colors
+<TR><TD>1.5</td><TD>2.34</td><TD>Fix text layout problem; fix inverted vector in gradient; support version-specific output; new <B>t</b> op for text characteristics
+<TR><TD>1.6</td><TD>2.35</td><TD>Add STRIKE-THROUGH bit for <tt>t</tt>
+</td></tr></td></tr></td></tr></td></tr></table>
 
 <DT><A NAME=dcmap HREF=#acmap><STRONG>cmap</strong></a>
 <DD>Produces map files for client-side image maps. The cmap format is
@@ -432,9 +469,9 @@ The analogous description holds for the tail and the
 A URL associated with the graph is used as a default link.
 </p><P>
 If the URL
-of a node contains the escape sequence "'N", it will be replaced by
+of a node contains the escape sequence "&#92;N", it will be replaced by
 the node's name.
-If the headURL is defined and contains the escape sequence "'N",
+If the headURL is defined and contains the escape sequence "&#92;N",
 it will be replaced by
 the <A HREF=attrs#dheadlabel>headlabel</a>, if defined.
 The analogous result holds for the tailURL and the
@@ -455,7 +492,7 @@ nodes and edges. Since edge
 links are attached to edge labels, an edge must
 have a <A HREF=attrs#dlabel>label</a> for its
 URL to be used. For both nodes and edges, if the URL has the escape
-sequence "'N" embedded in its string, this will be replaced with the
+sequence "&#92;N" embedded in its string, this will be replaced with the
 node or edge name.
 
 <DT><A NAME=djpg HREF=#ajpg><STRONG>jpg</strong></a>
@@ -627,7 +664,7 @@ or Google's <a href="http://code.google.com/speed/webp/">webp</a> pages.
 <DT><A NAME=dxlib HREF=#axlib><STRONG>xlib</strong></a>
 <DD>Creates an <A HREF="http://en.wikipedia.org/wiki/Xlib" target="blank">Xlib</a> window and displays the output there.
 
-</dd></dt></dd></dt></dd></dt></p></dd></dt></p></dd></dt></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></p></dd></dt></dd></dt></p></dd></dt></dt></p></dd></dt></dd></dt></dt></dt></dd></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></dd></dt></dd></dt></dd></dt></dt></dd></dt></dd></dt></p></dd></dt></p></spacer></p></spacer></p></dd></dt></dt></dt></dd></dt></dl>
+</dd></dt></dd></dt></dd></dt></p></dd></dt></p></dd></dt></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></p></dd></dt></dd></dt></p></dd></dt></dt></p></dd></dt></dd></dt></dt></dt></dd></dt></dd></dt></dt></p></dd></dt></dt></dd></dt></dd></dt></dd></dt></dd></dt></dt></dd></dt></dd></dt></p></dd></dt></p></spacer></p></spacer></p></dd></dt></dt></dt></dt></dt></dd></dt></dl>
 <HR />
 <H1 align=CENTER><A NAME=dimage_fmts>Image Formats</a></h1>
 <HR />
@@ -651,25 +688,25 @@ one of the plugins, in which case, that transformation is not possible.
 <LI>
 <A NAME=ID></a>In the formats: -Tcmap, -Tcmapx, -Tsvg, -Tvml, the output generates
 'id="node#"' properties for nodes, 'id="edge#"' properties for edges, and 'id="cluster#"' properties for clusters, with the '#' replaced by an internally assigned integer. These strings can be provided instead by an externally provided "id=xxx" attribute on the object.
-Normal "'N" "'E" "'G" substitutions are applied.
+Normal "&#92;N" "&#92;E" "&#92;G" substitutions are applied.
 Externally provided id values are not used internally, and it is the use's reponsibilty to ensure
 that they are sufficiently unique for their intended downstream use.
-Note, in particular, that "'E" is not a unique id for multiedges.
+Note, in particular, that "&#92;E" is not a unique id for multiedges.
 </li></ol>
 </p></div>
       </div>
   <div class="block block-comment" id="block-comment-0">
     <h2 class="title">Recent comments</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/manual-install-zip-windows-path-problem#comment-1272">There were some unwanted</a><br />2 days 4 hours ago</li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect#comment-1271">No, 2.28 is a release</a><br />5 days 5 hours ago</li>
-<li><a href="/content/memory-leek-or-missing-some-dispose-function#comment-1269">Ok finaly i have time to test</a><br />5 days 11 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1268">Well, there should be an</a><br />1 week 22 hours ago</li>
-<li><a href="/content/multicolor-edges#comment-1267">Sorry, yes, the parallel edge</a><br />1 week 22 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1266">I want more and more ...</a><br />1 week 2 days ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1265">Graphviz provides a small</a><br />1 week 3 days ago</li>
-<li><a href="/content/what-really-needed-graph-visualization-rest-web-service-cloud#comment-1264">Actually, we have been</a><br />1 week 4 days ago</li>
-<li><a href="/content/help-embedding-svg-files#comment-1263">What machine are you running</a><br />1 week 4 days ago</li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz#comment-1262">Graphviz is a collection of</a><br />1 week 5 days ago</li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/gvfreelayout-and-bb-attribute#comment-1552">gvFreeLayout</a><br />5 hours 16 min ago</li>
+<li><a href="/content/gvfreelayout-and-bb-attribute#comment-1551">Can you be more specific as</a><br />6 hours 19 min ago</li>
+<li><a href="/content/xdot-versions-etc#comment-1550">I don&#039;t understand. Anyone</a><br />7 hours 52 min ago</li>
+<li><a href="/content/xdot-versions-etc#comment-1549">It looks somehow complicated</a><br />16 hours 3 min ago</li>
+<li><a href="/content/mindist-circo-not-working-library#comment-1548">Your patch has been applied.</a><br />2 days 3 hours ago</li>
+<li><a href="/content/img-tag-padding#comment-1547">workaround: downgrade to 2.20.2, bug #2397 opened</a><br />2 days 7 hours ago</li>
+<li><a href="/content/img-tag-padding#comment-1546">this is regression since graphviz 2.20.2</a><br />2 days 10 hours ago</li>
+<li><a href="/content/graphviz-iphone#comment-1543">Graphviz on iPhone</a><br />4 days 12 hours ago</li>
+<li><a href="/content/using-gvmap-library#comment-1542">You can certainly modify and</a><br />1 week 1 day ago</li>
+<li class="last"><a href="/content/xdot-versions-etc#comment-1541">Future features should be</a><br />1 week 1 day ago</li>
 </ul></div></div>
  </div>
               </div>
@@ -677,11 +714,11 @@ Note, in particular, that "'E" is not a unique id for multiedges.
     <td id="sidebar-right">
         <div class="block block-forum" id="block-forum-1">
     <h2 class="title">New forum topics</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/avoid-stretching-table-inside-td">Avoid stretching table inside td.</a></li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect" title="1 comment">Smyrna.exe failed to start because its side-by-side configuration is incorrect</a></li>
-<li><a href="/content/multicolor-edges" title="1 comment">Multicolor edges</a></li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow" title="3 comments">Help！ How to custom graphviz lines (not arrow)?</a></li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz" title="1 comment">can i read text file into graphviz </a></li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/gvfreelayout-and-bb-attribute" title="2 comments">gvFreeLayout and bb attribute</a></li>
+<li><a href="/content/gvfreelayout-leakage">gvFreeLayout leakage</a></li>
+<li><a href="/content/mindist-circo-not-working-library" title="1 comment">Mindist in Circo not working (library)</a></li>
+<li><a href="/content/using-gvmap-library" title="1 comment">using gvmap as a library</a></li>
+<li class="last"><a href="/content/xdot-versions-etc" title="7 comments">xdot versions etc</a></li>
 </ul></div><div class="more-link"><a href="/forum" title="Read the latest forum topics.">more</a></div></div>
  </div>
     </td>  </tr>

@@ -6,20 +6,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <title>Arrow Shapes | Graphviz - Graph Visualization Software</title>
-  <link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?y" />
-<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?y" />
-  <script type="text/javascript" src="/misc/jquery.js?y"></script>
-<script type="text/javascript" src="/misc/drupal.js?y"></script>
-<script type="text/javascript" src="/sites/all/modules/mollom/mollom.js?y"></script>
+  <link type="text/css" rel="stylesheet" media="all" href="/modules/node/node.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/defaults.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/system/system-menus.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/user/user.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/ckeditor/ckeditor.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/mollom/mollom.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/modules/forum/forum.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/sites/all/modules/views/css/views.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/gv.css?W" />
+<link type="text/css" rel="stylesheet" media="all" href="/themes/bluemarine/style.css?W" />
+  <script type="text/javascript" src="/misc/jquery.js?W"></script>
+<script type="text/javascript" src="/misc/drupal.js?W"></script>
+<script type="text/javascript" src="/sites/all/modules/mollom/mollom.js?W"></script>
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--
 jQuery.extend(Drupal.settings, { "basePath": "/" });
@@ -45,7 +45,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
  <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Enter the terms you wish to search for." class="form-text" />
 </div>
 <input type="submit" name="op" id="edit-submit-1" value="Search"  class="form-submit" />
-<input type="hidden" name="form_build_id" id="form-baad4ffb4dd8df701b4ebf80377e1d44" value="form-baad4ffb4dd8df701b4ebf80377e1d44"  />
+<input type="hidden" name="form_build_id" id="form-f9362d81f31a58b2bded2d51770bc10d" value="form-f9362d81f31a58b2bded2d51770bc10d"  />
 <input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
 </div>
 
@@ -93,7 +93,7 @@ jQuery.extend(Drupal.settings, { "basePath": "/" });
 <input type="submit" name="op" id="edit-submit" value="Log in"  class="form-submit" />
 <div class="item-list"><ul><li class="first"><a href="/user/register" title="Create a new user account.">Create new account</a></li>
 <li class="last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
-</ul></div><input type="hidden" name="form_build_id" id="form-bbad54dd978ef6896b29829981b4a5f2" value="form-bbad54dd978ef6896b29829981b4a5f2"  />
+</ul></div><input type="hidden" name="form_build_id" id="form-1c8b3030eb5727a5b069a54810f1f3cf" value="form-1c8b3030eb5727a5b069a54810f1f3cf"  />
 <input type="hidden" name="form_id" id="edit-user-login-block" value="user_login_block"  />
 
 </div></form>
@@ -233,6 +233,8 @@ As an example, the arrow shape <TT>lteeoldiamond</tt> is parsed as
 </center>
 Note that the first arrow shape specified occurs closest to the node.
 Subsequent arrow shapes, if specified, occur further from the node.
+Also, a shape of <tt>none</tt> uses space, so, for example, the arrowhead <tt>nonenormal</tt>
+is not the same as <tt>normal</tt>.
 </p><P>
 Not all syntactically legal combinations of modifiers are meaningful
 or semantically valid.
@@ -245,6 +247,7 @@ The following table indicates which modifiers are allowed with which shapes.
  <TH>Modifier</th>
  <TH>box
  <TH>crow
+ <TH>curve
  <TH>diamond
  <TH>dot
  <TH>inv
@@ -252,17 +255,19 @@ The following table indicates which modifiers are allowed with which shapes.
  <TH>normal
  <TH>tee
  <TH>vee
-</th></th></th></th></th></th></th></th></th></tr>
-<TR ALIGN=CENTER><TD>'l'/'r'<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>X<TD>X<TD>X</td></td></td></td></td></td></td></td></td></td></tr>
-<TR ALIGN=CENTER><TD>'o'    <TD>X<TD>&nbsp;<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>&nbsp;</td></td></td></td></td></td></td></td></td></td></tr>
+</th></th></th></th></th></th></th></th></th></th></tr>
+<TR ALIGN=CENTER><TD>'l'/'r'<TD>X<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>X<TD>X<TD>X</td></td></td></td></td></td></td></td></td></td></td></tr>
+<TR ALIGN=CENTER><TD>'o'    <TD>X<TD>&nbsp;<TD>&nbsp;<TD>X<TD>X<TD>X<TD>&nbsp;<TD>X<TD>&nbsp;<TD>&nbsp;</td></td></td></td></td></td></td></td></td></td></td></tr>
 </table>
 </center>
 </p><P>
-This yields 36 different arrow shapes. The optional second, third, fourth shapes
-can independently be any of the 36, but since <TT>nonenone</tt> 
-is redundant, there are 35**4 + 35**3 + 35**2 + 35 + 1 = 1,544,761 different combinations.
+This yields 39 different arrow shapes. The optional second, third, fourth shapes
+can independently be any of the 39, except the last cannot be <TT>none</tt> as
+this would create a redundant shape.
+Thus, there are 38 &middot; 39<sup>3</sup> + 38 &middot; 39<sup>2</sup> + 38 &middot; 39 + 39 = 2,313,441 different combinations.
+
 </p><P>
-The following display contains the 36 combinations possible with a single
+The following display contains the 39 combinations possible with a single
 arrow shape. The node attached to the arrow is not drawn but would appear
 on the right side of the edge.
 </p><P>
@@ -392,16 +397,16 @@ on the right side of the edge.
       </div>
   <div class="block block-comment" id="block-comment-0">
     <h2 class="title">Recent comments</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/manual-install-zip-windows-path-problem#comment-1272">There were some unwanted</a><br />2 days 4 hours ago</li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect#comment-1271">No, 2.28 is a release</a><br />5 days 5 hours ago</li>
-<li><a href="/content/memory-leek-or-missing-some-dispose-function#comment-1269">Ok finaly i have time to test</a><br />5 days 10 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1268">Well, there should be an</a><br />1 week 22 hours ago</li>
-<li><a href="/content/multicolor-edges#comment-1267">Sorry, yes, the parallel edge</a><br />1 week 22 hours ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1266">I want more and more ...</a><br />1 week 2 days ago</li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow#comment-1265">Graphviz provides a small</a><br />1 week 3 days ago</li>
-<li><a href="/content/what-really-needed-graph-visualization-rest-web-service-cloud#comment-1264">Actually, we have been</a><br />1 week 4 days ago</li>
-<li><a href="/content/help-embedding-svg-files#comment-1263">What machine are you running</a><br />1 week 4 days ago</li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz#comment-1262">Graphviz is a collection of</a><br />1 week 5 days ago</li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/gvfreelayout-and-bb-attribute#comment-1552">gvFreeLayout</a><br />5 hours 16 min ago</li>
+<li><a href="/content/gvfreelayout-and-bb-attribute#comment-1551">Can you be more specific as</a><br />6 hours 19 min ago</li>
+<li><a href="/content/xdot-versions-etc#comment-1550">I don&#039;t understand. Anyone</a><br />7 hours 52 min ago</li>
+<li><a href="/content/xdot-versions-etc#comment-1549">It looks somehow complicated</a><br />16 hours 4 min ago</li>
+<li><a href="/content/mindist-circo-not-working-library#comment-1548">Your patch has been applied.</a><br />2 days 3 hours ago</li>
+<li><a href="/content/img-tag-padding#comment-1547">workaround: downgrade to 2.20.2, bug #2397 opened</a><br />2 days 7 hours ago</li>
+<li><a href="/content/img-tag-padding#comment-1546">this is regression since graphviz 2.20.2</a><br />2 days 10 hours ago</li>
+<li><a href="/content/graphviz-iphone#comment-1543">Graphviz on iPhone</a><br />4 days 12 hours ago</li>
+<li><a href="/content/using-gvmap-library#comment-1542">You can certainly modify and</a><br />1 week 1 day ago</li>
+<li class="last"><a href="/content/xdot-versions-etc#comment-1541">Future features should be</a><br />1 week 1 day ago</li>
 </ul></div></div>
  </div>
               </div>
@@ -409,11 +414,11 @@ on the right side of the edge.
     <td id="sidebar-right">
         <div class="block block-forum" id="block-forum-1">
     <h2 class="title">New forum topics</h2>
-    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/avoid-stretching-table-inside-td">Avoid stretching table inside td.</a></li>
-<li><a href="/content/smyrnaexe-failed-start-because-its-side-side-configuration-incorrect" title="1 comment">Smyrna.exe failed to start because its side-by-side configuration is incorrect</a></li>
-<li><a href="/content/multicolor-edges" title="1 comment">Multicolor edges</a></li>
-<li><a href="/content/help%EF%BC%81-how-custom-graphviz-lines-not-arrow" title="3 comments">Help！ How to custom graphviz lines (not arrow)?</a></li>
-<li class="last"><a href="/content/can-i-read-text-file-graphviz" title="1 comment">can i read text file into graphviz </a></li>
+    <div class="content"><div class="item-list"><ul><li class="first"><a href="/content/gvfreelayout-and-bb-attribute" title="2 comments">gvFreeLayout and bb attribute</a></li>
+<li><a href="/content/gvfreelayout-leakage">gvFreeLayout leakage</a></li>
+<li><a href="/content/mindist-circo-not-working-library" title="1 comment">Mindist in Circo not working (library)</a></li>
+<li><a href="/content/using-gvmap-library" title="1 comment">using gvmap as a library</a></li>
+<li class="last"><a href="/content/xdot-versions-etc" title="7 comments">xdot versions etc</a></li>
 </ul></div><div class="more-link"><a href="/forum" title="Read the latest forum topics.">more</a></div></div>
  </div>
     </td>  </tr>

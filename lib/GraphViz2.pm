@@ -131,7 +131,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.22';
+our $VERSION = '2.23';
 
 # -----------------------------------------------
 
@@ -2398,7 +2398,6 @@ area => node, cluster
 arrowhead => edge
 arrowsize => edge
 arrowtail => edge
-aspect => graph
 bb => graph
 bgcolor => graph, cluster
 center => graph
@@ -2448,6 +2447,7 @@ id => graph, cluster, node, edge
 image => node
 imagepath => graph
 imagescale => node
+inputscale => graph
 label => edge, node, graph, cluster
 labelURL => edge
 label_scheme => graph
@@ -2495,6 +2495,7 @@ orientation => graph
 outputorder => graph
 overlap => graph
 overlap_scaling => graph
+overlap_shrink => graph
 pack => graph
 packmode => graph
 pad => graph
@@ -2553,6 +2554,7 @@ viewport => graph
 voro_margin => graph
 weight => edge
 width => node
+xdotversion => graph
 xlabel => edge, node
 xlp => node, edge
 z => node
@@ -2617,12 +2619,14 @@ rpromoter
 septagon
 signature
 square
+star
 tab
 terminator
 threepoverhang
 trapezium
 triangle
 tripleoctagon
+underline
 utr
 
 @@ output_format
@@ -2661,4 +2665,6 @@ vrml
 wbmp
 webp
 xdot
+xdot1.2
+xdot1.4
 xlib

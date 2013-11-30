@@ -1,5 +1,5 @@
 package GrannySmith;
 
-our $VERSION = '2.22';
+our $VERSION = '2.23';
 
 1;
