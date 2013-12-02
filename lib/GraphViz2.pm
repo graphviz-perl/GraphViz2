@@ -7,6 +7,8 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
+use Capture::Tiny 'capture';
+
 use Data::Section::Simple 'get_data_section';
 
 use File::Which; # For which().
@@ -528,6 +530,15 @@ sub load_valid_attributes
 			$attribute{$c}{$attribute} = 1;
 		}
 	}
+
+	# Since V 2.24, output formats are no longer read from the __DATA__ section.
+	# Rather, they are extracted from the stderr output of 'dot -T?'.
+
+	my($stdout, $stderr)          = capture{system 'dot', '-T?'};
+	my(@field)                    = split(/one of:\s+/, $stderr);
+	$attribute{output_format}{$_} = 1 for split(/\s+/, $field[1]);
+
+	print "$_\n" for sort keys %{$attribute{output_format} };
 
 	$self -> valid_attributes(\%attribute);
 
@@ -2628,43 +2639,3 @@ triangle
 tripleoctagon
 underline
 utr
-
-@@ output_format
-bmp
-canon
-cmap
-cmapx
-cmapx_np
-dot
-eps
-fig
-gd
-gd2
-gif
-gtk
-ico
-imap
-imap_np
-ismap
-jpe
-jpeg
-jpg
-pdf
-plain
-plain-ext
-png
-ps
-ps2
-svg
-svgz
-tif
-tiff
-vml
-vmlz
-vrml
-wbmp
-webp
-xdot
-xdot1.2
-xdot1.4
-xlib
