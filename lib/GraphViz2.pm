@@ -133,7 +133,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 # -----------------------------------------------
 
@@ -1660,11 +1660,30 @@ Here, [] indicates an optional parameter.
 
 =head2 Which version of Graphviz do you use?
 
-GraphViz2 targets V 2.30.1+ of L<Graphviz|http://www.graphviz.org/>.
+GraphViz2 targets V 2.34.0 of L<Graphviz|http://www.graphviz.org/>.
 
 This affects the list of available attributes per graph item (node, edge, cluster, etc) available.
 
 See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
+
+See the next item for a discussion of the list of output formats.
+
+=head2 Where does the list of valid output formats come from?
+
+Up to V 2.23, it came from downloading and parsing http://www.graphviz.org/content/output-formats. This was done
+by scripts/extract.output.formats.pl.
+
+Starting with V 2.24 it comes from parsing the output of 'dot -T?'. The problems avoided, and advantages, of this are:
+
+=over 4
+
+=item o I might forget to run the script after Graphviz is updated
+
+=item o The on-line docs might be out-of-date
+
+=item o dot output includes the formats supported by locally-installed plugins
+
+=back
 
 =head2 Why do I get error messages like the following?
 
