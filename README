@@ -9,8 +9,8 @@ ftp://ftp.info-zip.org/pub/infozip/
 
 1 Installing from a Unix-like distro
 ------------------------------------
-shell>gunzip GraphViz2-1.02.tgz
-shell>tar mxvf GraphViz2-1.02.tar
+shell>gunzip GraphViz2-2.24.tgz
+shell>tar mxvf GraphViz2-2.24.tar
 
 On Unix-like systems, assuming you have installed Module::Build V 0.25+:
 
@@ -39,11 +39,11 @@ shell>exit            (for Unix-like systems)
 
 On all systems:
 
-Run GraphViz2.pm through you favourite pod2html translator.
+Run GraphViz2.pm through your favourite pod2html translator.
 
 2 Installing from an ActiveState distro
 ---------------------------------------
-shell>unzip GraphViz2-1.02.zip
+shell>unzip GraphViz2-2.24.zip
 shell>ppm install --location=. GraphViz2
-shell>del GraphViz2-1.02.ppd
-shell>del PPM-GraphViz2-1.02.tar.gz
+shell>del GraphViz2-2.24.ppd
+shell>del PPM-GraphViz2-2.24.tar.gz
