@@ -65,6 +65,6 @@ for my $key (keys %rank)
 }
 
 my($format)      = shift || 'svg';
-my($output_file) = shift || File::Spec -> catfile('html', "rank.sub.graph.2.$format");
+my($output_file) = shift || File::Spec -> catfile('html', "rank.sub.graph.1.$format");
 
 $graph -> run(format => $format, output_file => $output_file);
