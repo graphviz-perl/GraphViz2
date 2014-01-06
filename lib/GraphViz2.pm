@@ -133,7 +133,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.24';
+our $VERSION = '2.25';
 
 # -----------------------------------------------
 
@@ -537,8 +537,6 @@ sub load_valid_attributes
 	my($stdout, $stderr)          = capture{system 'dot', '-T?'};
 	my(@field)                    = split(/one of:\s+/, $stderr);
 	$attribute{output_format}{$_} = 1 for split(/\s+/, $field[1]);
-
-	print "$_\n" for sort keys %{$attribute{output_format} };
 
 	$self -> valid_attributes(\%attribute);
 

@@ -1,5 +1,10 @@
 Revision history for Perl extension GraphViz2.
 
+2.25  Mon Jan  6 17:06:00 2014
+	- Remove debug printing of the output of 'dot -T?' (a list of valid output formats).
+	- Fix typos in output names in rank.sub.graph.1.pl and rank.sub.graph.2.pl.
+		rank.sub.graph.1.pl was outputting to html/rank.sub.graph.2.svg and visa versa.
+
 2.24  Mon Dec  2 09:30:00 2013
 	- Rewrite scripts/extract.output.formats.pl, which used to download a page of documentation from graphviz.org,
 		and parse it to build a list of output formats. The problems are:
