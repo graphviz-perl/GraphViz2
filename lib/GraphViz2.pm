@@ -130,7 +130,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.26';
+our $VERSION = '2.25';
 
 # -----------------------------------------------
 
@@ -1709,6 +1709,11 @@ for details.
 Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.1.svg>.
 
 scripts/utf8.1.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
+
+=head2 Why did you remove 'use utf8' from this file (in V 2.26)?
+
+Because it is global, i.e. it applies to all code in your program, not just within this module.
+Some modules you are using may not expect that. If you need it, just use it in your *.pl script.
 
 =head2 Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
 
