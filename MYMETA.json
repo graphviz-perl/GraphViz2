@@ -4,7 +4,7 @@
       "Ron Savage <ron@savage.net.au>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.4204",
+   "generated_by" : "Module::Build version 0.4204, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "unknown"
    ],
@@ -16,13 +16,12 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.94",
-            "Test::Version" : "1.002003"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.38"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "runtime" : {
@@ -54,6 +53,8 @@
             "Perl6::Slurp" : "0.051003",
             "Scalar::Util" : "1.23",
             "Set::Array" : "0.23",
+            "Test::More" : "0.94",
+            "Test::Version" : "1.002003",
             "Text::Xslate" : "1.2",
             "Tree::DAG_Node" : "1.06",
             "Try::Tiny" : "0.09",
@@ -71,7 +72,7 @@
    "provides" : {
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
-         "version" : "2.26"
+         "version" : "2.25"
       },
       "GraphViz2::Config" : {
          "file" : "lib/GraphViz2/Config.pm",
@@ -128,5 +129,5 @@
          "http://opensource.org/licenses/artistic-license-2.0.php"
       ]
    },
-   "version" : "2.26"
+   "version" : "2.25"
 }
