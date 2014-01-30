@@ -71,7 +71,7 @@
    "provides" : {
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
-         "version" : "2.25"
+         "version" : "2.26"
       },
       "GraphViz2::Config" : {
          "file" : "lib/GraphViz2/Config.pm",
@@ -128,5 +128,5 @@
          "http://opensource.org/licenses/artistic-license-2.0.php"
       ]
    },
-   "version" : "2.25"
+   "version" : "2.26"
 }
