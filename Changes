@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.26  Thu Jan 30 12:44:00 2014
+	- Stop sing bare word file handles.
+	- Remove these lines from GraphViz2.pm (because utf8 is global and the others are not needed):
+		use utf8;
+		use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
+		use charnames qw(:full :short);  # Unneeded in v5.16.
+
 2.25  Mon Jan  6 17:06:00 2014
 	- Remove debug printing of the output of 'dot -T?' (a list of valid output formats).
 	- Fix typos in output names in rank.sub.graph.1.pl and rank.sub.graph.2.pl.
