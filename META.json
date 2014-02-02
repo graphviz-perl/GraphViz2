@@ -6,7 +6,7 @@
    "dynamic_config" : 1,
    "generated_by" : "Module::Build version 0.4204",
    "license" : [
-      "artistic_2_0"
+      "artistic_2"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -125,7 +125,7 @@
    "release_status" : "stable",
    "resources" : {
       "license" : [
-         "http://opensource.org/licenses/artistic-license-2.0.php"
+         "http://www.perlfoundation.org/artistic_license_2_0"
       ]
    },
    "version" : "2.26"
