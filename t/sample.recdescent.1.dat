@@ -60,9 +60,9 @@
 	test6: <rulevar: $test6 = 1>
 	test6: 'a' <commit> 'b' <uncommit> 'c' <reject: $test6 && $text>
 			{ 'prod 1' }
-	     | 'a'
-			{ 'prod 2' }
 	     | <uncommit>
+			{ 'prod 2' }
+	     | 'a'
 			{ 'prod 3' }
 
 #================================================================#

@@ -767,6 +767,8 @@ sub stringify_attributes
 	my($self, $context, $option) = @_;
 	my($dot) = '';
 
+	# Add double-quotes around anything (e.g. labels) which does not look like HTML.
+
 	for my $key (sort keys %$option)
 	{
 		$$option{$key} =~ s/^\s+(<)/$1/;
