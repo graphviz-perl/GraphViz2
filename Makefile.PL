@@ -124,7 +124,7 @@ if ($ExtUtils::MakeMaker::VERSION ge '6.46')
 		resources =>
 		{
 			bugtracker => 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
-			license    => 'http://www.perlfoundation.org/artistic_license_2_0',
+			license    => 'http://opensource.org/licenses/Artistic-2.0',
 		},
 	};
 }
