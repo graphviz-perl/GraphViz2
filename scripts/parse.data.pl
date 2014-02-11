@@ -28,11 +28,11 @@ $logger -> add
 	);
 
 my($sub) = sub{};
-my($s)   = 
+my($s)   =
 {
-	A => 
+	A =>
 	{
-		a => 
+		a =>
 		{
 		},
 		bbbbbb => $sub,
@@ -43,9 +43,9 @@ my($s)   =
 	{
 		b =>
 		{
-			a => 
+			a =>
 			{
-				a => 
+				a =>
 				{
 				},
 				b => sub{},

@@ -45,7 +45,7 @@ has tree =>
 	required => 0,
 );
 
-our $VERSION = '2.26';
+our $VERSION = '2.27';
 
 # -----------------------------------------------
 # This is a function.
@@ -110,6 +110,7 @@ sub BUILD
 
 	$self -> graph
 	(
+		$self -> graph ||
 		GraphViz2 -> new
 		(
 			edge   => {color => 'grey'},

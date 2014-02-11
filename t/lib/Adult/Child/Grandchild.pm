@@ -2,6 +2,6 @@ package Adult::Child::Grandchild;
 
 use parent qw/Adult::Child1 Adult::Child2/;
 
-our $VERSION = '2.26';
+our $VERSION = '2.27';
 
 1;

@@ -35,7 +35,7 @@ has isa =>
 	required => 0,
 );
 
-our $VERSION = '2.26';
+our $VERSION = '2.27';
 
 # -----------------------------------------------
 
@@ -72,20 +72,18 @@ sub BUILD
 {
 	my($self) = @_;
 
-	if (! $self -> graph)
-	{
-		$self -> graph
+	$self -> graph
+	(
+		$self -> graph ||
+		GraphViz2 -> new
 		(
-			GraphViz2 -> new
-			(
-				edge   => {color => 'grey'},
-				global => {directed => 1},
-				graph  => {rankdir => 'BT'},
-				logger => '',
-				node   => {color => 'blue', shape => 'Mrecord'},
-			)
-		);
-	}
+			edge   => {color => 'grey'},
+			global => {directed => 1},
+			graph  => {rankdir => 'BT'},
+			logger => '',
+			node   => {color => 'blue', shape => 'Mrecord'},
+		)
+	);
 
 } # End of BUILD.
 
