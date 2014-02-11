@@ -23,9 +23,9 @@ sub get_annotations
 
 	$|=1;
 
-	opendir(INX, $dir_name);
-	my(@file_name) = sort grep{! -d $_} readdir INX;
-	closedir INX;
+	opendir(my $fh, $dir_name);
+	my(@file_name) = sort grep{! -d $_} readdir $fh;
+	closedir $fh;
 
 	my(%annotation);
 	my(@line);
@@ -54,9 +54,9 @@ sub get_files
 {
 	my($self, $dir_name, $type) = @_;
 
-	opendir(INX, $dir_name);
-	my(@file) = sort grep{/$type$/} readdir INX;
-	closedir INX;
+	opendir(my $fh, $dir_name);
+	my(@file) = sort grep{/$type$/} readdir $fh;
+	closedir $fh;
 
 	my(%file);
 
@@ -76,9 +76,9 @@ sub get_scripts
 	my($self)     = @_;
 	my($dir_name) = 'scripts';
 
-	opendir(INX, $dir_name);
-	my(@file_name) = sort grep{! -d $_ && /\.pl$/} readdir INX;
-	closedir INX;
+	opendir(my $fh, $dir_name);
+	my(@file_name) = sort grep{! -d $_ && /\.pl$/} readdir $fh;
+	closedir $fh;
 
 	my(@line);
 	my(%script);
