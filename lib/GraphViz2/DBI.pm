@@ -7,6 +7,8 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
 
+use Data::Dumper::Concise;
+
 use GraphViz2;
 
 use Moo;
@@ -122,6 +124,8 @@ sub create
 
 	for my $table_name (sort keys %$table_info)
 	{
+		print STDERR Dumper($$table_info{$table_name}{foreign_keys});
+
 		for my $item (sort @{$$table_info{$table_name}{foreign_keys} })
 		{
 			$self -> graph -> add_edge(from => "$table_name:port2", to => "$$item[1]:port2");
@@ -153,17 +157,12 @@ sub get_table_info
 	my($sth)                = $dbh -> table_info($self -> catalog, $self -> schema, $self -> table, $self -> type);
 	my($table_info)         = $sth -> fetchall_arrayref({});
 
-	print STDERR "Vendor: $vendor\n";
-	print STDERR "Table_info: $table_info\n";
-
 	my($column_sth, @column_name);
 	my($table_name, %table_data);
 
 	for my $item (@$table_info)
 	{
-		print STDERR join(', ', map{"$_ => $$item{$_}"} keys %$item), "\n";
-
-		$table_name = $$item{'table_name'};
+		$table_name = $vendor eq 'MYSQL' ? $$item{TABLE_NAME} : $$item{table_name};
 
 		next if ( ($vendor eq 'ORACLE')     && ($table_name =~ /^bin\$.+\$./) );
 		next if ( ($vendor eq 'POSTGRESQL') && ($table_name =~ /^(?:pg_|sql_)/) );
@@ -184,7 +183,8 @@ sub get_table_info
 	}
 
 	my($column_data);
-	my(@foreign_info);
+	my(@foreign_info, $fk_column_name);
+	my($pk_column_name, $pk_table_name);
 
 	for my $table_name (sort keys %table_data)
 	{
@@ -204,7 +204,22 @@ sub get_table_info
 
 			for $column_data (@$table_info)
 			{
-				push @foreign_info, [$$column_data{'fk_column_name'}, $$column_data{'uk_table_name'}, $$column_data{'uk_column_name'}];
+				if ($vendor eq 'MYSQL')
+				{
+					$fk_column_name = 'FKCOLUMN_NAME';
+					$pk_column_name = 'PKCOLUMN_NAME';
+					$pk_table_name  = 'PKTABLE_NAME';
+				}
+				else
+				{
+					$fk_column_name = 'fk_column_name';
+					$pk_column_name = 'pk_column_name';
+					$pk_table_name  = 'pk_table_name';
+				}
+
+				print STDERR "$table_name: ", Dumper($column_data);
+
+				push @foreign_info, [$$column_data{$fk_column_name}, $$column_data{$pk_table_name}, $$column_data{$pk_column_name}];
 			}
 		}
 
