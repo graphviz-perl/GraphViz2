@@ -218,7 +218,9 @@ sub get_table_info
 					$pk_table_name  = 'uk_table_name';
 				}
 
-				say STDERR "$table_name. $$column_data{$fk_column_name}, $$column_data{$pk_table_name}, $$column_data{$pk_column_name}";
+				say STDERR "$table_name. $$column_data{$fk_column_name}";
+				say STDERR "$table_name. $$column_data{$pk_table_name}";
+				say STDERR "$table_name. $$column_data{$pk_column_name}";
 
 				push @foreign_info, [$$column_data{$fk_column_name}, $$column_data{$pk_table_name}, $$column_data{$pk_column_name}];
 			}
