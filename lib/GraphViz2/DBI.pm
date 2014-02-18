@@ -213,8 +213,8 @@ sub get_table_info
 				else
 				{
 					$fk_column_name = 'fk_column_name';
-					$pk_column_name = 'pk_column_name';
-					$pk_table_name  = 'pk_table_name';
+					$pk_column_name = 'uk_column_name';
+					$pk_table_name  = 'uk_table_name';
 				}
 
 				print STDERR "$table_name: ", Dumper($column_data);
