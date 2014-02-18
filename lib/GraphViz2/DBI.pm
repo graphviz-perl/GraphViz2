@@ -1,14 +1,11 @@
 package GraphViz2::DBI;
 
-use 5.018;
 use strict;
 use utf8;
 use warnings;
 use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
 use charnames qw(:full :short);  # Unneeded in v5.16.
-
-use Data::Dumper::Concise;
 
 use GraphViz2;
 
@@ -125,8 +122,6 @@ sub create
 
 	for my $table_name (sort keys %$table_info)
 	{
-		say STDERR Dumper($$table_info{$table_name}{foreign_keys});
-
 		for my $item (sort @{$$table_info{$table_name}{foreign_keys} })
 		{
 			$self -> graph -> add_edge(from => "$table_name:port2", to => "$$item[1]:port2");
@@ -217,11 +212,6 @@ sub get_table_info
 					$pk_column_name = 'uk_column_name';
 					$pk_table_name  = 'uk_table_name';
 				}
-
-				say STDERR Dumper($column_data);
-				say STDERR "$table_name. $$column_data{$fk_column_name}";
-				say STDERR "$table_name. $$column_data{$pk_table_name}";
-				say STDERR "$table_name. $$column_data{$pk_column_name}";
 
 				push @foreign_info, [$$column_data{$fk_column_name}, $$column_data{$pk_table_name}, $$column_data{$pk_column_name}];
 			}
