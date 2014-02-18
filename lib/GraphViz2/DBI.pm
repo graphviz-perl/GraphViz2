@@ -125,7 +125,7 @@ sub create
 
 	for my $table_name (sort keys %$table_info)
 	{
-		say Dumper($$table_info{$table_name}{foreign_keys});
+		say STDERR Dumper($$table_info{$table_name}{foreign_keys});
 
 		for my $item (sort @{$$table_info{$table_name}{foreign_keys} })
 		{
