@@ -1,5 +1,8 @@
 Revision history for Perl extension GraphViz2.
 
+2.28  Tue Feb 18 15:25:00 2014
+	- Patch GraphViz2::DBI because MySQL returns table and foreign key info in upper case.
+
 2.27  Tue Feb 11 13:40:00 2014
 	- Stop using bare word file handles (again).
 	- Change sub BUILD() in all sub-classes to check whether or not a 'graph' parameter was supplied to new().
