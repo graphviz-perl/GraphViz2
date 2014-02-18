@@ -154,6 +154,7 @@ sub get_table_info
 	my($table_info)         = $sth -> fetchall_arrayref({});
 
 	print STDERR "Vendor: $vendor\n";
+	print STDERR "Table_info: $table_info\n";
 
 	my($column_sth, @column_name);
 	my($table_name, %table_data);
