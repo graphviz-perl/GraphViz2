@@ -160,7 +160,7 @@ sub get_table_info
 
 	for my $item (@$table_info)
 	{
-		print STDERR join(', ', map{"$_ => $$item{$_}"} %$item), "\n";
+		print STDERR join(', ', map{"$_ => $$item{$_}"} keys %$item), "\n";
 
 		$table_name = $$item{'table_name'};
 
