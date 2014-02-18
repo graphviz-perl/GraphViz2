@@ -153,12 +153,16 @@ sub get_table_info
 	my($sth)                = $dbh -> table_info($self -> catalog, $self -> schema, $self -> table, $self -> type);
 	my($table_info)         = $sth -> fetchall_arrayref({});
 
+	print STDERR "Vendor: $vendor\n";
+
 	my($column_sth, @column_name);
 	my($table_name, %table_data);
 
 	for my $item (@$table_info)
 	{
 		$table_name = $$item{'table_name'};
+
+		print STDERR "Table: $table_name\n";
 
 		next if ( ($vendor eq 'ORACLE')     && ($table_name =~ /^bin\$.+\$./) );
 		next if ( ($vendor eq 'POSTGRESQL') && ($table_name =~ /^(?:pg_|sql_)/) );
