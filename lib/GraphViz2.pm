@@ -2,7 +2,7 @@ package GraphViz2;
 
 use strict;
 use warnings;
-use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
+use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
 use Capture::Tiny 'capture';
 
@@ -1966,7 +1966,8 @@ End users have no need to run this script.
 If the environment vaiables DBI_DSN, DBI_USER and DBI_PASS are set (the latter 2 are optional [e.g. for SQLite]),
 then this demonstrates building a graph from a database schema.
 
-Also, for Postgres, you can set DBI_SCHEMA to a list of schemas, e.g. when processing the MusicBrainz database.
+Also, for Postgres, you can set $ENV{DBI_SCHEMA} to a comma-separated list of schemas, e.g. when processing the
+MusicBrainz database. See scripts/dbi.schema.pl.
 
 For details, see L<http://blogs.perl.org/users/ron_savage/2013/03/graphviz2-and-the-dread-musicbrainz-db.html>.
 

@@ -1,11 +1,10 @@
 package GraphViz2::DBI;
 
 use strict;
-use utf8;
 use warnings;
-use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
-use open      qw(:std :utf8);    # Undeclared streams in UTF-8.
-use charnames qw(:full :short);  # Unneeded in v5.16.
+use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
+
+use DBIx::Admin::TableInfo;
 
 use GraphViz2;
 
@@ -95,36 +94,59 @@ sub create
 {
 	my($self, %arg) = @_;
 	my($name) = $arg{name} || '';
+	my($info) = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
 
-	$self -> get_table_info;
-
-	my($table_info) = $self -> table_info;
+	$self -> table_info($info);
 
 	my($port, %port);
 
-	for my $table_name (sort keys %$table_info)
+	for my $table_name (sort keys %$info)
 	{
 		# Port 1 is the table name.
 
 		$port              = 1;
 		$port{$table_name} = {};
 
-		for my $column_name (@{$$table_info{$table_name}{column_names} })
+		for my $column_name (map{s/^"(.+)"$/$1/; $_} sort keys %{$$info{$table_name}{columns} })
 		{
-			$port{$table_name}{$column_name} = $port++;
+			$port++;
+
+			$port{$table_name}{$column_name} = "<port$port>";
+
 		}
 	}
 
-	for my $table_name (sort keys %$table_info)
+	for my $table_name (sort keys %$info)
 	{
-		$self -> graph -> add_node(name => $table_name, label => [$table_name, join('\l', map{"$port{$table_name}{$_}: $_"} sort keys %{$port{$table_name} }) . '\l']);
+		# Make the table name + 'N columns-in-one' be a horizontal record.
+
+		my($label) =
+		[
+			{text => $table_name},
+		];
+
+		for my $column (sort keys %{$port{$table_name} })
+		{
+			push @$label,
+			{
+				port => $port{$table_name}{$column},
+				text => $column,
+			};
+		}
+
+		# Make the N columns be a vertical record.
+
+		$$label[1]{port}        = "{$$label[1]{port}";
+		$$label[$#$label]{text} .= '}';
+
+		$self -> graph -> add_node(name => $table_name, label => [@$label]);
 	}
 
-	for my $table_name (sort keys %$table_info)
+	for my $table_name (sort keys %$info)
 	{
-		for my $item (sort @{$$table_info{$table_name}{foreign_keys} })
+		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
-			$self -> graph -> add_edge(from => "$table_name:port2", to => "$$item[1]:port2");
+			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
 		}
 	}
 
@@ -132,7 +154,7 @@ sub create
 	{
 		$self -> graph -> add_node(name => $name, shape => 'doubleoctagon');
 
-		for my $table_name (sort keys %$table_info)
+		for my $table_name (sort keys %$info)
 		{
 			$self -> graph -> add_edge(from => $name, to => $table_name);
 		}
@@ -141,88 +163,6 @@ sub create
 	return $self;
 
 } # End of create.
-
-# -----------------------------------------------
-
-sub get_table_info
-{
-	my($self)               = @_;
-	my($dbh)                = $self -> dbh;
-	$$dbh{FetchHashKeyName} = 'NAME_lc';
-	my($vendor)             = uc $dbh -> get_info(17); # SQL_DBMS_NAME.
-	my($sth)                = $dbh -> table_info($self -> catalog, $self -> schema, $self -> table, $self -> type);
-	my($table_info)         = $sth -> fetchall_arrayref({});
-
-	my($column_sth, @column_name);
-	my($table_name, %table_data);
-
-	for my $item (@$table_info)
-	{
-		$table_name = $vendor eq 'MYSQL' ? $$item{TABLE_NAME} : $$item{table_name};
-
-		next if ( ($vendor eq 'ORACLE')     && ($table_name =~ /^bin\$.+\$./) );
-		next if ( ($vendor eq 'POSTGRESQL') && ($table_name =~ /^(?:pg_|sql_)/) );
-		next if ( ($vendor eq 'SQLITE')     && ($table_name eq 'sqlite_sequence') );
-
-		my($column_sth) = $dbh -> prepare("select * from $table_name where 1 = 0");
-
-		$column_sth -> execute;
-
-		@column_name             = @{$$column_sth{NAME} };
-		$table_data{$table_name} =
-			{
-				column_names => [sort @column_name],
-				foreign_keys => [],
-			};
-
-		$column_sth -> finish;
-	}
-
-	my($column_data);
-	my(@foreign_info, $fk_column_name);
-	my($pk_column_name, $pk_table_name);
-
-	for my $table_name (sort keys %table_data)
-	{
-		@foreign_info = ();
-
-		if ($vendor eq 'SQLITE')
-		{
-			for my $row (@{$dbh -> selectall_arrayref("pragma foreign_key_list($table_name)")})
-			{
-				push @foreign_info, [$$row[4], $$row[2], $$row[3] ];
-			}
-		}
-		else
-		{
-			$sth        = $dbh -> foreign_key_info(undef, undef, undef, $self -> catalog, $self -> schema, $table_name) || next;
-			$table_info = $sth -> fetchall_arrayref({});
-
-			for $column_data (@$table_info)
-			{
-				if ($vendor eq 'MYSQL')
-				{
-					$fk_column_name = 'FKCOLUMN_NAME';
-					$pk_column_name = 'PKCOLUMN_NAME';
-					$pk_table_name  = 'PKTABLE_NAME';
-				}
-				else
-				{
-					$fk_column_name = 'fk_column_name';
-					$pk_column_name = 'uk_column_name';
-					$pk_table_name  = 'uk_table_name';
-				}
-
-				push @foreign_info, [$$column_data{$fk_column_name}, $$column_data{$pk_table_name}, $$column_data{$pk_column_name}];
-			}
-		}
-
-		$table_data{$table_name}{foreign_keys} = [sort{$$a[1] cmp $$b[1]} @foreign_info];
-	}
-
-	$self -> table_info(\%table_data);
-
-} # End of get_table_info.
 
 # -----------------------------------------------
 

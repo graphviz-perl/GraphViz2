@@ -8,6 +8,8 @@ use warnings;
 
 use DBI;
 
+use DBIx::Admin::TableInfo;
+
 use GraphViz2;
 use GraphViz2::DBI;
 
@@ -40,9 +42,10 @@ my($graph) = GraphViz2 -> new
 my($attr)              = {};
 $$attr{sqlite_unicode} = 1 if ($ENV{DBI_DSN} =~ /SQLite/i);
 my($dbh)               = DBI -> connect($ENV{DBI_DSN}, $ENV{DBI_USER}, $ENV{DBI_PASS}, $attr);
+my($schema)            = $ENV{DBI_SCHEMA} && ($ENV{DBI_DSN} =~ /dbi:Pg:/i);
 
-$dbh -> do('PRAGMA foreign_keys = ON')           if ($ENV{DBI_DSN} =~ /SQLite/i);
-$dbh -> do("set search_path = $ENV{DBI_SCHEMA}") if ($ENV{DBI_SCHEMA});
+$dbh -> do('PRAGMA foreign_keys = ON')  if ($ENV{DBI_DSN} =~ /SQLite/i);
+$dbh -> do("set search_path = $schema") if ($schema);
 
 my($g) = GraphViz2::DBI -> new(dbh => $dbh, graph => $graph);
 

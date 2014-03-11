@@ -2,6 +2,7 @@ package GraphViz2::Parse::Yacc;
 
 use strict;
 use warnings;
+use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
 use GraphViz2;
 

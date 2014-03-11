@@ -91,6 +91,7 @@ $class -> new
 		'Date::Simple'                => 3.03,
 		'Data::Section::Simple'       => 0.02,
 		'DBI'                         => 1.616,
+		'DBIx::Admin::TableInfo'      => 2.11,
 		'File::Basename'              => 2.77,
 		'File::Slurp'                 => 9999.19,
 		'File::Copy'                  => 2.21,
