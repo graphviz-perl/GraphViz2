@@ -98,7 +98,7 @@ sub create
 
 	my(%include);
 
-	@include{@%include} = (1) x @$include;
+	@include{@$include} = (1) x @$include;
 	my($info)           = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
 
 	for (keys %$info)
