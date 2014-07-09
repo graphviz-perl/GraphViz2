@@ -106,7 +106,7 @@ sub create
 
 	if ($#$include >= 0)
 	{
-		delete $$info{$_} grep{! $include{$_} } for keys %$info;
+		delete $$info{$_} for grep{! $include{$_} } keys %$info;
 	}
 
 	$self -> table_info($info);
