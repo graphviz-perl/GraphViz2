@@ -93,8 +93,18 @@ sub BUILD
 sub create
 {
 	my($self, %arg) = @_;
-	my($name) = $arg{name} || '';
-	my($info) = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
+	my($name)       = $arg{name} || '';
+	my($include)    = $arg{include} || [];
+
+	my(%include);
+
+	@include{@%include} = (1) x @$include;
+	my($info)           = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
+
+	for (keys %$info)
+	{
+		delete $$info{$_} if (! $include{$_});
+	}
 
 	$self -> table_info($info);
 
