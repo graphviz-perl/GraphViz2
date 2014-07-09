@@ -1,5 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
+2.29  Wed Jul  9 16:46:00 2014
+	- Add exclude => [qw/table_1 table_2 .../] and include => [qw/table_3 table_4 .../] options
+		to GraphViz2::DBI.create().
+
 2.28  Tue Feb 18 15:25:00 2014
 	- Remove the method get_column_info().
 	- Patch GraphViz2::DBI method create() to use DBIx::Admin::TableInfo, rather than approximately duplicate the code.
