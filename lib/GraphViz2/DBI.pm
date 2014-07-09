@@ -93,17 +93,20 @@ sub BUILD
 sub create
 {
 	my($self, %arg) = @_;
-	my($name)       = $arg{name} || '';
+	my($name)       = $arg{name}    || '';
+	my($exclude)    = $arg{exclude} || [];
 	my($include)    = $arg{include} || [];
+	my($info)       = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
 
 	my(%include);
 
 	@include{@$include} = (1) x @$include;
-	my($info)           = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
 
-	for (keys %$info)
+	delete $$info{$_} for @$exclude;
+
+	if ($#$include >= 0)
 	{
-		delete $$info{$_} if (! $include{$_});
+		delete $$info{$_} grep{! $include{$_} } for keys %$info;
 	}
 
 	$self -> table_info($info);
