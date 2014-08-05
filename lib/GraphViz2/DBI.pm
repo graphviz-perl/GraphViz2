@@ -175,7 +175,7 @@ sub create
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
 			print $fh "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
-			print $fh Dumper($$info{$table_name}{foreign_keys} }{$other_table}), "\n";
+			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table}), "\n";
 
 			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
 		}
