@@ -389,6 +389,25 @@ $dbh -> foreign_key_info(...).
 	6: DELETE_RULE
 	7: 'NONE' (Constant string)
 
+=head2 How does GraphViz2::DBI draw edges from foreign keys to primary keys?
+
+It assumes that the primary table's name is a plural word, and that the foreign key's name is prefixed by the singular
+of the primary table's name, separated by '_'.
+
+Thus a (primary) table 'people' with a primary key 'id' will be pointed to by a table 'phone_numbers' using a
+column 'person_id'.
+
+Table 'phone_numbers' will probably have a primary key 'id' but that is not used (unless some other table has a
+foreign key pointing to the 'phone_numbers' table).
+
+The conversion of plural to singular is done with L<Lingua::EN::PluralToSingular>.
+
+Such a naming convention enables the code to draw the edge from the port of the foreign key directly to the port of
+the primary key.
+
+If this naming convention does not hold, then both the source and destination ports default to '2', which is the
+port of the 1st column (in alphabetical order) in each table. The table name itself is port '1'.
+
 =head2 Are any sample scripts shipped with this module?
 
 Yes. See L<GraphViz2/FAQ> and L<GraphViz2/Scripts Shipped with this Module>.
