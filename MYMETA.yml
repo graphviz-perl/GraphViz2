@@ -95,5 +95,5 @@ requires:
   utf8: 0
   warnings: 0
 resources:
-  license: http://www.perlfoundation.org/artistic_license_2_0
+  license: http://opensource.org/licenses/artistic-license-2.0.php
 version: 2.29
