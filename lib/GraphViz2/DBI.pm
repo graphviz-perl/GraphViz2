@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
+use Data::Dumper::Concise;
+
 use DBIx::Admin::TableInfo;
 
 use GraphViz2;
@@ -186,6 +188,7 @@ sub create
 			$destination_port = $port{$table_name}{$primary_key_name} || 2;
 
 			print $fh "$other_table:($fkcolumn_name):$source_port => $table_name:($primary_key_name):$destination_port. \n";
+			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table});
 
 			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destination_port");
 		}
