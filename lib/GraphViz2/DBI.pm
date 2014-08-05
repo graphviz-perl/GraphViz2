@@ -271,12 +271,12 @@ sub draw
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
 			$fkcolumn_name    = $$info{$table_name}{foreign_keys}{$other_table}{FKCOLUMN_NAME};
-			$source_port      = $port{$table_name}{$fkcolumn_name};
+			$source_port      = $port{$other_table}{$fkcolumn_name};
 			$pktable_name     = $$info{$table_name}{foreign_keys}{$other_table}{PKTABLE_NAME};
 			$singular_name    = to_singular($pktable_name);
 			$primary_key_name = $fkcolumn_name;
 			$primary_key_name =~ s/${singular_name}_//;
-			$destination_port = $port{$other_table}{$primary_key_name};
+			$destination_port = $port{$table_name}{$primary_key_name};
 
 			print $fh "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
 			print $fh "From $table_name. \n";
