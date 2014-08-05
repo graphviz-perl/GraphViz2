@@ -286,7 +286,7 @@ sub draw
 			print $fh "$primary_key_name. \n";
 			print $fh "$destination_port. \n";
 
-			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destinaton_port");
+			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destination_port");
 		}
 	}
 
