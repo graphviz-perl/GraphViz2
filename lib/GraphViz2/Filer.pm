@@ -9,7 +9,7 @@ use File::Slurp;    # For read_file().
 
 use Moo;
 
-our $VERSION = '2.29';
+our $VERSION = '2.30';
 
 # ------------------------------------------------
 

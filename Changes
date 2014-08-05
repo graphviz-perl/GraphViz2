@@ -1,5 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
+2.30  Tue Aug  5 16:22:00 2014
+	- Expand GraphViz2::DBI to associate foreign keys column names with the corresponding primary table's
+		primary key name. Fallback is to the previous behaviour. See the FAQ for details.
+
 2.29  Wed Jul  9 16:46:00 2014
 	- Add exclude => [qw/table_1 table_2 .../] and include => [qw/table_3 table_4 .../] options
 		to GraphViz2::DBI.create().
