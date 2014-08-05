@@ -279,7 +279,12 @@ sub draw
 			$destination_port = $port{$other_table}{$primary_key_name};
 
 			print $fh "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
-			print $fh "From $table_name.fkcolumn_name:$source_port => $other_table.prinary_key_name:$destination_port. \n";
+			print $fh "From $table_name. \n";
+			print $fh "$fkcolumn_name. \n";
+			print $fh "$source_port. \n";
+			print $fh "To $other_table. \n";
+			print $fh "$primary_key_name. \n";
+			print $fh "$destination_port. \n";
 
 			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
 		}
