@@ -119,7 +119,7 @@ sub create
 
 	my($port, %port);
 
-	open(my $fh, '>', '/home/ron/perl.modules/port.log');
+	open(my $fh, '>', '/home/ron/perl.modules/port.1.log');
 	print $fh, "Basic info: \n";
 
 	for my $table_name (sort keys %$info)
@@ -168,27 +168,68 @@ sub create
 		$self -> graph -> add_node(name => $table_name, label => [@$label]);
 	}
 
+	my($vendor_name) = $self -> dbh -> get_info(17);
+
+	my($temp_1, $temp_2);
+
+	if ($vendor_name eq 'MYSQL')
+	{
+		$temp_1 = 'FKCOLUMN_NAME';
+		$temp_2 = 'PKTABLE_NAME';
+	}
+	else # ORACLE && POSTGRESQL && SQLITE (at least).
+	{
+		$temp_1 = 'FK_COLUMN_NAME';
+		$temp_2 = 'UK_TABLE_NAME';
+	}
+
+	my(%special_fkcolumn) =
+	(
+		spouse_id => 'person_id',
+	);
+
+	my(%special_pktable) =
+	(
+#		people => 'person',
+	);
+
 	my($destination_port);
 	my($fkcolumn_name);
 	my($pktable_name, $primary_key_name);
 	my($singular_name, $source_port);
 
 	print $fh "Foreign key info. \n";
+	print $fh "\ttemp_1: $temp_1. temp_2: $temp_2. \n";
 
 	for my $table_name (sort keys %$info)
 	{
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
-			$fkcolumn_name    = $$info{$table_name}{foreign_keys}{$other_table}{FKCOLUMN_NAME};
-			$source_port      = $port{$other_table}{$fkcolumn_name} || 2;
-			$pktable_name     = $$info{$table_name}{foreign_keys}{$other_table}{PKTABLE_NAME};
-			$singular_name    = to_singular($pktable_name);
-			$primary_key_name = $fkcolumn_name;
-			$primary_key_name =~ s/${singular_name}_//;
-			$destination_port = $port{$table_name}{$primary_key_name} || 2;
+			print $fh "Table: $table_name. Other table: $other_table. \n";
+			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table});
+
+			$fkcolumn_name = $$info{$table_name}{foreign_keys}{$other_table}{$temp_1};
+			$source_port   = $fkcolumn_name ? $port{$other_table}{$fkcolumn_name} : 2;
+			$pktable_name  = $$info{$table_name}{foreign_keys}{$other_table}{$temp_2};
+
+			print $fh "\tfkcolumn_name: $fkcolumn_name. pktable_name: $pktable_name. \n";
+
+			if ($pktable_name)
+			{
+				$singular_name    = $special_pktable{$pktable_name}   ? $special_pktable{$pktable_name}   : to_singular($pktable_name);
+				$primary_key_name = $special_fkcolumn{$fkcolumn_name} ? $special_fkcolumn{$fkcolumn_name} : $fkcolumn_name;
+
+				print $fh "\tsingular_name: $singular_name. primary_key_name: $primary_key_name. \n";
+
+				$primary_key_name =~ s/${singular_name}_//;
+				$destination_port = $port{$table_name}{$primary_key_name};
+			}
+			else
+			{
+				$destination_port = 2;
+			}
 
 			print $fh "$other_table:($fkcolumn_name):$source_port => $table_name:($primary_key_name):$destination_port. \n";
-			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table});
 
 			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destination_port");
 		}
