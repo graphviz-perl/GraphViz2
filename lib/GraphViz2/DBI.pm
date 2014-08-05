@@ -117,8 +117,13 @@ sub create
 
 	my($port, %port);
 
+	open(my $fh, '>', '/home/ron/perl.modules/port.log');
+	print $fh, "Basic info: \n";
+
 	for my $table_name (sort keys %$info)
 	{
+		print $fh "Table: $table_name. \n";
+
 		# Port 1 is the table name.
 
 		$port              = 1;
@@ -127,6 +132,8 @@ sub create
 		for my $column_name (map{s/^"(.+)"$/$1/; $_} sort keys %{$$info{$table_name}{columns} })
 		{
 			$port++;
+
+			print $fh "\tColumn: $column_name. Port $port. \n";
 
 			$port{$table_name}{$column_name} = "<port$port>";
 
@@ -164,6 +171,8 @@ sub create
 	my($pktable_name, $primary_key_name);
 	my($singular_name, $source_port);
 
+	print $fh "Foreign key info. \n";
+
 	for my $table_name (sort keys %$info)
 	{
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
@@ -175,6 +184,8 @@ sub create
 			$primary_key_name = $fkcolumn_name;
 			$primary_key_name =~ s/${singular_name}_//;
 			$destination_port = $port{$table_name}{$primary_key_name} || 2;
+
+			print $fh "$other_table:($fkcolumn_name):$source_port => $table_name:($primary_key_name):$destination_port. \n";
 
 			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destination_port");
 		}
@@ -189,6 +200,8 @@ sub create
 			$self -> graph -> add_edge(from => $name, to => $table_name);
 		}
 	}
+
+	close $fh;
 
 	return $self;
 
