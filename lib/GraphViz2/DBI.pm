@@ -115,7 +115,7 @@ sub create
 
 	my($port, %port);
 
-	open(my $fh, '>', '/home/ron/perl.modules/GraphViz2/port.log');
+	open(my $fh, '>', '/home/ron/perl.modules/port.log');
 	print $fh "Basic info: \n";
 
 	for my $table_name (sort keys %$info)
