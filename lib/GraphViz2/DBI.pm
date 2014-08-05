@@ -115,14 +115,14 @@ sub create
 
 	my($port, %port);
 
-	open(OUT, '>', '/home/ron/perl.modules/GraphViz2/port.log');
-	print OUT "Basic info: \n";
+	open(my $fh, '>', '/home/ron/perl.modules/GraphViz2/port.log');
+	print $fh "Basic info: \n";
 
 	for my $table_name (sort keys %$info)
 	{
 		# Port 1 is the table name.
 
-		print OUT "Table: $table_name. \n";
+		print $fh "Table: $table_name. \n";
 
 		$port              = 1;
 		$port{$table_name} = {};
@@ -131,7 +131,7 @@ sub create
 		{
 			$port++;
 
-			print OUT "\tColumn: $column_name. Port: $port. \n";
+			print $fh "\tColumn: $column_name. Port: $port. \n";
 
 			$port{$table_name}{$column_name} = "<port$port>";
 
@@ -164,15 +164,15 @@ sub create
 		$self -> graph -> add_node(name => $table_name, label => [@$label]);
 	}
 
-	print OUT "Foreign key info: \n";
+	print $fh "Foreign key info: \n";
 
 	for my $table_name (sort keys %$info)
 	{
-		print OUT "1st table: $table_name. \n";
+		print $fh "1st table: $table_name. \n";
 
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
-			print OUT "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
+			print $fh "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
 
 			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
 		}
@@ -188,7 +188,7 @@ sub create
 		}
 	}
 
-	close OUT;
+	close $fh;
 
 	return $self;
 

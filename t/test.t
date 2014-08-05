@@ -27,21 +27,21 @@ my($temp_dir) = File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMP
 
 my($stdout, $stderr);
 
-open(OUT, '>', '/home/ron/perl.modules/test.log');
+open(my $fh, '>', '/home/ron/perl.modules/test.log');
 
 for my $key (sort keys %script)
 {
 		$count++;
 
-		print OUT "Script: $key. \n";
+		print $fh "Script: $key. \n";
 
 		($stdout, $stderr) = capture{system $^X, '-Ilib', $script{$key}, 'svg', File::Spec -> catfile($temp_dir, "$key.svg")};
 
-		print OUT "STDERR: $stderr. \n\n";
+		print $fh "STDERR: $stderr. \n\n";
 
 		ok(length($stderr) == 0, "$script{$key} runs without error");
 }
 
-close(OUT);
+close($fh);
 
 done_testing($count);
