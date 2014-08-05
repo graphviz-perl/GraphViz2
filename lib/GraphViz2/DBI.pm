@@ -4,11 +4,11 @@ use strict;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
-use Data::Dumper::Concise;
-
 use DBIx::Admin::TableInfo;
 
 use GraphViz2;
+
+use Lingua::EN::PluralToSingular 'to_singular';
 
 use Moo;
 
@@ -117,7 +117,98 @@ sub create
 
 	my($port, %port);
 
-	open(my $fh, '>', '/home/ron/perl.modules/port.log');
+	for my $table_name (sort keys %$info)
+	{
+		# Port 1 is the table name.
+
+		$port              = 1;
+		$port{$table_name} = {};
+
+		for my $column_name (map{s/^"(.+)"$/$1/; $_} sort keys %{$$info{$table_name}{columns} })
+		{
+			$port++;
+
+			$port{$table_name}{$column_name} = "<port$port>";
+
+		}
+	}
+
+	for my $table_name (sort keys %$info)
+	{
+		# Step 1: Make the table name + 'N columns-in-one' be a horizontal record.
+
+		my($label) =
+		[
+			{text => $table_name},
+		];
+
+		for my $column (sort keys %{$port{$table_name} })
+		{
+			push @$label,
+			{
+				port => $port{$table_name}{$column},
+				text => $column,
+			};
+		}
+
+		# Step 2: Make the N columns be a vertical record.
+
+		$$label[1]{port}        = "{$$label[1]{port}";
+		$$label[$#$label]{text} .= '}';
+
+		$self -> graph -> add_node(name => $table_name, label => [@$label]);
+	}
+
+	for my $table_name (sort keys %$info)
+	{
+		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
+		{
+			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
+		}
+	}
+
+	if ($name)
+	{
+		$self -> graph -> add_node(name => $name, shape => 'doubleoctagon');
+
+		for my $table_name (sort keys %$info)
+		{
+			$self -> graph -> add_edge(from => $name, to => $table_name);
+		}
+	}
+
+	return $self;
+
+} # End of create.
+
+# -----------------------------------------------
+
+sub draw
+{
+	my($self, %arg) = @_;
+	my($name)       = $arg{name}    || '';
+	my($exclude)    = $arg{exclude} || [];
+	my($include)    = $arg{include} || [];
+	my($info)       = DBIx::Admin::TableInfo -> new(dbh => $self -> dbh) -> info;
+
+	my(%include);
+
+	@include{@$include} = (1) x @$include;
+
+	delete $$info{$_} for @$exclude;
+
+	# This 'if' stops us excluding all tables :-).
+
+	if ($#$include >= 0)
+	{
+		delete $$info{$_} for grep{! $include{$_} } keys %$info;
+	}
+
+	$self -> table_info($info);
+
+	my($port, %port);
+
+	open(my $fh, '>', '/home/ron/perl.modules/port.1.log');
 	print $fh "Basic info: \n";
 
 	for my $table_name (sort keys %$info)
@@ -168,14 +259,27 @@ sub create
 
 	print $fh "Foreign key info: \n";
 
+	my($destination_port);
+	my($fkcolumn_name);
+	my($pktable_name, $primary_key_name);
+	my($singular_name, $source_port);
+
 	for my $table_name (sort keys %$info)
 	{
 		print $fh "1st table: $table_name. \n";
 
 		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
 		{
+			$fkcolumn_name    = $$info{$table_name}{foreign_keys}{$other_table}{FKCOLUMN_NAME};
+			$source_port      = $port{$table_name}{$fkcolumn_name};
+			$pktable_name     = $$info{$table_name}{foreign_keys}{$other_table}{PKTABLE_NAME};
+			$singular_name    = to_singular($pktable_name);
+			$primary_key_name = $fkcolumn_name;
+			$primary_key_name =~ s/${singular_name}_//;
+			$destination_port = $port{$other_table}{$primary_key_name};
+
 			print $fh "2nd table: $other_table. Edge: $other_table:port2 => $table_name:port2\n";
-			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table}), "\n";
+			print $fh "From $table_name.fkcolumn_name:$source_port => $other_table.prinary_key_name:$destination_port. \n";
 
 			$self -> graph -> add_edge(from => "$other_table:port2", to => "$table_name:port2");
 		}
@@ -195,7 +299,7 @@ sub create
 
 	return $self;
 
-} # End of create.
+} # End of draw.
 
 # -----------------------------------------------
 
