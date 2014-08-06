@@ -208,8 +208,9 @@ sub add_edge
 	for my $name ($from, $to)
 	{
 		# Remove port, if any, from name.
+		# But beware node names like 'A::Class'.
 
-		if ($name =~ m/^([^:]+)(.*)$/)
+		if ($name =~ m/^([^:]+)(:[^:]+)$/)
 		{
 			$name = $1;
 
