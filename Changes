@@ -2,7 +2,13 @@ Revision history for Perl extension GraphViz2.
 
 2.30  Tue Aug  5 16:22:00 2014
 	- Expand GraphViz2::DBI to associate foreign keys column names with the corresponding primary table's
-		primary key name. Fallback is to the previous behaviour. See the FAQ for details.
+		primary key name. Fallback is to the previous behaviour. See the FAQ for GraphViz2::DBI for details.
+	- The new code requires DBIx::Admin::TableInfo V 3.00, and Lingua::EN::PluralToSingular V 0.14.
+	- Add sequential numbers to the column names. There are actually the Graphviz port numbers.
+		The table name is port 0.
+	- Make foreign key edges point to the table name, rather than the primary key name.
+		This shifts such edges from entering the right-hand side of the table to entering via the left, simplifying
+		the image, since they no longer overlap with edges entering or leaving the right-hand side.
 
 2.29  Wed Jul  9 16:46:00 2014
 	- Add exclude => [qw/table_1 table_2 .../] and include => [qw/table_3 table_4 .../] options

@@ -4,8 +4,6 @@ use strict;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
-use Data::Dumper::Concise;
-
 use DBIx::Admin::TableInfo;
 
 use GraphViz2;
@@ -119,25 +117,16 @@ sub create
 
 	my($port, %port);
 
-	open(my $fh, '>', '/home/ron/perl.modules/port.1.log');
-	print $fh, "Basic info: \n";
-
 	for my $table_name (sort keys %$info)
 	{
-		print $fh "Table: $table_name. \n";
-
 		# Port 1 is the table name.
 
-		$port              = 1;
+		$port              = 0;
 		$port{$table_name} = {};
 
-		for my $column_name (map{s/^"(.+)"$/$1/; $_} sort keys %{$$info{$table_name}{columns} })
+		for my $column_name (sort map{s/^"(.+)"$/$1/; $_} keys %{$$info{$table_name}{columns} })
 		{
-			$port++;
-
-			print $fh "\tColumn: $column_name. Port $port. \n";
-
-			$port{$table_name}{$column_name} = "<port$port>";
+			$port{$table_name}{$column_name} = ++$port;
 
 		}
 	}
@@ -148,15 +137,15 @@ sub create
 
 		my($label) =
 		[
-			{text => $table_name},
+			{text => "<port0> $table_name"},
 		];
 
 		for my $column (sort keys %{$port{$table_name} })
 		{
 			push @$label,
 			{
-				port => $port{$table_name}{$column},
-				text => $column,
+				port => "<port$port{$table_name}{$column}>",
+				text => "$port{$table_name}{$column}: $column",
 			};
 		}
 
@@ -168,70 +157,55 @@ sub create
 		$self -> graph -> add_node(name => $table_name, label => [@$label]);
 	}
 
-	my($vendor_name) = $self -> dbh -> get_info(17);
+	my($vendor_name) = uc $self -> dbh -> get_info(17);
 
-	my($temp_1, $temp_2);
+	my($temp_1, $temp_2, $temp_3);
 
 	if ($vendor_name eq 'MYSQL')
 	{
-		$temp_1 = 'FKCOLUMN_NAME';
-		$temp_2 = 'PKTABLE_NAME';
+		$temp_1 = 'PKTABLE_NAME';
+		$temp_2 = 'FKTABLE_NAME';
+		$temp_3 = 'FKCOLUMN_NAME';
 	}
 	else # ORACLE && POSTGRESQL && SQLITE (at least).
 	{
-		$temp_1 = 'FK_COLUMN_NAME';
-		$temp_2 = 'UK_TABLE_NAME';
+		$temp_1 = 'UK_TABLE_NAME';
+		$temp_2 = 'FK_TABLE_NAME';
+		$temp_3 = 'FK_COLUMN_NAME';
 	}
 
-	my(%special_fkcolumn) =
+	my(%special_fk_column) =
 	(
 		spouse_id => 'person_id',
 	);
 
-	my(%special_pktable) =
-	(
-#		people => 'person',
-	);
-
 	my($destination_port);
-	my($fkcolumn_name);
-	my($pktable_name, $primary_key_name);
+	my($fk_column_name, $fk_table_name);
+	my($pk_table_name, $primary_key_name);
 	my($singular_name, $source_port);
-
-	print $fh "Foreign key info. \n";
-	print $fh "\ttemp_1: $temp_1. temp_2: $temp_2. \n";
 
 	for my $table_name (sort keys %$info)
 	{
-		for my $other_table (sort keys %{$$info{$table_name}{foreign_keys} })
+		for my $item (@{$$info{$table_name}{foreign_keys} })
 		{
-			print $fh "Table: $table_name. Other table: $other_table. \n";
-			print $fh Dumper($$info{$table_name}{foreign_keys}{$other_table});
+			$pk_table_name  = $$item{$temp_1};
+			$fk_table_name  = $$item{$temp_2};
+			$fk_column_name = $$item{$temp_3};
+			$source_port    = $fk_column_name ? $port{$fk_table_name}{$fk_column_name} : 2;
 
-			$fkcolumn_name = $$info{$table_name}{foreign_keys}{$other_table}{$temp_1};
-			$source_port   = $fkcolumn_name ? $port{$other_table}{$fkcolumn_name} : 2;
-			$pktable_name  = $$info{$table_name}{foreign_keys}{$other_table}{$temp_2};
-
-			print $fh "\tfkcolumn_name: $fkcolumn_name. pktable_name: $pktable_name. \n";
-
-			if ($pktable_name)
+			if ($pk_table_name)
 			{
-				$singular_name    = $special_pktable{$pktable_name}   ? $special_pktable{$pktable_name}   : to_singular($pktable_name);
-				$primary_key_name = $special_fkcolumn{$fkcolumn_name} ? $special_fkcolumn{$fkcolumn_name} : $fkcolumn_name;
-
-				print $fh "\tsingular_name: $singular_name. primary_key_name: $primary_key_name. \n";
-
+				$singular_name    = to_singular($pk_table_name);
+				$primary_key_name = $special_fk_column{$fk_column_name} ? $special_fk_column{$fk_column_name} : $fk_column_name;
 				$primary_key_name =~ s/${singular_name}_//;
-				$destination_port = $port{$table_name}{$primary_key_name};
+				$destination_port = ($primary_key_name eq 'id') ? '0:w' : $port{$table_name}{$primary_key_name};
 			}
 			else
 			{
 				$destination_port = 2;
 			}
 
-			print $fh "$other_table:($fkcolumn_name):$source_port => $table_name:($primary_key_name):$destination_port. \n";
-
-			$self -> graph -> add_edge(from => "$other_table:$source_port", to => "$table_name:$destination_port");
+			$self -> graph -> add_edge(from => "$fk_table_name:port$source_port", to => "$table_name:port$destination_port");
 		}
 	}
 
@@ -244,8 +218,6 @@ sub create
 			$self -> graph -> add_edge(from => $name, to => $table_name);
 		}
 	}
-
-	close $fh;
 
 	return $self;
 
@@ -315,6 +287,8 @@ L<GraphViz2::DBI> - Visualize a database schema as a graph
 	$graph -> run(format => $format, output_file => $output_file);
 
 See scripts/dbi.schema.pl (L<GraphViz2/Scripts Shipped with this Module>).
+
+The image html/dbi.schema.svg was generated from the database tables of my module L<App::Office::Contacts>.
 
 =head1 Description
 
@@ -423,28 +397,17 @@ Returns the graph object, either the one supplied to new() or the one created du
 
 =head1 FAQ
 
-=head2 Does GraphViz2::DBI work with MySQL/MariaDB databases?
+=head2 Which versions of the servers did you test?
 
-Yes. But see these L<warnings|https://metacpan.org/pod/DBIx::Admin::TableInfo#Description> when using MySQL/MariaDB.
-
-I'm currently using MariaDB V 5.5.38.
+See L<DBIx::Admin::TableInfo/FAQ>.
 
 =head2 Does GraphViz2::DBI work with SQLite databases?
 
-Yes. As of V 2.07, this module uses SQLite's "pragma foreign_key_list($table_name)" to emulate L<DBI>'s
-$dbh -> foreign_key_info(...).
+Yes. See L<DBIx::Admin::TableInfo/FAQ>.
 
 =head2 What is returned by SQLite's "pragma foreign_key_list($table_name)"?
 
-	Fields returned are:
-	0: COUNT   (0, 1, ...)
-	1: KEY_SEQ (0, or column # (1, 2, ...) within multi-column key)
-	2: FKTABLE_NAME
-	3: PKCOLUMN_NAME
-	4: FKCOLUMN_NAME
-	5: UPDATE_RULE
-	6: DELETE_RULE
-	7: 'NONE' (Constant string)
+See L<DBIx::Admin::TableInfo/FAQ>.
 
 =head2 How does GraphViz2::DBI draw edges from foreign keys to primary keys?
 

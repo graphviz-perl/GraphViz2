@@ -198,7 +198,7 @@ sub add_edge
 
 	$self -> validate_params('edge', %arg);
 
-	# If either from or to is unknown, add a new node.
+	# If either 'from' or 'to' is unknown, add a new node.
 
 	my($new)  = 0;
 	my($node) = $self -> node_hash;
@@ -209,11 +209,11 @@ sub add_edge
 	{
 		# Remove port, if any, from name.
 
-		if ($name =~ m/^([^:]+)(:[^:]*)$/)
+		if ($name =~ m/^([^:]+)(.*)$/)
 		{
 			$name = $1;
 
-			push @node, [$name, $2];
+			push @node, [$name, $2 || ''];
 		}
 		else
 		{
