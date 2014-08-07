@@ -422,11 +422,8 @@ foreign key pointing to the 'phone_numbers' table).
 
 The conversion of plural to singular is done with L<Lingua::EN::PluralToSingular>.
 
-Such a naming convention enables the code to draw the edge from the port of the foreign key directly to the port of
-the primary key.
-
-If this naming convention does not hold, then both the source and destination ports default to '2', which is the
-port of the 1st column (in alphabetical order) in each table. The table name itself is port '1'.
+If this naming convention does not hold, then both the source and destination ports default to '1', which is the
+port of the 1st column (in alphabetical order) in each table. The table name itself is port '0'.
 
 =head2 Are any sample scripts shipped with this module?
 
