@@ -211,6 +211,7 @@ sub add_edge
 		# But beware Perl-style node names like 'A::Class'.
 
 		my(@field) = split(/(:(?!:))/, $name);
+		$field[0]  = $name if ($#field < 0);
 
 		# Restore Perl module names:
 		# o A: & B to A::B.
@@ -229,7 +230,8 @@ sub add_edge
 
 		# This line is mandatory - It overwrites $from and $to for use after the loop.
 
-		$name = $field[0];
+		$name     = $field[0];
+		$field[1] = '' if ($#field == 0);
 
 		push @node, [$name, $field[1] ];
 
