@@ -1,5 +1,8 @@
 Revision history for Perl extension GraphViz2.
 
+2.31  Fri Aug  8 11:37:00 2014
+	- Fix regexp which split port and compass point off the node name.
+
 2.30  Tue Aug  5 16:22:00 2014
 	- Expand GraphViz2::DBI to associate foreign keys column names with the corresponding primary table's
 		primary key name. Fallback is to the previous behaviour. See the FAQ for GraphViz2::DBI for details.

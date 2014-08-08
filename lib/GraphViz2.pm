@@ -130,7 +130,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.30';
+our $VERSION = '2.31';
 
 # -----------------------------------------------
 
@@ -207,19 +207,31 @@ sub add_edge
 
 	for my $name ($from, $to)
 	{
-		# Remove port, if any, from name.
-		# But beware node names like 'A::Class'.
+		# Remove :port:compass, if any, from name.
+		# But beware Perl-style node names like 'A::Class'.
 
-		if ($name =~ m/^([^:]+)(:[^:]+)$/)
-		{
-			$name = $1;
+		my(@field) = split(/(:(?!:))/, $name);
 
-			push @node, [$name, $2 || ''];
-		}
-		else
+		# Restore Perl module names:
+		# o A: & B to A::B.
+		# o A: & B: & C to A::B::C.
+
+		while ($field[0] =~ /:$/)
 		{
-			push @node, [$name, ''];
+			splice(@field, 0, 3, "$field[0]:$field[2]");
 		}
+
+		# Restore:
+		# o : & port to :port.
+		# o : & port & : & compass to :port:compass.
+
+		splice(@field, 1, $#field, join('', @field[1 .. $#field]) ) if ($#field > 0);
+
+		# This line is mandatory - It overwrites $from and $to for use after the loop.
+
+		$name = $field[0];
+
+		push @node, [$name, $field[1] ];
 
 		if (! defined $$node{$name})
 		{
