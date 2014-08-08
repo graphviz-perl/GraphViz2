@@ -1,7 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.31  Fri Aug  8 11:37:00 2014
-	- Re-write the regexp which splits port and compass point off the node name.
+	- Re-write the code which splits port (and compass) off node names. A single regexp was not good enough.
 
 2.30  Tue Aug  5 16:22:00 2014
 	- Expand GraphViz2::DBI to associate foreign keys column names with the corresponding primary table's
