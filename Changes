@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.32  Mon Aug 18 15:57:00 2014
+	- In subs add_edge() and add_node(), remove leading and trailing whitespace from HTML tables like so:
+		s/^\s+(<)/$1/ and s/(>)\s+$/$1/. This is formatting sugar, but it also affects the regexp used later
+		when stringify_attributes() is called. The same patch was put into stringify_attributes() in V 2.20,
+		but there are cases when this whitespace processing must take place somewhat before that sub is
+		called. See RT#98098. Many thanx to Andrew Beverley for reporing this.
+
 2.31  Fri Aug  8 11:37:00 2014
 	- Re-write the code which splits port (and compass) off node names. A single regexp was not good enough.
 
