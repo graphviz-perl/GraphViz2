@@ -26,6 +26,7 @@ html/dependency.svg
 html/Heawood.svg
 html/html.labels.1.svg
 html/html.labels.2.svg
+html/html.labels.3.svg
 html/index.html
 html/jointed.edges.svg
 html/macro.1.svg
@@ -96,6 +97,7 @@ scripts/generate.svg.sh
 scripts/Heawood.pl
 scripts/html.labels.1.pl
 scripts/html.labels.2.pl
+scripts/html.labels.3.pl
 scripts/jointed.edges.pl
 scripts/macro.1.pl
 scripts/macro.2.pl
