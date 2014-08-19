@@ -9,6 +9,7 @@ use Config;
 use Date::Simple;
 
 use File::Spec;
+use File::Slurp; # For read_file().
 
 use GraphViz2::Config;
 use GraphViz2::Filer;
@@ -16,8 +17,6 @@ use GraphViz2::Filer;
 use HTML::Entities::Interpolate;
 
 use Moo;
-
-use Perl6::Slurp; # For slurp().
 
 use Text::Xslate 'mark_raw';
 
@@ -60,13 +59,12 @@ sub generate_demo_index
 	my(%script_file)   = GraphViz2::Filer -> new -> get_scripts;
 
 	my($html_name);
-	my($line, @line);
+	my(@line);
 	my($note);
 
 	for my $key (sort keys %script_file)
 	{
-		$line      = slurp $script_file{$key}, {utf8 => 1};
-		@line      = split(/\n/, $line);
+		@line      = read_file($script_file{$key}, {binmode => ':utf8'};
 		$note      = $line[3];
 		$note      =~ s/Annotation: //;
 		$html_name = "$html_dir_name/$key.svg";
