@@ -53,7 +53,6 @@
             "Log::Handler" : "0.71",
             "Moo" : "1.002",
             "Parse::RecDescent" : "1.965001",
-            "Perl6::Slurp" : "0.051003",
             "Scalar::Util" : "1.23",
             "Set::Array" : "0.23",
             "Text::Xslate" : "1.2",
