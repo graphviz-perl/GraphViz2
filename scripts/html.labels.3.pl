@@ -45,11 +45,11 @@ Two<br/><font color="#00ff00">Green</font><br/>
 >');
 
 $graph -> add_node(name => 'Three', color => 'red', label => '
-<<table border="1"><tr><td>Red</td></tr></table>>
+<<table border="1"><tr><td align="left">Three</td></tr><tr align="right"><td>Red</td></tr></table>>
 ');
 
 $graph -> add_node(name => 'Four', color => 'magenta', label => '<
-<table border="1"><tr><td>magenta</td></tr></table>
+<table border="1"><tr><td align="left">Four<br />magenta</td></tr></table>
 >');
 
 my($format)      = shift || 'svg';
