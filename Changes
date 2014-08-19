@@ -6,7 +6,7 @@ Revision history for Perl extension GraphViz2.
 		is called. The same patch was put into stringify_attributes() in V 2.20, but there are cases when
 		this whitespace processing must take place somewhat before that sub is called.
 		See RT#98098. Many thanx to Andrew Beverley for reporting this.
-	- Add scripts/html.labels.pl to test the above.
+	- Add scripts/html.labels.3.pl to test the above.
 	- Replace Perl6::Slurp with File::Slurp, as part of my policy to reduce the # of modules used.
 
 2.31  Fri Aug  8 11:37:00 2014
