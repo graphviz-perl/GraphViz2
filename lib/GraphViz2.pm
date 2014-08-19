@@ -197,6 +197,8 @@ sub add_edge
 	$arg{label} = defined($label) ? $label : '';
 	$arg{label} =~ s/^\s+(<)/$1/;
 	$arg{label} =~ s/(>)\s+$/$1/;
+	$arg{label} =~ s/^(<)\n/$1/;
+	$arg{label} =~ s/\n(>)$/$1/;
 
 	$self -> validate_params('edge', %arg);
 
@@ -293,6 +295,9 @@ sub add_node
 	my($label)                = $arg{label} || '';
 	$label                    =~ s/^\s+(<)/$1/;
 	$label                    =~ s/(>)\s+$/$1/;
+	$label                    =~ s/^(<)\n/$1/;
+	$label                    =~ s/\n(>)$/$1/;
+	$arg{label}               = $label;
 
 	# Handle ports.
 
