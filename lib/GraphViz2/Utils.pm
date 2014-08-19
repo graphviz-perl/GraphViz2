@@ -64,7 +64,7 @@ sub generate_demo_index
 
 	for my $key (sort keys %script_file)
 	{
-		@line      = read_file($script_file{$key}, {binmode => ':utf8'};
+		@line      = read_file($script_file{$key}, {binmode => ':utf8'});
 		$note      = $line[3];
 		$note      =~ s/Annotation: //;
 		$html_name = "$html_dir_name/$key.svg";

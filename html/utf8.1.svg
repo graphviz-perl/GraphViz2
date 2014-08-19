@@ -51,9 +51,9 @@
 </g>
 <!-- Two&#45;&gt;Five -->
 <g id="edge5" class="edge"><title>Two&#45;&gt;Five</title>
-<path fill="none" stroke="grey" d="M88.1303,-86.9386C92.1096,-76.6073 98.2307,-63.6143 106.544,-54 110.511,-49.4121 115.215,-45.1629 120.148,-41.3224"/>
-<polygon fill="grey" stroke="grey" points="122.503,-43.9397 128.575,-35.2574 118.414,-38.2582 122.503,-43.9397"/>
-<text text-anchor="middle" x="145.544" y="-57.8" font-family="Times,serif" font-size="14.00">Label has a ☃</text>
+<path fill="none" stroke="grey" d="M87.7241,-86.9087C91.4724,-76.5662 97.3307,-63.5718 105.544,-54 109.5,-49.3896 114.208,-45.1425 119.161,-41.316"/>
+<polygon fill="grey" stroke="grey" points="121.52,-43.9329 127.638,-35.2833 117.461,-38.2296 121.52,-43.9329"/>
+<text text-anchor="middle" x="145.044" y="-57.8" font-family="Times,serif" font-size="14.00">Label has a ☃</text>
 </g>
 <!-- Four -->
 <g id="node5" class="node"><title>Four</title>
@@ -69,7 +69,7 @@
 <g id="edge6" class="edge"><title>Four&#45;&gt;Five</title>
 <path fill="none" stroke="grey" d="M211.985,-86.799C202.296,-74.5062 189.107,-57.7736 178.255,-44.0073"/>
 <polygon fill="grey" stroke="grey" points="180.793,-41.5723 171.853,-35.8854 175.295,-45.9056 180.793,-41.5723"/>
-<text text-anchor="middle" x="236.044" y="-57.8" font-family="Times,serif" font-size="14.00">Label has a ✔</text>
+<text text-anchor="middle" x="234.544" y="-57.8" font-family="Times,serif" font-size="14.00">Label has a ✔</text>
 </g>
 </g>
 </svg>
