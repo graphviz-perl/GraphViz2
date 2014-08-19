@@ -195,8 +195,8 @@ sub add_edge
 	$to         = defined($to) ? $to : '';
 	my($label)  = delete $arg{label};
 	$arg{label} = defined($label) ? $label : '';
-	$label      =~ s/^\s+(<)/$1/;
-	$label      =~ s/(>)\s+$/$1/;
+	$arg{label} =~ s/^\s+(<)/$1/;
+	$arg{label} =~ s/(>)\s+$/$1/;
 
 	$self -> validate_params('edge', %arg);
 
