@@ -45,7 +45,13 @@ $graph -> add_node(name => 'Oakleigh',    color => 'blueviolet');
 
 # This is the 1st of 2 nodes used as the junction of 3 edges.
 
-my(%junction) = (label => '', style => 'filled', fillcolor => 'white', fixedsize => 1, width => 0, height => 0);
+my(%junction) =
+(
+	fixedsize => 'shape',
+	height    => 0,
+	style     => 'invis',
+	width     => 0,
+);
 
 $graph -> add_node(name => 'one', %junction);
 
