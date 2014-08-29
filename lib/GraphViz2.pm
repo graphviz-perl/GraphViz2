@@ -130,7 +130,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.32';
+our $VERSION = '2.33';
 
 # -----------------------------------------------
 
@@ -965,11 +965,19 @@ for help on unpacking and installing distros.
 
 =head1 Installation
 
+Of course you need to install AT&T's Graphviz before using this module.
+See L<http://www.graphviz.org/Download.php>.
+
+You are strongly advised to download the stable version of Graphviz, because the
+development snapshots (click on 'Source code'), are sometimes non-functional.
+
 Install L<GraphViz2> as you would for any C<Perl> module:
 
 Run:
 
 	cpanm GraphViz2
+
+	Note: cpanm ships in L<App::cpanminus>. See also L<App::perlbrew>.
 
 or run:
 

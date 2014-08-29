@@ -1,5 +1,11 @@
 Revision history for Perl extension GraphViz2.
 
+2.33  Sat Aug 30 08:27:00 2014
+	- Stop emitting empty node labels.
+		Thanx to Fjodor Fedov (see RT#98426).
+	- Update docs on how to download AT&T's Graphviz.
+		Thanx to Alex Becker (see RT#98405).
+
 2.32  Mon Aug 18 15:57:00 2014
 	- In subs add_edge() and add_node(), remove leading and trailing whitespace from HTML tables.
 		This is formatting sugar, but it also affects the regexp used later when stringify_attributes()
