@@ -200,6 +200,10 @@ sub add_edge
 	$arg{label} =~ s/^(<)\n/$1/;
 	$arg{label} =~ s/\n(>)$/$1/;
 
+	# Let Graphviz itself handle the default label case.
+
+	delete $arg{label} if (length($arg{label}) == 0);
+
 	$self -> validate_params('edge', %arg);
 
 	# If either 'from' or 'to' is unknown, add a new node.
@@ -298,6 +302,11 @@ sub add_node
 	$label                    =~ s/^(<)\n/$1/;
 	$label                    =~ s/\n(>)$/$1/;
 	$arg{label}               = $label;
+
+	# Let Graphviz itself handle the default label case.
+	# We don't have to do anything to $label here.
+
+	delete $arg{label} if (length($arg{label}) == 0);
 
 	# Handle ports.
 
@@ -977,7 +986,7 @@ Run:
 
 	cpanm GraphViz2
 
-	Note: cpanm ships in L<App::cpanminus>. See also L<App::perlbrew>.
+	Note: cpanm ships in App::cpanminus. See also App::perlbrew.
 
 or run:
 
