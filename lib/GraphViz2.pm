@@ -193,16 +193,12 @@ sub add_edge
 	$from       = defined($from) ? $from : '';
 	my($to)     = delete $arg{to};
 	$to         = defined($to) ? $to : '';
-	my($label)  = delete $arg{label};
-	$arg{label} = defined($label) ? $label : '';
-	$arg{label} =~ s/^\s+(<)/$1/;
-	$arg{label} =~ s/(>)\s+$/$1/;
-	$arg{label} =~ s/^(<)\n/$1/;
-	$arg{label} =~ s/\n(>)$/$1/;
-
-	# Let Graphviz itself handle the default label case.
-
-	delete $arg{label} if (length($arg{label}) == 0);
+	my($label)  = defined($arg{label}) ? $arg{label} : '';
+	$label      =~ s/^\s+(<)/$1/;
+	$label      =~ s/(>)\s+$/$1/;
+	$label      =~ s/^(<)\n/$1/;
+	$label      =~ s/\n(>)$/$1/;
+	$arg{label} = $label if (defined $arg{label});
 
 	$self -> validate_params('edge', %arg);
 
@@ -296,17 +292,12 @@ sub add_node
 	$$node{$name}{attributes} = {} if (! $$node{$name}{attributes});
 	$$node{$name}{attributes} = {%{$$node{$name}{attributes} }, %arg};
 	%arg                      = %{$$node{$name}{attributes} };
-	my($label)                = $arg{label} || '';
+	my($label)                = defined($arg{label}) ? $arg{label} : '';
 	$label                    =~ s/^\s+(<)/$1/;
 	$label                    =~ s/(>)\s+$/$1/;
 	$label                    =~ s/^(<)\n/$1/;
 	$label                    =~ s/\n(>)$/$1/;
-	$arg{label}               = $label;
-
-	# Let Graphviz itself handle the default label case.
-	# We don't have to do anything to $label here.
-
-	delete $arg{label} if (length($arg{label}) == 0);
+	$arg{label}               = $label if (defined $arg{label});
 
 	# Handle ports.
 
