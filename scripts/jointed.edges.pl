@@ -32,12 +32,10 @@ my($graph) = GraphViz2 -> new
 	 global => {directed => 1},
 	 graph  => {rankdir => 'TB'},
 	 logger => $logger,
-	 node   => {shape => 'oval'},
+	 node   => {shape => 'oval', style => 'filled'},
 	);
 
 # Node set 1:
-
-$graph -> default_node(style => 'filled');
 
 $graph -> add_node(name => 'Carnegie',    color => 'aquamarine');
 $graph -> add_node(name => 'Murrumbeena', color => 'bisque');
@@ -47,10 +45,9 @@ $graph -> add_node(name => 'Oakleigh',    color => 'blueviolet');
 
 my(%junction) =
 (
-	fixedsize => 1,
-	height    => 0,
-	label     => '',
-	width     => 0,
+	color => 'grey',
+	shape => 'point',
+	width => 0,
 );
 
 $graph -> add_node(name => 'one', %junction);

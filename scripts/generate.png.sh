@@ -50,6 +50,11 @@ perl -Ilib scripts/utf8.2.pl            png > $DIR/utf8.2.log
 
 perl -Ilib scripts/generate.demo.pl png
 
-cp html/* $DR/Perl-modules/html/graphviz2/
+# $DR is my web server's doc root.
 
-echo Also, copy demo files to the real web site...
+PM=Perl-modules/html/graphviz2
+
+cp html/* $DR/$PM
+cp html/* ~/savage.net.au/$PM
+
+echo Check the version number in the demo index

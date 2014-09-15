@@ -9,16 +9,50 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 479.216)">
 <title>Perl</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-479.216 226,-479.216 226,4 -4,4"/>
+<!-- number -->
+<g id="node1" class="node"><title>number</title>
+<path fill="none" stroke="blue" d="M33,-3.71649C33,-3.71649 171,-3.71649 171,-3.71649 177,-3.71649 183,-9.71649 183,-15.7165 183,-15.7165 183,-29.7165 183,-29.7165 183,-35.7165 177,-41.7165 171,-41.7165 171,-41.7165 33,-41.7165 33,-41.7165 27,-41.7165 21,-35.7165 21,-29.7165 21,-29.7165 21,-15.7165 21,-15.7165 21,-9.71649 27,-3.71649 33,-3.71649"/>
+<text text-anchor="middle" x="50.5" y="-19.0165" font-family="Times,serif" font-size="14.00">number</text>
+<polyline fill="none" stroke="blue" points="80,-3.71649 80,-41.7165 "/>
+<text text-anchor="middle" x="131.5" y="-26.5165" font-family="Times,serif" font-size="14.00">DIGIT </text>
+<text text-anchor="middle" x="131.5" y="-11.5165" font-family="Times,serif" font-size="14.00">number DIGIT </text>
+</g>
+<!-- number&#45;&gt;number -->
+<g id="edge1" class="edge"><title>number&#45;&gt;number</title>
+<path fill="none" stroke="grey" d="M138.554,-41.7833C169.092,-49.9315 201,-43.5759 201,-22.7165 201,-4.13861 175.69,2.93468 148.58,-1.49661"/>
+<polygon fill="grey" stroke="grey" points="147.597,1.87205 138.554,-3.64972 149.066,-4.97191 147.597,1.87205"/>
+</g>
+<!-- list -->
+<g id="node2" class="node"><title>list</title>
+<path fill="none" stroke="blue" d="M63,-318.716C63,-318.716 141,-318.716 141,-318.716 147,-318.716 153,-324.716 153,-330.716 153,-330.716 153,-389.716 153,-389.716 153,-395.716 147,-401.716 141,-401.716 141,-401.716 63,-401.716 63,-401.716 57,-401.716 51,-395.716 51,-389.716 51,-389.716 51,-330.716 51,-330.716 51,-324.716 57,-318.716 63,-318.716"/>
+<text text-anchor="middle" x="67.5" y="-356.516" font-family="Times,serif" font-size="14.00">list</text>
+<polyline fill="none" stroke="blue" points="84,-318.716 84,-401.716 "/>
+<text text-anchor="middle" x="118.5" y="-386.516" font-family="Times,serif" font-size="14.00">(empty) </text>
+<text text-anchor="middle" x="118.5" y="-371.516" font-family="Times,serif" font-size="14.00">list stat &#39;</text>
+<text text-anchor="middle" x="118.5" y="-356.516" font-family="Times,serif" font-size="14.00">&#39; </text>
+<text text-anchor="middle" x="118.5" y="-341.516" font-family="Times,serif" font-size="14.00">list error &#39;</text>
+<text text-anchor="middle" x="118.5" y="-326.516" font-family="Times,serif" font-size="14.00">&#39; </text>
+</g>
+<!-- list&#45;&gt;list -->
+<g id="edge2" class="edge"><title>list&#45;&gt;list</title>
+<path fill="none" stroke="grey" d="M153.155,-377.53C163.553,-375.644 171,-369.873 171,-360.216 171,-353.88 167.793,-349.216 162.649,-346.225"/>
+<polygon fill="grey" stroke="grey" points="163.749,-342.902 153.155,-342.903 161.438,-349.509 163.749,-342.902"/>
+</g>
 <!-- stat -->
-<g id="node1" class="node"><title>stat</title>
+<g id="node3" class="node"><title>stat</title>
 <path fill="none" stroke="blue" d="M39,-243.716C39,-243.716 165,-243.716 165,-243.716 171,-243.716 177,-249.716 177,-255.716 177,-255.716 177,-269.716 177,-269.716 177,-275.716 171,-281.716 165,-281.716 165,-281.716 39,-281.716 39,-281.716 33,-281.716 27,-275.716 27,-269.716 27,-269.716 27,-255.716 27,-255.716 27,-249.716 33,-243.716 39,-243.716"/>
 <text text-anchor="middle" x="44.5" y="-259.016" font-family="Times,serif" font-size="14.00">stat</text>
 <polyline fill="none" stroke="blue" points="62,-243.716 62,-281.716 "/>
 <text text-anchor="middle" x="119.5" y="-266.516" font-family="Times,serif" font-size="14.00">expr </text>
 <text text-anchor="middle" x="119.5" y="-251.516" font-family="Times,serif" font-size="14.00">LETTER &#39;=&#39; expr </text>
 </g>
+<!-- list&#45;&gt;stat -->
+<g id="edge3" class="edge"><title>list&#45;&gt;stat</title>
+<path fill="none" stroke="grey" d="M102,-318.716C102,-309.708 102,-300.348 102,-291.958"/>
+<polygon fill="grey" stroke="grey" points="105.5,-291.95 102,-281.95 98.5001,-291.95 105.5,-291.95"/>
+</g>
 <!-- expr -->
-<g id="node2" class="node"><title>expr</title>
+<g id="node4" class="node"><title>expr</title>
 <path fill="none" stroke="blue" d="M12,-78.7165C12,-78.7165 192,-78.7165 192,-78.7165 198,-78.7165 204,-84.7165 204,-90.7165 204,-90.7165 204,-194.716 204,-194.716 204,-200.716 198,-206.716 192,-206.716 192,-206.716 12,-206.716 12,-206.716 6,-206.716 -1.42109e-14,-200.716 -1.42109e-14,-194.716 -1.42109e-14,-194.716 -1.42109e-14,-90.7165 -1.42109e-14,-90.7165 -1.42109e-14,-84.7165 6,-78.7165 12,-78.7165"/>
 <text text-anchor="middle" x="20.5" y="-139.016" font-family="Times,serif" font-size="14.00">expr</text>
 <polyline fill="none" stroke="blue" points="41,-78.7165 41,-206.716 "/>
@@ -37,65 +71,31 @@
 <text text-anchor="middle" x="168.5" y="-116.516" font-family="Times,serif" font-size="14.00">number </text>
 </g>
 <!-- stat&#45;&gt;expr -->
-<g id="edge1" class="edge"><title>stat&#45;&gt;expr</title>
+<g id="edge7" class="edge"><title>stat&#45;&gt;expr</title>
 <path fill="none" stroke="grey" d="M102,-243.538C102,-235.974 102,-226.654 102,-216.776"/>
 <polygon fill="grey" stroke="grey" points="105.5,-216.757 102,-206.757 98.5001,-216.757 105.5,-216.757"/>
 </g>
-<!-- expr&#45;&gt;expr -->
-<g id="edge7" class="edge"><title>expr&#45;&gt;expr</title>
-<path fill="none" stroke="grey" d="M204.418,-161.359C215.134,-157.72 222,-151.506 222,-142.716 222,-136.811 218.9,-132.069 213.616,-128.488"/>
-<polygon fill="grey" stroke="grey" points="214.948,-125.245 204.418,-124.074 211.919,-131.556 214.948,-125.245"/>
-</g>
-<!-- number -->
-<g id="node3" class="node"><title>number</title>
-<path fill="none" stroke="blue" d="M33,-3.71649C33,-3.71649 171,-3.71649 171,-3.71649 177,-3.71649 183,-9.71649 183,-15.7165 183,-15.7165 183,-29.7165 183,-29.7165 183,-35.7165 177,-41.7165 171,-41.7165 171,-41.7165 33,-41.7165 33,-41.7165 27,-41.7165 21,-35.7165 21,-29.7165 21,-29.7165 21,-15.7165 21,-15.7165 21,-9.71649 27,-3.71649 33,-3.71649"/>
-<text text-anchor="middle" x="50.5" y="-19.0165" font-family="Times,serif" font-size="14.00">number</text>
-<polyline fill="none" stroke="blue" points="80,-3.71649 80,-41.7165 "/>
-<text text-anchor="middle" x="131.5" y="-26.5165" font-family="Times,serif" font-size="14.00">DIGIT </text>
-<text text-anchor="middle" x="131.5" y="-11.5165" font-family="Times,serif" font-size="14.00">number DIGIT </text>
-</g>
 <!-- expr&#45;&gt;number -->
-<g id="edge6" class="edge"><title>expr&#45;&gt;number</title>
+<g id="edge4" class="edge"><title>expr&#45;&gt;number</title>
 <path fill="none" stroke="grey" d="M102,-78.5711C102,-69.3791 102,-60.322 102,-52.2981"/>
 <polygon fill="grey" stroke="grey" points="105.5,-52.0811 102,-42.0811 98.5001,-52.0812 105.5,-52.0811"/>
 </g>
-<!-- number&#45;&gt;number -->
-<g id="edge2" class="edge"><title>number&#45;&gt;number</title>
-<path fill="none" stroke="grey" d="M138.554,-41.7833C169.092,-49.9315 201,-43.5759 201,-22.7165 201,-4.13861 175.69,2.93468 148.58,-1.49661"/>
-<polygon fill="grey" stroke="grey" points="147.597,1.87205 138.554,-3.64972 149.066,-4.97191 147.597,1.87205"/>
+<!-- expr&#45;&gt;expr -->
+<g id="edge5" class="edge"><title>expr&#45;&gt;expr</title>
+<path fill="none" stroke="grey" d="M204.418,-161.359C215.134,-157.72 222,-151.506 222,-142.716 222,-136.811 218.9,-132.069 213.616,-128.488"/>
+<polygon fill="grey" stroke="grey" points="214.948,-125.245 204.418,-124.074 211.919,-131.556 214.948,-125.245"/>
 </g>
 <!-- $accept -->
-<g id="node4" class="node"><title>$accept</title>
+<g id="node5" class="node"><title>$accept</title>
 <path fill="none" stroke="blue" d="M51.5,-438.716C51.5,-438.716 152.5,-438.716 152.5,-438.716 158.5,-438.716 164.5,-444.716 164.5,-450.716 164.5,-450.716 164.5,-462.716 164.5,-462.716 164.5,-468.716 158.5,-474.716 152.5,-474.716 152.5,-474.716 51.5,-474.716 51.5,-474.716 45.5,-474.716 39.5,-468.716 39.5,-462.716 39.5,-462.716 39.5,-450.716 39.5,-450.716 39.5,-444.716 45.5,-438.716 51.5,-438.716"/>
 <text text-anchor="middle" x="68.5" y="-453.016" font-family="Times,serif" font-size="14.00">$accept</text>
 <polyline fill="none" stroke="blue" points="97.5,-438.716 97.5,-474.716 "/>
 <text text-anchor="middle" x="131" y="-453.016" font-family="Times,serif" font-size="14.00">list $end </text>
 </g>
-<!-- list -->
-<g id="node5" class="node"><title>list</title>
-<path fill="none" stroke="blue" d="M63,-318.716C63,-318.716 141,-318.716 141,-318.716 147,-318.716 153,-324.716 153,-330.716 153,-330.716 153,-389.716 153,-389.716 153,-395.716 147,-401.716 141,-401.716 141,-401.716 63,-401.716 63,-401.716 57,-401.716 51,-395.716 51,-389.716 51,-389.716 51,-330.716 51,-330.716 51,-324.716 57,-318.716 63,-318.716"/>
-<text text-anchor="middle" x="67.5" y="-356.516" font-family="Times,serif" font-size="14.00">list</text>
-<polyline fill="none" stroke="blue" points="84,-318.716 84,-401.716 "/>
-<text text-anchor="middle" x="118.5" y="-386.516" font-family="Times,serif" font-size="14.00">(empty) </text>
-<text text-anchor="middle" x="118.5" y="-371.516" font-family="Times,serif" font-size="14.00">list stat &#39;</text>
-<text text-anchor="middle" x="118.5" y="-356.516" font-family="Times,serif" font-size="14.00">&#39; </text>
-<text text-anchor="middle" x="118.5" y="-341.516" font-family="Times,serif" font-size="14.00">list error &#39;</text>
-<text text-anchor="middle" x="118.5" y="-326.516" font-family="Times,serif" font-size="14.00">&#39; </text>
-</g>
 <!-- $accept&#45;&gt;list -->
-<g id="edge3" class="edge"><title>$accept&#45;&gt;list</title>
+<g id="edge6" class="edge"><title>$accept&#45;&gt;list</title>
 <path fill="none" stroke="grey" d="M102,-438.384C102,-430.871 102,-421.643 102,-412.216"/>
 <polygon fill="grey" stroke="grey" points="105.5,-411.979 102,-401.979 98.5001,-411.979 105.5,-411.979"/>
-</g>
-<!-- list&#45;&gt;stat -->
-<g id="edge4" class="edge"><title>list&#45;&gt;stat</title>
-<path fill="none" stroke="grey" d="M102,-318.716C102,-309.708 102,-300.348 102,-291.958"/>
-<polygon fill="grey" stroke="grey" points="105.5,-291.95 102,-281.95 98.5001,-291.95 105.5,-291.95"/>
-</g>
-<!-- list&#45;&gt;list -->
-<g id="edge5" class="edge"><title>list&#45;&gt;list</title>
-<path fill="none" stroke="grey" d="M153.155,-377.53C163.553,-375.644 171,-369.873 171,-360.216 171,-353.88 167.793,-349.216 162.649,-346.225"/>
-<polygon fill="grey" stroke="grey" points="163.749,-342.902 153.155,-342.903 161.438,-349.509 163.749,-342.902"/>
 </g>
 </g>
 </svg>
