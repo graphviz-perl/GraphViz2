@@ -1,3 +1,4 @@
+.gitignore
 Build.PL
 Changelog.ini
 Changes
@@ -74,6 +75,7 @@ lib/GraphViz2/Parse/XML.pm
 lib/GraphViz2/Parse/Yacc.pm
 lib/GraphViz2/Parse/Yapp.pm
 lib/GraphViz2/Utils.pm
+LICENSE
 Makefile.PL
 MANIFEST			This list of files
 META.json
