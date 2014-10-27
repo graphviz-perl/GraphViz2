@@ -67,7 +67,7 @@ has type =>
 	required => 0,
 );
 
-our $VERSION = '2.33';
+our $VERSION = '2.34';
 
 # -----------------------------------------------
 
@@ -127,7 +127,6 @@ sub create
 		for my $column_name (sort map{s/^"(.+)"$/$1/; $_} keys %{$$info{$table_name}{columns} })
 		{
 			$port{$table_name}{$column_name} = ++$port;
-
 		}
 	}
 
@@ -195,10 +194,28 @@ sub create
 
 			if ($pk_table_name)
 			{
-				$singular_name    = to_singular($pk_table_name);
-				$primary_key_name = $special_fk_column{$fk_column_name} ? $special_fk_column{$fk_column_name} : $fk_column_name;
+				$singular_name = to_singular($pk_table_name);
+
+				if ($special_fk_column{$fk_column_name})
+				{
+					$primary_key_name = $special_fk_column{$fk_column_name};
+				}
+				elsif (defined($$info{$table_name}{columns}{$fk_column_name}) )
+				{
+					$primary_key_name = $fk_column_name;
+				}
+				elsif (defined($$info{$table_name}{columns}{id}) )
+				{
+					$primary_key_name = 'id';
+				}
+				else
+				{
+					die "Primary table '$pk_table_name'. Foreign table '$fk_table_name'. Unable to find primary key name for foreign key '$fk_column_name'\n"
+				}
+
 				$primary_key_name =~ s/${singular_name}_//;
 				$destination_port = ($primary_key_name eq 'id') ? '0:w' : $port{$table_name}{$primary_key_name};
+
 			}
 			else
 			{
@@ -288,7 +305,8 @@ L<GraphViz2::DBI> - Visualize a database schema as a graph
 
 See scripts/dbi.schema.pl (L<GraphViz2/Scripts Shipped with this Module>).
 
-The image html/dbi.schema.svg was generated from the database tables of my module L<App::Office::Contacts>.
+The image html/dbi.schema.svg was generated from the database tables of my module
+L<App::Office::Contacts>.
 
 =head1 Description
 
@@ -364,7 +382,8 @@ This key is optional.
 
 =head2 create(exclude => [], include => [], name => $name)
 
-Creates the graph, which is accessible via the graph() method, or via the graph object you passed to new().
+Creates the graph, which is accessible via the graph() method, or via the graph object you passed to
+new().
 
 Returns $self to allow method chaining.
 
@@ -393,9 +412,39 @@ It may be omitted, in which case the root node is omitted.
 
 =head2 graph()
 
-Returns the graph object, either the one supplied to new() or the one created during the call to new().
+Returns the graph object, either the one supplied to new() or the one created during the call to
+new().
 
 =head1 FAQ
+
+=head2 Why did I get an error about 'Unable to find primary key'?
+
+For plotting foreign keys, the code has an algorithm to find the primary table/key pair which the
+foreign table/key pair point to.
+
+The steps are listed here, in the order they are tested. The first match stops the search.
+
+=over 4
+
+=item o Check a hash for special cases
+
+Currently, the only special case is a foreign key of C<spouse_id>. It is assumed to point to a
+primary key called C<person_id>.
+
+There is no option available, at the moment, to override this check.
+
+=item o Ask the database for foreign key information
+
+L<DBIx::Admin::TableInfo> is used for this.
+
+=item o Take a guess
+
+Assume the foreign key points to a table with a column called C<id>, and use that as the primary
+key.
+
+=item o Die with a detailed error message
+
+=back
 
 =head2 Which versions of the servers did you test?
 
@@ -411,19 +460,21 @@ See L<DBIx::Admin::TableInfo/FAQ>.
 
 =head2 How does GraphViz2::DBI draw edges from foreign keys to primary keys?
 
-It assumes that the primary table's name is a plural word, and that the foreign key's name is prefixed by the singular
+It assumes that the primary table's name is a plural word, and that the foreign key's name is
+prefixed by the singular
 of the primary table's name, separated by '_'.
 
-Thus a (primary) table 'people' with a primary key 'id' will be pointed to by a table 'phone_numbers' using a
-column 'person_id'.
+Thus a (primary) table 'people' with a primary key 'id' will be pointed to by a table
+'phone_numbers' using a column 'person_id'.
 
-Table 'phone_numbers' will probably have a primary key 'id' but that is not used (unless some other table has a
-foreign key pointing to the 'phone_numbers' table).
+Table 'phone_numbers' will probably have a primary key 'id' but that is not used (unless some other
+table has a foreign key pointing to the 'phone_numbers' table).
 
 The conversion of plural to singular is done with L<Lingua::EN::PluralToSingular>.
 
-If this naming convention does not hold, then both the source and destination ports default to '1', which is the
-port of the 1st column (in alphabetical order) in each table. The table name itself is port '0'.
+If this naming convention does not hold, then both the source and destination ports default to '1',
+which is the port of the 1st column (in alphabetical order) in each table. The table name itself is
+port '0'.
 
 =head2 Are any sample scripts shipped with this module?
 
@@ -431,9 +482,10 @@ Yes. See L<GraphViz2/FAQ> and L<GraphViz2/Scripts Shipped with this Module>.
 
 =head1 Thanks
 
-Many thanks are due to the people who chose to make L<Graphviz|http://www.graphviz.org/> Open Source.
+Many thanks to the people who chose to make L<Graphviz|http://www.graphviz.org/> Open Source.
 
-And thanks to L<Leon Brocard|http://search.cpan.org/~lbrocard/>, who wrote L<GraphViz>, and kindly gave me co-maint of the module.
+And thanks to L<Leon Brocard|http://search.cpan.org/~lbrocard/>, who wrote L<GraphViz>, and kindly
+gave me co-maint of the module.
 
 =head1 Version Numbers
 
