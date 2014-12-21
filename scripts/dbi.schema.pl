@@ -1,7 +1,4 @@
 #!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
-# Annotation: Demonstrates graphing a database schema.
 
 use strict;
 use warnings;
@@ -17,7 +14,14 @@ use Log::Handler;
 
 # ---------------
 
-exit 0 if (! $ENV{DBI_DSN});
+if (! $ENV{DBI_DSN})
+{
+	print "DBI_DSN etc not set\n";
+
+	# Return 0 for OK and 1 for error.
+
+	exit 1;
+}
 
 my($logger) = Log::Handler -> new;
 
@@ -55,3 +59,7 @@ my($format)      = shift || 'svg';
 my($output_file) = shift || File::Spec -> catfile('html', "dbi.schema.$format");
 
 $graph -> run(format => $format, output_file => $output_file);
+
+# Return 0 for OK and 1 for error.
+
+exit 0;
