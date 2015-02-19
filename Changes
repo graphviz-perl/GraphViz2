@@ -1,6 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
-2.35  Unreleased
+2.35  Wed Feb 18 16:32:00 2015
+	- Rename CHANGES to Changes as perl CPAN::Spec::Changes.
 	- Add github repo to Build.PL.
 	- Add LICENSE to disto and MANIFEST.
 
