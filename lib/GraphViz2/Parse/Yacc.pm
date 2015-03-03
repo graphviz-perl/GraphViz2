@@ -261,7 +261,7 @@ Version numbers < 1.00 represent development versions. From 1.00 up, they are pr
 
 =head1 Machine-Readable Change Log
 
-The file CHANGES was converted into Changelog.ini by L<Module::Metadata::Changes>.
+The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
 
 =head1 Support
 
