@@ -16,13 +16,14 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.94",
+            "Test::More" : "1.001014",
+            "Test::Pod" : "1.48",
             "Test::Version" : "1.002003"
          }
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.38"
+            "Module::Build" : "0.4211"
          }
       },
       "runtime" : {
@@ -72,55 +73,55 @@
    "provides" : {
       "GraphViz2" : {
          "file" : "lib/GraphViz2.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Config" : {
          "file" : "lib/GraphViz2/Config.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::DBI" : {
          "file" : "lib/GraphViz2/DBI.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Data::Grapher" : {
          "file" : "lib/GraphViz2/Data/Grapher.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Filer" : {
          "file" : "lib/GraphViz2/Filer.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::ISA" : {
          "file" : "lib/GraphViz2/Parse/ISA.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::RecDescent" : {
          "file" : "lib/GraphViz2/Parse/RecDescent.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::Regexp" : {
          "file" : "lib/GraphViz2/Parse/Regexp.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::STT" : {
          "file" : "lib/GraphViz2/Parse/STT.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::XML" : {
          "file" : "lib/GraphViz2/Parse/XML.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::Yacc" : {
          "file" : "lib/GraphViz2/Parse/Yacc.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Parse::Yapp" : {
          "file" : "lib/GraphViz2/Parse/Yapp.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       },
       "GraphViz2::Utils" : {
          "file" : "lib/GraphViz2/Utils.pm",
-         "version" : "2.35"
+         "version" : "2.36"
       }
    },
    "release_status" : "stable",
@@ -132,5 +133,5 @@
          "url" : "https://github.com/ronsavage/GraphViz2"
       }
    },
-   "version" : "2.35"
+   "version" : "2.36"
 }

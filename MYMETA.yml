@@ -3,9 +3,11 @@ abstract: "A wrapper for AT&T's Graphviz"
 author:
   - 'Ron Savage <ron@savage.net.au>'
 build_requires:
-  ExtUtils::MakeMaker: '0'
+  Test::More: '1.001014'
+  Test::Pod: '1.48'
+  Test::Version: '1.002003'
 configure_requires:
-  ExtUtils::MakeMaker: '0'
+  Module::Build: '0.4211'
 dynamic_config: 0
 generated_by: 'Module::Build version 0.4211, CPAN::Meta::Converter version 2.143240'
 license: artistic_2
@@ -82,9 +84,6 @@ requires:
   Parse::RecDescent: '1.965001'
   Scalar::Util: '1.23'
   Set::Array: '0.23'
-  Test::More: '1.001014'
-  Test::Pod: '1.48'
-  Test::Version: '1.002003'
   Text::Xslate: '1.2'
   Tree::DAG_Node: '1.06'
   Try::Tiny: '0.09'
