@@ -3,7 +3,7 @@ Revision history for Perl extension GraphViz2.
 2.36  Tue Oct  6 20:43:00 2015
 	- Fix the default for the graph parameter in GraphViz2::Parse::Regexp, to be '' instead
 		of {}. The {} tricked the 'if' in sub BUILD into not initializing the 'graph' attribute
-		and hence forced the caller to provide a value.
+		and hence forced the caller to provide a value. See RT#107566. Reported by Kevin Ryde.
 	- Remove .gitignore from MANIFEST. Add it to MANIFEST.SKIP.
 
 2.35  Wed Feb 18 16:32:00 2015
