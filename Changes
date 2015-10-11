@@ -1,5 +1,12 @@
 Revision history for Perl extension GraphViz2.
 
+2.37  Sun Oct 11 12:19:00 2015
+	- Fix the default for the graph parameter in GraphViz2::Parse::*, to be '' instead
+		of {}. See notes for V 2.36 for more info. GraphViz2::Parse::Regexp was fixed in V 2.36.
+		This versions fixes all the other modules in lib/GraphViz2/Parse/.
+	- Rename the internal attribute and method 'isa' to 'is_a', to avoid clashing with
+		UNIVERSAL::isa. Thanx to Kevin Ryde to suggesting this.
+
 2.36  Tue Oct  6 20:43:00 2015
 	- Fix the default for the graph parameter in GraphViz2::Parse::Regexp, to be '' instead
 		of {}. The {} tricked the 'if' in sub BUILD into not initializing the 'graph' attribute

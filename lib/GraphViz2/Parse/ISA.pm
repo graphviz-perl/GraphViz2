@@ -24,7 +24,7 @@ has graph =>
 	required => 0,
 );
 
-has isa =>
+has is_a =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
@@ -32,7 +32,7 @@ has isa =>
 	required => 0,
 );
 
-our $VERSION = '2.36';
+our $VERSION = '2.37';
 
 # -----------------------------------------------
 
@@ -51,13 +51,13 @@ sub add
 	@ignore{@$ignore} = (1) x @$ignore;
 	my($tree)         = Tree::DAG_Node -> new;
 
-	$self -> _process_isa($tree, $class, \%ignore);
+	$self -> _process_is_a($tree, $class, \%ignore);
 	$self -> _simplify($tree);
 
-	my($isa) = $self -> isa;
+	my($is_a) = $self -> is_a;
 
-	$self -> _build_dependency($tree, $isa);
-	$self -> isa($isa);
+	$self -> _build_dependency($tree, $is_a);
+	$self -> is_a($is_a);
 
 	return $self;
 
@@ -88,15 +88,15 @@ sub BUILD
 
 sub _build_dependency
 {
-	my($self, $tree, $isa) = @_;
-	my($name)    = $tree -> name;
-	$$isa{$name} = [];
+	my($self, $tree, $is_a) = @_;
+	my($name)     = $tree -> name;
+	$$is_a{$name} = [];
 
 	for my $node ($tree -> daughters)
 	{
-		push @{$$isa{$name} }, $node -> name;
+		push @{$$is_a{$name} }, $node -> name;
 
-		$self -> _build_dependency($node, $isa);
+		$self -> _build_dependency($node, $is_a);
 	}
 
 } # End of _build_dependency.
@@ -107,13 +107,13 @@ sub generate_graph
 {
 	my($self) = @_;
 
-	return $self -> graph -> dependency(data => Algorithm::Dependency -> new(source => Algorithm::Dependency::Source::HoA -> new($self -> isa) ) );
+	return $self -> graph -> dependency(data => Algorithm::Dependency -> new(source => Algorithm::Dependency::Source::HoA -> new($self -> is_a) ) );
 
 } # End of generate_graph.
 
 # -----------------------------------------------
 
-sub _process_isa
+sub _process_is_a
 {
 	my($self, $tree, $class, $ignore) = @_;
 
@@ -121,10 +121,10 @@ sub _process_isa
 
 	for my $klass (Class::ISA::super_path($class) )
 	{
-		$self -> _process_isa($tree -> new_daughter, $klass, $ignore) if (! $$ignore{$klass});
+		$self -> _process_is_a($tree -> new_daughter, $klass, $ignore) if (! $$ignore{$klass});
 	}
 
-} # End of _process_isa.
+} # End of _process_is_a.
 
 # -----------------------------------------------
 
@@ -273,7 +273,7 @@ Key-value pairs accepted in the parameter list:
 This option specifies the GraphViz2 object to use. This allows you to configure it as desired.
 
 The default is GraphViz2 -> new. The default attributes are the same as in the synopsis, above,
-except for the graph label of course.
+except for the logger of course, which defaults to ''.
 
 This key is optional.
 

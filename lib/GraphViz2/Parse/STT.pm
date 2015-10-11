@@ -10,13 +10,13 @@ use Moo;
 
 has graph =>
 (
-	default  => sub{return {} },
+	default  => sub{return ''},
 	is       => 'rw',
 	#isa     => 'GraphViz2',
 	required => 0,
 );
 
-our $VERSION = '2.36';
+our $VERSION = '2.37';
 
 # -----------------------------------------------
 
@@ -215,7 +215,7 @@ Key-value pairs accepted in the parameter list:
 This option specifies the GraphViz2 object to use. This allows you to configure it as desired.
 
 The default is GraphViz2 -> new. The default attributes are the same as in the synopsis, above,
-except for the graph label of course.
+except for the logger of course, which defaults to ''.
 
 This key is optional.
 

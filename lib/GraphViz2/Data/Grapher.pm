@@ -46,7 +46,7 @@ has tree =>
 	required => 0,
 );
 
-our $VERSION = '2.36';
+our $VERSION = '2.37';
 
 # -----------------------------------------------
 # This is a function.
