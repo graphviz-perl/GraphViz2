@@ -42,7 +42,7 @@ $graph -> add_node
 q|
 <<table bgcolor = 'white'>
 <tr>
-	<td bgcolor = 'lightgreen'>The green node is the start node</td>
+	<td bgcolor = 'palegreen'>The green node is the start node</td>
 </tr>
 <tr>
 	<td bgcolor = 'lightblue'>Lightblue nodes are for lexeme attributes</td>
