@@ -12,7 +12,7 @@
 <text text-anchor="middle" x="149.816" y="-7.8" font-family="Times,serif" font-size="14.00">Macro demo 1 &#45; Non&#45;cluster sub&#45;graphs</text>
 <!-- Chadstone -->
 <g id="node1" class="node"><title>Chadstone</title>
-<polygon fill="none" stroke="magenta" points="119.913,-113 92.1272,-131 36.5548,-131 8.76865,-113 36.5548,-95 92.1272,-95 119.913,-113"/>
+<polygon fill="none" stroke="magenta" points="121.415,-113 92.8782,-131 35.8039,-131 7.26669,-113 35.8039,-95 92.8782,-95 121.415,-113"/>
 <text text-anchor="middle" x="64.341" y="-109.3" font-family="Times,serif" font-size="14.00">Chadstone</text>
 </g>
 <!-- Waverley -->

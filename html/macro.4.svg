@@ -20,8 +20,8 @@
 </g>
 <!-- Chadstone -->
 <g id="node1" class="node"><title>Chadstone</title>
-<polygon fill="none" stroke="magenta" points="139.572,-204 111.786,-222 56.2138,-222 28.4276,-204 56.2138,-186 111.786,-186 139.572,-204"/>
-<text text-anchor="middle" x="84" y="-200.3" font-family="Times,serif" font-size="14.00">Chadstone</text>
+<polygon fill="none" stroke="magenta" points="140.074,-204 111.537,-222 54.4628,-222 25.9257,-204 54.4628,-186 111.537,-186 140.074,-204"/>
+<text text-anchor="middle" x="83" y="-200.3" font-family="Times,serif" font-size="14.00">Chadstone</text>
 </g>
 <!-- Waverley -->
 <g id="node2" class="node"><title>Waverley</title>
@@ -30,8 +30,8 @@
 </g>
 <!-- Chadstone&#45;&gt;Waverley -->
 <g id="edge1" class="edge"><title>Chadstone&#45;&gt;Waverley</title>
-<path fill="none" stroke="grey" d="M83.0521,-185.7C82.5854,-177.184 82.012,-166.718 81.4886,-157.167"/>
-<polygon fill="grey" stroke="grey" points="84.9693,-156.717 80.9273,-146.924 77.9798,-157.101 84.9693,-156.717"/>
+<path fill="none" stroke="grey" d="M82.289,-185.7C81.9391,-177.184 81.509,-166.718 81.1164,-157.167"/>
+<polygon fill="grey" stroke="grey" points="84.6033,-156.772 80.6955,-146.924 77.6092,-157.059 84.6033,-156.772"/>
 </g>
 <!-- Notting Hill -->
 <g id="node4" class="node"><title>Notting Hill</title>
@@ -40,7 +40,7 @@
 </g>
 <!-- Chadstone&#45;&gt;Notting Hill -->
 <g id="edge3" class="edge"><title>Chadstone&#45;&gt;Notting Hill</title>
-<path fill="none" stroke="grey" d="M124.377,-194.048C134.561,-190.347 144.892,-185.179 153,-178 180.977,-153.228 166.867,-131.53 191,-103 199.852,-92.5347 211.599,-83.1361 222.419,-75.6687"/>
+<path fill="none" stroke="grey" d="M124.323,-194.015C134.536,-190.323 144.868,-185.167 153,-178 181.033,-153.292 166.867,-131.53 191,-103 199.852,-92.5347 211.599,-83.1361 222.419,-75.6687"/>
 <polygon fill="grey" stroke="grey" points="224.414,-78.5454 230.826,-70.1104 220.554,-72.7064 224.414,-78.5454"/>
 </g>
 <!-- Hughesdale -->
