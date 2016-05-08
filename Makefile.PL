@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 use strict;
 use warnings;
 
@@ -8,7 +10,7 @@ use ExtUtils::MakeMaker;
 use File::Spec;
 use File::Temp;
 
-require 5.014002; # For the utf8 stuff.
+require 5.010001; # For the utf8 stuff.
 
 # -----------------------------------------------
 
@@ -62,10 +64,11 @@ my(%params) =
 		COMPRESS => 'gzip',
 		SUFFIX   => 'gz'
 	},
-	DISTNAME  => 'GraphViz2',
-	NAME      => 'GraphViz2',
-	PL_FILES  => {},
-	PREREQ_PM =>
+	DISTNAME			=> 'GraphViz2',
+	MIN_PERL_VERSION	=> 5.010001,
+	NAME				=> 'GraphViz2',
+	PL_FILES			=> {},
+	PREREQ_PM			=>
 	{
 		'Algorithm::Dependency'					=> 1.110,
 		'Algorithm::Dependency::Source::HoA'	=> 1.110,
