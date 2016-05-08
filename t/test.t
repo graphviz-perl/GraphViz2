@@ -25,15 +25,17 @@ my(%script) = GraphViz2::Filer -> new -> get_scripts;
 
 my($temp_dir) = File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
 
-my($stdout, $stderr);
+my($stdout, $stderr, @stderr);
 
 for my $key (sort keys %script)
 {
-		$count++;
+	$count++;
 
-		($stdout, $stderr) = capture{system $^X, '-Ilib', $script{$key}, 'svg', File::Spec -> catfile($temp_dir, "$key.svg")};
+	($stdout, $stderr)	= capture{system $^X, '-Ilib', $script{$key}, 'svg', File::Spec -> catfile($temp_dir, "$key.svg")};
+	@stderr				= grep{! /Insecure (?:\$ENV{PATH}|dependency)/} split(/\n/, $stderr);
+	$stderr				= '' if ($#stderr < 0);
 
-		ok(length($stderr) == 0, "$script{$key} runs without error");
+	ok(length($stderr) == 0, "$script{$key} runs without error");
 }
 
 done_testing($count);

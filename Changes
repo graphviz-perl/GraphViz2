@@ -6,6 +6,7 @@ Revision history for Perl extension GraphViz2.
 	- Update some pre-reqs.
 	- Adopt new repo format.
 	- Wind min Perl version back from 5.14.2 to 5.10.1.
+	- Remove t/version.t in order to get rid of Test::Version.
 
 2.37  Sun Oct 11 12:19:00 2015
 	- Fix the default for the graph parameter in GraphViz2::Parse::*, to be '' instead
