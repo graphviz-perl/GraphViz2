@@ -67,66 +67,78 @@ my(%params) =
 	PL_FILES  => {},
 	PREREQ_PM =>
 	{
-		'Algorithm::Dependency' => 1.110,
-		'Algorithm::Dependency::Source::HoA' => 1.110,
-		'Capture::Tiny' => 0.10,
-		'charnames' => 0,
-		'Class::ISA' => 0.36,
-		'Class::Load' => 0.17,
-		'Config' => 0,
-		'Config::Tiny' => 2.16,
-		'Date::Simple' => 3.03,
-		'Data::Section::Simple' => 0.02,
-		'DBI' => 1.616,
-		'DBIx::Admin::TableInfo' => 3.00,
-		'File::Basename' => 2.77,
-		'File::Slurp' => 9999.19,
-		'File::Copy' => 2.21,
-		'File::HomeDir' => 0.99,
-		'File::Slurp' => 9999.19,
-		'File::Spec' => 3.40,
-		'File::Temp' => 0.22,
-		'File::Which' => 1.09,
-		'HTML::Entities::Interpolate' => 1.04,
-		'HTML::TreeBuilder' => 4.2,
-		'HTTP::Tiny' => 0.012,
-		'IPC::Run3' => 0.046,
-		'Lingua::EN::PluralToSingular' => 0.14,
-		'Log::Handler' => 0.71,
-		'Moo' => 1.002000,
-		'open' => 0,
-		'parent' => 0.225,
-		'Parse::RecDescent' => 1.965001,
-		'Scalar::Util' => 1.23,
-		'Set::Array' => 0.23,
-		'strict' => 0,
-		'Test::More' => 1.001014,
-		'Test::Pod' => 1.48,
-		'Test::Version' => 1.002003,
-		'Text::Xslate' => 1.2000,
-		'Tree::DAG_Node' => 1.06,
-		'Try::Tiny' => 0.09,
-		'utf8' => 0,
-		'warnings' => 0,
-		'XML::Bare' => 0,
-		'XML::Tiny' => 2.06,
+		'Algorithm::Dependency'					=> 1.110,
+		'Algorithm::Dependency::Source::HoA'	=> 1.110,
+		'Capture::Tiny'							=> 0.36,
+		'charnames'								=> 0,
+		'Class::ISA'							=> 0.36,
+		'Class::Load'							=> 0.23,
+		'Config'								=> 0,
+		'Config::Tiny'							=> 2.16,
+		'Date::Simple'							=> 3.03,
+		'Data::Section::Simple'					=> 0.02,
+		'DBI' 									=> 1.616,
+		'DBIx::Admin::TableInfo'				=> 3.00,
+		'File::Basename'						=> 2.77,
+		'File::Copy'							=> 2.21,
+		'File::HomeDir'							=> 0.99,
+		'File::Slurp'							=> 9999.19,
+		'File::Spec'							=> 3.40,
+		'File::Temp'							=> 0.22,
+		'File::Which'							=> 1.09,
+		'HTML::Entities::Interpolate'			=> 1.04,
+		'HTML::TreeBuilder'						=> 4.2,
+		'HTTP::Tiny'							=> 0.012,
+		'IPC::Run3'								=> 0.0546,
+		'Lingua::EN::PluralToSingular'			=> 0.14,
+		'Log::Handler'							=> 0.84,
+		'Moo'									=> 2.001001,
+		'open'									=> 0,
+		'parent'								=> 0.225,
+		'Parse::RecDescent'						=> 1.965001,
+		'Scalar::Util'							=> 1.23,
+		'Set::Array'							=> 0.23,
+		'strict'								=> 0,
+		'Text::Xslate'							=> 1.2000,
+		'Tree::DAG_Node'						=> 1.06,
+		'Try::Tiny'								=> 0.09,
+		'utf8'									=> 0,
+		'warnings'								=> 0,
+		'XML::Bare'								=> 0,
+		'XML::Tiny'								=> 2.06,
+	},
+	TEST_REQUIRES =>
+	{
+		'Test::More'	=> 1.001014,
+		'Test::Pod'		=> 1.48,
+		'Test::Version'	=> 1.002003,
 	},
 	VERSION_FROM => 'lib/GraphViz2.pm',
 );
 
 if ( ($ExtUtils::MakeMaker::VERSION =~ /^\d\.\d\d$/) && ($ExtUtils::MakeMaker::VERSION > 6.30) )
 {
-	$params{LICENSE} = 'artistic_2';
+	$params{LICENSE} = 'perl';
 }
 
 if ($ExtUtils::MakeMaker::VERSION ge '6.46')
 {
 	$params{META_MERGE} =
 	{
-		resources =>
+		'meta-spec' =>
 		{
-		'bugtracker' => 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
-		'license' => 'http://opensource.org/licenses/Artistic-2.0',
+			version => 2,
+		},
+		resources   =>
+		{
+			bugtracker	=> 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
+			license		=> 'http://dev.perl.org/licenses/',
+			repository	=>
+			{
+				type	=> 'git',
+				url		=> 'https://github.com/ronsavage/GraphViz2.git',
+				web		=> 'https://github.com/ronsavage/GraphViz2',
+			},
 		},
 	};
 }

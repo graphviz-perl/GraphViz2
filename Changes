@@ -1,5 +1,11 @@
 Revision history for Perl extension GraphViz2.
 
+2.38  2016-05-03T15:22:00
+	- Remove confusing para about $label in docs for add_edge(). See RT#105861. Thanx BOBMATH.
+	- Change licence to Perl. See LICENSE file.
+	- Update some pre-reqs.
+	- Adopt new repo format.
+
 2.37  Sun Oct 11 12:19:00 2015
 	- Fix the default for the graph parameter in GraphViz2::Parse::*, to be '' instead
 		of {}. See notes for V 2.36 for more info. GraphViz2::Parse::Regexp was fixed in V 2.36.

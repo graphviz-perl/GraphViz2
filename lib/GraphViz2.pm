@@ -130,7 +130,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.37';
+our $VERSION = '2.38';
 
 # -----------------------------------------------
 
@@ -1300,9 +1300,6 @@ attributes in this call means such nodes are created with the default set of att
 be what you want. To avoid this, you have to call add_node(...) yourself, with the appropriate attributes,
 before calling add_edge(...).
 
-$label defaults to the value supplied in the call to new(global => {label => '...'}), which in turn defaults
-to '->' for directed graphs and '--' for undirected graphs. You wouldn't normally need to use this option.
-
 %hash is any edge attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
 the same way as the edge parameters in the calls to default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
 
@@ -2414,6 +2411,10 @@ Version numbers < 1.00 represent development versions. From 1.00 up, they are pr
 
 The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
 
+=head1 Repository
+
+L<https://github.com/ronsavage/GraphViz2.git>
+
 =head1 Support
 
 Email the author, or log a bug on RT:
@@ -2432,8 +2433,8 @@ Australian copyright (c) 2011, Ron Savage.
 
 	All Programs of mine are 'OSI Certified Open Source Software';
 	you can redistribute them and/or modify them under the terms of
-	The Artistic License, a copy of which is available at:
-	http://www.opensource.org/licenses/index.html
+	The Perl License, a copy of which is available at:
+	http://dev.perl.org/licenses/
 
 =cut
 
