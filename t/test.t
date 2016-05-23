@@ -32,7 +32,7 @@ for my $key (sort keys %script)
 	$count++;
 
 	($stdout, $stderr)	= capture{system $^X, '-Ilib', $script{$key}, 'svg', File::Spec -> catfile($temp_dir, "$key.svg")};
-	@stderr				= grep{! /Insecure (?:\$ENV{PATH}|dependency)/} split(/\n/, $stderr);
+	@stderr				= grep{! /Insecure (?:\$ENV\{PATH}|dependency)/} split(/\n/, $stderr);
 	$stderr				= '' if ($#stderr < 0);
 
 	ok(length($stderr) == 0, "$script{$key} runs without error");
