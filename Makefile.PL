@@ -98,6 +98,7 @@ my(%params) =
 		'Moo'									=> 2.001001,
 		'open'									=> 0,
 		'parent'								=> 0.225,
+		'perl'									=> 5.10.1,
 		'Parse::RecDescent'						=> 1.965001,
 		'Scalar::Util'							=> 1.23,
 		'Set::Array'							=> 0.23,

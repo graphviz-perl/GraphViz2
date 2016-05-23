@@ -2,6 +2,7 @@ Revision history for Perl extension GraphViz2.
 
 2.39  2016-05-23T12:24:00
 	- Escape { in regexp in t/test.t to keep recent Perls happy.
+	- Add a dependency on Perl V 5.10.1.
 
 2.38  2016-05-03T15:22:00
 	- Remove confusing para about $label in docs for add_edge(). See RT#105861. Thanx BOBMATH.
