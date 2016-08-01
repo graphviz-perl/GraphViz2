@@ -1,5 +1,14 @@
 Revision history for Perl extension GraphViz2.
 
+2.40  2016-08-02T08:41:00
+	- In scripts/rank.sub.graph.*.pl, change shape 'box' to 'doublecircle'. Some users have
+		reported errors with 'box'. See RT#81467 (Reported by D. Thomas on 2012-11-26, which I
+		rejected), and RT#116628 (Reported by Daran Davis on 2016-08-01, which I now accept).
+		I tested firstly by using 'rect' instead of 'box', and that also works for me, but using
+		'doublecircle' is visually more impressive. Also, I hope all versions of Graphviz in use
+		will support 'doublecircle'. I can't see anything in the changelog for Graphviz to say when
+		'box' became available, but it must have been years ago now.
+
 2.39  2016-05-23T12:24:00
 	- Escape { in regexp in t/test.t to keep recent Perls happy.
 	- Add a dependency on Perl V 5.10.1.
