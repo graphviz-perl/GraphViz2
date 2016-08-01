@@ -44,8 +44,8 @@ $graph -> add_node(name => 'Carnegie', color => 'red');
 
 $graph -> default_node(style => 'rounded');
 
-$graph -> add_node(name => 'Murrumbeena', shape => 'box',    color => 'green', label => '<Murrumbeena<br/><font color="#0000ff">Victoria</font><br/>Australia>');
-$graph -> add_node(name => 'Oakleigh',    shape => 'record', color => 'blue',  label => ['West Oakleigh', 'East Oakleigh']);
+$graph -> add_node(name => 'Murrumbeena', shape => 'doublecircle', color => 'green', label => '<Murrumbeena<br/><font color="#0000ff">Victoria</font><br/>Australia>');
+$graph -> add_node(name => 'Oakleigh',    shape => 'record',       color => 'blue',  label => ['West Oakleigh', 'East Oakleigh']);
 
 $graph -> add_edge(from => 'Murrumbeena', to => 'Carnegie', arrowsize => 2, label => '<Bike<br/>Train<br/>Stroll>');
 

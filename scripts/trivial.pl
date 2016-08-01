@@ -43,8 +43,8 @@ $graph -> add_node(name => 'Carnegie', color => 'red');
 
 $graph -> default_node(style => 'rounded');
 
-$graph -> add_node(name => 'Murrumbeena', shape => 'box',  color => 'green');
-$graph -> add_node(name => 'Oakleigh',    shape => 'oval', color => 'blue');
+$graph -> add_node(name => 'Murrumbeena', shape => 'doublecircle', color => 'green');
+$graph -> add_node(name => 'Oakleigh',    shape => 'oval',         color => 'blue');
 
 $graph -> add_edge(from => 'Murrumbeena', to => 'Carnegie', arrowsize => 2);
 

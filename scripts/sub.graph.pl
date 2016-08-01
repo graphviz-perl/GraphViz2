@@ -36,7 +36,7 @@ my($graph) = GraphViz2 -> new
 	);
 
 $graph -> add_node(name => 'Carnegie', shape => 'circle');
-$graph -> add_node(name => 'Murrumbeena', shape => 'box', color => 'green');
+$graph -> add_node(name => 'Murrumbeena', shape => 'doublecircle', color => 'green');
 $graph -> add_node(name => 'Oakleigh',    color => 'blue');
 
 $graph -> add_edge(from => 'Murrumbeena', to    => 'Carnegie', arrowsize => 2);
