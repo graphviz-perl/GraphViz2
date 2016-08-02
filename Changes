@@ -1,5 +1,9 @@
 Revision history for Perl extension GraphViz2.
 
+2.42  2016-08-02T12:29:00
+	- Seem I misunderstood something simple. This time, I've changed eliminated shape 'square'.
+		Thanx again to Daran Davis.
+
 2.41  2016-08-02T09:00:00
 	- To preempt more problems, I've made the same change as in V 2.40, in
 		report.nodes.and.edges.pl, html.labels.1.pl, sub.graph.pl, sub.sub.graph.pl, trivial.pl

@@ -35,11 +35,11 @@ my($graph) = GraphViz2 -> new
 	node   => {shape => 'oval'},
 );
 
-$graph -> add_node(name => 'Carnegie',  shape => 'circle');
-$graph -> add_node(name => 'Chadstone', shape => 'circle', color => 'red');
-$graph -> add_node(name => 'Malvern',   shape => 'doublecircle', color => 'green');
-$graph -> add_node(name => 'Murrumbeena', shape => 'square', color => 'orange');
-$graph -> add_node(name => 'Oakleigh',  color => 'blue');
+$graph -> add_node(name => 'Carnegie',    shape => 'circle');
+$graph -> add_node(name => 'Chadstone',   shape => 'circle', color => 'red');
+$graph -> add_node(name => 'Malvern',     shape => 'box', color => 'green');
+$graph -> add_node(name => 'Murrumbeena', shape => 'doublecircle', color => 'orange');
+$graph -> add_node(name => 'Oakleigh',    color => 'blue');
 
 $graph -> add_edge(from => 'Chadstone', to => 'Oakleigh', arrowhead => 'odot');
 $graph -> add_edge(from => 'Malvern',   to => 'Carnegie', arrowsize => 2);
