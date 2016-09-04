@@ -1,7 +1,7 @@
 Revision history for Perl extension GraphViz2.
 
 2.42  2016-08-02T12:29:00
-	- Seem I misunderstood something simple. This time, I've changed eliminated shape 'square'.
+	- Seems I misunderstood something simple. This time, I've eliminated shape 'square'.
 		Thanx again to Daran Davis.
 
 2.41  2016-08-02T09:00:00
