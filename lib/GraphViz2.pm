@@ -84,6 +84,14 @@ has logger =>
 	required => 0,
 );
 
+has meta =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+#	isa      => 'HashRef',
+	required => 0,
+);
+
 has node =>
 (
 	default  => sub{return {} },
@@ -139,26 +147,33 @@ our $VERSION = '2.43';
 sub BUILD
 {
 	my($self)    = @_;
-	my($options) = $self -> global;
+	my($globals) = $self -> global;
 	my($dot)     = which('dot');
 	my($global)  =
 	{
-		directed		=> $$options{directed}			? 'digraph'				: 'graph',
-		driver			=> $$options{driver}			? $$options{driver}		: $dot,
-		format			=> $$options{format}			? $$options{format}		: 'svg',
-		im_format		=> $$options{im_format}			? $$options{im_format}	: 'cmapx',
-		label			=> $$options{directed}			? '->'					: '--',
-		name			=> defined($$options{name})		? $$options{name}		: 'Perl',
-		record_shape	=> ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
-		strict			=> defined($$options{strict})	? $$options{strict}		:  0,
-		subgraph		=> $$options{subgraph}			? $$options{subgraph}	: {},
-		timeout			=> defined($$options{timeout})	? $$options{timeout}	: 10,
+		directed		=> $$globals{directed}			? 'digraph'				: 'graph',
+		driver			=> $$globals{driver}			? $$globals{driver}		: $dot,
+		format			=> $$globals{format}			? $$globals{format}		: 'svg',
+		im_format		=> $$globals{im_format}			? $$globals{im_format}	: 'cmapx',
+		label			=> $$globals{directed}			? '->'					: '--',
+		name			=> defined($$globals{name})		? $$globals{name}		: 'Perl',
+		record_shape	=> ($$globals{record_shape} && $$globals{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
+		strict			=> defined($$globals{strict})	? $$globals{strict}		:  0,
+		subgraph		=> $$globals{subgraph}			? $$globals{subgraph}	: {},
+		timeout			=> defined($$globals{timeout})	? $$globals{timeout}	: 10,
+	};
+	my($metas)	= $self -> meta;
+	my($meta)	=
+	{
+		URL => $$metas{URL} ? $$metas{URL} : '',
 	};
 
 	$self -> global($global);
+	$self -> meta($meta);
 	$self -> load_valid_attributes;
 	$self -> validate_params('global',   %{$self -> global});
 	$self -> validate_params('graph',    %{$self -> graph});
+	$self -> validate_params('meta',     %{$self -> meta});
 	$self -> validate_params('node',     %{$self -> node});
 	$self -> validate_params('edge',     %{$self -> edge});
 	$self -> validate_params('subgraph', %{$self -> subgraph});
@@ -170,14 +185,21 @@ sub BUILD
 			subgraph => $self -> subgraph,
 		 });
 
-	my(%global) = %{$self -> global};
+	my(%global)	= %{$self -> global};
+	my(%meta)	= %{$self -> meta};
 
-	$self -> log(debug => "Default global: $_ => $global{$_}") for sort keys %global;
+	$self -> log(debug => "Default global: $_ => $global{$_}")	for sort keys %global;
+	$self -> log(debug => "Default meta:   $_ => $meta{$_}")	for grep{$meta{$_} } sort keys %meta;
 
 	my($command) = (${$self -> global}{strict} ? 'strict ' : '')
 		. (${$self -> global}{directed} . ' ')
 		. ${$self -> global}{name}
 		. "\n{\n";
+
+	for my $key (grep{$meta{$_} } sort keys %meta)
+	{
+		$command .= qq|$key = "$meta{$key}"; \n|;
+	}
 
 	$self -> command -> push($command);
 
@@ -2706,6 +2728,9 @@ record_shape
 strict
 subgraph
 timeout
+
+@@ meta
+URL
 
 @@ node
 Mcircle

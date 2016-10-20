@@ -4,5 +4,5 @@ digraph mainmap
 
 	URL = "http://savage.net.au/maps/demo.2.1.html";
 	source [URL = "http://savage.net.au/maps/demo.2.2.html"];
-	source -> origin [URL = "/maps/demo.2.3.html"];
+	source -> destination [URL = "/maps/demo.2.3.html"];
 }

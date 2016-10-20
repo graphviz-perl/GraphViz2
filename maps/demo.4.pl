@@ -34,16 +34,19 @@ my($graph)	= GraphViz2 -> new
 					{
 						directed	=> 1,
 						name		=> 'mainmap',
-						URL			=> "http://savage.net.au/",	# Note: URL must be in caps and quotes must be doubles.
 					},
 					graph	=> {rankdir => 'TB'},
 					logger	=> $logger,
+					meta	=>
+					{
+						URL => 'http://savage.net.au/maps/demo.4.1.html',	# Note: URL must be in caps.
+					},
 					node	=> {shape => 'oval'},
 				);
 
-$graph -> add_node(name => 'command',	URL => "http://savage.net.au/maps/demo.1.html");
-$graph -> add_node(name => 'output',	URL => "/maps/demo.1.1.html");
-$graph -> add_edge(from => 'command',	to => 'output');
+$graph -> add_node(name => 'source',	URL => 'http://savage.net.au/maps/demo.4.2.html');
+$graph -> add_node(name => 'destination');
+$graph -> add_edge(from => 'source',	to => 'destination',	URL => '/maps/demo.4.3.html');
 
 
 my($format)			= shift || 'svg';

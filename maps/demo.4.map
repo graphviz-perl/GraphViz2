@@ -1,4 +1,5 @@
 <map id="mainmap" name="mainmap">
-<area shape="poly" id="node1" href="http://savage.net.au/maps/demo.1.html" title="command" alt="" coords="130,29,127,22,118,15,104,10,87,7,68,5,48,7,31,10,17,15,8,22,5,29,8,37,17,43,31,49,48,52,68,53,87,52,104,49,118,43,127,37"/>
-<area shape="poly" id="node2" href="/maps/demo.1.1.html" title="output" alt="" coords="114,125,111,118,105,111,95,106,82,103,68,101,54,103,41,106,31,111,24,118,22,125,24,133,31,139,41,145,54,148,68,149,82,148,95,145,105,139,111,133"/>
+<area shape="poly" id="node1" href="http://savage.net.au/maps/demo.4.2.html" title="source" alt="" coords="120,29,117,22,111,15,101,10,88,7,74,5,60,7,47,10,37,15,30,22,28,29,30,37,37,43,47,49,60,52,74,53,88,52,101,49,111,43,117,37"/>
+<area shape="poly" id="edge1" href="/maps/demo.4.3.html" alt="" coords="76,54,76,88,71,88,71,54"/>
+<area shape="rect" id="graph0" href="http://savage.net.au/maps/demo.4.1.html" alt="" coords="0,0,148,155"/>
 </map>
