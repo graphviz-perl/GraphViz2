@@ -82,7 +82,7 @@ has logger =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-	isa      => Str,
+	isa      => Any,
 	required => 0,
 );
 
