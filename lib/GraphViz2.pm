@@ -582,10 +582,9 @@ sub load_valid_attributes
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
 
-	my($stdout, $stderr)				= capture{system 'dot', '-T?'};
-	my(@field)							= split(/one of:\s+/, $stderr);
-	$attribute{output_format}{$_}		= 1 for split(/\s+/, $field[1]);
-	$attribute{im_output_format}{$_}	= 1 for split(/\s+/, $field[1]);
+	my($stdout, $stderr)			= capture{system 'dot', '-T?'};
+	my(@field)						= split(/one of:\s+/, $stderr);
+	$attribute{output_format}{$_}	= 1 for split(/\s+/, $field[1]);
 
 	$self -> valid_attributes(\%attribute);
 
@@ -761,14 +760,16 @@ sub run
 	my($prefix)			= $format;
 	$prefix				=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix => 1);
-	my($prefix_1)		= $im_format;
-	$prefix_1			=~ s/:.+$//; # In case of 'png:gd', etc.
-	%arg				= ($prefix_1 => 1);
 
 	$self -> validate_params('output_format', %arg);
-	$self -> validate_params('im_output_format', %arg);
 
-	if ($im_output_file)
+	my($prefix_1)	= $im_format;
+	$prefix_1		=~ s/:.+$//; # In case of 'png:gd', etc.
+	%arg			= ($prefix_1 => 1);
+
+	$self -> validate_params('output_format', %arg);
+
+	if ($im_format)
 	{
 		return $self -> run_map($driver, $output_file, $format, $timeout, $im_output_file, $im_format);
 	}
@@ -949,6 +950,8 @@ Or, hit L<the demo page|http://savage.net.au/Perl-modules/html/graphviz2/index.h
 
 =head2 Perl code
 
+=head3 Typical Usage
+
 	#!/usr/bin/env perl
 
 	use strict;
@@ -1019,6 +1022,12 @@ Or, hit L<the demo page|http://savage.net.au/Perl-modules/html/graphviz2/index.h
 
 This program ships as scripts/sub.graph.pl. See L</Scripts Shipped with this Module>.
 
+=head3 Image Maps Usage
+
+As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
+
+See L</Image Maps> below.
+
 =head1 Description
 
 =head2 Overview
@@ -1038,6 +1047,10 @@ while extending support to all the latest features of L<Graphviz|http://www.grap
 
 To ensure L<GraphViz2> is a light-weight module, L<Moo> has been used to provide getters and setters,
 rather than L<Moose>.
+
+As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
+
+See L</Image Maps> below.
 
 =head2 What is a Graph?
 
@@ -1372,6 +1385,96 @@ chosen by cascading thru a set of options.
 
 I've posted an email to the L<Graphviz|http://www.graphviz.org/> mailing list suggesting a new option, framecolor, so deal with
 this issue, including a special color of 'invisible'.
+
+=head1 Image Maps
+
+As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
+
+=head2 Typical Code
+
+Normally you would call C<run()> as:
+
+	$graph -> run
+	(
+	    format      => $format,
+	    output_file => $output_file
+	);
+
+That line was copied from scripts/cluster.pl.
+
+To trigger image map processing, you must include 2 new parameters:
+
+	$graph -> run
+	(
+	    format         => $format,
+	    output_file    => $output_file,
+	    im_format      => $im_format,
+	    im_output_file => $im_output_file
+	);
+
+That line was copied from maps/demo.3.pl, and there is an identical line in maps/demo.4.pl.
+
+=head2 The New Parameters to run()
+
+=over 4
+
+=item o im_format => $str
+
+Expected values: 'imap' (server-side) and 'cmapx' (client-side).
+
+Default value: 'cmapx'.
+
+=item o im_output_file => $file_name
+
+The name of the output map file.
+
+Default: ''.
+
+=back
+
+=head2 Sample Code
+
+Various demos are shipped in the new maps/ directory:
+
+Each demo, when FTPed to your web server displays some text with an image in the middle. In each case
+you can click on the upper oval to just to one page, or click on the lower oval to jump to a different
+page, or click anywhere else in the image to jump to a third page.
+
+=over 4
+
+=item o demo.1.*
+
+This set demonstrates a server-side image map but does not use C<GraphViz2>.
+
+You have to run demo.1.sh which generates demo.1.map, and then you FTP the whole dir maps/ to your web server.
+
+=item o demo.2.*
+
+This set demonstrates a client-side image map but does not use C<GraphViz2>.
+
+You have to run demo.2.sh which generates demo.2.map, and then you manually copy demo.2.map into demo.2.html,
+replacing any version of the map already present. After that you FTP the whole dir maps/ to your web server.
+
+=item o demo.3.*
+
+This set demonstrates a server-side image map using C<GraphViz2> via demo.3.pl.
+
+Note line 54 of demo.3.pl which sets the default C<im_format> to 'imap'.
+
+=item o demo.4.*
+
+This set demonstrates a client-side image map using C<GraphViz2> via demo.4.pl.
+
+As with demo.2.* there is some manually editing to be done.
+
+Note line 54 of demo.4.pl which sets the default C<im_format> to 'cmapx'. This is the only important
+difference between the two demos.
+
+There are other minor differences, in the one use uses svg and the other png. And of course the urls
+of the web pages embedded in the code and in those web pages differs, just to demonstate that the maps
+do indeed lead to different pages.
+
+=back
 
 =head1 Methods
 
@@ -2037,6 +2140,10 @@ You can give the node a name, and an empty string for a label, to suppress plott
 See L</scripts/anonymous.pl> for demo code.
 
 If there is some specific requirement which this does not cater for, let me know and I can change the code.
+
+=head2 How do I use image maps?
+
+See L</Image Maps> above.
 
 =head2 Why such a different approach to logging?
 
