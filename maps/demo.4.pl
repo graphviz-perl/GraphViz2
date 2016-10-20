@@ -22,7 +22,7 @@ $logger -> add
 	 {
 		 maxlevel		=> 'debug',
 		 message_layout	=> '%m',
-		 minlevel		=> 'error',
+		 minlevel		=> 'debug',
 	 }
 	);
 
@@ -48,6 +48,7 @@ $graph -> add_edge(from => 'command',	to => 'output');
 
 my($format)			= shift || 'svg';
 my($output_file)	= shift || "demo.$id.$format";
-my($output_file_1)	= shift || "demo.$id.map";
+my($im_format)		= shift || 'cmapx';
+my($im_output_file)	= shift || "demo.$id.map";
 
-$graph -> run(format => $format, output_file => $output_file, format_1 => $format, output_file_1 => $output_file_1);
+$graph -> run(format => $format, output_file => $output_file, im_format => $im_format, im_output_file => $im_output_file);

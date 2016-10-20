@@ -1,5 +1,11 @@
 Revision history for Perl extension GraphViz2.
 
+2.43  2016-10-20T18:20:00
+	- Alongside the parameters format and output_file, add im_format and im_output_file for image
+		maps.
+	- Add docs for the new parameters.
+	- Add maps/ containing various demos.
+
 2.42  2016-08-02T12:29:00
 	- Seems I misunderstood something simple. This time, I've eliminated shape 'square'.
 		Thanx again to Daran Davis.

@@ -132,7 +132,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.42';
+our $VERSION = '2.43';
 
 # -----------------------------------------------
 
@@ -146,7 +146,7 @@ sub BUILD
 		directed		=> $$options{directed}			? 'digraph'				: 'graph',
 		driver			=> $$options{driver}			? $$options{driver}		: $dot,
 		format			=> $$options{format}			? $$options{format}		: 'svg',
-		format_1		=> $$options{format_1}			? $$options{format_1}	: 'svg',
+		im_format		=> $$options{im_format}			? $$options{im_format}	: 'cmapx',
 		label			=> $$options{directed}			? '->'					: '--',
 		name			=> defined($$options{name})		? $$options{name}		: 'Perl',
 		record_shape	=> ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
@@ -558,10 +558,10 @@ sub load_valid_attributes
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
 
-	my($stdout, $stderr)			= capture{system 'dot', '-T?'};
-	my(@field)						= split(/one of:\s+/, $stderr);
-	$attribute{output_format}{$_}	= 1 for split(/\s+/, $field[1]);
-	$attribute{output_format_1}{$_}	= 1 for split(/\s+/, $field[1]);
+	my($stdout, $stderr)				= capture{system 'dot', '-T?'};
+	my(@field)							= split(/one of:\s+/, $stderr);
+	$attribute{output_format}{$_}		= 1 for split(/\s+/, $field[1]);
+	$attribute{im_output_format}{$_}	= 1 for split(/\s+/, $field[1]);
 
 	$self -> valid_attributes(\%attribute);
 
@@ -718,11 +718,6 @@ sub report_valid_attributes
 		$self -> log(info => $a);
 	}
 
-	for my $a (sort keys %{$$attributes{output_format_1} })
-	{
-		$self -> log(info => $a);
-	}
-
 	$self -> log(info => 'Output formats for the form png:gd etc are also supported');
 	$self -> log;
 
@@ -735,23 +730,23 @@ sub run
 	my($self, %arg)		= @_;
 	my($driver)			= delete $arg{driver}			|| ${$self -> global}{driver};
 	my($format)			= delete $arg{format}			|| ${$self -> global}{format};
-	my($format_1)		= delete $arg{format_1}			|| ${$self -> global}{format_1};
+	my($im_format)		= delete $arg{im_format}		|| ${$self -> global}{im_format};
 	my($timeout)		= delete $arg{timeout}			|| ${$self -> global}{timeout};
 	my($output_file)	= delete $arg{output_file}		|| '';
-	my($output_file_1)	= delete $arg{output_file_1}	|| '';
+	my($im_output_file)	= delete $arg{im_output_file}	|| '';
 	my($prefix)			= $format;
 	$prefix				=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix => 1);
-	my($prefix_1)		= $format_1;
+	my($prefix_1)		= $im_format;
 	$prefix_1			=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix_1 => 1);
 
 	$self -> validate_params('output_format', %arg);
-	$self -> validate_params('output_format_1', %arg);
+	$self -> validate_params('im_output_format', %arg);
 
-	if ($output_file_1)
+	if ($im_output_file)
 	{
-		return $self -> run_map($driver, $output_file, $format, $timeout, $output_file_1, $format_1);
+		return $self -> run_map($driver, $output_file, $format, $timeout, $im_output_file, $im_format);
 	}
 	else
 	{
@@ -764,12 +759,9 @@ sub run
 
 sub run_map
 {
-	my($self, $driver, $output_file, $format, $timeout, $output_file_1, $format_1) = @_;
-	my($file_name) = fileparse($output_file_1);
+	my($self, $driver, $output_file, $format, $timeout, $im_output_file, $im_format) = @_;
 
-#		$dot_options	= "$dot_options -T$format_1 -o$output_file_1" if ($output_file_1);
-
-	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Output file 1: $output_file_1. Format 1: $format_1. Timeout: $timeout second(s)");
+	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Output file 1: $im_output_file. Format 1: $im_format. Timeout: $timeout second(s)");
 	$self -> log;
 
 	my($result);
@@ -782,13 +774,17 @@ sub run_map
 		# The EXLOCK option is for BSD-based systems.
 
 		my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-		my($temp_file)	= File::Spec -> catfile($temp_dir, "$file_name.gv");
+		my($temp_file)	= File::Spec -> catfile($temp_dir, "$output_file.gv");
 
 		open(my $fh, '> :raw', $temp_file) || die "Can't open(> $temp_file): $!";
 		print $fh $self -> dot_input;
 		close $fh;
 
-		system($driver, "-T$format", "-o$file_name.map", "-T$format_1", "-o$output_file", $temp_file);
+		my(@args) = ("-T$im_format", "-o$im_output_file", "-T$format", "-o$output_file", $temp_file);
+
+		$self -> log(debug => join(' ', @args) );
+
+		system($driver, @args);
 	}
 	catch
 	{
@@ -2703,7 +2699,7 @@ z => node
 directed
 driver
 format
-format_1
+im_format
 label
 name
 record_shape
