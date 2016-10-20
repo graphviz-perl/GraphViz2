@@ -1407,7 +1407,7 @@ Thus you must do this to set a URL:
 
 	my($graph) = GraphViz2 -> new
 	             (
-                    ...
+	                ...
 	                im_meta =>
 	                {
 	                    URL => 'http://savage.net.au/maps/demo.3.1.html', # Note: URL must be in caps.
