@@ -20,7 +20,7 @@ use Set::Array;
 
 use Try::Tiny;
 
-use Types::Standard qw/Any HashRef Str/;
+use Types::Standard qw/Any HashRef Int Str/;
 
 has command =>
 (
