@@ -769,7 +769,9 @@ sub run
 
 	$self -> validate_params('output_format', %arg);
 
-	if ($im_format)
+	# Warning: Do not use $im_format in this 'if', because it has a default value.
+
+	if ($im_output_file)
 	{
 		return $self -> run_map($driver, $output_file, $format, $timeout, $im_output_file, $im_format);
 	}
@@ -2144,6 +2146,11 @@ If there is some specific requirement which this does not cater for, let me know
 =head2 How do I use image maps?
 
 See L</Image Maps> above.
+
+=head2 I'm trying to use image maps but the non-image map code runs instead!
+
+The default value of C<im_output_file> is '', so if you do not set it to anything, the new image maps code
+is ignored.
 
 =head2 Why such a different approach to logging?
 
