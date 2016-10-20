@@ -8,7 +8,9 @@ use Capture::Tiny 'capture';
 
 use Data::Section::Simple 'get_data_section';
 
-use File::Which; # For which().
+use File::Basename;	# For fileparse().
+use File::Temp;		# For newdir().
+use File::Which;	# For which().
 
 use Moo;
 
@@ -738,19 +740,76 @@ sub run
 	my($output_file)	= delete $arg{output_file}		|| '';
 	my($output_file_1)	= delete $arg{output_file_1}	|| '';
 	my($prefix)			= $format;
-	$prefix				=~ s/:.+$//;
+	$prefix				=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix => 1);
 	my($prefix_1)		= $format_1;
-	$prefix_1			=~ s/:.+$//;
+	$prefix_1			=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix_1 => 1);
 
 	$self -> validate_params('output_format', %arg);
 	$self -> validate_params('output_format_1', %arg);
 
+	if ($output_file_1)
+	{
+		return $self -> run_map($driver, $output_file, $format, $timeout, $output_file_1, $format_1);
+	}
+	else
+	{
+		return $self -> run_mapless($driver, $output_file, $format, $timeout);
+	}
+
+} # End of run.
+
+# -----------------------------------------------
+
+sub run_map
+{
+	my($self, $driver, $output_file, $format, $timeout, $output_file_1, $format_1) = @_;
+	my($file_name) = fileparse($output_file_1);
+
+#		$dot_options	= "$dot_options -T$format_1 -o$output_file_1" if ($output_file_1);
+
+	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Output file 1: $output_file_1. Format 1: $format_1. Timeout: $timeout second(s)");
+	$self -> log;
+
+	my($result);
+
+	try
+	{
+		$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
+		$self -> log(debug => $self -> dot_input);
+
+		# The EXLOCK option is for BSD-based systems.
+
+		my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
+		my($temp_file)	= File::Spec -> catfile($temp_dir, "$file_name.gv");
+
+		open(my $fh, '> :raw', $temp_file) || die "Can't open(> $temp_file): $!";
+		print $fh $self -> dot_input;
+		close $fh;
+
+		system($driver, "-T$format", "-o$file_name.map", "-T$format_1", "-o$output_file", $temp_file);
+	}
+	catch
+	{
+		$result = $_;
+	};
+
+	die $result if ($result);
+
+	return $self;
+
+} # End of run_map.
+
+# -----------------------------------------------
+
+sub run_mapless
+{
+	my($self, $driver, $output_file, $format, $timeout) = @_;
+
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Timeout: $timeout second(s)");
 	$self -> log;
 
-	my($dot_options);
 	my($result);
 
 	try
@@ -763,11 +822,9 @@ sub run
 		# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.
 		# It saves me the effort of determining if the input contains Unicode.
 
-		$dot_options	= "-T$format";
-#		$dot_options	= "$dot_options -T$format_1 -o$output_file_1" if ($output_file_1);
 
 		run3
-			[$driver, $dot_options],
+			[$driver, "-T$format"],
 			\$self -> dot_input,
 			\$stdout,
 			\$stderr,
@@ -799,7 +856,7 @@ sub run
 
 	return $self;
 
-} # End of run.
+} # End of run_mapless.
 
 # -----------------------------------------------
 
