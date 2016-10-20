@@ -141,15 +141,16 @@ sub BUILD
 	my($dot)     = which('dot');
 	my($global)  =
 	{
-		directed     => $$options{directed}      ? 'digraph'         : 'graph',
-		driver       => $$options{driver}        ? $$options{driver} : $dot,
-		format       => $$options{format}        ? $$options{format} : 'svg',
-		label        => $$options{directed}      ? '->'              : '--',
-		name         => defined($$options{name}) ? $$options{name}   : 'Perl',
-		record_shape => ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
-		strict       => defined($$options{strict})  ? $$options{strict}   :  0,
-		subgraph     => $$options{subgraph}         ? $$options{subgraph} : {},
-		timeout      => defined($$options{timeout}) ? $$options{timeout}  : 10,
+		directed		=> $$options{directed}			? 'digraph'				: 'graph',
+		driver			=> $$options{driver}			? $$options{driver}		: $dot,
+		format			=> $$options{format}			? $$options{format}		: 'svg',
+		format_1		=> $$options{format_1}			? $$options{format_1}	: 'svg',
+		label			=> $$options{directed}			? '->'					: '--',
+		name			=> defined($$options{name})		? $$options{name}		: 'Perl',
+		record_shape	=> ($$options{record_shape} && $$options{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
+		strict			=> defined($$options{strict})	? $$options{strict}		:  0,
+		subgraph		=> $$options{subgraph}			? $$options{subgraph}	: {},
+		timeout			=> defined($$options{timeout})	? $$options{timeout}	: 10,
 	};
 
 	$self -> global($global);
@@ -555,9 +556,10 @@ sub load_valid_attributes
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
 
-	my($stdout, $stderr)          = capture{system 'dot', '-T?'};
-	my(@field)                    = split(/one of:\s+/, $stderr);
-	$attribute{output_format}{$_} = 1 for split(/\s+/, $field[1]);
+	my($stdout, $stderr)			= capture{system 'dot', '-T?'};
+	my(@field)						= split(/one of:\s+/, $stderr);
+	$attribute{output_format}{$_}	= 1 for split(/\s+/, $field[1]);
+	$attribute{output_format_1}{$_}	= 1 for split(/\s+/, $field[1]);
 
 	$self -> valid_attributes(\%attribute);
 
@@ -714,6 +716,11 @@ sub report_valid_attributes
 		$self -> log(info => $a);
 	}
 
+	for my $a (sort keys %{$$attributes{output_format_1} })
+	{
+		$self -> log(info => $a);
+	}
+
 	$self -> log(info => 'Output formats for the form png:gd etc are also supported');
 	$self -> log;
 
@@ -723,20 +730,27 @@ sub report_valid_attributes
 
 sub run
 {
-	my($self, %arg)  = @_;
-	my($driver)      = delete $arg{driver}      || ${$self -> global}{driver};
-	my($format)      = delete $arg{format}      || ${$self -> global}{format};
-	my($timeout)     = delete $arg{timeout}     || ${$self -> global}{timeout};
-	my($output_file) = delete $arg{output_file} || '';
-	my($prefix)      = $format;
-	$prefix          =~ s/:.+$//;
-	%arg             = ($prefix => 1);
+	my($self, %arg)		= @_;
+	my($driver)			= delete $arg{driver}			|| ${$self -> global}{driver};
+	my($format)			= delete $arg{format}			|| ${$self -> global}{format};
+	my($format_1)		= delete $arg{format_1}			|| ${$self -> global}{format_1};
+	my($timeout)		= delete $arg{timeout}			|| ${$self -> global}{timeout};
+	my($output_file)	= delete $arg{output_file}		|| '';
+	my($output_file_1)	= delete $arg{output_file_1}	|| '';
+	my($prefix)			= $format;
+	$prefix				=~ s/:.+$//;
+	%arg				= ($prefix => 1);
+	my($prefix_1)		= $format_1;
+	$prefix_1			=~ s/:.+$//;
+	%arg				= ($prefix_1 => 1);
 
 	$self -> validate_params('output_format', %arg);
+	$self -> validate_params('output_format_1', %arg);
 
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Timeout: $timeout second(s)");
 	$self -> log;
 
+	my($dot_options);
 	my($result);
 
 	try
@@ -749,8 +763,11 @@ sub run
 		# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.
 		# It saves me the effort of determining if the input contains Unicode.
 
+		$dot_options	= "-T$format";
+#		$dot_options	= "$dot_options -T$format_1 -o$output_file_1" if ($output_file_1);
+
 		run3
-			[$driver, "-T$format"],
+			[$driver, $dot_options],
 			\$self -> dot_input,
 			\$stdout,
 			\$stderr,
@@ -2629,6 +2646,7 @@ z => node
 directed
 driver
 format
+format_1
 label
 name
 record_shape
