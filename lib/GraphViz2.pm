@@ -1500,9 +1500,9 @@ This set demonstrates a client-side image map using C<GraphViz2> via demo.4.pl.
 As with demo.2.* there is some manually editing to be done.
 
 Note line 54 of demo.4.pl which sets the default C<im_format> to 'cmapx'. This is the only important
-difference between the this demo and the previous one.
+difference between this demo and the previous one.
 
-There are other minor differences, in the one use uses svg and the other png. And of course the urls
+There are other minor differences, in that one uses 'svg' and the other 'png'. And of course the urls
 of the web pages embedded in the code and in those web pages differs, just to demonstate that the maps
 do indeed lead to different pages.
 
