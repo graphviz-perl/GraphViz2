@@ -36,11 +36,11 @@ my($graph)	= GraphViz2 -> new
 						name		=> 'mainmap',
 					},
 					graph	=> {rankdir => 'TB'},
-					logger	=> $logger,
-					meta	=>
+					im_meta	=>
 					{
 						URL => 'http://savage.net.au/maps/demo.4.1.html',	# Note: URL must be in caps.
 					},
+					logger	=> $logger,
 					node	=> {shape => 'oval'},
 				);
 

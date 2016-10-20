@@ -78,19 +78,19 @@ has graph =>
 	required => 0,
 );
 
+has im_meta =>
+(
+	default  => sub{return {} },
+	is       => 'rw',
+	isa      => HashRef,
+	required => 0,
+);
+
 has logger =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
 	isa      => Any,
-	required => 0,
-);
-
-has meta =>
-(
-	default  => sub{return {} },
-	is       => 'rw',
-	isa      => HashRef,
 	required => 0,
 );
 
@@ -164,21 +164,21 @@ sub BUILD
 		subgraph		=> $$globals{subgraph}			? $$globals{subgraph}	: {},
 		timeout			=> defined($$globals{timeout})	? $$globals{timeout}	: 10,
 	};
-	my($metas)	= $self -> meta;
-	my($meta)	=
+	my($im_metas)	= $self -> im_meta;
+	my($im_meta)	=
 	{
-		URL => $$metas{URL} ? $$metas{URL} : '',
+		URL => $$im_metas{URL} ? $$im_metas{URL} : '',
 	};
 
 	$self -> global($global);
-	$self -> meta($meta);
+	$self -> im_meta($im_meta);
 	$self -> load_valid_attributes;
-	$self -> validate_params('global',   %{$self -> global});
-	$self -> validate_params('graph',    %{$self -> graph});
-	$self -> validate_params('meta',     %{$self -> meta});
-	$self -> validate_params('node',     %{$self -> node});
-	$self -> validate_params('edge',     %{$self -> edge});
-	$self -> validate_params('subgraph', %{$self -> subgraph});
+	$self -> validate_params('global',		%{$self -> global});
+	$self -> validate_params('graph',		%{$self -> graph});
+	$self -> validate_params('im_meta',		%{$self -> im_meta});
+	$self -> validate_params('node',		%{$self -> node});
+	$self -> validate_params('edge',		%{$self -> edge});
+	$self -> validate_params('subgraph',	%{$self -> subgraph});
 	$self -> scope -> push
 		({
 			edge     => $self -> edge,
@@ -187,20 +187,20 @@ sub BUILD
 			subgraph => $self -> subgraph,
 		 });
 
-	my(%global)	= %{$self -> global};
-	my(%meta)	= %{$self -> meta};
+	my(%global)		= %{$self -> global};
+	my(%im_meta)	= %{$self -> im_meta};
 
-	$self -> log(debug => "Default global: $_ => $global{$_}")	for sort keys %global;
-	$self -> log(debug => "Default meta:   $_ => $meta{$_}")	for grep{$meta{$_} } sort keys %meta;
+	$self -> log(debug => "Default global:  $_ => $global{$_}")	for sort keys %global;
+	$self -> log(debug => "Default im_meta: $_ => $im_meta{$_}")	for grep{$im_meta{$_} } sort keys %im_meta;
 
 	my($command) = (${$self -> global}{strict} ? 'strict ' : '')
 		. (${$self -> global}{directed} . ' ')
 		. ${$self -> global}{name}
 		. "\n{\n";
 
-	for my $key (grep{$meta{$_} } sort keys %meta)
+	for my $key (grep{$im_meta{$_} } sort keys %im_meta)
 	{
-		$command .= qq|$key = "$meta{$key}"; \n|;
+		$command .= qq|$key = "$im_meta{$key}"; \n|;
 	}
 
 	$self -> command -> push($command);
@@ -1392,6 +1392,30 @@ this issue, including a special color of 'invisible'.
 
 As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
 
+=head2 The Default URL
+
+See the L<Graphviz docs for 'cmapx'|http://www.graphviz.org/doc/info/output.html#d:cmapx>.
+
+Their sample code has a dot file - x.gv - containing this line:
+
+	URL="http://www.research.att.com/base.html";
+
+The way you set such a url in C<GraphViz2> is via a new parameter to C<new()>. This parameter is called C<im_meta>
+and it takes a hashref as a value. Currently the only key used within that hashref is the case-sensitive C<URL>.
+
+Thus you must do this to set a URL:
+
+	my($graph) = GraphViz2 -> new
+	             (
+                    ...
+	                im_meta =>
+	                {
+	                    URL => 'http://savage.net.au/maps/demo.3.1.html', # Note: URL must be in caps.
+	                },
+	             );
+
+See maps/demo.3.pl and maps/demo.4.pl for sample code.
+
 =head2 Typical Code
 
 Normally you would call C<run()> as:
@@ -1439,7 +1463,7 @@ Default: ''.
 Various demos are shipped in the new maps/ directory:
 
 Each demo, when FTPed to your web server displays some text with an image in the middle. In each case
-you can click on the upper oval to just to one page, or click on the lower oval to jump to a different
+you can click on the upper oval to jump to one page, or click on the lower oval to jump to a different
 page, or click anywhere else in the image to jump to a third page.
 
 =over 4
@@ -1450,6 +1474,8 @@ This set demonstrates a server-side image map but does not use C<GraphViz2>.
 
 You have to run demo.1.sh which generates demo.1.map, and then you FTP the whole dir maps/ to your web server.
 
+URL: your.domain.name/maps/demo.1.html.
+
 =item o demo.2.*
 
 This set demonstrates a client-side image map but does not use C<GraphViz2>.
@@ -1457,11 +1483,15 @@ This set demonstrates a client-side image map but does not use C<GraphViz2>.
 You have to run demo.2.sh which generates demo.2.map, and then you manually copy demo.2.map into demo.2.html,
 replacing any version of the map already present. After that you FTP the whole dir maps/ to your web server.
 
+URL: your.domain.name/maps/demo.2.html.
+
 =item o demo.3.*
 
 This set demonstrates a server-side image map using C<GraphViz2> via demo.3.pl.
 
 Note line 54 of demo.3.pl which sets the default C<im_format> to 'imap'.
+
+URL: your.domain.name/maps/demo.3.html.
 
 =item o demo.4.*
 
@@ -1470,11 +1500,13 @@ This set demonstrates a client-side image map using C<GraphViz2> via demo.4.pl.
 As with demo.2.* there is some manually editing to be done.
 
 Note line 54 of demo.4.pl which sets the default C<im_format> to 'cmapx'. This is the only important
-difference between the two demos.
+difference between the this demo and the previous one.
 
 There are other minor differences, in the one use uses svg and the other png. And of course the urls
 of the web pages embedded in the code and in those web pages differs, just to demonstate that the maps
 do indeed lead to different pages.
+
+URL: your.domain.name/maps/demo.4.html.
 
 =back
 
@@ -2843,7 +2875,7 @@ strict
 subgraph
 timeout
 
-@@ meta
+@@ im_meta
 URL
 
 @@ node
