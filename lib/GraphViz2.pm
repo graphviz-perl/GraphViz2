@@ -785,7 +785,7 @@ sub run_map
 {
 	my($self, $driver, $output_file, $format, $timeout, $im_output_file, $im_format) = @_;
 
-	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Output file 1: $im_output_file. Format 1: $im_format. Timeout: $timeout second(s)");
+	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. IM output file: $im_output_file. IM format: $im_format. Timeout: $timeout second(s)");
 	$self -> log;
 
 	my($result);
@@ -805,8 +805,6 @@ sub run_map
 		close $fh;
 
 		my(@args) = ("-T$im_format", "-o$im_output_file", "-T$format", "-o$output_file", $temp_file);
-
-		$self -> log(debug => join(' ', @args) );
 
 		system($driver, @args);
 	}

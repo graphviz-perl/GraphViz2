@@ -26,7 +26,7 @@ $logger -> add
 	 }
 	);
 
-my($id)		= 4;
+my($id)		= 3;
 my($graph)	= GraphViz2 -> new
 				(
 					edge   => {color => 'grey'},
@@ -39,19 +39,19 @@ my($graph)	= GraphViz2 -> new
 					logger	=> $logger,
 					meta	=>
 					{
-						URL => 'http://savage.net.au/maps/demo.4.1.html',	# Note: URL must be in caps.
+						URL => 'http://savage.net.au/maps/demo.3.1.html',	# Note: URL must be in caps.
 					},
 					node	=> {shape => 'oval'},
 				);
 
-$graph -> add_node(name => 'source',	URL => 'http://savage.net.au/maps/demo.4.2.html');
+$graph -> add_node(name => 'source',	URL => 'http://savage.net.au/maps/demo.3.2.html');
 $graph -> add_node(name => 'destination');
-$graph -> add_edge(from => 'source',	to => 'destination',	URL => '/maps/demo.4.3.html');
+$graph -> add_edge(from => 'source',	to => 'destination',	URL => '/maps/demo.3.3.html');
 
 
-my($format)			= shift || 'svg';
+my($format)			= shift || 'png';
 my($output_file)	= shift || "demo.$id.$format";
-my($im_format)		= shift || 'cmapx';
+my($im_format)		= shift || 'imap';
 my($im_output_file)	= shift || "demo.$id.map";
 
 $graph -> run(format => $format, output_file => $output_file, im_format => $im_format, im_output_file => $im_output_file);
