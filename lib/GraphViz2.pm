@@ -20,11 +20,13 @@ use Set::Array;
 
 use Try::Tiny;
 
+use Types::Standard qw/Any HashRef Str/;
+
 has command =>
 (
 	default  => sub{return Set::Array -> new},
 	is       => 'rw',
-#	isa      => 'Set::Array',
+	isa      => Any,
 	required => 0,
 );
 
@@ -32,7 +34,7 @@ has dot_input =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -40,7 +42,7 @@ has dot_output =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -48,7 +50,7 @@ has edge =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -56,7 +58,7 @@ has edge_hash =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -64,7 +66,7 @@ has global =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -72,7 +74,7 @@ has graph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -80,7 +82,7 @@ has logger =>
 (
 	default  => sub{return ''},
 	is       => 'rw',
-#	isa      => 'Str',
+	isa      => Str,
 	required => 0,
 );
 
@@ -88,7 +90,7 @@ has meta =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -96,7 +98,7 @@ has node =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -104,7 +106,7 @@ has node_hash =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -112,7 +114,7 @@ has scope =>
 (
 	default  => sub{return Set::Array -> new},
 	is       => 'rw',
-#	isa      => 'Set::Array',
+	isa      => Any,
 	required => 0,
 );
 
@@ -120,7 +122,7 @@ has subgraph =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -128,7 +130,7 @@ has verbose =>
 (
 	default  => sub{return 0},
 	is       => 'rw',
-#	isa      => 'Int',
+	isa      => Int,
 	required => 0,
 );
 
@@ -136,7 +138,7 @@ has valid_attributes =>
 (
 	default  => sub{return {} },
 	is       => 'rw',
-#	isa      => 'HashRef',
+	isa      => HashRef,
 	required => 0,
 );
 

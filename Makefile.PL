@@ -105,6 +105,7 @@ my(%params) =
 		'strict'								=> 0,
 		'Text::Xslate'							=> 1.2000,
 		'Tree::DAG_Node'						=> 1.06,
+		'Types::Standard'						=> 1.000005,
 		'Try::Tiny'								=> 0.09,
 		'utf8'									=> 0,
 		'warnings'								=> 0,
