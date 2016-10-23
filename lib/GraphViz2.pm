@@ -142,7 +142,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.43';
+our $VERSION = '2.44';
 
 # -----------------------------------------------
 
@@ -768,6 +768,8 @@ sub run
 	%arg			= ($prefix_1 => 1);
 
 	$self -> validate_params('output_format', %arg);
+	$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
+	$self -> log(debug => $self -> dot_input);
 
 	# Warning: Do not use $im_format in this 'if', because it has a default value.
 
@@ -795,13 +797,10 @@ sub run_map
 
 	try
 	{
-		$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
-		$self -> log(debug => $self -> dot_input);
-
 		# The EXLOCK option is for BSD-based systems.
 
 		my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-		my($temp_file)	= File::Spec -> catfile($temp_dir, "$output_file.gv");
+		my($temp_file)	= File::Spec -> catfile($temp_dir, 'temp.gv');
 
 		open(my $fh, '> :raw', $temp_file) || die "Can't open(> $temp_file): $!";
 		print $fh $self -> dot_input;
@@ -835,9 +834,6 @@ sub run_mapless
 
 	try
 	{
-		$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
-		$self -> log(debug => $self -> dot_input);
-
 		my($stdout, $stderr);
 
 		# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.

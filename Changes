@@ -1,5 +1,10 @@
 Revision history for Perl extension GraphViz2.
 
+2.44  2016-10-24:08:52:00
+	- The patch in V 2.43 assumed one of the output files had no path, and used that name as a
+		file name within a temporary directory to generate a *.gv file for dot. The code now just
+		uses 'temp.gv'. Thanx to jahagirdar for reporting this via the github repo.
+
 2.43  2016-10-20T18:20:00
 	- Alongside the parameters format and output_file, add im_format and im_output_file for image
 		maps.
