@@ -6,6 +6,7 @@ Revision history for Perl extension GraphViz2.
 	- Bump pre-req version of File::Which from V 1.09 to 1.21. This should solve issues of which()
 		not finding *.exe files under Cygwin. See File::Which's Changes file for details.
 		 Reported by Raphael Crochet. See RT#121090.
+	- Reduce pre-req version of Test::More from 1.001014 to 1.001002.
 
 2.44  2016-10-24:08:52:00
 	- The patch in V 2.43 assumed one of the output files had no path, and used that name as a
