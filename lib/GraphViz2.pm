@@ -142,7 +142,7 @@ has valid_attributes =>
 	required => 0,
 );
 
-our $VERSION = '2.44';
+our $VERSION = '2.45';
 
 # -----------------------------------------------
 
@@ -886,6 +886,7 @@ sub stringify_attributes
 
 	for my $key (sort keys %$option)
 	{
+		$$option{$key} = '' if (! defined $$option{$key});
 		$$option{$key} =~ s/^\s+(<)/$1/;
 		$$option{$key} =~ s/(>)\s+$/$1/;
 		$dot           .= ($$option{$key} =~ /^<.+>$/s) ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;

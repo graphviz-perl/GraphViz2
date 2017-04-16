@@ -1,5 +1,5 @@
 package Adult;
 
-our $VERSION = '2.44';
+our $VERSION = '2.45';
 
 1;
