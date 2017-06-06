@@ -72,9 +72,9 @@ has global =>
 
 has graph =>
 (
-	default  => sub{return {} },
+	default  => sub{return ''},
 	is       => 'rw',
-	isa      => HashRef,
+	#isa      => HashRef,
 	required => 0,
 );
 

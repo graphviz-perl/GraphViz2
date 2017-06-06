@@ -29,7 +29,7 @@ has dbh =>
 
 has graph =>
 (
-	default  => sub{return {} },
+	default  => sub{return '' },
 	is       => 'rw',
 	#isa     => 'GraphViz2',
 	required => 0,
