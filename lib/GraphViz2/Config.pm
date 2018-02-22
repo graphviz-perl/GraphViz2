@@ -83,7 +83,9 @@ sub read
 
 	# Move desired section into config, so caller can just use $self -> config to get a hashref.
 
-	$self -> config(${$self -> config}{$self -> section});
+	my($temp) = ${$self -> config}{$self -> section};
+
+	$self -> config($temp);
 
 }	# End of read.
 
