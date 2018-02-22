@@ -11,7 +11,9 @@ use GraphViz2;
 
 # ------------------------------------------------
 
-my $GraphViz2 = GraphViz2->new();
+my $GraphViz2 = GraphViz2->new(
+    im_meta => { URL => "http://savage.net.au/maps/demo.4.html" }
+);
 my $count     = 0;
 
 my %methods = (
@@ -29,21 +31,38 @@ my %methods = (
     },
     pop_subgraph            => { id => 6,  args => {} },
     report_valid_attributes => { id => 7,  args => {} },
-    run                     => { id => 8,  args => {} },
-    run_map                 => { id => 9,  args => {} },
-    run_mapless             => { id => 10, args => {} },
+    run_map                 => { 
+        id => 8,  
+        subname => 'run', 
+        args => {
+            format => 'png',
+            output_file => 't/test_more_run_map.png', 
+            im_output_file => 't/test_more_run_map.map', 
+            im_format => 'cmapx',
+        }, 
+    },
+    run_mapless             => { 
+        id => 9,  
+        subname => 'run', 
+        args => {
+            format => 'png',
+            output_file => 't/test_more_run_mapless.png', 
+        },
+    }, 
 );
 foreach my $sub ( sort { $methods{$a}{id} <=> $methods{$b}{id} } keys %methods )
 {
 
+    my $subname = defined $methods{$sub}{'subname'} ? $methods{$sub}{'subname'} : $sub;
+
     # Check we can call this function/method/sub
     $count++;
-    can_ok( $GraphViz2, $sub );
+    can_ok( $GraphViz2, $subname );
 
     $count++;
     ok(
-        $GraphViz2->$sub( %{ $methods{$sub}{'args'} } ),
-        "Run $sub with -> "
+        $GraphViz2->$subname( %{ $methods{$sub}{'args'} } ),
+        "Run $subname with -> "
           . join(
             ", ", map { "$_:$methods{$sub}{'args'}{$_}" } keys %{ $methods{$sub}{'args'} }
           )
