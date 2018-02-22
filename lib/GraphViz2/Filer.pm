@@ -159,7 +159,7 @@ It returns a new object of type C<GraphViz2::Filer>.
 
 =head1 Methods
 
-=head1 get_annotations()
+=head2 get_annotations()
 
 Returns a hash (sic) keyed by *.pl name, with the values being the text off line 3 of each script.
 

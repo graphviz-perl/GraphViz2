@@ -72,9 +72,9 @@ has global =>
 
 has graph =>
 (
-	default  => sub{return ''},
+	default  => sub{return {} },
 	is       => 'rw',
-	#isa      => HashRef,
+	isa      => HashRef,
 	required => 0,
 );
 
@@ -1742,7 +1742,7 @@ $level defaults to 'debug', and $message defaults to ''.
 
 If called with $level eq 'error', it dies with $message.
 
-=head2 logger($logger_object])
+=head2 logger($logger_object)
 
 Gets or sets the log object.
 
