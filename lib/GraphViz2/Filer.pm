@@ -165,7 +165,6 @@ Returns a hash (sic) keyed by *.pl name, with the values being the text off line
 
 This text is used to annotate html/index.html, the output of scripts/generate.demo.pl.
 
-
 =head2 get_files($dir_name, $type)
 
 Returns a list of files from the given $dir_name, whose type (extension) matches $type.

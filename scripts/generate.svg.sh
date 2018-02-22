@@ -54,6 +54,8 @@ perl -Ilib scripts/generate.demo.pl svg
 
 PM=Perl-modules/html/graphviz2
 
+mkdir $DR/$PM ~/savage.net.au/$PM
+
 cp html/* $DR/$PM
 cp html/* ~/savage.net.au/$PM
 
