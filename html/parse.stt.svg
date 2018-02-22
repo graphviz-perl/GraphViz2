@@ -15,7 +15,7 @@
 <text text-anchor="middle" x="27" y="-15.5914" font-family="Times,serif" font-size="14.00">foo</text>
 </g>
 <!-- foo&#45;&gt;foo -->
-<g id="edge6" class="edge"><title>foo&#45;&gt;foo</title>
+<g id="edge5" class="edge"><title>foo&#45;&gt;foo</title>
 <path fill="none" stroke="grey" d="M17.7856,-36.3287C15.9051,-46.1493 18.9766,-55.2914 27,-55.2914 32.0146,-55.2914 35.0949,-51.7203 36.2409,-46.6443"/>
 <polygon fill="grey" stroke="grey" points="39.7401,-46.3197 36.2144,-36.3287 32.7402,-46.3377 39.7401,-46.3197"/>
 <text text-anchor="middle" x="27" y="-59.0914" font-family="Times,serif" font-size="14.00">/./</text>
@@ -26,7 +26,7 @@
 <text text-anchor="middle" x="132" y="-15.5914" font-family="Times,serif" font-size="14.00">bar</text>
 </g>
 <!-- foo&#45;&gt;bar -->
-<g id="edge5" class="edge"><title>foo&#45;&gt;bar</title>
+<g id="edge6" class="edge"><title>foo&#45;&gt;bar</title>
 <path fill="none" stroke="grey" d="M54.2578,-19.2914C66.4855,-19.2914 81.2356,-19.2914 94.5233,-19.2914"/>
 <polygon fill="grey" stroke="grey" points="94.7902,-22.7915 104.79,-19.2914 94.7902,-15.7915 94.7902,-22.7915"/>
 <text text-anchor="middle" x="79.5" y="-23.0914" font-family="Times,serif" font-size="14.00">/b/</text>
@@ -38,7 +38,7 @@
 <text text-anchor="middle" x="79.5" y="-5.0914" font-family="Times,serif" font-size="14.00">/a/</text>
 </g>
 <!-- bar&#45;&gt;bar -->
-<g id="edge3" class="edge"><title>bar&#45;&gt;bar</title>
+<g id="edge1" class="edge"><title>bar&#45;&gt;bar</title>
 <path fill="none" stroke="grey" d="M122.786,-36.3287C120.905,-46.1493 123.977,-55.2914 132,-55.2914 137.015,-55.2914 140.095,-51.7203 141.241,-46.6443"/>
 <polygon fill="grey" stroke="grey" points="144.74,-46.3197 141.214,-36.3287 137.74,-46.3377 144.74,-46.3197"/>
 <text text-anchor="middle" x="132" y="-59.0914" font-family="Times,serif" font-size="14.00">/b/</text>
@@ -49,7 +49,7 @@
 <text text-anchor="middle" x="236" y="-15.5914" font-family="Times,serif" font-size="14.00">baz</text>
 </g>
 <!-- bar&#45;&gt;baz -->
-<g id="edge1" class="edge"><title>bar&#45;&gt;baz</title>
+<g id="edge3" class="edge"><title>bar&#45;&gt;baz</title>
 <path fill="none" stroke="grey" d="M159.003,-19.2914C171.019,-19.2914 185.494,-19.2914 198.574,-19.2914"/>
 <polygon fill="grey" stroke="grey" points="198.69,-22.7915 208.69,-19.2914 198.69,-15.7915 198.69,-22.7915"/>
 <text text-anchor="middle" x="184" y="-23.0914" font-family="Times,serif" font-size="14.00">/c/</text>
