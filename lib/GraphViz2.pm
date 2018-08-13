@@ -1526,8 +1526,10 @@ attributes in this call means such nodes are created with the default set of att
 be what you want. To avoid this, you have to call add_node(...) yourself, with the appropriate attributes,
 before calling add_edge(...).
 
-%hash is any edge attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the edge parameters in the calls to default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
+%hash is any edge attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the edge parameters in the calls to
+default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
 
 =head2 add_node(name => $node_name, [%hash])
 
@@ -1541,8 +1543,10 @@ If you want anonymous nodes, see scripts/anonymous.pl in L<GraphViz2/Scripts Shi
 
 Here, [] indicates an optional parameter.
 
-%hash is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the node parameters in the calls to default_node(%hash), new(node => {}) and push_subgraph(node => {}).
+%hash is any node attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the node parameters in the calls to
+default_node(%hash), new(node => {}) and push_subgraph(node => {}).
 
 The attribute name 'label' may point to a string or an arrayref.
 
@@ -1618,8 +1622,10 @@ Sets defaults attributes for edges added subsequently.
 
 Returns $self to allow method chaining.
 
-%hash is any edge attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the edge parameters in the calls to new(edge => {}) and push_subgraph(edge => {}).
+%hash is any edge attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the edge parameters in the calls to new(edge => {})
+and push_subgraph(edge => {}).
 
 =head2 default_graph(%hash)
 
@@ -1627,8 +1633,10 @@ Sets defaults attributes for the graph.
 
 Returns $self to allow method chaining.
 
-%hash is any graph attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the graph parameter in the calls to new(graph => {}) and push_subgraph(graph => {}).
+%hash is any graph attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the graph parameter in the calls to new(graph => {})
+and push_subgraph(graph => {}).
 
 =head2 default_node(%hash)
 
@@ -1636,8 +1644,10 @@ Sets defaults attributes for nodes added subsequently.
 
 Returns $self to allow method chaining.
 
-%hash is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the node parameters in the calls to new(node => {}) and push_subgraph(node => {}).
+%hash is any node attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the node parameters in the calls to new(node => {})
+and push_subgraph(node => {}).
 
 =head2 default_subgraph(%hash)
 
@@ -1645,8 +1655,10 @@ Sets defaults attributes for clusters and subgraphs.
 
 Returns $self to allow method chaining.
 
-%hash is any cluster or subgraph attribute accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the subgraph parameter in the calls to new(subgraph => {}) and push_subgraph(subgraph => {}).
+%hash is any cluster or subgraph attribute accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the subgraph parameter in the calls to
+new(subgraph => {}) and push_subgraph(subgraph => {}).
 
 =head2 dot_input()
 
@@ -1802,20 +1814,27 @@ Note that subgraph names beginning with 'cluster' L<are special to Graphviz|http
 
 See scripts/rank.sub.graph.[1234].pl for the effect of various values for $name.
 
-edge => {...} is any edge attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the edge parameters in the calls to default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
+edge => {...} is any edge attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the edge parameters in the calls to
+default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
 
-graph => {...} is any graph attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the graph parameters in the calls to default_graph(%hash), new(graph => {}) and push_subgraph(graph => {}).
+graph => {...} is any graph attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the graph parameters in the calls to
+default_graph(%hash), new(graph => {}) and push_subgraph(graph => {}).
 
-node => {...} is any node attributes accepted as L<Graphviz attributes|http://www.graphviz.org/content/attrs>. These are validated in exactly
-the same way as the node parameters in the calls to default_node(%hash), new(node => {}) and push_subgraph(node => {}).
+node => {...} is any node attributes accepted as
+L<Graphviz attributes|https://graphviz.gitlab.io/_pages/doc/info/attrs.html>.
+These are validated in exactly the same way as the node parameters in the calls to
+default_node(%hash), new(node => {}) and push_subgraph(node => {}).
 
 subgraph => {..} is for setting attributes applicable to clusters and subgraphs.
 
 Currently the only subgraph attribute is C<rank>, but clusters have many attributes available.
 
-See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
+See the second column of the
+L<Graphviz attribute docs|https://graphviz.gitlab.io/_pages/doc/info/attrs.html> for details.
 
 A typical usage would be push_subgraph(subgraph => {rank => 'same'}) so that all nodes mentioned within the subgraph
 are constrained to be horizontally aligned.
@@ -1916,7 +1935,8 @@ GraphViz2 targets V 2.34.0 of L<Graphviz|http://www.graphviz.org/>.
 
 This affects the list of available attributes per graph item (node, edge, cluster, etc) available.
 
-See the second column of the L<Graphviz attribute docs|http://www.graphviz.org/content/attrs> for details.
+See the second column of the
+L<Graphviz attribute docs|https://graphviz.gitlab.io/_pages/doc/info/attrs.html> for details.
 
 See the next item for a discussion of the list of output formats.
 
