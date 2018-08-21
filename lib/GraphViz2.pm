@@ -1057,7 +1057,7 @@ An undirected graph is a collection of nodes optionally linked together with edg
 
 A directed graph is the same, except that the edges have a direction, normally indicated by an arrow head.
 
-A quick inspection of L<Graphviz|http://www.graphviz.org/>'s L<gallery|http://www.graphviz.org/Gallery.php> will show better than words
+A quick inspection of L<Graphviz|http://www.graphviz.org/>'s L<gallery|http://www.graphviz.org/gallery/> will show better than words
 just how good L<Graphviz|http://www.graphviz.org/> is, and will reinforce the point that humans are very visual creatures.
 
 =head1 Distributions
@@ -1070,7 +1070,7 @@ for help on unpacking and installing distros.
 =head1 Installation
 
 Of course you need to install AT&T's Graphviz before using this module.
-See L<http://www.graphviz.org/Download.php>.
+See L<http://www.graphviz.org/download/>.
 
 You are strongly advised to download the stable version of Graphviz, because the
 development snapshots (click on 'Source code'), are sometimes non-functional.
