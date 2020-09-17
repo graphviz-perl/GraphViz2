@@ -52,14 +52,6 @@ my(%params) =
 (
 	AUTHOR   => 'Ron Savage (ron@savage.net.au)',
 	ABSTRACT => "A wrapper for AT&T's Graphviz",
-	clean => {
-		FILES => 'blib/* Makefile MANIFEST GraphViz2-*'
-	},
-	dist => {
-		COMPRESS => 'gzip',
-		SUFFIX   => 'gz'
-	},
-	DISTNAME			=> 'GraphViz2',
 	MIN_PERL_VERSION	=> 5.010001,
 	NAME				=> 'GraphViz2',
 	PL_FILES			=> {},
