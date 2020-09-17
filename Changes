@@ -1,4 +1,4 @@
-Revision history for Perl extension GraphViz2.
+- updated graphviz URLs to current graphviz.org ones
 
 2.47  2018-02-23T10:06:00
 	- Adopt github pull request from ThornyS, with thanx. This is part of CPAN via the PRC aka
