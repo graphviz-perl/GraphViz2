@@ -118,7 +118,7 @@ my(%params) =
 		},
 		resources   => {
 			dynamic_config => 0,
-			bugtracker	=> 'https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2',
+			bugtracker	=> { web => 'https://github.com/ronsavage/GraphViz2/issues' },
 			license		=> 'http://dev.perl.org/licenses/',
 			repository	=> {
 				type	=> 'git',
