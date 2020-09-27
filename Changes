@@ -1,3 +1,5 @@
+- split out into own distro: GraphViz2::DBI
+
 2.48 2020-09-17
 - updated graphviz URLs to current graphviz.org ones
 - use GitHub issue tracker

@@ -1212,18 +1212,6 @@ See also scripts/macro.\*.pl below.
 
 End users have no need to run this script.
 
-## scripts/dbi.schema.pl
-
-If the environment vaiables DBI\_DSN, DBI\_USER and DBI\_PASS are set (the latter 2 are optional \[e.g. for SQLite\]),
-then this demonstrates building a graph from a database schema.
-
-Also, for Postgres, you can set $ENV{DBI\_SCHEMA} to a comma-separated list of schemas, e.g. when processing the
-MusicBrainz database. See scripts/dbi.schema.pl.
-
-For details, see [http://blogs.perl.org/users/ron\_savage/2013/03/graphviz2-and-the-dread-musicbrainz-db.html](http://blogs.perl.org/users/ron_savage/2013/03/graphviz2-and-the-dread-musicbrainz-db.html).
-
-Outputs to ./html/dbi.schema.svg by default.
-
 ## scripts/dependency.pl
 
 Demonstrates graphing an [Algorithm::Dependency](https://metacpan.org/pod/Algorithm::Dependency) source.
@@ -1547,12 +1535,6 @@ Outputs to STDOUT.
 ## scripts/report.valid.attributes.pl
 
 Prints all current [Graphviz](http://www.graphviz.org/) attributes, along with a few global ones I've invented for the purpose of writing this module.
-
-Outputs to STDOUT.
-
-## scripts/sqlite.foreign.keys.pl
-
-Demonstrates how to find foreign key info by calling SQLite's pragma foreign\_key\_list.
 
 Outputs to STDOUT.
 

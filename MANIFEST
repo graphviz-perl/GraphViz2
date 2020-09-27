@@ -20,7 +20,6 @@ htdocs/assets/templates/graphviz2/graphviz2.index.tx
 html/anonymous.svg
 html/circo.svg
 html/cluster.svg
-html/dbi.schema.svg
 html/dependency.svg
 html/Heawood.svg
 html/html.labels.1.svg
@@ -63,7 +62,6 @@ html/utf8.2.svg
 lib/GraphViz2.pm
 lib/GraphViz2/Config.pm
 lib/GraphViz2/Data/Grapher.pm
-lib/GraphViz2/DBI.pm
 lib/GraphViz2/Filer.pm
 lib/GraphViz2/Parse/ISA.pm
 lib/GraphViz2/Parse/RecDescent.pm
@@ -110,7 +108,6 @@ scripts/anonymous.pl
 scripts/circo.pl
 scripts/cluster.pl
 scripts/copy.config.pl
-scripts/dbi.schema.pl
 scripts/dependency.pl
 scripts/extract.arrow.shapes.pl
 scripts/extract.attributes.pl
@@ -154,7 +151,6 @@ scripts/record.3.pl
 scripts/record.4.pl
 scripts/report.nodes.and.edges.pl
 scripts/report.valid.attributes.pl
-scripts/sqlite.foreign.keys.pl
 scripts/sub.graph.frames.pl
 scripts/sub.graph.pl
 scripts/sub.sub.graph.pl
