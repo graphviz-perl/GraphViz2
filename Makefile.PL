@@ -55,7 +55,6 @@ my(%params) =
   MIN_PERL_VERSION => 5.010001,
   NAME => 'GraphViz2',
   PREREQ_PM => {
-    'Capture::Tiny' => 0.36,
     'Config::Tiny' => 2.16,
     'Data::Section::Simple' => 0.02,
     'File::HomeDir' => 0.99,

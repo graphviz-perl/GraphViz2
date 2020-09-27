@@ -4,8 +4,6 @@ use strict;
 use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
-use Capture::Tiny 'capture';
-
 use Data::Section::Simple 'get_data_section';
 
 use File::Basename;	# For fileparse().
@@ -582,7 +580,12 @@ sub load_valid_attributes
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
 
-	my($stdout, $stderr)			= capture{system 'dot', '-T?'};
+	run3
+		['dot', "-T?"],
+		undef,
+		\my $stdout,
+		\my $stderr,
+		;
 	my(@field)						= split(/one of:\s+/, $stderr);
 	$attribute{output_format}{$_}	= 1 for split(/\s+/, $field[1]);
 
