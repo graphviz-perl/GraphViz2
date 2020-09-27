@@ -40,7 +40,6 @@ html/parse.recdescent.svg
 html/parse.regexp.svg
 html/parse.stt.svg
 html/parse.xml.bare.svg
-html/parse.xml.pp.svg
 html/parse.yacc.svg
 html/parse.yapp.svg
 html/plaintext.svg
@@ -68,7 +67,6 @@ lib/GraphViz2/Parse/ISA.pm
 lib/GraphViz2/Parse/RecDescent.pm
 lib/GraphViz2/Parse/Regexp.pm
 lib/GraphViz2/Parse/STT.pm
-lib/GraphViz2/Parse/XML.pm
 lib/GraphViz2/Parse/Yacc.pm
 lib/GraphViz2/Parse/Yapp.pm
 lib/GraphViz2/Utils.pm
@@ -136,7 +134,6 @@ scripts/parse.recdescent.pl
 scripts/parse.regexp.pl
 scripts/parse.stt.pl
 scripts/parse.xml.bare.pl
-scripts/parse.xml.pp.pl
 scripts/parse.yacc.pl
 scripts/parse.yapp.pl
 scripts/plaintext.pl

@@ -2432,12 +2432,6 @@ Demonstrates using L<XML::Bare> to parse XML.
 
 Inputs from ./t/sample.xml, and outputs to ./html/parse.xml.bare.svg by default.
 
-=head2 scripts/parse.xml.pp.pl
-
-Demonstrates using L<XML::Tiny> to parse XML.
-
-Inputs from ./t/sample.xml, and outputs to ./html/parse.xml.pp.svg by default.
-
 =head2 scripts/quote.pl
 
 Demonstrates embedded newlines and double-quotes in node names and labels.
