@@ -1149,8 +1149,6 @@ Use [GraphViz2::Parse::XML](https://metacpan.org/pod/GraphViz2::Parse::XML) inst
 Alternately, see ["Scripts Shipped with this Module" in GraphViz2](https://metacpan.org/pod/GraphViz2#Scripts-Shipped-with-this-Module) for how to use [XML::Bare](https://metacpan.org/pod/XML::Bare), [GraphViz2](https://metacpan.org/pod/GraphViz2)
 and [GraphViz2::Data::Grapher](https://metacpan.org/pod/GraphViz2::Data::Grapher) instead.
 
-See ["scripts/parse.xml.pp.pl"](#scripts-parse-xml-pp-pl) or ["scripts/parse.xml.bare.pl"](#scripts-parse-xml-bare-pl) below.
-
 ## GraphViz returned a node name from add\_node() when given an anonymous node. What does GraphViz2 do?
 
 You can give the node a name, and an empty string for a label, to suppress plotting the name.
@@ -1211,16 +1209,6 @@ See also scripts/macro.\*.pl below.
 ## copy.config.pl
 
 End users have no need to run this script.
-
-## scripts/dependency.pl
-
-Demonstrates graphing an [Algorithm::Dependency](https://metacpan.org/pod/Algorithm::Dependency) source.
-
-Outputs to ./html/dependency.svg by default.
-
-The default for [GraphViz2](https://metacpan.org/pod/GraphViz2) is to plot from the top to the bottom. This is the opposite of [GraphViz2::Parse::ISA](https://metacpan.org/pod/GraphViz2::Parse::ISA).
-
-See also parse.isa.pl below.
 
 ## scripts/extract.arrow.shapes.pl
 
@@ -1326,29 +1314,6 @@ Demonstrates compound cluster subgraphs via a macro.
 
 Outputs to ./html/macro.5.svg by default.
 
-## scripts/parse.data.pl
-
-Demonstrates graphing a Perl data structure.
-
-Outputs to ./html/parse.data.svg by default.
-
-## scripts/parse.html.pl
-
-Demonstrates using [XML::Bare](https://metacpan.org/pod/XML::Bare) to parse HTML.
-
-Inputs from ./t/sample.html, and outputs to ./html/parse.html.svg by default.
-
-## scripts/parse.isa.pl
-
-Demonstrates combining 2 Perl class hierarchies on the same graph.
-
-Outputs to ./html/parse.isa.svg by default.
-
-The default for [GraphViz2::Parse::ISA](https://metacpan.org/pod/GraphViz2::Parse::ISA) is to plot from the bottom to the top (Grandchild to Parent).
-This is the opposite of [GraphViz2](https://metacpan.org/pod/GraphViz2).
-
-See also dependency.pl, above.
-
 ## scripts/parse.recdescent.pl
 
 Demonstrates graphing a [Parse::RecDescent](https://metacpan.org/pod/Parse::RecDescent)-style grammar.
@@ -1428,18 +1393,6 @@ Edit t/calc.input to delete the code, leaving the grammar after the \_\_DATA\_\_
         rm t/calc.pm
 
 It's the file calc.output which ships in the t/ directory.
-
-## scripts/parse.xml.bare.pl
-
-Demonstrates using [XML::Bare](https://metacpan.org/pod/XML::Bare) to parse XML.
-
-Inputs from ./t/sample.xml, and outputs to ./html/parse.xml.bare.svg by default.
-
-## scripts/parse.xml.pp.pl
-
-Demonstrates using [XML::Tiny](https://metacpan.org/pod/XML::Tiny) to parse XML.
-
-Inputs from ./t/sample.xml, and outputs to ./html/parse.xml.pp.svg by default.
 
 ## scripts/quote.pl
 

@@ -2146,8 +2146,6 @@ Use L<GraphViz2::Parse::XML> instead, which uses the pure-Perl XML::Tiny.
 Alternately, see L<GraphViz2/Scripts Shipped with this Module> for how to use L<XML::Bare>, L<GraphViz2>
 and L<GraphViz2::Data::Grapher> instead.
 
-See L</scripts/parse.xml.pp.pl> or L</scripts/parse.xml.bare.pl> below.
-
 =head2 GraphViz returned a node name from add_node() when given an anonymous node. What does GraphViz2 do?
 
 You can give the node a name, and an empty string for a label, to suppress plotting the name.
@@ -2313,18 +2311,6 @@ Demonstrates compound cluster subgraphs via a macro.
 
 Outputs to ./html/macro.5.svg by default.
 
-=head2 scripts/parse.data.pl
-
-Demonstrates graphing a Perl data structure.
-
-Outputs to ./html/parse.data.svg by default.
-
-=head2 scripts/parse.html.pl
-
-Demonstrates using L<XML::Bare> to parse HTML.
-
-Inputs from ./t/sample.html, and outputs to ./html/parse.html.svg by default.
-
 =head2 scripts/parse.recdescent.pl
 
 Demonstrates graphing a L<Parse::RecDescent>-style grammar.
@@ -2404,12 +2390,6 @@ Edit t/calc.input to delete the code, leaving the grammar after the __DATA__toke
 	rm t/calc.pm
 
 It's the file calc.output which ships in the t/ directory.
-
-=head2 scripts/parse.xml.bare.pl
-
-Demonstrates using L<XML::Bare> to parse XML.
-
-Inputs from ./t/sample.xml, and outputs to ./html/parse.xml.bare.svg by default.
 
 =head2 scripts/quote.pl
 

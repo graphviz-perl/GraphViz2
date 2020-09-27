@@ -1,4 +1,4 @@
-- split out into own distro: GraphViz2::DBI, GraphViz2::Parse::XML, GraphViz2::Parse::ISA
+- split out into own distro: GraphViz2::DBI, GraphViz2::Parse::XML, GraphViz2::Parse::ISA, GraphViz2::Data::Grapher
 
 2.48 2020-09-17
 - updated graphviz URLs to current graphviz.org ones

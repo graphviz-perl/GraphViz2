@@ -32,12 +32,9 @@ html/macro.2.svg
 html/macro.3.svg
 html/macro.4.svg
 html/macro.5.svg
-html/parse.data.svg
-html/parse.html.svg
 html/parse.recdescent.svg
 html/parse.regexp.svg
 html/parse.stt.svg
-html/parse.xml.bare.svg
 html/parse.yacc.svg
 html/parse.yapp.svg
 html/plaintext.svg
@@ -59,7 +56,6 @@ html/utf8.1.svg
 html/utf8.2.svg
 lib/GraphViz2.pm
 lib/GraphViz2/Config.pm
-lib/GraphViz2/Data/Grapher.pm
 lib/GraphViz2/Filer.pm
 lib/GraphViz2/Parse/RecDescent.pm
 lib/GraphViz2/Parse/Regexp.pm
@@ -123,12 +119,9 @@ scripts/macro.2.pl
 scripts/macro.3.pl
 scripts/macro.4.pl
 scripts/macro.5.pl
-scripts/parse.data.pl
-scripts/parse.html.pl
 scripts/parse.recdescent.pl
 scripts/parse.regexp.pl
 scripts/parse.stt.pl
-scripts/parse.xml.bare.pl
 scripts/parse.yacc.pl
 scripts/parse.yapp.pl
 scripts/plaintext.pl
@@ -155,12 +148,10 @@ t/calc.input
 t/calc.output
 t/calc3.output
 t/calc3.y
-t/sample.html
 t/sample.recdescent.1.dat
 t/sample.recdescent.2.dat
 t/sample.stt.1.dat
 t/sample.stt.2.dat
-t/sample.xml
 t/test.t
 t/test_more_methods.t
 t/test_new.t
