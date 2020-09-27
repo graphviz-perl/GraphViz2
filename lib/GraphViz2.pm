@@ -2311,16 +2311,6 @@ Demonstrates compound cluster subgraphs via a macro.
 
 Outputs to ./html/macro.5.svg by default.
 
-=head2 scripts/parse.recdescent.pl
-
-Demonstrates graphing a L<Parse::RecDescent>-style grammar.
-
-Inputs from t/sample.recdescent.1.dat and outputs to ./html/parse.recdescent.svg by default.
-
-The input grammar was extracted from t/basics.t in L<Parse::RecDescent> V 1.965001.
-
-You can patch the *.pl to read from t/sample.recdescent.2.dat, which was copied from L<a V 2 bug report|https://rt.cpan.org/Ticket/Display.html?id=36057>.
-
 =head2 scripts/parse.regexp.pl
 
 Demonstrates graphing a Perl regular expression.

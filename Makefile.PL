@@ -64,7 +64,6 @@ my(%params) =
     'IPC::Run3' => 0.048,
     'Log::Handler' => 0.84,
     'Moo' => 2.001001,
-    'Parse::RecDescent' => 1.965001,
     'Set::Array' => 0.23,
     'Types::Standard' => 1.000005,
     'Try::Tiny' => 0.09,
