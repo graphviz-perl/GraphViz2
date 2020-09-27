@@ -1060,46 +1060,10 @@ A directed graph is the same, except that the edges have a direction, normally i
 A quick inspection of L<Graphviz|http://www.graphviz.org/>'s L<gallery|http://www.graphviz.org/gallery/> will show better than words
 just how good L<Graphviz|http://www.graphviz.org/> is, and will reinforce the point that humans are very visual creatures.
 
-=head1 Distributions
-
-This module is available as a Unix-style distro (*.tgz).
-
-See L<http://savage.net.au/Perl-modules/html/installing-a-module.html>
-for help on unpacking and installing distros.
-
 =head1 Installation
 
 Of course you need to install AT&T's Graphviz before using this module.
 See L<http://www.graphviz.org/download/>.
-
-You are strongly advised to download the stable version of Graphviz, because the
-development snapshots (click on 'Source code'), are sometimes non-functional.
-
-Install L<GraphViz2> as you would for any C<Perl> module:
-
-Run:
-
-	cpanm GraphViz2
-
-	Note: cpanm ships in App::cpanminus. See also App::perlbrew.
-
-or run:
-
-	sudo cpan GraphViz2
-
-or unpack the distro, and then either:
-
-	perl Build.PL
-	./Build
-	./Build test
-	sudo ./Build install
-
-or:
-
-	perl Makefile.PL
-	make (or dmake or nmake)
-	make test
-	make install
 
 =head1 Constructor and Initialization
 
@@ -2662,19 +2626,9 @@ And thanks to L<Leon Brocard|http://search.cpan.org/~lbrocard/>, who wrote L<Gra
 
 Version numbers < 1.00 represent development versions. From 1.00 up, they are production versions.
 
-=head1 Machine-Readable Change Log
-
-The file Changes was converted into Changelog.ini by L<Module::Metadata::Changes>.
-
 =head1 Repository
 
 L<https://github.com/ronsavage/GraphViz2.git>
-
-=head1 Support
-
-Email the author, or log a bug on RT:
-
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=GraphViz2>.
 
 =head1 Author
 
