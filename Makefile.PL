@@ -100,7 +100,6 @@ my(%params) =
 	},
 	TEST_REQUIRES => {
 		'Test::More'	=> 1.001002,
-		'Test::Pod'		=> 1.48,
 	},
 	VERSION_FROM => 'lib/GraphViz2.pm',
 	LICENSE => 'perl',
@@ -118,7 +117,25 @@ my(%params) =
 				web		=> 'https://github.com/ronsavage/GraphViz2',
 			},
 		},
+		prereqs => {
+			develop => {
+				requires => {
+					'Test::Pod' => '1.48',
+					'Pod::Markdown' => 0,
+				},
+			},
+		},
 	},
 );
 
 WriteMakefile(%params);
+
+sub MY::postamble {
+  return '' if !-e '.git';
+  <<EOF;
+pure_all :: README.md
+
+README.md : \$(VERSION_FROM)
+\tpod2markdown \$< >\$\@
+EOF
+}
