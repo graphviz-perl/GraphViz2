@@ -8,8 +8,6 @@ data/attributes.dat
 data/attributes.html
 data/node.shapes.dat
 data/node.shapes.html
-data/output.formats.dat
-data/output.formats.html
 data/record.1.dot
 htdocs/assets/css/graphviz2/default.css
 htdocs/assets/css/graphviz2/fancy.table.css
@@ -101,7 +99,6 @@ scripts/copy.config.pl
 scripts/extract.arrow.shapes.pl
 scripts/extract.attributes.pl
 scripts/extract.node.shapes.pl
-scripts/extract.output.formats.pl
 scripts/find.config.pl
 scripts/generate.demo.pl
 scripts/generate.png.sh

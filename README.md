@@ -1225,11 +1225,6 @@ Then it extracts the reserved words into ./data/attributes.dat.
 Downloads the node shapes from [Graphviz's Node Shapes](http://www.graphviz.org/doc/info/shapes.html) and outputs them to ./data/node.shapes.html.
 Then it extracts the reserved words into ./data/node.shapes.dat.
 
-## scripts/extract.output.formats.pl
-
-Downloads the output formats from [Graphviz's Output Formats](https://www.graphviz.org/doc/info/output.html) and outputs them to ./data/output.formats.html.
-Then it extracts the reserved words into ./data/output.formats.dat.
-
 ## find.config.pl
 
 End users have no need to run this script.
@@ -1313,16 +1308,6 @@ Outputs to ./html/macro.4.svg by default.
 Demonstrates compound cluster subgraphs via a macro.
 
 Outputs to ./html/macro.5.svg by default.
-
-## scripts/parse.recdescent.pl
-
-Demonstrates graphing a [Parse::RecDescent](https://metacpan.org/pod/Parse::RecDescent)-style grammar.
-
-Inputs from t/sample.recdescent.1.dat and outputs to ./html/parse.recdescent.svg by default.
-
-The input grammar was extracted from t/basics.t in [Parse::RecDescent](https://metacpan.org/pod/Parse::RecDescent) V 1.965001.
-
-You can patch the \*.pl to read from t/sample.recdescent.2.dat, which was copied from [a V 2 bug report](https://rt.cpan.org/Ticket/Display.html?id=36057).
 
 ## scripts/parse.regexp.pl
 

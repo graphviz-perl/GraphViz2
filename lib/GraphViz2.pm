@@ -2222,11 +2222,6 @@ Then it extracts the reserved words into ./data/attributes.dat.
 Downloads the node shapes from L<Graphviz's Node Shapes|http://www.graphviz.org/doc/info/shapes.html> and outputs them to ./data/node.shapes.html.
 Then it extracts the reserved words into ./data/node.shapes.dat.
 
-=head2 scripts/extract.output.formats.pl
-
-Downloads the output formats from L<Graphviz's Output Formats|https://www.graphviz.org/doc/info/output.html> and outputs them to ./data/output.formats.html.
-Then it extracts the reserved words into ./data/output.formats.dat.
-
 =head2 find.config.pl
 
 End users have no need to run this script.
