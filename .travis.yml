@@ -10,7 +10,6 @@ matrix:
     - perl: "5.30"
       env: COVERAGE=1
     - perl: "5.10"
-    - perl: "5.12"
     - perl: "5.14"
     - perl: "5.20"
 before_install:
