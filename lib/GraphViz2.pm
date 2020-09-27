@@ -2209,16 +2209,6 @@ See also scripts/macro.*.pl below.
 
 End users have no need to run this script.
 
-=head2 scripts/dependency.pl
-
-Demonstrates graphing an L<Algorithm::Dependency> source.
-
-Outputs to ./html/dependency.svg by default.
-
-The default for L<GraphViz2> is to plot from the top to the bottom. This is the opposite of L<GraphViz2::Parse::ISA>.
-
-See also parse.isa.pl below.
-
 =head2 scripts/extract.arrow.shapes.pl
 
 Downloads the arrow shapes from L<Graphviz's Arrow Shapes|https://www.graphviz.org/doc/info/arrows.html> and outputs them to ./data/arrow.shapes.html.
@@ -2334,17 +2324,6 @@ Outputs to ./html/parse.data.svg by default.
 Demonstrates using L<XML::Bare> to parse HTML.
 
 Inputs from ./t/sample.html, and outputs to ./html/parse.html.svg by default.
-
-=head2 scripts/parse.isa.pl
-
-Demonstrates combining 2 Perl class hierarchies on the same graph.
-
-Outputs to ./html/parse.isa.svg by default.
-
-The default for L<GraphViz2::Parse::ISA> is to plot from the bottom to the top (Grandchild to Parent).
-This is the opposite of L<GraphViz2>.
-
-See also dependency.pl, above.
 
 =head2 scripts/parse.recdescent.pl
 

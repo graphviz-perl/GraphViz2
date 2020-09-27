@@ -21,7 +21,6 @@ htdocs/assets/templates/graphviz2/graphviz2.index.tx
 html/anonymous.svg
 html/circo.svg
 html/cluster.svg
-html/dependency.svg
 html/Heawood.svg
 html/html.labels.1.svg
 html/html.labels.2.svg
@@ -35,7 +34,6 @@ html/macro.4.svg
 html/macro.5.svg
 html/parse.data.svg
 html/parse.html.svg
-html/parse.isa.svg
 html/parse.recdescent.svg
 html/parse.regexp.svg
 html/parse.stt.svg
@@ -63,7 +61,6 @@ lib/GraphViz2.pm
 lib/GraphViz2/Config.pm
 lib/GraphViz2/Data/Grapher.pm
 lib/GraphViz2/Filer.pm
-lib/GraphViz2/Parse/ISA.pm
 lib/GraphViz2/Parse/RecDescent.pm
 lib/GraphViz2/Parse/Regexp.pm
 lib/GraphViz2/Parse/STT.pm
@@ -107,7 +104,6 @@ scripts/anonymous.pl
 scripts/circo.pl
 scripts/cluster.pl
 scripts/copy.config.pl
-scripts/dependency.pl
 scripts/extract.arrow.shapes.pl
 scripts/extract.attributes.pl
 scripts/extract.node.shapes.pl
@@ -129,7 +125,6 @@ scripts/macro.4.pl
 scripts/macro.5.pl
 scripts/parse.data.pl
 scripts/parse.html.pl
-scripts/parse.isa.pl
 scripts/parse.recdescent.pl
 scripts/parse.regexp.pl
 scripts/parse.stt.pl
@@ -160,13 +155,6 @@ t/calc.input
 t/calc.output
 t/calc3.output
 t/calc3.y
-t/lib/Adult.pm
-t/lib/Adult/Child/Grandchild.pm
-t/lib/Adult/Child1.pm
-t/lib/Adult/Child2.pm
-t/lib/GoldenDelicious.pm
-t/lib/GrannySmith.pm
-t/lib/HybridVariety.pm
 t/sample.html
 t/sample.recdescent.1.dat
 t/sample.recdescent.2.dat
