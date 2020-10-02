@@ -56,7 +56,6 @@ my(%params) =
   NAME => 'GraphViz2',
   PREREQ_PM => {
     'Data::Section::Simple' => 0.02,
-    'File::Slurp' => 9999.19,
     'File::Which' => 1.21,
     'IPC::Run3' => 0.048,
     'Log::Handler' => 0.84,
