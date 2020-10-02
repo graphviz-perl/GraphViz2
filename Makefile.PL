@@ -76,8 +76,8 @@ my(%params) =
     'meta-spec' => {
       version => 2,
     },
+    dynamic_config => 0,
     resources => {
-      dynamic_config => 0,
       bugtracker => { web => 'https://github.com/ronsavage/GraphViz2/issues' },
       license => 'http://dev.perl.org/licenses/',
       repository => {
