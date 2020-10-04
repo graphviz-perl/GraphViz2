@@ -272,10 +272,6 @@ sub add_edge
 		}
 	}
 
-	# Add these nodes to the hashref of all nodes, if necessary.
-
-	$self -> node_hash($node) if ($new);
-
 	# Add this edge to the hashref of all edges.
 
 	my($edge)          = $self -> edge_hash;
@@ -288,8 +284,6 @@ sub add_edge
 		from_port  => $node[0][1],
 		to_port    => $node[1][1],
 	};
-
-	$self -> edge_hash($edge);
 
 	# Add this edge to the DOT output string.
 
@@ -378,7 +372,6 @@ sub add_node
 	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg});
 
 	$self -> command -> push($dot);
-	$self -> node_hash($node);
 	$self -> log(debug => "Added node: $dot");
 
 	return $self;
