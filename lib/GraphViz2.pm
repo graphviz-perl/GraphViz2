@@ -151,21 +151,21 @@ sub BUILD
 	my($dot)     = which('dot');
 	my($global)  =
 	{
-		directed		=> $$globals{directed}			? 'digraph'				: 'graph',
-		driver			=> $$globals{driver}			? $$globals{driver}		: $dot,
-		format			=> $$globals{format}			? $$globals{format}		: 'svg',
-		im_format		=> $$globals{im_format}			? $$globals{im_format}	: 'cmapx',
-		label			=> $$globals{directed}			? '->'					: '--',
-		name			=> defined($$globals{name})		? $$globals{name}		: 'Perl',
+		directed		=> $$globals{directed} ? 'digraph' : 'graph',
+		driver			=> $$globals{driver} || $dot,
+		format			=> $$globals{format} ||	'svg',
+		im_format		=> $$globals{im_format} || 'cmapx',
+		label			=> $$globals{directed} ? '->' : '--',
+		name			=> $$globals{name} // 'Perl',
 		record_shape	=> ($$globals{record_shape} && $$globals{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
-		strict			=> defined($$globals{strict})	? $$globals{strict}		:  0,
-		subgraph		=> $$globals{subgraph}			? $$globals{subgraph}	: {},
-		timeout			=> defined($$globals{timeout})	? $$globals{timeout}	: 10,
+		strict			=> $$globals{strict} //  0,
+		subgraph		=> $$globals{subgraph} || {},
+		timeout			=> $$globals{timeout} // 10,
 	};
 	my($im_metas)	= $self -> im_meta;
 	my($im_meta)	=
 	{
-		URL => $$im_metas{URL} ? $$im_metas{URL} : '',
+		URL => $$im_metas{URL} || '',
 	};
 
 	$self -> global($global);
@@ -214,11 +214,9 @@ sub BUILD
 sub add_edge
 {
 	my($self, %arg) = @_;
-	my($from)   = delete $arg{from};
-	$from       = defined($from) ? $from : '';
-	my($to)     = delete $arg{to};
-	$to         = defined($to) ? $to : '';
-	my($label)  = defined($arg{label}) ? $arg{label} : '';
+	my $from    = delete $arg{from} // '';
+	my $to      = delete $arg{to} // '';
+	my $label   = $arg{label} // '';
 	$label      =~ s/^\s+(<)/$1/;
 	$label      =~ s/(>)\s+$/$1/;
 	$label      =~ s/^(<)\n/$1/;
@@ -301,17 +299,16 @@ sub add_edge
 sub add_node
 {
 	my($self, %arg) = @_;
-	my($name) = delete $arg{name};
-	$name     = defined($name) ? $name : '';
+	my $name = delete $arg{name} // '';
 
 	$self->validate_params('node', \%arg);
 
 	my($node)                 = $self -> node_hash;
-	$$node{$name}             = {} if (! $$node{$name});
-	$$node{$name}{attributes} = {} if (! $$node{$name}{attributes});
+	$$node{$name}             ||= {};
+	$$node{$name}{attributes} ||= {};
 	$$node{$name}{attributes} = {%{$$node{$name}{attributes} }, %arg};
 	%arg                      = %{$$node{$name}{attributes} };
-	my($label)                = defined($arg{label}) ? $arg{label} : '';
+	my($label)                = $arg{label} // '';
 	$label                    =~ s/^\s+(<)/$1/;
 	$label                    =~ s/(>)\s+$/$1/;
 	$label                    =~ s/^(<)\n/$1/;
@@ -882,7 +879,7 @@ sub stringify_attributes
 
 	for my $key (sort keys %$option)
 	{
-		$$option{$key} = '' if (! defined $$option{$key});
+		$$option{$key} //= '';
 		$$option{$key} =~ s/^\s+(<)/$1/;
 		$$option{$key} =~ s/(>)\s+$/$1/;
 		$dot           .= ($$option{$key} =~ /^<.+>$/s) ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;
