@@ -217,10 +217,8 @@ sub add_edge
 	my $from    = delete $arg{from} // '';
 	my $to      = delete $arg{to} // '';
 	my $label   = $arg{label} // '';
-	$label      =~ s/^\s+(<)/$1/;
-	$label      =~ s/(>)\s+$/$1/;
-	$label      =~ s/^(<)\n/$1/;
-	$label      =~ s/\n(>)$/$1/;
+	$label      =~ s/^\s*(<)\n?/$1/;
+	$label      =~ s/\n?(>)\s*$/$1/;
 	$arg{label} = $label if (defined $arg{label});
 
 	$self->validate_params('edge', \%arg);
