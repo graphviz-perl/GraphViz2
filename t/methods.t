@@ -17,71 +17,49 @@ use Test::More;
 # The EXLOCK option is for BSD-based systems.
 
 my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-my($count)		= 0;
-my($GraphViz2)	= GraphViz2->new
-(
+my $GraphViz2	= GraphViz2->new(
 	im_meta => {URL => 'http://savage.net.au/maps/demo.4.html'}
 );
-my(%methods)	=
-(
-	add_node => { id => 1, args => { name => 'TestNode1', label => 'n1' } },
-	add_edge => { id => 2, args => { from => 'TestNode1', to	=> '' } },
-	default_subgraph  => { id => 3, args => {} },
-	escape_some_chars => { id => 4, args => { $GraphViz2, "abc123[]()" } },
-	push_subgraph =>
-	{
-		id   => 5,
-		args =>
-		{
+my @methods	= (
+	[ add_node => { args => [ name => 'TestNode1', label => 'n1' ] } ],
+	[ add_edge => { args => [ from => 'TestNode1', to	=> '' ] } ],
+	[ default_subgraph  => { } ],
+	[ escape_some_chars => { args => [ "abc123[]()" ] } ],
+	[ push_subgraph => {
+		args => [
 			name  => 'subgraph_test',
 			edge  => {},
 			graph => { bgcolor => 'grey', label => 'subgraph_test' }
-		}
-	},
-	pop_subgraph => { id => 6,  args => {} },
-	report_valid_attributes => { id => 7,  args => {} },
-	run_map =>
-	{
-		id => 8,
+		]
+	} ],
+	[ pop_subgraph => { } ],
+	[ report_valid_attributes => { } ],
+	[ run_map => {
 		subname => 'run',
-		args =>
-		{
+		args => [
 			format => 'png',
 			output_file => File::Spec -> catfile($temp_dir, 'test_more_run_map.png'),
 			im_output_file => File::Spec -> catfile($temp_dir, 'test_more_run_map.map'),
 			im_format => 'cmapx',
-		},
-	},
-	run_mapless =>
-	{
-		id => 9,
+		],
+	} ],
+	[ run_mapless => {
 		subname => 'run',
-		args =>
-		{
+		args => [
 			format => 'png',
 			output_file => File::Spec -> catfile($temp_dir, 'test_more_run_mapless.png'),
-		},
-	},
+		],
+	} ],
 );
 
-foreach my $sub ( sort { $methods{$a}{id} <=> $methods{$b}{id} } keys %methods )
-{
-	my($subname) = defined $methods{$sub}{'subname'} ? $methods{$sub}{'subname'} : $sub;
-
-	# Check we can call this function/method/sub.
-
-	$count++;
-
+foreach my $tuple ( @methods ) {
+        my ($sub, $data) = @$tuple;
+	my $subname = $data->{subname} // $sub;
 	can_ok( $GraphViz2, $subname );
-
-	$count++;
-
 	ok
-	(
-		$GraphViz2->$subname( %{ $methods{$sub}{'args'} } ),
-		"Run $subname with -> "
-		  . join(", ", map { "$_:$methods{$sub}{'args'}{$_}" } keys %{ $methods{$sub}{'args'} })
-	);
+		$GraphViz2->$subname( @{ $data->{args} || [] } ),
+		"Run $subname with -> " . ((explain $data->{args})[0] || '')
+		;
 }
 
-done_testing($count);
+done_testing;
