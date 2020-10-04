@@ -2509,10 +2509,6 @@ Outputs to ./html/utf8.2.svg by default.
 
 =over 4
 
-=item o Does GraphViz2 need to emulate the sort option in GraphViz?
-
-That depends on what that option really does.
-
 =item o Handle edges such as 1 -> 2 -> {A B}, as seen in L<Graphviz|http://www.graphviz.org/>'s graphs/directed/switch.gv
 
 But how?
