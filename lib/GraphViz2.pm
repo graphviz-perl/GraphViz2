@@ -171,12 +171,12 @@ sub BUILD
 	$self -> global($global);
 	$self -> im_meta($im_meta);
 	$self -> load_valid_attributes;
-	$self -> validate_params('global',		%{$self -> global});
-	$self -> validate_params('graph',		%{$self -> graph});
-	$self -> validate_params('im_meta',		%{$self -> im_meta});
-	$self -> validate_params('node',		%{$self -> node});
-	$self -> validate_params('edge',		%{$self -> edge});
-	$self -> validate_params('subgraph',	%{$self -> subgraph});
+	$self->validate_params('global',	$self->global);
+	$self->validate_params('graph',		$self->graph);
+	$self->validate_params('im_meta',	$self->im_meta);
+	$self->validate_params('node',		$self->node);
+	$self->validate_params('edge',		$self->edge);
+	$self->validate_params('subgraph',	$self->subgraph);
 	$self -> scope -> push
 		({
 			edge     => $self -> edge,
@@ -225,7 +225,7 @@ sub add_edge
 	$label      =~ s/\n(>)$/$1/;
 	$arg{label} = $label if (defined $arg{label});
 
-	$self -> validate_params('edge', %arg);
+	$self->validate_params('edge', \%arg);
 
 	# If either 'from' or 'to' is unknown, add a new node.
 
@@ -304,7 +304,7 @@ sub add_node
 	my($name) = delete $arg{name};
 	$name     = defined($name) ? $name : '';
 
-	$self -> validate_params('node', %arg);
+	$self->validate_params('node', \%arg);
 
 	my($node)                 = $self -> node_hash;
 	$$node{$name}             = {} if (! $$node{$name});
@@ -384,7 +384,7 @@ sub default_edge
 {
 	my($self, %arg) = @_;
 
-	$self -> validate_params('edge', %arg);
+	$self->validate_params('edge', \%arg);
 
 	my($scope)    = $self -> scope -> last;
 	$$scope{edge} = {%{$$scope{edge} }, %arg};
@@ -404,7 +404,7 @@ sub default_graph
 {
 	my($self, %arg) = @_;
 
-	$self -> validate_params('graph', %arg);
+	$self->validate_params('graph', \%arg);
 
 	my($scope)     = $self -> scope -> last;
 	$$scope{graph} = {%{$$scope{graph} }, %arg};
@@ -424,7 +424,7 @@ sub default_node
 {
 	my($self, %arg) = @_;
 
-	$self -> validate_params('node', %arg);
+	$self->validate_params('node', \%arg);
 
 	my($scope)    = $self -> scope -> last;
 	$$scope{node} = {%{$$scope{node} }, %arg};
@@ -444,7 +444,7 @@ sub default_subgraph
 {
 	my($self, %arg) = @_;
 
-	$self -> validate_params('subgraph', %arg);
+	$self->validate_params('subgraph', \%arg);
 
 	my($scope)        = $self -> scope -> last;
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
@@ -635,18 +635,18 @@ sub push_subgraph
 	my($name) = delete $arg{name};
 	$name     = defined($name) && length($name) ? qq|"$name"| : '';
 
-	$self -> validate_params('graph',    %{$arg{graph} });
-	$self -> validate_params('node',     %{$arg{node} });
-	$self -> validate_params('edge',     %{$arg{edge} });
-	$self -> validate_params('subgraph', %{$arg{subgraph} });
+	$self->validate_params('graph',    $arg{graph});
+	$self->validate_params('node',     $arg{node});
+	$self->validate_params('edge',     $arg{edge});
+	$self->validate_params('subgraph', $arg{subgraph});
 
 	# Child inherits parent attributes.
 
 	my($scope)        = $self -> scope -> last;
-	$$scope{edge}     = {%{$$scope{edge} },     %{$arg{edge} } };
-	$$scope{graph}    = {%{$$scope{graph} },    %{$arg{graph} } };
-	$$scope{node}     = {%{$$scope{node} },     %{$arg{node} } };
-	$$scope{subgraph} = {%{$$scope{subgraph} }, %{$arg{subgraph} } };
+	$$scope{edge}     = {%{$$scope{edge} || {}}, %{$arg{edge} || {}}};
+	$$scope{graph}    = {%{$$scope{graph} || {}}, %{$arg{graph} || {}}};
+	$$scope{node}     = {%{$$scope{node} || {}}, %{$arg{node} || {}}};
+	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %{$arg{subgraph} || {}}};
 
 	$self -> scope -> push($scope);
 	$self -> command -> push(qq|\nsubgraph $name\n{\n|);
@@ -757,13 +757,13 @@ sub run
 	$prefix				=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg				= ($prefix => 1);
 
-	$self -> validate_params('output_format', %arg);
+	$self->validate_params('output_format', \%arg);
 
 	my($prefix_1)	= $im_format;
 	$prefix_1		=~ s/:.+$//; # In case of 'png:gd', etc.
 	%arg			= ($prefix_1 => 1);
 
-	$self -> validate_params('output_format', %arg);
+	$self->validate_params('output_format', \%arg);
 	$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
 	$self -> log(debug => $self -> dot_input);
 
@@ -909,12 +909,12 @@ sub stringify_attributes
 
 sub validate_params
 {
-	my($self, $context, %attributes) = @_;
-	my(%attr) = %{$self -> valid_attributes};
+	my($self, $context, $attributes) = @_;
+	my $valid = $self->valid_attributes;
 
-	for my $a (sort keys %attributes)
+	for my $a (sort keys %$attributes)
 	{
-		next if ($attr{$context}{$a} || ( ($context eq 'subgraph') && $attr{cluster}{$a}) );
+		next if ($valid->{$context}{$a} || ( ($context eq 'subgraph') && $valid->{cluster}{$a}) );
 
 		$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
 	}
@@ -1869,7 +1869,7 @@ $context is one of 'edge', 'graph', 'node', or a special string. See the code fo
 
 You wouldn't normally need to use this method.
 
-=head2 validate_params($context, %attributes)
+=head2 validate_params($context, \%attributes)
 
 Validate the given attributes within the given context.
 
