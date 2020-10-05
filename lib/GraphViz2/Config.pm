@@ -42,10 +42,10 @@ our $VERSION = '2.47';
 sub BUILD
 {
 	my($self) = @_;
-	my($path) = File::Spec -> catfile(File::HomeDir -> my_dist_config('GraphViz2'), '.htgraphviz2.conf');
-
+	my $basename = '.htgraphviz2.conf';
+	my $conf_dir = File::HomeDir->my_dist_config('GraphViz2') || 'config';
+	my $path = File::Spec->catfile($conf_dir, $basename);
 	$self -> read($path);
-
 } # End of BUILD.
 
 # -----------------------------------------------
