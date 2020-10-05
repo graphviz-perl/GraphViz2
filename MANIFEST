@@ -1,5 +1,4 @@
 .travis.yml
-Changelog.ini
 Changes
 config/.htgraphviz2.conf
 data/arrow.shapes.dat
