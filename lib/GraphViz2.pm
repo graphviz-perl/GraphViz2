@@ -932,11 +932,7 @@ GraphViz2 - A wrapper for AT&T's Graphviz
 
 =head2 Sample output
 
-Unpack the distro and copy html/*.html and html/*.svg to your web server's doc root directory.
-
-Then, point your browser at 127.0.0.1/index.html.
-
-Or, hit L<the demo page|http://savage.net.au/Perl-modules/html/graphviz2/index.html>.
+See L<https://graphviz-perl.github.io/>.
 
 =head2 Perl code
 

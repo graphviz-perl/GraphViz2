@@ -7,6 +7,9 @@ use warnings  qw(FATAL utf8);    # Fatalize encoding glitches.
 use File::Spec;
 
 use GraphViz2::Filer;
+use GraphViz2::Utils;
+
+my $outdir = GraphViz2::Utils->new->config->{output_dir};
 
 # ------------------------------------------------
 
@@ -17,7 +20,7 @@ sub format_output
 	print $fh @output;
 	print $fh <<EOS;
 
-perl -Ilib scripts/generate.demo.pl $format
+perl -Ilib scripts/generate.demo.pl $format $outdir
 EOS
 } # End of format_output;
 
@@ -50,7 +53,7 @@ EOS
 	{
 		$offset = ' ' x ($width - length($key) );
 
-		push @output, "perl -Ilib scripts/$key.pl $offset$format > \$DIR/$key.log\n";
+		push @output, "perl -Ilib scripts/$key.pl $offset$format $outdir/$key.$format > \$DIR/$key.log\n";
 	}
 
 	# Warning: Do no pass in \@output, since format_output() patches @output.

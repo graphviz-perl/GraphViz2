@@ -12,6 +12,7 @@ use File::Spec;
 
 use GraphViz2::Config;
 use GraphViz2::Filer;
+use GraphViz2; # for its $VERSION
 
 use Moo;
 
@@ -56,9 +57,10 @@ sub generate_demo_environment
 
 sub generate_demo_index
 {
-	my($self)          = @_;
-	my($html_dir_name) = 'html';
-	my(%script_file)   = GraphViz2::Filer -> new -> get_scripts;
+	my($self)         = @_;
+	my $config        = $self->config;
+	my $html_dir_name = $config->{output_dir};
+	my(%script_file)  = GraphViz2::Filer -> new -> get_scripts;
 
 	my($html_name);
 	my(@line);
@@ -80,7 +82,6 @@ sub generate_demo_index
 	}
 
 	my(@key)       = sort keys %script_file;
-	my($config)    = $self -> config;
 	my($templater) = Text::Xslate -> new
 	(
 		input_layer => '',
@@ -107,7 +108,7 @@ sub generate_demo_index
 			],
 		environment     => $self -> generate_demo_environment,
 		fancy_table_css => "$$config{css_url}/fancy.table.css",
-		version         => $VERSION,
+		version         => $GraphViz2::VERSION,
 	}
 	);
 	my($file_name) = File::Spec -> catfile($html_dir_name, 'index.html');
