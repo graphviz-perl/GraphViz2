@@ -53,7 +53,7 @@ EOS
 	{
 		$offset = ' ' x ($width - length($key) );
 
-		push @output, "perl -Ilib scripts/$key.pl $offset$format $outdir/$key.$format > \$DIR/$key.log\n";
+		push @output, "perl -Ilib t/$key.t $offset$format $outdir/$key.$format > \$DIR/$key.log\n";
 	}
 
 	# Warning: Do no pass in \@output, since format_output() patches @output.

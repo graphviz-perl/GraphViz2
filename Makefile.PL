@@ -1,16 +1,10 @@
-#!/usr/bin/env perl
-
 use strict;
 use warnings;
-
-use Config;
 
 use ExtUtils::MakeMaker;
 
 use File::Spec;
 use File::Temp;
-
-require 5.010001; # For the utf8 stuff.
 
 # -----------------------------------------------
 
@@ -68,6 +62,7 @@ my(%params) =
     'Test::More' => 1.001002,
     'charnames' => 0,
     'open' => 0,
+    'Test::Snapshot' => '0.06',
   },
   VERSION_FROM => 'lib/GraphViz2.pm',
   LICENSE => 'perl',

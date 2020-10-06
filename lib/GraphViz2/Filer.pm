@@ -20,28 +20,23 @@ sub read_file {
 sub get_annotations
 {
 	my($self)     = @_;
-	my($dir_name) = 'scripts';
-
-	$|=1;
+	my($dir_name) = 't';
 
 	opendir(my $fh, $dir_name);
 	my(@file_name) = sort grep{! -d $_} readdir $fh;
 	closedir $fh;
 
 	my(%annotation);
-	my(@line);
-	my($s);
-
 	for my $file_name (@file_name)
 	{
-		@line = read_file(File::Spec -> catfile($dir_name, $file_name));
+		my @line = read_file(File::Spec->catfile($dir_name, $file_name));
 
 		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (.+)$/) )
 		{
 			# Preserve $1 in case basename changes it.
 
-			$s                                       = $1;
-			$annotation{basename($file_name, '.pl')} = $s;
+			my $s                                   = $1;
+			$annotation{basename($file_name, '.t')} = $s;
 		}
 	}
 
@@ -75,22 +70,21 @@ sub get_files
 sub get_scripts
 {
 	my($self)     = @_;
-	my($dir_name) = 'scripts';
+	my($dir_name) = 't';
 
 	opendir(my $fh, $dir_name);
-	my(@file_name) = sort grep{! -d $_ && /\.pl$/} readdir $fh;
+	my(@file_name) = sort grep{! -d $_ && /^gen\..*\.t$/} readdir $fh;
 	closedir $fh;
 
-	my(@line);
 	my(%script);
 
 	for my $file_name (map{File::Spec -> catfile($dir_name, $_)} @file_name)
 	{
-		@line = read_file($file_name);
+		my @line = read_file($file_name);
 
 		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (?:.+)$/) )
 		{
-			$script{basename($file_name, '.pl')} = $file_name;
+			$script{basename($file_name, '.t')} = $file_name;
 		}
 	}
 

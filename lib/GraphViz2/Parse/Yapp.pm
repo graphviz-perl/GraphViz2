@@ -85,11 +85,11 @@ sub create
 		$labels{$rule} .= $rule_label;
 	}
 
-	for my $from (keys %edges)
+	for my $from (sort keys %edges)
 	{
 		next if (! $is_rule{$from});
 
-		for my $to (keys %{$edges{$from} })
+		for my $to (sort keys %{$edges{$from} })
 		{
 			next if (! $is_rule{$to});
 
@@ -97,7 +97,7 @@ sub create
 		}
 	}
 
-	for my $rule (keys %labels)
+	for my $rule (sort keys %labels)
 	{
 		$self -> graph -> add_node(name => $rule, label => [$rule, $labels{$rule}]);
 	}

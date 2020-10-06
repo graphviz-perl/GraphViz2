@@ -79,9 +79,9 @@ sub create
 		push @{$edge{$field[0]}{$field[2]} }, $field[1];
 	}
 
-	for my $from (keys %edge)
+	for my $from (sort keys %edge)
 	{
-		for my $to (keys %{$edge{$from} })
+		for my $to (sort keys %{$edge{$from} })
 		{
 			for my $edge (@{$edge{$from}{$to} })
 			{
