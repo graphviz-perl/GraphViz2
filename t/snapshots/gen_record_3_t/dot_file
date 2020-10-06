@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="Record demo 3 - Deeply nested records using strings as labels" ]
 node [ shape="record" ]
 edge [ color="grey" ]

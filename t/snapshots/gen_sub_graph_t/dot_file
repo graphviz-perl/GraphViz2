@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="sub.graph.pl" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
@@ -9,8 +8,7 @@ edge [ color="grey" ]
 "Murrumbeena" -> "Carnegie" [ arrowsize="2" ]
 "Murrumbeena" -> "Oakleigh" [ color="brown" ]
 
-subgraph "cluster_1"
-{
+subgraph "cluster_1" {
 graph [ label="Child" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]

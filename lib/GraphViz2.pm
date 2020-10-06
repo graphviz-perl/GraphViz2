@@ -194,7 +194,7 @@ sub BUILD
 	my($command) = (${$self -> global}{strict} ? 'strict ' : '')
 		. (${$self -> global}{directed} . ' ')
 		. ${$self -> global}{name}
-		. "\n{\n";
+		. " {\n";
 
 	for my $key (grep{$im_meta{$_} } sort keys %im_meta)
 	{
@@ -644,7 +644,7 @@ sub push_subgraph
 	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %{$arg{subgraph} || {}}};
 
 	$self -> scope -> push($scope);
-	$self -> command -> push(qq|\nsubgraph $name\n{\n|);
+	$self -> command -> push(join ' ', grep length, "\nsubgraph", $name, "{\n");
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;

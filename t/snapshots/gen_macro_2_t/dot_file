@@ -1,11 +1,9 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="Macro demo 2 - Linked non-cluster sub-graphs" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
 
-subgraph "One"
-{
+subgraph "One" {
 graph [ label="One" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]
@@ -15,8 +13,7 @@ edge [ color="grey" ]
 "Chadstone" -> "Waverley"
 }
 
-subgraph "Two"
-{
+subgraph "Two" {
 graph [ label="Two" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]

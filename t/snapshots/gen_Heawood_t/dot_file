@@ -1,5 +1,4 @@
-'graph Heawood
-{
+'graph Heawood {
 graph [ rankdir="TB" ]
 edge [ color="black" ]
 node [ color="black" fontname="Arial" height="0.500000" label="\\N" shape="circle" width="0.50000" ]

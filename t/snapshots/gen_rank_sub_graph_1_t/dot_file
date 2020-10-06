@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
@@ -12,8 +11,7 @@ edge [ color="grey" ]
 "Malvern" -> "Carnegie" [ arrowsize="2" ]
 "Malvern" -> "Oakleigh" [ color="brown" ]
 
-subgraph 
-{
+subgraph {
 graph [ rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
@@ -22,8 +20,7 @@ rank="same"
 "Prahran"
 }
 
-subgraph 
-{
+subgraph {
 graph [ rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]

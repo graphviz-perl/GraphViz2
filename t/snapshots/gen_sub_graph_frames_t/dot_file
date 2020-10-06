@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="Demo of 3 subgraphs (2 being clusters), and 1 frame" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
@@ -7,8 +6,7 @@ edge [ color="grey" ]
 "Two" [ color="green" shape="doublecircle" ]
 "One" -> "Two" [ color="maroon" penwidth="3" ]
 
-subgraph "cluster First subgraph"
-{
+subgraph "cluster First subgraph" {
 graph [ label="Child the First" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]
@@ -18,8 +16,7 @@ pencolor="white"
 "Three" -> "Four" [ penwidth="3" ]
 }
 
-subgraph "cluster Second subgraph"
-{
+subgraph "cluster Second subgraph" {
 graph [ label="Child the Second" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]
@@ -29,8 +26,7 @@ pencolor="purple"
 "Five" -> "Six" [ penwidth="3" ]
 }
 
-subgraph "Third subgraph"
-{
+subgraph "Third subgraph" {
 graph [ label="Child the Third" rankdir="TB" ]
 node [ color="magenta" shape="diamond" ]
 edge [ color="grey" ]

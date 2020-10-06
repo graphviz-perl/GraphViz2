@@ -1,11 +1,9 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ clusterrank="local" compound="1" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
 
-subgraph "cluster_Europe"
-{
+subgraph "cluster_Europe" {
 graph [ bgcolor="grey" clusterrank="local" compound="1" label="Europe" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]
@@ -18,8 +16,7 @@ edge [ color="grey" ]
 "New York" [ color="yellow" ]
 "London" -> "New York" [ label="Far" ]
 
-subgraph "cluster_Australia"
-{
+subgraph "cluster_Australia" {
 graph [ bgcolor="grey" clusterrank="local" compound="1" label="Australia" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]

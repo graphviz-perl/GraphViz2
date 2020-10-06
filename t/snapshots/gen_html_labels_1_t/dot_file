@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="HTML label demo # 1 - Using \\< ... \\>" rankdir="TB" ]
 node [ shape="oval" ]
 edge [ color="grey" ]

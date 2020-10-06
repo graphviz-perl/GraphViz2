@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ label="Record demo 4 - Set record shapes in various ways" ]
 node [ color="magenta" shape="oval" ]
 edge [ color="grey" ]

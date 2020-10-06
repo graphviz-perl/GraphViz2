@@ -1,5 +1,4 @@
-'digraph Perl
-{
+'digraph Perl {
 graph [ rankdir="TB" ]
 node [ color="blue" shape="oval" ]
 edge [ color="grey" ]
