@@ -1,3 +1,5 @@
+- drop Set::Array
+
 2.50 2020-10-02
 - dropped 3 more unnecessary deps, metadata tweak
 

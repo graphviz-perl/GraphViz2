@@ -14,17 +14,15 @@ use Moo;
 
 use IPC::Run3; # For run3().
 
-use Set::Array;
-
 use Try::Tiny;
 
-use Types::Standard qw/Any HashRef Int Str/;
+use Types::Standard qw/Any ArrayRef HashRef Int Str/;
 
 has command =>
 (
-	default  => sub{return Set::Array -> new},
-	is       => 'rw',
-	isa      => Any,
+	default  => sub{[]},
+	is       => 'ro',
+	isa      => ArrayRef,
 	required => 0,
 );
 
@@ -110,9 +108,9 @@ has node_hash =>
 
 has scope =>
 (
-	default  => sub{return Set::Array -> new},
-	is       => 'rw',
-	isa      => Any,
+	default  => sub{[]},
+	is       => 'ro',
+	isa      => ArrayRef,
 	required => 0,
 );
 
@@ -177,13 +175,12 @@ sub BUILD
 	$self->validate_params('node',		$self->node);
 	$self->validate_params('edge',		$self->edge);
 	$self->validate_params('subgraph',	$self->subgraph);
-	$self -> scope -> push
-		({
-			edge     => $self -> edge,
-			graph    => $self -> graph,
-			node     => $self -> node,
-			subgraph => $self -> subgraph,
-		 });
+	push @{ $self->scope }, {
+		edge     => $self -> edge,
+		graph    => $self -> graph,
+		node     => $self -> node,
+		subgraph => $self -> subgraph,
+	 };
 
 	my(%global)		= %{$self -> global};
 	my(%im_meta)	= %{$self -> im_meta};
@@ -201,7 +198,7 @@ sub BUILD
 		$command .= qq|$key = "$im_meta{$key}"; \n|;
 	}
 
-	$self -> command -> push($command);
+	push @{ $self->command }, $command;
 
 	$self -> default_graph;
 	$self -> default_node;
@@ -285,7 +282,7 @@ sub add_edge
 
 	my($dot) = $self -> stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, {%arg});
 
-	$self -> command -> push($dot);
+	push @{ $self->command }, $dot;
 	$self -> log(debug => "Added edge: $dot");
 
 	return $self;
@@ -366,7 +363,7 @@ sub add_node
 	$$node{$name}{attributes} = {%arg};
 	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg});
 
-	$self -> command -> push($dot);
+	push @{ $self->command }, $dot;
 	$self -> log(debug => "Added node: $dot");
 
 	return $self;
@@ -381,12 +378,10 @@ sub default_edge
 
 	$self->validate_params('edge', \%arg);
 
-	my($scope)    = $self -> scope -> last;
+	my $scope    = $self->scope->[-1];
 	$$scope{edge} = {%{$$scope{edge} }, %arg};
-	my($tos)      = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('edge', $$scope{edge}) );
-	$self -> scope -> fill($scope, $tos, 1);
+	push @{ $self->command }, $self->stringify_attributes('edge', $$scope{edge});
 	$self -> log(debug => 'Default edge: ' . join(', ', map{"$_ => $$scope{edge}{$_}"} sort keys %{$$scope{edge} }) );
 
 	return $self;
@@ -401,12 +396,10 @@ sub default_graph
 
 	$self->validate_params('graph', \%arg);
 
-	my($scope)     = $self -> scope -> last;
+	my $scope    = $self->scope->[-1];
 	$$scope{graph} = {%{$$scope{graph} }, %arg};
-	my($tos)       = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('graph', $$scope{graph}) );
-	$self -> scope -> fill($scope, $tos, 1);
+	push @{ $self->command }, $self->stringify_attributes('graph', $$scope{graph});
 	$self -> log(debug => 'Default graph: ' . join(', ', map{"$_ => $$scope{graph}{$_}"} sort keys %{$$scope{graph} }) );
 
 	return $self;
@@ -421,12 +414,10 @@ sub default_node
 
 	$self->validate_params('node', \%arg);
 
-	my($scope)    = $self -> scope -> last;
+	my $scope    = $self->scope->[-1];
 	$$scope{node} = {%{$$scope{node} }, %arg};
-	my($tos)      = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('node', $$scope{node}) );
-	$self -> scope -> fill($scope, $tos, 1);
+	push @{ $self->command }, $self->stringify_attributes('node', $$scope{node});
 	$self -> log(debug => 'Default node: ' . join(', ', map{"$_ => $$scope{node}{$_}"} sort keys %{$$scope{node} }) );
 
 	return $self;
@@ -441,12 +432,10 @@ sub default_subgraph
 
 	$self->validate_params('subgraph', \%arg);
 
-	my($scope)        = $self -> scope -> last;
+	my $scope    = $self->scope->[-1];
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
-	my($tos)          = $self -> scope -> length - 1;
 
-	$self -> command -> push($self -> stringify_attributes('subgraph', $$scope{subgraph}) );
-	$self -> scope -> fill($scope, $tos, 1);
+	push @{ $self->command }, $self->stringify_attributes('subgraph', $$scope{subgraph});
 	$self -> log(debug => 'Default subgraph: ' . join(', ', map{"$_ => $$scope{subgraph}{$_}"} sort keys %{$$scope{subgraph} }) );
 
 	return $self;
@@ -615,8 +604,8 @@ sub pop_subgraph
 {
 	my($self) = @_;
 
-	$self -> command -> push("}\n");
-	$self -> scope -> pop;
+	push @{ $self->command }, "}\n";
+	pop @{ $self->scope };
 
 	return $self;
 
@@ -637,14 +626,14 @@ sub push_subgraph
 
 	# Child inherits parent attributes.
 
-	my($scope)        = $self -> scope -> last;
+	my $scope        = $self->scope->[-1];
 	$$scope{edge}     = {%{$$scope{edge} || {}}, %{$arg{edge} || {}}};
 	$$scope{graph}    = {%{$$scope{graph} || {}}, %{$arg{graph} || {}}};
 	$$scope{node}     = {%{$$scope{node} || {}}, %{$arg{node} || {}}};
 	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %{$arg{subgraph} || {}}};
 
-	$self -> scope -> push($scope);
-	$self -> command -> push(join ' ', grep length, "\nsubgraph", $name, "{\n");
+	push @{ $self->scope }, $scope;
+	push @{ $self->command }, join ' ', grep length, "\nsubgraph", $name, "{\n";
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;
@@ -759,7 +748,7 @@ sub run
 	%arg			= ($prefix_1 => 1);
 
 	$self->validate_params('output_format', \%arg);
-	$self -> dot_input(join('', @{$self -> command -> print}) . "}\n");
+	$self -> dot_input(join('', @{ $self->command }) . "}\n");
 	$self -> log(debug => $self -> dot_input);
 
 	# Warning: Do not use $im_format in this 'if', because it has a default value.
