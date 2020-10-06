@@ -1,8 +1,8 @@
 'digraph Perl {
-graph [ label="HTML label demo # 2 - Using \\<\\<table\\> ... \\</table\\>\\>" rankdir="TB" ]
-node [ shape="oval" ]
-edge [ color="grey" ]
-"Legend" [ label=<<table bgcolor = \'white\'>
+ graph [ label="HTML label demo # 2 - Using \\<\\<table\\> ... \\</table\\>\\>" rankdir="TB" ]
+ node [ shape="oval" ]
+ edge [ color="grey" ]
+ "Legend" [ label=<<table bgcolor = \'white\'>
 <tr>
 	<td bgcolor = \'palegreen\'>The green node is the start node</td>
 </tr>

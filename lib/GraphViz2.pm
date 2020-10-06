@@ -282,12 +282,18 @@ sub add_edge
 
 	my($dot) = $self -> stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, {%arg});
 
-	push @{ $self->command }, $dot;
+	push @{ $self->command }, _indent($dot, $self->scope);
 	$self -> log(debug => "Added edge: $dot");
 
 	return $self;
 
 } # End of add_edge.
+
+sub _indent {
+	my ($text, $scope) = @_;
+	return '' if $text !~ /\S/;
+	(' ' x @$scope) . $text;
+}
 
 # -----------------------------------------------
 
@@ -363,7 +369,7 @@ sub add_node
 	$$node{$name}{attributes} = {%arg};
 	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg});
 
-	push @{ $self->command }, $dot;
+	push @{ $self->command }, _indent($dot, $self->scope);
 	$self -> log(debug => "Added node: $dot");
 
 	return $self;
@@ -381,7 +387,7 @@ sub default_edge
 	my $scope    = $self->scope->[-1];
 	$$scope{edge} = {%{$$scope{edge} }, %arg};
 
-	push @{ $self->command }, $self->stringify_attributes('edge', $$scope{edge});
+	push @{ $self->command }, _indent($self->stringify_attributes('edge', $$scope{edge}), $self->scope);
 	$self -> log(debug => 'Default edge: ' . join(', ', map{"$_ => $$scope{edge}{$_}"} sort keys %{$$scope{edge} }) );
 
 	return $self;
@@ -399,7 +405,7 @@ sub default_graph
 	my $scope    = $self->scope->[-1];
 	$$scope{graph} = {%{$$scope{graph} }, %arg};
 
-	push @{ $self->command }, $self->stringify_attributes('graph', $$scope{graph});
+	push @{ $self->command }, _indent($self->stringify_attributes('graph', $$scope{graph}), $self->scope);
 	$self -> log(debug => 'Default graph: ' . join(', ', map{"$_ => $$scope{graph}{$_}"} sort keys %{$$scope{graph} }) );
 
 	return $self;
@@ -417,7 +423,7 @@ sub default_node
 	my $scope    = $self->scope->[-1];
 	$$scope{node} = {%{$$scope{node} }, %arg};
 
-	push @{ $self->command }, $self->stringify_attributes('node', $$scope{node});
+	push @{ $self->command }, _indent($self->stringify_attributes('node', $$scope{node}), $self->scope);
 	$self -> log(debug => 'Default node: ' . join(', ', map{"$_ => $$scope{node}{$_}"} sort keys %{$$scope{node} }) );
 
 	return $self;
@@ -435,7 +441,7 @@ sub default_subgraph
 	my $scope    = $self->scope->[-1];
 	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
 
-	push @{ $self->command }, $self->stringify_attributes('subgraph', $$scope{subgraph});
+	push @{ $self->command }, _indent($self->stringify_attributes('subgraph', $$scope{subgraph}), $self->scope);
 	$self -> log(debug => 'Default subgraph: ' . join(', ', map{"$_ => $$scope{subgraph}{$_}"} sort keys %{$$scope{subgraph} }) );
 
 	return $self;
@@ -604,8 +610,8 @@ sub pop_subgraph
 {
 	my($self) = @_;
 
-	push @{ $self->command }, "}\n";
 	pop @{ $self->scope };
+	push @{ $self->command }, _indent("}\n", $self->scope);
 
 	return $self;
 
@@ -632,8 +638,8 @@ sub push_subgraph
 	$$scope{node}     = {%{$$scope{node} || {}}, %{$arg{node} || {}}};
 	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %{$arg{subgraph} || {}}};
 
+	push @{ $self->command }, "\n" . _indent(join(' ', grep length, "subgraph", $name, "{\n"), $self->scope);
 	push @{ $self->scope }, $scope;
-	push @{ $self->command }, join ' ', grep length, "\nsubgraph", $name, "{\n";
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;
