@@ -36,7 +36,7 @@ for (keys %script)
 
 my($offset);
 
-for my $format (qw/png svg/)
+for my $format (qw/svg/)
 {
 	my(@output) = <<'EOS';
 #!/bin/bash
