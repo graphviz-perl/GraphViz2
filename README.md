@@ -6,11 +6,7 @@ GraphViz2 - A wrapper for AT&T's Graphviz
 
 ## Sample output
 
-Unpack the distro and copy html/\*.html and html/\*.svg to your web server's doc root directory.
-
-Then, point your browser at 127.0.0.1/index.html.
-
-Or, hit [the demo page](http://savage.net.au/Perl-modules/html/graphviz2/index.html).
+See [https://graphviz-perl.github.io/](https://graphviz-perl.github.io/).
 
 ## Perl code
 
@@ -891,7 +887,7 @@ $context is one of 'edge', 'graph', 'node', or a special string. See the code fo
 
 You wouldn't normally need to use this method.
 
-## validate\_params($context, %attributes)
+## validate\_params($context, \\%attributes)
 
 Validate the given attributes within the given context.
 
@@ -1513,10 +1509,6 @@ Demonstrates using utf8 characters in labels.
 Outputs to ./html/utf8.2.svg by default.
 
 # TODO
-
-- o Does GraphViz2 need to emulate the sort option in GraphViz?
-
-    That depends on what that option really does.
 
 - o Handle edges such as 1 -> 2 -> {A B}, as seen in [Graphviz](http://www.graphviz.org/)'s graphs/directed/switch.gv
 
