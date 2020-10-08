@@ -1,3 +1,8 @@
+2.51 2020-10-08
+- DOT input now prettier
+- tests rearranged so can run in parallel, ergo quicker
+- tests now rigorously capture DOT input in each scenario
+- generating web content updated, output removed from distro so smaller
 - drop Set::Array
 
 2.50 2020-10-02
