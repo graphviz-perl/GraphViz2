@@ -46,6 +46,9 @@
 ^GraphViz2-.*
 \.swp$
 
+^lib/GraphViz2/Config\.pm
+^lib/GraphViz2/Filer\.pm
+^lib/GraphViz2/Utils\.pm
 ^config/
 ^data/
 ^htdocs/

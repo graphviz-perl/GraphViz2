@@ -1,13 +1,10 @@
 .travis.yml
 Changes
 lib/GraphViz2.pm
-lib/GraphViz2/Config.pm
-lib/GraphViz2/Filer.pm
 lib/GraphViz2/Parse/Regexp.pm
 lib/GraphViz2/Parse/STT.pm
 lib/GraphViz2/Parse/Yacc.pm
 lib/GraphViz2/Parse/Yapp.pm
-lib/GraphViz2/Utils.pm
 LICENSE
 Makefile.PL
 MANIFEST			This list of files
