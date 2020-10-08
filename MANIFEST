@@ -9,20 +9,6 @@ LICENSE
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
-maps/demo.3.1.html
-maps/demo.3.2.html
-maps/demo.3.3.html
-maps/demo.3.html
-maps/demo.3.map
-maps/demo.3.pl
-maps/demo.3.png
-maps/demo.4.1.html
-maps/demo.4.2.html
-maps/demo.4.3.html
-maps/demo.4.html
-maps/demo.4.map
-maps/demo.4.pl
-maps/demo.4.svg
 README.md
 t/calc.input
 t/calc.output
@@ -41,6 +27,8 @@ t/gen.macro.2.t
 t/gen.macro.3.t
 t/gen.macro.4.t
 t/gen.macro.5.t
+t/gen.map.3.t
+t/gen.map.4.t
 t/gen.parse.regexp.t
 t/gen.parse.stt.t
 t/gen.parse.yacc.t
@@ -78,6 +66,8 @@ t/snapshots/gen_macro_2_t/dot_file
 t/snapshots/gen_macro_3_t/dot_file
 t/snapshots/gen_macro_4_t/dot_file
 t/snapshots/gen_macro_5_t/dot_file
+t/snapshots/gen_map_3_t/dot_file
+t/snapshots/gen_map_4_t/dot_file
 t/snapshots/gen_parse_regexp_t/dot_file
 t/snapshots/gen_parse_stt_t/dot_file
 t/snapshots/gen_parse_yacc_t/dot_file

@@ -19,6 +19,8 @@ perl -Ilib t/gen.macro.2.t           svg ../graphviz-perl.github.io/gen.macro.2.
 perl -Ilib t/gen.macro.3.t           svg ../graphviz-perl.github.io/gen.macro.3.svg > $DIR/gen.macro.3.log
 perl -Ilib t/gen.macro.4.t           svg ../graphviz-perl.github.io/gen.macro.4.svg > $DIR/gen.macro.4.log
 perl -Ilib t/gen.macro.5.t           svg ../graphviz-perl.github.io/gen.macro.5.svg > $DIR/gen.macro.5.log
+perl -Ilib t/gen.map.3.t             svg ../graphviz-perl.github.io/gen.map.3.svg > $DIR/gen.map.3.log
+perl -Ilib t/gen.map.4.t             svg ../graphviz-perl.github.io/gen.map.4.svg > $DIR/gen.map.4.log
 perl -Ilib t/gen.parse.regexp.t      svg ../graphviz-perl.github.io/gen.parse.regexp.svg > $DIR/gen.parse.regexp.log
 perl -Ilib t/gen.parse.stt.t         svg ../graphviz-perl.github.io/gen.parse.stt.svg > $DIR/gen.parse.stt.log
 perl -Ilib t/gen.parse.yacc.t        svg ../graphviz-perl.github.io/gen.parse.yacc.svg > $DIR/gen.parse.yacc.log
