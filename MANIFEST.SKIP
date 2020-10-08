@@ -45,3 +45,6 @@
 
 ^GraphViz2-.*
 \.swp$
+
+^data/
+^htdocs/
