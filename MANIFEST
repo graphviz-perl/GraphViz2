@@ -1,6 +1,5 @@
 .travis.yml
 Changes
-config/.htgraphviz2.conf
 lib/GraphViz2.pm
 lib/GraphViz2/Config.pm
 lib/GraphViz2/Filer.pm
