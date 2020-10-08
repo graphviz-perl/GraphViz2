@@ -12,20 +12,6 @@ LICENSE
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
-maps/demo.1.1.html
-maps/demo.1.gv
-maps/demo.1.html
-maps/demo.1.map
-maps/demo.1.png
-maps/demo.1.sh
-maps/demo.2.1.html
-maps/demo.2.2.html
-maps/demo.2.3.html
-maps/demo.2.gv
-maps/demo.2.html
-maps/demo.2.map
-maps/demo.2.png
-maps/demo.2.sh
 maps/demo.3.1.html
 maps/demo.3.2.html
 maps/demo.3.3.html
