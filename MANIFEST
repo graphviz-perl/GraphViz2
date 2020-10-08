@@ -24,17 +24,6 @@ maps/demo.4.map
 maps/demo.4.pl
 maps/demo.4.svg
 README.md
-scripts/copy.config.pl
-scripts/extract.arrow.shapes.pl
-scripts/extract.attributes.pl
-scripts/extract.node.shapes.pl
-scripts/find.config.pl
-scripts/generate.demo.pl
-scripts/generate.sh.pl
-scripts/generate.svg.sh
-scripts/pod2html.sh
-scripts/report.nodes.and.edges.pl
-scripts/report.valid.attributes.pl
 t/calc.input
 t/calc.output
 t/calc3.output
