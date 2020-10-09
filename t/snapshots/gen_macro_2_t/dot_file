@@ -20,6 +20,6 @@
   "Notting Hill" [ color="orange" ]
   "Hughesdale" -> "Notting Hill"
  }
- "Chadstone" -> "Notting Hill" [ lhead="cluster 2" ltail="cluster 1" minlen="2" ]
+ "Chadstone" -> "Notting Hill" [ minlen="2" ]
 }
 '

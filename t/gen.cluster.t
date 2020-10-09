@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Demonstrates a cluster - with a bug. See the TODO in the POD.
+# Annotation: Demonstrates a cluster.
 
 use strict;
 use warnings;
@@ -42,7 +42,7 @@ $graph -> add_edge(from => 'Victoria', to => 'Tasmania');
 
 $graph -> pop_subgraph;
 
-$graph -> add_edge(from => 'cluster_Australia', to => 'cluster_Europe');
+$graph -> add_edge(from => 'Victoria', to => 'London', ltail => 'cluster_Australia', lhead => 'cluster_Europe');
 
 if (@ARGV) {
   my($format)      = shift || 'svg';

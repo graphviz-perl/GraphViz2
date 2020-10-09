@@ -1,3 +1,5 @@
+- fix bugs in webgen scripts
+
 2.54 2020-10-09
 - zap report_valid_attributes method
 - drop Log::Handler, any object that can "debug" or "error" works

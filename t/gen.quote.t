@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 #
 # Note: t/test.t searches for the next line.
-# Annotation: Demonstrates (1) newlines and double-quotes in node names and labels, (2) justification - with a Graphviz bug.
+# Annotation: Demonstrates (1) newlines and double-quotes in node names and labels, (2) justification.
 
 use strict;
 use warnings;
@@ -14,7 +14,7 @@ my($graph) = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
-	 graph  => {rankdir => 'TB'},
+	 graph  => {rankdir => 'LR'},
 	 node   => {shape => 'oval'},
 	);
 

@@ -42,7 +42,7 @@ my($graph) = GraphViz2 -> new
 macro($graph, 'One', 'Chadstone', 'Waverley');
 macro($graph, 'Two', 'Hughesdale', 'Notting Hill');
 
-$graph -> add_edge(from => 'Chadstone', to => 'Notting Hill', lhead => 'cluster 2', ltail => 'cluster 1', minlen => 2);
+$graph -> add_edge(from => 'Chadstone', to => 'Notting Hill', minlen => 2);
 
 if (@ARGV) {
   my($format)      = shift || 'svg';

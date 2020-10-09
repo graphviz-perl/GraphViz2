@@ -1,5 +1,5 @@
 'digraph Perl {
- graph [ rankdir="TB" ]
+ graph [ rankdir="LR" ]
  node [ shape="oval" ]
  edge [ color="grey" ]
  "Embedded\\nnewline\\nnode\\nname"

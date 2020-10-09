@@ -25,8 +25,6 @@
   "Victoria" -> "New South Wales"
   "Victoria" -> "Tasmania"
  }
- "cluster_Australia"
- "cluster_Europe"
- "cluster_Australia" -> "cluster_Europe"
+ "Victoria" -> "London" [ lhead="cluster_Europe" ltail="cluster_Australia" ]
 }
 '
