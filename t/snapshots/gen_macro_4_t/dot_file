@@ -1,10 +1,10 @@
 'digraph Perl {
- graph [ compound="1" label="Macro demo 4 - Linked cluster sub-graphs" rankdir="TB" ]
+ graph [ label="Macro demo 4 - Linked cluster sub-graphs" rankdir="TB" ]
  node [ shape="oval" ]
  edge [ color="grey" ]
 
  subgraph "cluster 1" {
-  graph [ compound="1" label="cluster 1" rankdir="TB" ]
+  graph [ label="cluster 1" rankdir="TB" ]
   node [ color="magenta" shape="diamond" ]
   edge [ color="grey" ]
   "Chadstone" [ shape="hexagon" ]
@@ -13,13 +13,13 @@
  }
 
  subgraph "cluster 2" {
-  graph [ compound="1" label="cluster 2" rankdir="TB" ]
+  graph [ label="cluster 2" rankdir="TB" ]
   node [ color="magenta" shape="diamond" ]
   edge [ color="grey" ]
   "Hughesdale" [ shape="hexagon" ]
   "Notting Hill" [ color="orange" ]
   "Hughesdale" -> "Notting Hill"
  }
- "Chadstone" -> "Notting Hill" [ lhead="cluster 2" ltail="cluster 1" minlen="2" ]
+ "Chadstone" -> "Notting Hill" [ minlen="2" ]
 }
 '

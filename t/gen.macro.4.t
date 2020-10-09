@@ -37,14 +37,14 @@ my($graph) = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
-	 graph  => {label => "Macro demo $id - Linked cluster sub-graphs", rankdir => 'TB', compound => 1},
+	 graph  => {label => "Macro demo $id - Linked cluster sub-graphs", rankdir => 'TB'},
 	 node   => {shape => 'oval'},
 	);
 
 macro($graph, 'cluster 1', 'Chadstone', 'Waverley');
 macro($graph, 'cluster 2', 'Hughesdale', 'Notting Hill');
 
-$graph -> add_edge(from => 'Chadstone', to => 'Notting Hill', ltail => 'cluster 1', lhead => 'cluster 2', minlen => 2);
+$graph -> add_edge(from => 'Chadstone', to => 'Notting Hill', minlen => 2);
 
 if (@ARGV) {
   my($format)      = shift || 'svg';
