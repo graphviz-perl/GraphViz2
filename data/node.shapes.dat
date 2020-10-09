@@ -7,6 +7,7 @@ box3d
 cds
 circle
 component
+cylinder
 diamond
 doublecircle
 doubleoctagon
@@ -29,6 +30,7 @@ octagon
 oval
 parallelogram
 pentagon
+plain
 plaintext
 point
 polygon
