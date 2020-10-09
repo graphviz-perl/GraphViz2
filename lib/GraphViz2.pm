@@ -14,8 +14,6 @@ use Moo;
 
 use IPC::Run3; # For run3().
 
-use Try::Tiny;
-
 use Types::Standard qw/Any ArrayRef HashRef Int Str/;
 
 has command =>
@@ -775,36 +773,17 @@ sub run
 sub run_map
 {
 	my($self, $driver, $output_file, $format, $timeout, $im_output_file, $im_format) = @_;
-
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. IM output file: $im_output_file. IM format: $im_format. Timeout: $timeout second(s)");
 	$self -> log;
-
-	my($result);
-
-	try
-	{
-		# The EXLOCK option is for BSD-based systems.
-
-		my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
-		my($temp_file)	= File::Spec -> catfile($temp_dir, 'temp.gv');
-
-		open(my $fh, '> :raw', $temp_file) || die "Can't open(> $temp_file): $!";
-		print $fh $self -> dot_input;
-		close $fh;
-
-		my(@args) = ("-T$im_format", "-o$im_output_file", "-T$format", "-o$output_file", $temp_file);
-
-		system($driver, @args);
-	}
-	catch
-	{
-		$result = $_;
-	};
-
-	die $result if ($result);
-
+	# The EXLOCK option is for BSD-based systems.
+	my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
+	my($temp_file)	= File::Spec -> catfile($temp_dir, 'temp.gv');
+	open(my $fh, '> :raw', $temp_file) || die "Can't open(> $temp_file): $!";
+	print $fh $self -> dot_input;
+	close $fh;
+	my(@args) = ("-T$im_format", "-o$im_output_file", "-T$format", "-o$output_file", $temp_file);
+	system($driver, @args);
 	return $self;
-
 } # End of run_map.
 
 # -----------------------------------------------
@@ -812,53 +791,30 @@ sub run_map
 sub run_mapless
 {
 	my($self, $driver, $output_file, $format, $timeout) = @_;
-
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Timeout: $timeout second(s)");
 	$self -> log;
-
-	my($result);
-
-	try
-	{
-		my($stdout, $stderr);
-
-		# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.
-		# It saves me the effort of determining if the input contains Unicode.
-
-
-		run3
-			[$driver, "-T$format"],
-			\$self -> dot_input,
-			\$stdout,
-			\$stderr,
-			{
-				binmode_stdin  => ':utf8',
-				binmode_stdout => ':raw',
-				binmode_stderr => ':raw',
-			};
-
-		die $stderr if ($stderr);
-
-		$self -> dot_output($stdout);
-
-		if ($output_file)
+	# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.
+	# It saves me the effort of determining if the input contains Unicode.
+	run3
+		[$driver, "-T$format"],
+		\$self -> dot_input,
+		\my $stdout,
+		\my $stderr,
 		{
-			open(my $fh, '> :raw', $output_file) || die "Can't open(> $output_file): $!";
-			print $fh $stdout;
-			close $fh;
-
-			$self -> log(debug => "Wrote $output_file. Size: " . length($stdout) . ' bytes');
-		}
-	}
-	catch
+			binmode_stdin  => ':utf8',
+			binmode_stdout => ':raw',
+			binmode_stderr => ':raw',
+		};
+	die $stderr if ($stderr);
+	$self -> dot_output($stdout);
+	if ($output_file)
 	{
-		$result = $_;
-	};
-
-	die $result if ($result);
-
+		open(my $fh, '> :raw', $output_file) || die "Can't open(> $output_file): $!";
+		print $fh $stdout;
+		close $fh;
+		$self -> log(debug => "Wrote $output_file. Size: " . length($stdout) . ' bytes');
+	}
 	return $self;
-
 } # End of run_mapless.
 
 # -----------------------------------------------

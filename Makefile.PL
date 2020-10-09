@@ -13,7 +13,6 @@ sub is_dot_installed
   # 1: Create a temp file containing DOT commands.
   # The EXLOCK option is for BSD-based systems.
   # newdir() croaks() if it fails, which is what we want.
-  # Hence there is no need to use Try::Tiny.
 
   my($temp_dir) = File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
   my($gv_file)  = File::Spec -> catfile($temp_dir, 'test.gv');
@@ -55,7 +54,6 @@ my(%params) =
     'Log::Handler' => 0.84,
     'Moo' => 2.001001,
     'Types::Standard' => 1.000005,
-    'Try::Tiny' => 0.09,
   },
   TEST_REQUIRES => {
     'Test::More' => 1.001002,

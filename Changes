@@ -1,3 +1,5 @@
+- drop Try::Tiny
+
 2.52 2020-10-09
 - zap obsolete special case in a test/webgen for Darwin - fix #7. Thanks @dbevans for report!
 
