@@ -1,36 +1,15 @@
-#!/usr/bin/env perl
-
 use File::Spec;
-
 use HTML::TreeBuilder;
-
 use HTTP::Tiny;
 
-# --------------------
-
-my($file_name) = File::Spec -> catfile('data', 'attributes.html');
-
-if (! -e $file_name)
-{
-	my($page_name) = 'http://www.graphviz.org/doc/info/attrs.html';
-	my($client)    = HTTP::Tiny -> new -> get($page_name);
-
-	if ($$client{success})
-	{
-		open(OUT, '>', $file_name) || die "Can't open(> $file_name): $!";
-		print OUT $$client{content};
-		close OUT;
-	}
-	else
-	{
-		print "Failed to get $page_name: $$client{reason}. \n";
-	}
-}
+my($page_name) = 'http://www.graphviz.org/doc/info/attrs.html';
+my($client)    = HTTP::Tiny -> new -> get($page_name);
+die "Failed to get $page_name: $$client{reason}. \n" if !$$client{success};
 
 my($root)    = HTML::TreeBuilder -> new();
-my($result)  = $root -> parse_file($file_name) || die "Can't parse: $file_name";
+my($result)  = $root->parse($$client{content}) || die "Can't parse: $page_name";
 my(@node)    = $root -> look_down(_tag => 'table');
-my(@td)      = $node[5] -> look_down(_tag => 'td');
+my @td       = $node[3]->look_down(_tag => 'td');
 my($column)  = 0;
 my(%context) =
 	(
@@ -41,39 +20,19 @@ my(%context) =
 	 S => 'subgraph',
 	);
 
-my(@attribute);
 my(@content, @column);
 my(@row);
-my($td);
 my(@user);
 
-for $td (@td)
-{
-	@content = $td -> content_list;
-
-	if (ref $content[0])
-	{
-		$content[0] = ($content[0] -> content_list)[0];
+for my $c0 (map ref() ? [ $_->content_list ]->[0] : $_, map [ $_->content_list ]->[0], @td) {
+	if ($column == 0) {
+		push @column, $c0;
+	} elsif ($column == 1) {
+		push @user, join(', ', map{$context{$_} } split(//, $c0) );
 	}
-
-	$column++;
-
-	$column = $column % 6;
-
-	if ($column == 1)
-	{
-		push @column, $content[0];
-	}
-	elsif ($column == 2)
-	{
-		push @user, join(', ', map{$context{$_} } split(//, $content[0]) );
-	}
+	$column = ($column + 1) % 6;
 }
 
-$root -> delete();
-
-$file_name = File::Spec -> catfile('data', 'attributes.dat');
-
-open(OUT, '>', $file_name) || die "Can't open(> $file_name): $!";
-print OUT map{"$column[$_] => $user[$_]\n"} 0 .. $#column;
-close OUT;
+my $file_name = File::Spec -> catfile('data', 'attributes.dat');
+open my $fh, '>', $file_name or die "Can't open(> $file_name): $!";
+print $fh map "$column[$_] => $user[$_]\n", 0 .. $#column;
