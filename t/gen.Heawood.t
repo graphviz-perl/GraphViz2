@@ -12,27 +12,10 @@ use File::Spec;
 
 use GraphViz2;
 
-use Log::Handler;
-
-# ---------------
-
-my($logger) = Log::Handler -> new;
-
-$logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel       => 'debug',
-		 message_layout => '%m',
-		 minlevel       => 'error',
-	 }
-	);
-
 my($graph) = GraphViz2 -> new
 	(
 	 global => {name => 'Heawood'},
 	 graph  => {rankdir => 'TB'},
-	 logger => $logger,
 	);
 
 $graph -> default_edge(color => 'black');

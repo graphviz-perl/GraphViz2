@@ -10,10 +10,6 @@ use File::Spec;
 
 use GraphViz2;
 
-use Log::Handler;
-
-# -----------------------------------------------
-
 sub macro
 {
 	my($graph, $name, $node_1, $node_2) = @_;
@@ -34,27 +30,12 @@ sub macro
 
 } # End of macro.
 
-# -----------------------------------------------
-
-my($logger) = Log::Handler -> new;
-
-$logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel       => 'debug',
-		 message_layout => '%m',
-		 minlevel       => 'error',
-	 }
-	);
-
 my($id)    = '2';
 my($graph) = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
 	 graph  => {label => "Macro demo $id - Linked non-cluster sub-graphs", rankdir => 'TB'},
-	 logger => $logger,
 	 node   => {shape => 'oval'},
 	);
 

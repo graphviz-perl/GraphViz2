@@ -1163,7 +1163,9 @@ is ignored.
 
 ## Why such a different approach to logging?
 
-As you can see from scripts/\*.pl, I always use [Log::Handler](https://metacpan.org/pod/Log::Handler).
+As you can see from scripts/\*.pl, I always use [Log::Handler](https://metacpan.org/pod/Log::Handler),
+but you don't have to: any object with `debug` and `error` methods
+will do, since these are the only levels emitted by this module.
 
 By default (i.e. without a logger object), [GraphViz2](https://metacpan.org/pod/GraphViz2) prints warning and debug messages to STDOUT,
 and dies upon errors.

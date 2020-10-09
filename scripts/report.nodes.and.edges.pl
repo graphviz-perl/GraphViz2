@@ -7,28 +7,12 @@ use File::Spec;
 
 use GraphViz2;
 
-use Log::Handler;
-
-# ---------------
-
-my($logger) = Log::Handler -> new;
-
-$logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel       => 'notice',
-		 message_layout => '%m',
-		 minlevel       => 'error',
-	 }
-	);
-
 my($graph) = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
 	 graph  => {rankdir => 'TB'},
-	 logger => $logger,
+	 verbose => 1,
 	 node   => {shape => 'oval'},
 	);
 
@@ -58,8 +42,8 @@ for my $from (sort keys %$node_hash)
 	my($attr) = $$node_hash{$from}{attributes};
 	my($s)    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
 
-	$logger -> log(notice => "Node: $from");
-	$logger -> log(notice => "\tAttributes: $s");
+	$graph -> log(notice => "Node: $from");
+	$graph -> log(notice => "\tAttributes: $s");
 
 	for my $to (sort keys %{$$edge_hash{$from} })
 	{
@@ -68,8 +52,8 @@ for my $from (sort keys %$node_hash)
 			$attr = $$edge{attributes};
 			$s    = join(', ', map{"$_ => $$attr{$_}"} sort keys %$attr);
 
-			$logger -> log(notice => "\tEdge: $from$$edge{from_port} -> $to$$edge{to_port}");
-			$logger -> log(notice => "\t\tAttributes: $s");
+			$graph -> log(notice => "\tEdge: $from$$edge{from_port} -> $to$$edge{to_port}");
+			$graph -> log(notice => "\t\tAttributes: $s");
 		}
 	}
 }

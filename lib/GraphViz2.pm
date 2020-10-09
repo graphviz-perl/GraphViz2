@@ -14,7 +14,7 @@ use Moo;
 
 use IPC::Run3; # For run3().
 
-use Types::Standard qw/Any ArrayRef HashRef Int Str/;
+use Types::Standard qw/Any ArrayRef HasMethods HashRef Int Str/;
 
 has command =>
 (
@@ -82,9 +82,8 @@ has im_meta =>
 
 has logger =>
 (
-	default  => sub{return ''},
 	is       => 'rw',
-	isa      => Any,
+	isa      => HasMethods[qw(debug error)],
 	required => 0,
 );
 
@@ -584,18 +583,11 @@ sub log
 	$level   ||= 'debug';
 	$message ||= '';
 
-	if ($level eq 'error')
-	{
-		die $message;
-	}
-
-	if ($self -> logger)
-	{
-		$self -> logger -> $level($message);
-	}
-	elsif ($self -> verbose)
-	{
-		print "$level: $message\n";
+	if ($self->logger) {
+		$self->logger->$level($message);
+	} else {
+		die $message if $level eq 'error';
+		print "$level: $message\n" if $self->verbose;
 	}
 
 	return $self;
@@ -691,7 +683,6 @@ sub run_map
 {
 	my($self, $driver, $output_file, $format, $timeout, $im_output_file, $im_format) = @_;
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. IM output file: $im_output_file. IM format: $im_format. Timeout: $timeout second(s)");
-	$self -> log;
 	# The EXLOCK option is for BSD-based systems.
 	my($temp_dir)	= File::Temp -> newdir('temp.XXXX', CLEANUP => 1, EXLOCK => 0, TMPDIR => 1);
 	my($temp_file)	= File::Spec -> catfile($temp_dir, 'temp.gv');
@@ -709,7 +700,6 @@ sub run_mapless
 {
 	my($self, $driver, $output_file, $format, $timeout) = @_;
 	$self -> log(debug => "Driver: $driver. Output file: $output_file. Format: $format. Timeout: $timeout second(s)");
-	$self -> log;
 	# Usage of utf8 here relies on ISO-8859-1 matching Unicode for low chars.
 	# It saves me the effort of determining if the input contains Unicode.
 	run3
@@ -2019,7 +2009,9 @@ is ignored.
 
 =head2 Why such a different approach to logging?
 
-As you can see from scripts/*.pl, I always use L<Log::Handler>.
+As you can see from scripts/*.pl, I always use L<Log::Handler>,
+but you don't have to: any object with C<debug> and C<error> methods
+will do, since these are the only levels emitted by this module.
 
 By default (i.e. without a logger object), L<GraphViz2> prints warning and debug messages to STDOUT,
 and dies upon errors.

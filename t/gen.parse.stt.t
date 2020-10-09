@@ -11,34 +11,17 @@ use File::Spec;
 use GraphViz2;
 use GraphViz2::Parse::STT;
 
-use Log::Handler;
-
 sub read_file {
   open my $fh, '<:encoding(UTF-8)', $_[0] or die "$_[0]: $!";
   local $/;
   <$fh>;
 }
 
-# ------------------------------------------------
-
-my($logger) = Log::Handler -> new;
-
-$logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel       => 'debug',
-		 message_layout => '%m',
-		 minlevel       => 'error',
-	 }
-	);
-
 my($graph)  = GraphViz2 -> new
 	(
 	 edge   => {color => 'grey'},
 	 global => {directed => 1},
 	 graph  => {rankdir => 'LR'},
-	 logger => $logger,
 	 node   => {color => 'green', shape => 'oval'},
 	);
 my($g)  = GraphViz2::Parse::STT -> new(graph => $graph);

@@ -31,7 +31,6 @@ WriteMakefile(
     'Data::Section::Simple' => 0.02,
     'File::Which' => 1.21,
     'IPC::Run3' => 0.048,
-    'Log::Handler' => 0.84,
     'Moo' => 2.001001,
     'Types::Standard' => 1.000005,
   },

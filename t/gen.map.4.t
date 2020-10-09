@@ -10,22 +10,6 @@ use File::Spec;
 
 use GraphViz2;
 
-use Log::Handler;
-
-# ---------------
-
-my($logger) = Log::Handler -> new;
-
-$logger -> add
-	(
-	 screen =>
-	 {
-		 maxlevel		=> 'debug',
-		 message_layout	=> '%m',
-		 minlevel		=> 'error',
-	 }
-	);
-
 my($id)		= 4;
 my $html_template = <<'EOF';
 <html>
@@ -49,7 +33,6 @@ my($graph)	= GraphViz2 -> new
 					{
 						URL => $file_main,	# Note: URL must be in caps.
 					},
-					logger	=> $logger,
 					node	=> {shape => 'oval'},
 				);
 
