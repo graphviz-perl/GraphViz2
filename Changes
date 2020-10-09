@@ -1,3 +1,5 @@
+- zap obsolete special case in a test/webgen for Darwin - fix #7. Thanks @dbevans for report!
+
 2.51 2020-10-08
 - DOT input now prettier
 - tests rearranged so can run in parallel, ergo quicker
