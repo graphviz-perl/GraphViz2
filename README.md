@@ -1209,18 +1209,21 @@ End users have no need to run this script.
 
 ## scripts/extract.arrow.shapes.pl
 
-Downloads the arrow shapes from [Graphviz's Arrow Shapes](https://www.graphviz.org/doc/info/arrows.html) and outputs them to ./data/arrow.shapes.html.
-Then it extracts the reserved words into ./data/arrow.shapes.dat.
+Downloads the arrow shapes from [Graphviz's Arrow
+Shapes](https://www.graphviz.org/doc/info/arrows.html) and extracts the
+reserved words into `data/arrow.shapes.dat`.
 
 ## scripts/extract.attributes.pl
 
-Downloads the attributes from [Graphviz's Attributes](http://www.graphviz.org/doc/info/attrs.html) and outputs them to ./data/attributes.html.
-Then it extracts the reserved words into ./data/attributes.dat.
+Downloads the attributes from [Graphviz's
+Attributes](http://www.graphviz.org/doc/info/attrs.html) and extracts
+the reserved words into `data/attributes.dat`.
 
 ## scripts/extract.node.shapes.pl
 
-Downloads the node shapes from [Graphviz's Node Shapes](http://www.graphviz.org/doc/info/shapes.html) and outputs them to ./data/node.shapes.html.
-Then it extracts the reserved words into ./data/node.shapes.dat.
+Downloads the node shapes from [Graphviz's Node
+Shapes](http://www.graphviz.org/doc/info/shapes.html) and extracts the
+reserved words into `data/node.shapes.dat`.
 
 ## find.config.pl
 

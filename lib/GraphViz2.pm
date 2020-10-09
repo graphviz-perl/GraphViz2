@@ -2055,18 +2055,21 @@ End users have no need to run this script.
 
 =head2 scripts/extract.arrow.shapes.pl
 
-Downloads the arrow shapes from L<Graphviz's Arrow Shapes|https://www.graphviz.org/doc/info/arrows.html> and outputs them to ./data/arrow.shapes.html.
-Then it extracts the reserved words into ./data/arrow.shapes.dat.
+Downloads the arrow shapes from L<Graphviz's Arrow
+Shapes|https://www.graphviz.org/doc/info/arrows.html> and extracts the
+reserved words into F<data/arrow.shapes.dat>.
 
 =head2 scripts/extract.attributes.pl
 
-Downloads the attributes from L<Graphviz's Attributes|http://www.graphviz.org/doc/info/attrs.html> and outputs them to ./data/attributes.html.
-Then it extracts the reserved words into ./data/attributes.dat.
+Downloads the attributes from L<Graphviz's
+Attributes|http://www.graphviz.org/doc/info/attrs.html> and extracts
+the reserved words into F<data/attributes.dat>.
 
 =head2 scripts/extract.node.shapes.pl
 
-Downloads the node shapes from L<Graphviz's Node Shapes|http://www.graphviz.org/doc/info/shapes.html> and outputs them to ./data/node.shapes.html.
-Then it extracts the reserved words into ./data/node.shapes.dat.
+Downloads the node shapes from L<Graphviz's Node
+Shapes|http://www.graphviz.org/doc/info/shapes.html> and extracts the
+reserved words into F<data/node.shapes.dat>.
 
 =head2 find.config.pl
 
