@@ -1,3 +1,5 @@
+- zap report_valid_attributes method
+
 2.53 2020-10-09
 - drop Try::Tiny
 

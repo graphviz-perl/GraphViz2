@@ -830,11 +830,10 @@ are constrained to be horizontally aligned.
 
 See scripts/rank.sub.graph.\[12\].pl and scripts/sub.graph.frames.pl for sample code.
 
-## report\_valid\_attributes()
+## valid\_attributes()
 
-Prints all attributes known to this module.
-
-Returns nothing.
+Returns a hashref of all attributes known to this module, keyed by type
+to hashrefs to true values.
 
 You wouldn't normally need to use this method.
 

@@ -649,89 +649,6 @@ sub push_subgraph
 
 # -----------------------------------------------
 
-sub report_valid_attributes
-{
-	my($self)       = @_;
-	my($attributes) = $self -> valid_attributes;
-
-	$self -> log(info => 'Global attributes:');
-
-	for my $a (sort keys %{$$attributes{global} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Graph attributes:');
-
-	for my $a (sort keys %{$$attributes{graph} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Cluster attributes:');
-
-	for my $n (sort keys %{$$attributes{cluster} })
-	{
-		$self -> log(info => $n);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Subgraph attributes:');
-
-	for my $n (sort keys %{$$attributes{subgraph} })
-	{
-		$self -> log(info => $n);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Node attributes:');
-
-	for my $n (sort keys %{$$attributes{node} })
-	{
-		$self -> log(info => $n);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Arrow modifiers:');
-
-	for my $a (sort keys %{$$attributes{arrow_modifier} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Arrow attributes:');
-
-	for my $a (sort keys %{$$attributes{arrow} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Edge attributes:');
-
-	for my $a (sort keys %{$$attributes{edge} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log;
-	$self -> log(info => 'Output formats:');
-
-	for my $a (sort keys %{$$attributes{output_format} })
-	{
-		$self -> log(info => $a);
-	}
-
-	$self -> log(info => 'Output formats for the form png:gd etc are also supported');
-	$self -> log;
-
-} # End of report_valid_attributes.
-
-# -----------------------------------------------
-
 sub run
 {
 	my($self, %arg)		= @_;
@@ -1743,11 +1660,10 @@ are constrained to be horizontally aligned.
 
 See scripts/rank.sub.graph.[12].pl and scripts/sub.graph.frames.pl for sample code.
 
-=head2 report_valid_attributes()
+=head2 valid_attributes()
 
-Prints all attributes known to this module.
-
-Returns nothing.
+Returns a hashref of all attributes known to this module, keyed by type
+to hashrefs to true values.
 
 You wouldn't normally need to use this method.
 

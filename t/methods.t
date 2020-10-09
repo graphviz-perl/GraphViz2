@@ -33,7 +33,7 @@ my @methods	= (
 		]
 	} ],
 	[ pop_subgraph => { } ],
-	[ report_valid_attributes => { } ],
+	[ valid_attributes => { } ],
 	[ run_map => {
 		subname => 'run',
 		args => [
