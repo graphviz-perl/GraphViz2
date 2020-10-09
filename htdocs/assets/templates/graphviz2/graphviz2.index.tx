@@ -12,16 +12,16 @@
 <body>
 	<h1>Index of sample files created by <a href="http://metacpan.org/release/GraphViz2">GraphViz2</a> V <: $version :>.</h1>
 
-	<p>All scripts and input files required to generate these examples are shipped with the GraphViz2 distro.</p>
+	<p>All scripts and input files required to generate these examples are available in the GraphViz2 repo.</p>
 
-<table border = "1">
 :for $data -> $row {
-<tr>
-  <td>Input file # <: $row.count :> - <: $row.script_name :>:<br /><: $row.note :></td>
-  <td><: $row.note :><br /><object data = "<: $row.image :>"></object><br />Output file # <: $row.count :> - <: $row.image_name :></td>
-</tr>
+<h3>Input file # <: $row.count :> - <: $row.script_name :></h3>
+<p>
+<: $row.note :><br />
+<object data = "<: $row.image :>"></object><br />
+Output file # <: $row.count :> - <: $row.image :>
+</p>
 :}
-</table>
 
 <hr />
 

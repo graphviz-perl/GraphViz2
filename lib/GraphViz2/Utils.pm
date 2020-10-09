@@ -62,20 +62,13 @@ sub generate_demo_index
 	my $html_dir_name = $config->{output_dir};
 	my(%script_file)  = GraphViz2::Filer -> new -> get_scripts;
 
-	my($html_name);
-	my(@line);
-	my($note);
-
 	for my $key (sort keys %script_file)
 	{
-		@line      = read_file($script_file{$key});
-		$note      = $line[3];
-		$note      =~ s/Annotation: //;
-		$html_name = "$html_dir_name/$key.svg";
-
+		my @line      = read_file($script_file{$key});
+		my $note      = $line[3];
+		$note      =~ s/# Annotation: //;
 		$script_file{$key} =
 		{
-			image_name  => -e $html_name ? $html_name : '',
 			note        => $note,
 			script_name => $script_file{$key},
 		};
@@ -99,8 +92,7 @@ sub generate_demo_index
 			{
 				{
 					count       => ++$count,
-					image       => "./$_.svg",
-					image_name  => $script_file{$_}{image_name},
+					image       => "$_.svg",
 					note        => $script_file{$_}{note},
 					script_name => $script_file{$_}{script_name},
 				};
