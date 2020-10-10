@@ -1983,13 +1983,6 @@ Try: $graph -> default_node(label => '', height => 0.2, width => 0.2, style => '
 
 Because that line is so simple, I feel it's unnecessary to make a subclass of GraphViz2.
 
-=head2 What happened to GraphViz::XML?
-
-Use L<GraphViz2::Parse::XML> instead, which uses the pure-Perl XML::Tiny.
-
-Alternately, see L<GraphViz2/Scripts Shipped with this Module> for how to use L<XML::Bare>, L<GraphViz2>
-and L<GraphViz2::Data::Grapher> instead.
-
 =head2 GraphViz returned a node name from add_node() when given an anonymous node. What does GraphViz2 do?
 
 You can give the node a name, and an empty string for a label, to suppress plotting the name.
@@ -2020,11 +2013,6 @@ However, by supplying a log object, you can capture these events.
 
 Not only that, you can change the behaviour of your log object at any time, by calling
 L</logger($logger_object)>.
-
-=head2 A Note about XML Containers
-
-The 2 demo programs L</scripts/parse.html.pl> and L</scripts/parse.xml.bare.pl>, which both use L<XML::Bare>, assume your XML has a single
-parent container for all other containers. The programs use this container to provide a name for the root node of the graph.
 
 =head2 Why did you choose L<Moo> over L<Moose>?
 

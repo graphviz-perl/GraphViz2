@@ -1137,13 +1137,6 @@ Try: $graph -> default\_node(label => '', height => 0.2, width => 0.2, style => 
 
 Because that line is so simple, I feel it's unnecessary to make a subclass of GraphViz2.
 
-## What happened to GraphViz::XML?
-
-Use [GraphViz2::Parse::XML](https://metacpan.org/pod/GraphViz2::Parse::XML) instead, which uses the pure-Perl XML::Tiny.
-
-Alternately, see ["Scripts Shipped with this Module" in GraphViz2](https://metacpan.org/pod/GraphViz2#Scripts-Shipped-with-this-Module) for how to use [XML::Bare](https://metacpan.org/pod/XML::Bare), [GraphViz2](https://metacpan.org/pod/GraphViz2)
-and [GraphViz2::Data::Grapher](https://metacpan.org/pod/GraphViz2::Data::Grapher) instead.
-
 ## GraphViz returned a node name from add\_node() when given an anonymous node. What does GraphViz2 do?
 
 You can give the node a name, and an empty string for a label, to suppress plotting the name.
@@ -1174,11 +1167,6 @@ However, by supplying a log object, you can capture these events.
 
 Not only that, you can change the behaviour of your log object at any time, by calling
 ["logger($logger\_object)"](#logger-logger_object).
-
-## A Note about XML Containers
-
-The 2 demo programs ["scripts/parse.html.pl"](#scripts-parse-html-pl) and ["scripts/parse.xml.bare.pl"](#scripts-parse-xml-bare-pl), which both use [XML::Bare](https://metacpan.org/pod/XML::Bare), assume your XML has a single
-parent container for all other containers. The programs use this container to provide a name for the root node of the graph.
 
 ## Why did you choose [Moo](https://metacpan.org/pod/Moo) over [Moose](https://metacpan.org/pod/Moose)?
 
