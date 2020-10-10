@@ -1064,13 +1064,19 @@ This key is optional.
 
 =item o logger => $logger_object
 
-Provides a logger object so $logger_object -> $level($message) can be called at certain times.
-
-See "Why such a different approach to logging?" in the </FAQ> for details.
+Provides a logger object so $logger_object -> $level($message) can be called at certain times. Any object with C<debug> and C<error> methods
+will do, since these are the only levels emitted by this module.
+One option is a L<Log::Handler> object.
 
 Retrieve and update the value with the logger() method.
 
-The default is ''.
+By default (i.e. without a logger object), L<GraphViz2> prints warning and debug messages to STDOUT,
+and dies upon errors.
+
+However, by supplying a log object, you can capture these events.
+
+Not only that, you can change the behaviour of your log object at any time, by calling
+L</logger($logger_object)>.
 
 See also the verbose option, which can interact with the logger option.
 
@@ -1261,6 +1267,8 @@ Default value: 'cmapx'.
 The name of the output map file.
 
 Default: ''.
+
+If you do not set it to anything, the new image maps code is ignored.
 
 =back
 
@@ -1735,9 +1743,9 @@ Gets or sets the verbosity level, for when a logging object is not used.
 
 Here, [] indicates an optional parameter.
 
-=head1 FAQ
+=head1 MISC
 
-=head2 Which version of Graphviz do you use?
+=head2 Graphviz version supported
 
 GraphViz2 targets V 2.34.0 of L<Graphviz|http://www.graphviz.org/>.
 
@@ -1746,99 +1754,22 @@ This affects the list of available attributes per graph item (node, edge, cluste
 See the second column of the
 L<Graphviz attribute docs|https://www.graphviz.org/doc/info/attrs.html> for details.
 
-See the next item for a discussion of the list of output formats.
+=head2 Supported file formats
 
-=head2 Where does the list of valid output formats come from?
+Parses the output of C<dot -T?>, so depends on local installation.
 
-Up to V 2.23, it came from downloading and parsing https://www.graphviz.org/doc/info/output.html. This was done
-by scripts/extract.output.formats.pl.
-
-Starting with V 2.24 it comes from parsing the output of 'dot -T?'. The problems avoided, and advantages, of this are:
-
-=over 4
-
-=item o I might forget to run the script after Graphviz is updated
-
-=item o The on-line docs might be out-of-date
-
-=item o dot output includes the formats supported by locally-installed plugins
-
-=back
-
-=head2 Why do I get error messages like the following?
-
-	Error: <stdin>:1: syntax error near line 1
-	context: digraph >>>  Graph <<<  {
-
-Graphviz reserves some words as keywords, meaning they can't be used as an ID, e.g. for the name of the graph.
-So, don't do this:
-
-	strict graph graph{...}
-	strict graph Graph{...}
-	strict graph strict{...}
-	etc...
-
-Likewise for non-strict graphs, and digraphs. You can however add double-quotes around such reserved words:
-
-	strict graph "graph"{...}
-
-Even better, use a more meaningful name for your graph...
-
-The keywords are: node, edge, graph, digraph, subgraph and strict. Compass points are not keywords.
-
-See L<keywords|https://www.graphviz.org/doc/info/lang.html> in the discussion of the syntax of DOT
-for details.
-
-=head2 How do I include utf8 characters in labels?
-
-Since V 2.00, L<GraphViz2> incorporates a sample which produce graphs such as L<this|http://savage.net.au/Perl-modules/html/graphviz2/utf8.1.svg>.
-
-scripts/utf8.1.pl contains 'use utf8;' because of the utf8 characters embedded in the source code. You will need to do this.
-
-=head2 Why did you remove 'use utf8' from this file (in V 2.26)?
-
-Because it is global, i.e. it applies to all code in your program, not just within this module.
-Some modules you are using may not expect that. If you need it, just use it in your *.pl script.
-
-=head2 Why do I get 'Wide character in print...' when outputting to PNG but not SVG?
-
-As of V 2.02, you should not get this from GraphViz2. So, I suggest you study your own code very, very carefully :-(.
-
-Examine the output from scripts/utf8.2.pl, i.e. html/utf8.2.svg and you'll see it's correct. Then run:
-
-	perl scripts/utf8.2.pl png
-
-and examine html/utf8.2.png and you'll see it matches html/utf8.2.svg in showing 5 deltas. So, I I<think> it's all working.
-
-=head2 How do I print output files?
-
-Under Unix, output as PDF, and then try: lp -o fitplot html/parse.stt.pdf (or whatever).
-
-=head2 Can I include spaces and newlines in HTML labels?
-
-Yes. The code removes leading and trailing whitespace on HTML labels before calling 'dot'.
-
-Also, the code, and 'dot', both accept newlines embedded within such labels.
-
-Together, these allow HTML labels to be formatted nicely in the calling code.
-
-See L<the Graphviz docs|https://www.graphviz.org/doc/info/shapes.html#record> for their discussion on whitespace.
-
-=head2 I'm having trouble with special characters in node names and labels
+=head2 Special characters in node names and labels
 
 L<GraphViz2> escapes these 2 characters in those contexts: [].
 
 Escaping the 2 chars [] started with V 2.10. Previously, all of []{} were escaped, but {} are used in records
 to control the orientation of fields, so they should not have been escaped in the first place.
-See scripts/record.1.pl.
-
-Double-quotes are escaped when the label is I<not> an HTML label. See scripts/html.labels.*.pl for sample code.
 
 It would be nice to also escape | and <, but these characters are used in specifying fields and ports in records.
 
 See the next couple of points for details.
 
-=head2 A warning about L<Graphviz|http://www.graphviz.org/> and ports
+=head2 Ports
 
 Ports are what L<Graphviz|http://www.graphviz.org/> calls those places on the outline of a node where edges
 leave and terminate.
@@ -1867,17 +1798,15 @@ You can specify labels with ports in these ways:
 
 =item o As a string
 
-From scripts/record.1.pl:
-
 	$graph -> add_node(name => 'struct3', label => "hello\nworld |{ b |{c|<here> d|e}| f}| g | h");
 
 Here, the string contains a port (<here>), field markers (|), and orientation markers ({}).
 
 Clearly, you must specify the field separator character '|' explicitly. In the next 2 cases, it is implicit.
 
-Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again, from scripts/record.1.pl:
+Then you use $graph -> add_edge(...) to refer to those ports, if desired:
 
-$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
+	$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
 
 The same label is specified in the next case.
 
@@ -1918,7 +1847,7 @@ Each hashref is a field, and hence you do not specify the field separator charac
 
 Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again, from scripts/record.2.pl:
 
-$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
+	$graph -> add_edge(from => 'struct1:f2', to => 'struct3:here', color => 'red');
 
 The same label is specified in the previous case.
 
@@ -1943,80 +1872,20 @@ Here's how you refer to those ports, again from scripts/html.labels.1.pl:
 
 See also the docs for the C<< add_node(name => $node_name, [%hash]) >> method.
 
-=head2 How do I specify attributes for clusters?
+=head2 Attributes for clusters
 
 Just use subgraph => {...}, because the code (as of V 2.22) accepts attributes belonging to either clusters or subgraphs.
 
 An example attribute is C<pencolor>, which is used for clusters but not for subgraphs:
 
-	$graph -> push_subgraph
-	(
+	$graph->push_subgraph(
 		graph    => {label => 'Child the Second'},
 		name     => 'cluster Second subgraph',
 		node     => {color => 'magenta', shape => 'diamond'},
 		subgraph => {pencolor => 'white'}, # White hides the cluster's frame.
 	);
-
-See scripts/sub.graph.frames.pl.
-
-=head2 Why does L<GraphViz> plot top-to-bottom but L<GraphViz2::Parse::ISA> plot bottom-to-top?
-
-Because the latter knows the data is a class structure. The former makes no assumptions about the nature of the data.
-
-=head2 What happened to GraphViz::No?
-
-The default_node(%hash) method in L<GraphViz2> allows you to make nodes vanish.
-
-Try: $graph -> default_node(label => '', height => 0, width => 0, style => 'invis');
-
-Because that line is so simple, I feel it's unnecessary to make a subclass of GraphViz2.
-
-=head2 What happened to GraphViz::Regex?
-
-See L<GraphViz2::Parse::Regexp>.
-
-=head2 What happened to GraphViz::Small?
-
-The default_node(%hash) method in L<GraphViz2> allows you to make nodes which are small.
-
-Try: $graph -> default_node(label => '', height => 0.2, width => 0.2, style => 'filled');
-
-Because that line is so simple, I feel it's unnecessary to make a subclass of GraphViz2.
-
-=head2 GraphViz returned a node name from add_node() when given an anonymous node. What does GraphViz2 do?
-
-You can give the node a name, and an empty string for a label, to suppress plotting the name.
-
-See L</scripts/anonymous.pl> for demo code.
-
-If there is some specific requirement which this does not cater for, let me know and I can change the code.
-
-=head2 How do I use image maps?
-
-See L</Image Maps> above.
-
-=head2 I'm trying to use image maps but the non-image map code runs instead!
-
-The default value of C<im_output_file> is '', so if you do not set it to anything, the new image maps code
-is ignored.
-
-=head2 Why such a different approach to logging?
-
-As you can see from scripts/*.pl, I always use L<Log::Handler>,
-but you don't have to: any object with C<debug> and C<error> methods
-will do, since these are the only levels emitted by this module.
-
-By default (i.e. without a logger object), L<GraphViz2> prints warning and debug messages to STDOUT,
-and dies upon errors.
-
-However, by supplying a log object, you can capture these events.
-
-Not only that, you can change the behaviour of your log object at any time, by calling
-L</logger($logger_object)>.
-
-=head2 Why did you choose L<Moo> over L<Moose>?
-
-L<Moo> is light-weight.
+	# other nodes or edges can be added within it...
+	$graph->pop_subgraph;
 
 =head1 TODO
 
