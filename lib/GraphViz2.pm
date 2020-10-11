@@ -180,11 +180,10 @@ sub BUILD
 {
 	my($self)    = @_;
 	my($globals) = $self -> global;
-	my($dot)     = which('dot');
 	my($global)  =
 	{
 		directed		=> $$globals{directed} ? 'digraph' : 'graph',
-		driver			=> $$globals{driver} || $dot,
+		driver			=> $$globals{driver} || which('dot'),
 		format			=> $$globals{format} ||	'svg',
 		im_format		=> $$globals{im_format} || 'cmapx',
 		label			=> $$globals{directed} ? '->' : '--',
