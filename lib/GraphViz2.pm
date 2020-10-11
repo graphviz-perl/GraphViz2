@@ -26,11 +26,15 @@ has command =>
 
 has dot_input =>
 (
-	default  => sub{return ''},
-	is       => 'rw',
+	is       => 'lazy',
 	isa      => Str,
 	required => 0,
 );
+
+sub _build_dot_input {
+	my ($self) = @_;
+	join('', @{ $self->command }) . "}\n";
+}
 
 has dot_output =>
 (
@@ -661,7 +665,6 @@ sub run
 	%arg			= ($prefix_1 => 1);
 
 	$self->validate_params('output_format', \%arg);
-	$self -> dot_input(join('', @{ $self->command }) . "}\n");
 	$self -> log(debug => $self -> dot_input);
 
 	# Warning: Do not use $im_format in this 'if', because it has a default value.
@@ -1479,10 +1482,7 @@ new(subgraph => {}) and push_subgraph(subgraph => {}).
 
 =head2 dot_input()
 
-Returns the output stream, formatted nicely, which was passed to the external program (e.g. dot).
-
-You I<must> call run() before calling dot_input(), since it is only during the call to run() that the output stream is
-stored in the buffer controlled by dot_input().
+Returns the output stream, formatted nicely, to be passed to the external program (e.g. dot).
 
 =head2 dot_output()
 
@@ -1699,13 +1699,7 @@ This method performs a series of tasks:
 
 =over 4
 
-=item o Formats the output stream
-
-=item o Stores the formatted output in a buffer controlled by the dot_input() method
-
-=item o Output the output stream to a file
-
-=item o Run the chosen external program on that file
+=item o Run the chosen external program on the L</dot_input>
 
 =item o Capture STDOUT and STDERR from that program
 

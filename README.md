@@ -659,10 +659,7 @@ new(subgraph => {}) and push\_subgraph(subgraph => {}).
 
 ## dot\_input()
 
-Returns the output stream, formatted nicely, which was passed to the external program (e.g. dot).
-
-You _must_ call run() before calling dot\_input(), since it is only during the call to run() that the output stream is
-stored in the buffer controlled by dot\_input().
+Returns the output stream, formatted nicely, to be passed to the external program (e.g. dot).
 
 ## dot\_output()
 
@@ -877,10 +874,7 @@ to recover the output of the external program is to call dot\_output().
 
 This method performs a series of tasks:
 
-- o Formats the output stream
-- o Stores the formatted output in a buffer controlled by the dot\_input() method
-- o Output the output stream to a file
-- o Run the chosen external program on that file
+- o Run the chosen external program on the ["dot\_input"](#dot_input)
 - o Capture STDOUT and STDERR from that program
 - o Die if STDERR contains anything
 - o Copies STDOUT to the buffer controlled by the dot\_output() method

@@ -54,7 +54,6 @@ if (@ARGV) {
   # run as a test
   require Test::More;
   require Test::Snapshot;
-  $graph->run(format => 'dot');
   Test::Snapshot::is_deeply_snapshot($graph->dot_input, 'dot file');
   Test::More::done_testing();
 }

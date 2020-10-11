@@ -1,4 +1,5 @@
 - fix bugs in webgen scripts
+- make dot_input be lazy-built
 
 2.54 2020-10-09
 - zap report_valid_attributes method
