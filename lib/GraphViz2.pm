@@ -283,11 +283,9 @@ sub add_edge
 		splice(@field, 1, $#field, join('', @field[1 .. $#field]) ) if ($#field > 0);
 
 		# This line is mandatory - It overwrites $from and $to for use after the loop.
-
 		$name     = $field[0];
 		$field[1] = '' if ($#field == 0);
-
-		push @node, [$name, $field[1] ];
+		push @node, \@field;
 
 		if (!(my $nh = $self->node_hash)->{$name}) {
 			$self->log(debug => "Implicitly added node: $name");
@@ -296,22 +294,14 @@ sub add_edge
 	}
 
 	# Add this edge to the hashref of all edges.
-
-	my($edge)          = $self -> edge_hash;
-	$$edge{$from}      = {} if (! $$edge{$from});
-	$$edge{$from}{$to} = [] if (! $$edge{$from}{$to});
-
-	push @{$$edge{$from}{$to} },
-	{
-		attributes => {%arg},
+	push @{$self->edge_hash->{$from}{$to}}, {
+		attributes => \%arg,
 		from_port  => $node[0][1],
 		to_port    => $node[1][1],
 	};
 
 	# Add this edge to the DOT output string.
-
-	my($dot) = $self -> stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, {%arg});
-
+	my($dot) = $self->stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
 	$self -> log(debug => "Added edge: $dot");
 
