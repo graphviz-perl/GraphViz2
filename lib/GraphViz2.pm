@@ -450,33 +450,6 @@ sub default_subgraph
 
 } # End of default_subgraph.
 
-# -----------------------------------------------
-
-sub dependency
-{
-	my($self, %arg) = @_;
-	my($data) = delete $arg{data} || die 'Error: No dependency data provided';
-	my(@item) = sort{$a -> id cmp $b -> id} $data -> source -> items;
-
-	for my $item (@item)
-	{
-		$self -> add_node(name => $item -> id);
-	}
-
-	for my $from (@item)
-	{
-		for my $to ($from -> depends)
-		{
-			$self -> add_edge(from => $from -> id, to => $to);
-		}
-	}
-
-	return $self;
-
-} # End of dependency.
-
-# -----------------------------------------------
-
 sub escape_some_chars
 {
 	my($self, $s) = @_;
