@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Deeply nested records using strings as labels.
 
 use strict;
@@ -15,7 +12,10 @@ my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},
 	global => {directed => 1},
-	graph  => {label => "Record demo $id - Deeply nested records using strings as labels"},
+	graph  => {
+          label => "Record demo $id - Deeply nested records " .
+            "using strings as labels"
+        },
 	node   => {shape => 'record'},
 );
 
@@ -49,10 +49,18 @@ label => join('|',
   ' z',
 ));
 
-$graph -> add_edge(from => 'Alphabet:port_a', to => 'Alphabet:port_n', color => 'maroon');
-$graph -> add_edge(from => 'Alphabet:port_b', to => 'Alphabet:port_s', color => 'blue');
-$graph -> add_edge(from => 'Alphabet:port_d', to => 'Alphabet:port_w', color => 'red');
-$graph -> add_edge(from => 'Alphabet:port_y', to => 'Alphabet:port_h', color => 'green');
+$graph -> add_edge(
+  from => 'Alphabet:port_a', to => 'Alphabet:port_n', color => 'maroon',
+);
+$graph -> add_edge(
+  from => 'Alphabet:port_b', to => 'Alphabet:port_s', color => 'blue',
+);
+$graph -> add_edge(
+  from => 'Alphabet:port_d', to => 'Alphabet:port_w', color => 'red',
+);
+$graph -> add_edge(
+  from => 'Alphabet:port_y', to => 'Alphabet:port_h', color => 'green',
+);
 
 if (@ARGV) {
   my($format)      = shift || 'svg';

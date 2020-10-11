@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates a trivial 3-node graph, with colors.
 
 use strict;

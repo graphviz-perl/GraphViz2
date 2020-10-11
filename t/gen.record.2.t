@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Nested records using an arrayref of hashrefs as labels.
 
 use strict;

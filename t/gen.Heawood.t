@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates the transitive 6-net, also known as Heawood's graph.
 #
 # Reverse-engineered from graphs/directed/Heawood.gv from the Graphviz distro for V 2.26.3.

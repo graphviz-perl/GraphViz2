@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates a HTML label with a table.
 
 use strict;
@@ -15,7 +12,11 @@ my($graph) = GraphViz2 -> new
 (
 	edge   => {color => 'grey'},
 	global => {directed => 1},
-	graph  => {label => "HTML label demo # $id - Using \\<\\<table\\> ... \\</table\\>\\>", rankdir => 'TB'},
+	graph  => {
+          label => "HTML label demo # $id - Using \\<\\<table\\> ... " .
+            "\\</table\\>\\>",
+          rankdir => 'TB',
+        },
 	node   => {shape => 'oval'},
 );
 

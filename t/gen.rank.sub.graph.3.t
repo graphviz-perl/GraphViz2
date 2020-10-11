@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates subgraph name effects (non-cluster version).
 
 use strict;

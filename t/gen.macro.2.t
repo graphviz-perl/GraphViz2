@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates linked non-cluster subgraphs via a macro.
 
 use strict;

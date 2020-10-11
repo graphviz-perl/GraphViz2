@@ -31,7 +31,7 @@ sub get_annotations
 	{
 		my @line = read_file(File::Spec->catfile($dir_name, $file_name));
 
-		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (.+)$/) )
+		if ($line[0] =~ /^# Annotation: (.+)$/)
 		{
 			# Preserve $1 in case basename changes it.
 
@@ -82,7 +82,7 @@ sub get_scripts
 	{
 		my @line = read_file($file_name);
 
-		if ( ($#line >= 3) && ($line[3] =~ /^# Annotation: (?:.+)$/) )
+		if ($line[0] =~ /^# Annotation: (.+)$/)
 		{
 			$script{basename($file_name, '.t')} = $file_name;
 		}
@@ -159,7 +159,7 @@ It returns a new object of type C<GraphViz2::Filer>.
 
 =head2 get_annotations()
 
-Returns a hash (sic) keyed by *.pl name, with the values being the text off line 3 of each script.
+Returns a hash (sic) keyed by *.pl name, with the values being the text off line 0 of each script.
 
 This text is used to annotate html/index.html, the output of scripts/generate.demo.pl.
 

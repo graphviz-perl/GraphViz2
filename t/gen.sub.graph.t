@@ -1,6 +1,3 @@
-#!/usr/bin/env perl
-#
-# Note: t/test.t searches for the next line.
 # Annotation: Demonstrates a subgraph (with a frame because the subgroup is called cluster_*).
 
 use strict;

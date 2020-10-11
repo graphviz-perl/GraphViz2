@@ -65,7 +65,7 @@ sub generate_demo_index
 	for my $key (sort keys %script_file)
 	{
 		my @line      = read_file($script_file{$key});
-		my $note      = $line[3];
+		my $note      = $line[0];
 		$note      =~ s/# Annotation: //;
 		$script_file{$key} =
 		{

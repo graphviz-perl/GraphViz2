@@ -17,10 +17,8 @@
 :for $data -> $row {
 <h3>Input file # <: $row.count :> - <: $row.script_name :></h3>
 <h4><: $row.note :></h4>
-<table><tr>
-<td><pre><: $row.script_text :></pre></td>
-<td><object data = "<: $row.image :>"></object></td>
-</tr></table>
+<pre><: $row.script_text :></pre>
+<object data = "<: $row.image :>"></object>
 <br />
 Output file # <: $row.count :> - <: $row.image :>
 :}
