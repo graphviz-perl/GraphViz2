@@ -521,45 +521,28 @@ sub load_valid_attributes
 
 	# Phase 1: Get attributes from __DATA__ section.
 
-	my($data) = get_data_section;
-
-	my(%data);
-
-	for my $key (sort keys %$data)
-	{
-		$data{$key} = [grep{! /^$/ && ! /^(?:\s*)#/} split(/\n/, $$data{$key})];
-	}
+	my $data_raw = get_data_section;
+	my %data = map +($_ => [
+		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$data_raw{$_}
+	]), keys %$data_raw;
 
 	# Phase 2: Reorder them so the major key is the context and the minor key is the attribute.
 	# I.e. $attribute{global}{directed} => 1 means directed is valid in a global context.
 
-	my(%attribute);
-
-	for my $context (grep{! /common_attribute/} keys %$data)
-	{
-		for my $a (@{$data{$context} })
-		{
-			$attribute{$context}{$a} = 1;
-		}
-	}
+	my %attribute;
 
 	# Common attributes are a special case, since one attribute can be valid is several contexts...
 	# Format: attribute_name => context_1, context_2.
-
-	my($attribute);
-	my($context, @context);
-
-	for my $a (@{$data{common_attribute} })
-	{
-		($attribute, $context) = split(/\s*=>\s*/, $a);
-		@context               = split(/\s*,\s*/, $context);
-
-		for my $c (@context)
-		{
-			$attribute{$c}             = {} if (! $attribute{$c});
-			$attribute{$c}{$attribute} = 1;
+	for my $a (@{ delete $data{common_attribute} }) {
+		my ($attribute, $context) = split /\s*=>\s*/, $a;
+		my @context               = split /\s*,\s*/, $context;
+		for my $c (@context) {
+			$attribute{$c}             ||= {};
+			$attribute{$c}{$attribute} = undef;
 		}
 	}
+
+	@{$attribute{$_}}{ @{$data{$_}} } = () for keys %data;
 
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
@@ -770,7 +753,7 @@ sub validate_params
 
 	for my $a (sort keys %$attributes)
 	{
-		next if ($valid->{$context}{$a} || ( ($context eq 'subgraph') && $valid->{cluster}{$a}) );
+		next if exists $valid->{$context}{$a} || ( ($context eq 'subgraph') && exists $valid->{cluster}{$a});
 
 		$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
 	}
