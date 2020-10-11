@@ -1,5 +1,5 @@
 'digraph Perl {
- graph [ rankdir="TB" ]
+ graph [ margin="0.125" page="8.25,10.75" rankdir="TB" rotate="90" size="8.25,10.75" ]
  node [ shape="oval" ]
  edge [ color="grey" ]
  "Here"
