@@ -257,11 +257,6 @@ sub add_edge
 
 	$self->validate_params('edge', \%arg);
 
-	# If either 'from' or 'to' is unknown, add a new node.
-
-	my($new)  = 0;
-	my($node) = $self -> node_hash;
-
 	my(@node);
 
 	for my $name ($from, $to)
@@ -294,11 +289,9 @@ sub add_edge
 
 		push @node, [$name, $field[1] ];
 
-		if (! defined $$node{$name})
-		{
-			$new = 1;
-
-			$self -> add_node(name => $name);
+		if (!(my $nh = $self->node_hash)->{$name}) {
+			$self->log(debug => "Implicitly added node: $name");
+			$nh->{$name}{attributes} = {};
 		}
 	}
 
