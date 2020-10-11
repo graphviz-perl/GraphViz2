@@ -243,7 +243,23 @@ sub BUILD
 
 } # End of BUILD.
 
-# -----------------------------------------------
+sub _edge_name_port {
+	my ($self, $name) = @_;
+	$name //= '';
+	# Remove :port:compass, if any, from name.
+	# But beware Perl-style node names like 'A::Class'.
+	my @field = split /(:(?!:))/, $name;
+	$field[0] = $name if !@field;
+	# Restore Perl module names:
+	# o A: & B to A::B.
+	# o A: & B: & C to A::B::C.
+	splice @field, 0, 3, "$field[0]:$field[2]" while $field[0] =~ /:$/;
+	# Restore:
+	# o : & port to :port.
+	# o : & port & : & compass to :port:compass.
+	$name = shift @field;
+	($name, join '', @field);
+}
 
 sub add_edge
 {
@@ -257,56 +273,29 @@ sub add_edge
 
 	$self->validate_params('edge', \%arg);
 
-	my(@node);
-
-	for my $name ($from, $to)
-	{
-		# Remove :port:compass, if any, from name.
-		# But beware Perl-style node names like 'A::Class'.
-
-		my(@field) = split(/(:(?!:))/, $name);
-		$field[0]  = $name if ($#field < 0);
-
-		# Restore Perl module names:
-		# o A: & B to A::B.
-		# o A: & B: & C to A::B::C.
-
-		while ($field[0] =~ /:$/)
-		{
-			splice(@field, 0, 3, "$field[0]:$field[2]");
-		}
-
-		# Restore:
-		# o : & port to :port.
-		# o : & port & : & compass to :port:compass.
-
-		splice(@field, 1, $#field, join('', @field[1 .. $#field]) ) if ($#field > 0);
-
-		# This line is mandatory - It overwrites $from and $to for use after the loop.
-		$name     = $field[0];
-		$field[1] = '' if ($#field == 0);
-		push @node, \@field;
-
-		if (!(my $nh = $self->node_hash)->{$name}) {
-			$self->log(debug => "Implicitly added node: $name");
-			$nh->{$name}{attributes} = {};
-		}
+	my @nodes;
+	for my $name ($from, $to) {
+		# overwrite $name for use after the loop
+		($name, my $port) = $self->_edge_name_port($name);
+		push @nodes, [ $name, $port ];
+		next if (my $nh = $self->node_hash)->{$name};
+		$self->log(debug => "Implicitly added node: $name");
+		$nh->{$name}{attributes} = {};
 	}
 
 	# Add this edge to the hashref of all edges.
 	push @{$self->edge_hash->{$from}{$to}}, {
 		attributes => \%arg,
-		from_port  => $node[0][1],
-		to_port    => $node[1][1],
+		from_port  => $nodes[0][1],
+		to_port    => $nodes[1][1],
 	};
 
 	# Add this edge to the DOT output string.
-	my($dot) = $self->stringify_attributes(qq|"$from"$node[0][1] ${$self -> global}{label} "$to"$node[1][1]|, \%arg);
+	my $dot = $self->stringify_attributes(qq|"$from"$nodes[0][1] ${$self -> global}{label} "$to"$nodes[1][1]|, \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
 	$self -> log(debug => "Added edge: $dot");
 
 	return $self;
-
 } # End of add_edge.
 
 sub _indent {
