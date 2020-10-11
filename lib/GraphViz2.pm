@@ -342,9 +342,7 @@ sub add_node
 	$self->validate_params('node', \%arg);
 
 	my($node)                 = $self -> node_hash;
-	$$node{$name}             ||= {};
-	$$node{$name}{attributes} ||= {};
-	$$node{$name}{attributes} = {%{$$node{$name}{attributes} }, %arg};
+	$$node{$name}{attributes} = {%{$$node{$name}{attributes} || {}}, %arg};
 	%arg                      = %{$$node{$name}{attributes} };
 	my($label)                = $arg{label} // '';
 	$label                    =~ s/^\s+(<)/$1/;
