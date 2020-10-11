@@ -896,7 +896,7 @@ Also, if $context is 'subgraph', attributes are allowed to be in the 'cluster' c
 
 Returns $self to allow method chaining.
 
-$context is one of 'edge', 'global', 'graph', 'node' or 'output\_format'.
+$context is one of 'edge', 'global', 'graph', or 'node'.
 
 You wouldn't normally need to use this method.
 

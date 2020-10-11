@@ -139,6 +139,24 @@ has valid_attributes =>
 	required => 0,
 );
 
+has valid_output_format => (
+	is       => 'lazy',
+	isa      => HashRef,
+	required => 0,
+);
+
+sub _build_valid_output_format {
+	my ($self) = @_;
+	run3
+		['dot', "-T?"],
+		undef,
+		\my $stdout,
+		\my $stderr,
+		;
+	$stderr =~ s/.*one of:\s+//;
+	+{ map +($_ => undef), split /\s+/, $stderr };
+}
+
 our $VERSION = '2.54';
 
 # -----------------------------------------------
@@ -546,18 +564,6 @@ sub load_valid_attributes
 
 	@{$attribute{subgraph}}{ keys %{ delete $attribute{cluster} } } = ();
 
-	# Since V 2.24, output formats are no longer read from the __DATA__ section.
-	# Rather, they are extracted from the stderr output of 'dot -T?'.
-
-	run3
-		['dot', "-T?"],
-		undef,
-		\my $stdout,
-		\my $stderr,
-		;
-	my(@field)						= split(/one of:\s+/, $stderr);
-	$attribute{output_format}{$_}	= 1 for split(/\s+/, $field[1]);
-
 	$self -> valid_attributes(\%attribute);
 
 	return $self;
@@ -639,17 +645,14 @@ sub run
 	my($timeout)		= delete $arg{timeout}			|| ${$self -> global}{timeout};
 	my($output_file)	= delete $arg{output_file}		|| '';
 	my($im_output_file)	= delete $arg{im_output_file}	|| '';
-	my($prefix)			= $format;
-	$prefix				=~ s/:.+$//; # In case of 'png:gd', etc.
-	%arg				= ($prefix => 1);
 
-	$self->validate_params('output_format', \%arg);
+	for ($format, $im_format) {
+		my $prefix = $_;
+		$prefix =~ s/:.+$//; # In case of 'png:gd', etc.
+		$self->log(error => "Error: '$prefix' is not a valid output format")
+			if !exists $self->valid_output_format->{$prefix};
+	}
 
-	my($prefix_1)	= $im_format;
-	$prefix_1		=~ s/:.+$//; # In case of 'png:gd', etc.
-	%arg			= ($prefix_1 => 1);
-
-	$self->validate_params('output_format', \%arg);
 	$self -> log(debug => $self -> dot_input);
 
 	# Warning: Do not use $im_format in this 'if', because it has a default value.
@@ -752,10 +755,8 @@ sub validate_params
 {
 	my($self, $context, $attributes) = @_;
 	my $valid = $self->valid_attributes->{$context};
-
 	my @invalid = grep !exists $valid->{$_}, keys %$attributes;
 	$self->log(error => "Error: '$_' is not a valid attribute in the '$context' context") for sort @invalid;
-
 	return $self;
 
 } # End of validate_params.
@@ -1708,7 +1709,7 @@ Also, if $context is 'subgraph', attributes are allowed to be in the 'cluster' c
 
 Returns $self to allow method chaining.
 
-$context is one of 'edge', 'global', 'graph', 'node' or 'output_format'.
+$context is one of 'edge', 'global', 'graph', or 'node'.
 
 You wouldn't normally need to use this method.
 
