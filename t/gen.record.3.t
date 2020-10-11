@@ -20,7 +20,34 @@ my($graph) = GraphViz2 -> new
 );
 
 $graph -> add_node(name => 'Alphabet',
-label => '<port_a> a:port_a |{<port_b> b:port_b | c |{<port_d> d:port_d | e | f |{ g |<port_h> h:port_h | i | j |{ k | l | m |<port_n> n:port_n | o | p}| q | r |<port_s> s:port_s | t }| u | v |<port_w> w:port_w }| x |<port_y> y:port_y }| z');
+label => join('|',
+  '<port_a> a:port_a ',
+  '{<port_b> b:port_b ',
+  ' c ',
+  '{<port_d> d:port_d ',
+  ' e ',
+  ' f ',
+  '{ g ',
+  '<port_h> h:port_h ',
+  ' i ',
+  ' j ',
+  '{ k ',
+  ' l ',
+  ' m ',
+  '<port_n> n:port_n ',
+  ' o ',
+  ' p}',
+  ' q ',
+  ' r ',
+  '<port_s> s:port_s ',
+  ' t }',
+  ' u ',
+  ' v ',
+  '<port_w> w:port_w }',
+  ' x ',
+  '<port_y> y:port_y }',
+  ' z',
+));
 
 $graph -> add_edge(from => 'Alphabet:port_a', to => 'Alphabet:port_n', color => 'maroon');
 $graph -> add_edge(from => 'Alphabet:port_b', to => 'Alphabet:port_s', color => 'blue');

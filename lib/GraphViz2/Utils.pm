@@ -71,6 +71,7 @@ sub generate_demo_index
 		{
 			note        => $note,
 			script_name => $script_file{$key},
+			script_text => join("\n", @line),
 		};
 	}
 
@@ -86,18 +87,13 @@ sub generate_demo_index
 	'graphviz2.index.tx',
 	{
 		default_css     => "$$config{css_url}/default.css",
-		data =>
-			[
-			map
+		data => [ map {
 			{
-				{
-					count       => ++$count,
-					image       => "$_.svg",
-					note        => $script_file{$_}{note},
-					script_name => $script_file{$_}{script_name},
-				};
-			} @key
-			],
+				count       => ++$count,
+				image       => "$_.svg",
+				%{ $script_file{$_} },
+			};
+		} @key ],
 		environment     => $self -> generate_demo_environment,
 		fancy_table_css => "$$config{css_url}/fancy.table.css",
 		version         => $GraphViz2::VERSION,
@@ -105,7 +101,7 @@ sub generate_demo_index
 	);
 	my($file_name) = File::Spec -> catfile($html_dir_name, 'index.html');
 
-	open(my $fh, '>', $file_name);
+	open(my $fh, '>:encoding(UTF-8)', $file_name);
 	print $fh $index;
 	close $fh;
 
