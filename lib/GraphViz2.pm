@@ -751,13 +751,10 @@ sub stringify_attributes
 sub validate_params
 {
 	my($self, $context, $attributes) = @_;
-	my $valid = $self->valid_attributes;
+	my $valid = $self->valid_attributes->{$context};
 
-	for my $a (sort keys %$attributes)
-	{
-		next if exists $valid->{$context}{$a};
-		$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
-	}
+	my @invalid = grep !exists $valid->{$_}, keys %$attributes;
+	$self->log(error => "Error: '$_' is not a valid attribute in the '$context' context") for sort @invalid;
 
 	return $self;
 
