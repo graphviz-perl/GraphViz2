@@ -544,6 +544,8 @@ sub load_valid_attributes
 
 	@{$attribute{$_}}{ @{$data{$_}} } = () for keys %data;
 
+	@{$attribute{subgraph}}{ keys %{ delete $attribute{cluster} } } = ();
+
 	# Since V 2.24, output formats are no longer read from the __DATA__ section.
 	# Rather, they are extracted from the stderr output of 'dot -T?'.
 
@@ -753,8 +755,7 @@ sub validate_params
 
 	for my $a (sort keys %$attributes)
 	{
-		next if exists $valid->{$context}{$a} || ( ($context eq 'subgraph') && exists $valid->{cluster}{$a});
-
+		next if exists $valid->{$context}{$a};
 		$self -> log(error => "Error: '$a' is not a valid attribute in the '$context' context");
 	}
 
