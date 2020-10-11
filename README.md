@@ -726,16 +726,6 @@ Escapes various chars in various circumstances, because some chars are treated s
 
 See ["Special characters in node names and labels"](#special-characters-in-node-names-and-labels) for a discussion of this tricky topic.
 
-## load\_valid\_attributes()
-
-Load various sets of valid attributes from within the source code of this module, using [Data::Section::Simple](https://metacpan.org/pod/Data::Section::Simple).
-
-Returns $self to allow method chaining.
-
-These attributes are used to validate attributes in many situations.
-
-You wouldn't normally need to use this method.
-
 ## log(\[$level, $message\])
 
 Logs the message at the given log level.
@@ -839,6 +829,10 @@ See scripts/rank.sub.graph.\[12\].pl and scripts/sub.graph.frames.pl for sample 
 
 Returns a hashref of all attributes known to this module, keyed by type
 to hashrefs to true values.
+
+Stored in this module, using [Data::Section::Simple](https://metacpan.org/pod/Data::Section::Simple).
+
+These attributes are used to validate attributes in many situations.
 
 You wouldn't normally need to use this method.
 

@@ -133,11 +133,30 @@ has verbose =>
 
 has valid_attributes =>
 (
-	default  => sub{return {} },
-	is       => 'rw',
+	is       => 'lazy',
 	isa      => HashRef,
 	required => 0,
 );
+
+sub _build_valid_attributes {
+	my($self) = @_;
+	my $data_raw = get_data_section;
+	my %data = map +($_ => [
+		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$data_raw{$_}
+	]), keys %$data_raw;
+	# Reorder them so the major key is the context and the minor key is the attribute.
+	# I.e. $attribute{global}{directed} => undef means directed is valid in a global context.
+	my %attribute;
+	# Common attributes are a special case, since one attribute can be valid is several contexts...
+	# Format: attribute_name => context_1, context_2.
+	for my $a (@{ delete $data{common_attribute} }) {
+		my ($attr, $contexts) = split /\s*=>\s*/, $a;
+		$attribute{$_}{$attr} = undef for split /\s*,\s*/, $contexts;
+	}
+	@{$attribute{$_}}{ @{$data{$_}} } = () for keys %data;
+	@{$attribute{subgraph}}{ keys %{ delete $attribute{cluster} } } = ();
+	\%attribute;
+}
 
 has valid_output_format => (
 	is       => 'lazy',
@@ -187,7 +206,6 @@ sub BUILD
 
 	$self -> global($global);
 	$self -> im_meta($im_meta);
-	$self -> load_valid_attributes;
 	$self->validate_params('global',	$self->global);
 	$self->validate_params('graph',		$self->graph);
 	$self->validate_params('im_meta',	$self->im_meta);
@@ -530,47 +548,6 @@ sub escape_some_chars
 	return $label;
 
 } # End of escape_some_chars.
-
-# -----------------------------------------------
-
-sub load_valid_attributes
-{
-	my($self) = @_;
-
-	# Phase 1: Get attributes from __DATA__ section.
-
-	my $data_raw = get_data_section;
-	my %data = map +($_ => [
-		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$data_raw{$_}
-	]), keys %$data_raw;
-
-	# Phase 2: Reorder them so the major key is the context and the minor key is the attribute.
-	# I.e. $attribute{global}{directed} => 1 means directed is valid in a global context.
-
-	my %attribute;
-
-	# Common attributes are a special case, since one attribute can be valid is several contexts...
-	# Format: attribute_name => context_1, context_2.
-	for my $a (@{ delete $data{common_attribute} }) {
-		my ($attribute, $context) = split /\s*=>\s*/, $a;
-		my @context               = split /\s*,\s*/, $context;
-		for my $c (@context) {
-			$attribute{$c}             ||= {};
-			$attribute{$c}{$attribute} = undef;
-		}
-	}
-
-	@{$attribute{$_}}{ @{$data{$_}} } = () for keys %data;
-
-	@{$attribute{subgraph}}{ keys %{ delete $attribute{cluster} } } = ();
-
-	$self -> valid_attributes(\%attribute);
-
-	return $self;
-
-} # End of load_valid_attributes.
-
-# -----------------------------------------------
 
 sub log
 {
@@ -1531,16 +1508,6 @@ Escapes various chars in various circumstances, because some chars are treated s
 
 See L</Special characters in node names and labels> for a discussion of this tricky topic.
 
-=head2 load_valid_attributes()
-
-Load various sets of valid attributes from within the source code of this module, using L<Data::Section::Simple>.
-
-Returns $self to allow method chaining.
-
-These attributes are used to validate attributes in many situations.
-
-You wouldn't normally need to use this method.
-
 =head2 log([$level, $message])
 
 Logs the message at the given log level.
@@ -1644,6 +1611,10 @@ See scripts/rank.sub.graph.[12].pl and scripts/sub.graph.frames.pl for sample co
 
 Returns a hashref of all attributes known to this module, keyed by type
 to hashrefs to true values.
+
+Stored in this module, using L<Data::Section::Simple>.
+
+These attributes are used to validate attributes in many situations.
 
 You wouldn't normally need to use this method.
 
