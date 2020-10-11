@@ -609,7 +609,7 @@ The string may contain ports and orientation markers ({}).
 
 See scripts/html.labels.\*.pl and scripts/record.\*.pl for sample code.
 
-See also the FAQ topic ["How labels interact with ports"](#how-labels-interact-with-ports).
+See also ["How labels interact with ports"](#how-labels-interact-with-ports).
 
 For more details on this complex topic, see [Records](http://www.graphviz.org/doc/info/shapes.html#record) and [Ports](http://www.graphviz.org/doc/info/attrs.html#k:portPos).
 
@@ -727,7 +727,7 @@ See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.1.pl) fo
 
 Escapes various chars in various circumstances, because some chars are treated specially by Graphviz.
 
-See the ["FAQ"](#faq) for a discussion of this tricky topic.
+See ["Special characters in node names and labels"](#special-characters-in-node-names-and-labels) for a discussion of this tricky topic.
 
 ## load\_valid\_attributes()
 

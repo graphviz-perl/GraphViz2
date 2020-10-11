@@ -1429,7 +1429,7 @@ The format is "<$port_name>".
 
 See scripts/html.labels.*.pl and scripts/record.*.pl for sample code.
 
-See also the FAQ topic L</How labels interact with ports>.
+See also L</How labels interact with ports>.
 
 For more details on this complex topic, see L<Records|http://www.graphviz.org/doc/info/shapes.html#record> and L<Ports|http://www.graphviz.org/doc/info/attrs.html#k:portPos>.
 
@@ -1547,7 +1547,7 @@ See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.1.pl) fo
 
 Escapes various chars in various circumstances, because some chars are treated specially by Graphviz.
 
-See the L</FAQ> for a discussion of this tricky topic.
+See L</Special characters in node names and labels> for a discussion of this tricky topic.
 
 =head2 load_valid_attributes()
 
