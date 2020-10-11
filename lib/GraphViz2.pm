@@ -5,16 +5,15 @@ use warnings;
 use warnings  qw(FATAL utf8); # Fatalize encoding glitches.
 
 use Data::Section::Simple 'get_data_section';
-
-use File::Basename;	# For fileparse().
 use File::Temp;		# For newdir().
 use File::Which;	# For which().
-
 use Moo;
-
 use IPC::Run3; # For run3().
-
 use Types::Standard qw/Any ArrayRef HasMethods HashRef Int Str/;
+
+our $VERSION = '2.54';
+
+my $DATA_SECTION = get_data_section; # load once
 
 has command =>
 (
@@ -140,10 +139,9 @@ has valid_attributes =>
 
 sub _build_valid_attributes {
 	my($self) = @_;
-	my $data_raw = get_data_section;
 	my %data = map +($_ => [
-		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$data_raw{$_}
-	]), keys %$data_raw;
+		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$DATA_SECTION{$_}
+	]), keys %$DATA_SECTION;
 	# Reorder them so the major key is the context and the minor key is the attribute.
 	# I.e. $attribute{global}{directed} => undef means directed is valid in a global context.
 	my %attribute;
@@ -175,8 +173,6 @@ sub _build_valid_output_format {
 	$stderr =~ s/.*one of:\s+//;
 	+{ map +($_ => undef), split /\s+/, $stderr };
 }
-
-our $VERSION = '2.54';
 
 # -----------------------------------------------
 
