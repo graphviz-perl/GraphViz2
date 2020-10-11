@@ -11,9 +11,10 @@ my $outdir = $utils->config->{output_dir};
 my %script = GraphViz2::Filer->new->get_scripts;
 
 for my $key (sort keys %script) {
-  my $cmd = "perl -Ilib t/$key.t $format $outdir/$key.$format";
-  print "$cmd\n";
-  system $cmd;
+  my $file = "t/$key.t";
+  local @ARGV = ($format, "$outdir/$key.$format");
+  print "$file @ARGV\n";
+  do "./$file";
 }
 
 $utils->generate_demo_index;
