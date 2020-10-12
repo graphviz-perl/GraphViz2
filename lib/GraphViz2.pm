@@ -227,7 +227,7 @@ sub BUILD
 
 	for my $key (grep{$im_meta{$_} } sort keys %im_meta)
 	{
-		$command .= qq|$key = "$im_meta{$key}"; \n|;
+		$command .= _indent(qq|$key = "$im_meta{$key}"; \n|, $self->scope);
 	}
 
 	push @{ $self->command }, $command;
