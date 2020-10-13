@@ -1,3 +1,4 @@
+2.55 2020-10-13
 - fix bugs in webgen scripts
 - make dot_input be lazy-built
 - zap undoc-ed dependency method that actually belongs in ::Parse::ISA
