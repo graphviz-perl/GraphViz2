@@ -183,7 +183,7 @@ sub BUILD
 	my($global)  =
 	{
 		directed		=> $$globals{directed} ? 'digraph' : 'graph',
-		driver			=> $$globals{driver} || which('dot'),
+		driver			=> $$globals{driver} || scalar(which('dot')),
 		format			=> $$globals{format} ||	'svg',
 		im_format		=> $$globals{im_format} || 'cmapx',
 		label			=> $$globals{directed} ? '->' : '--',
