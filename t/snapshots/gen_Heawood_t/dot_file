@@ -1,7 +1,7 @@
 'graph Heawood {
  graph [ rankdir="TB" ]
  edge [ color="black" ]
- node [ color="black" fontname="Arial" height="0.500000" label="\\N" shape="circle" width="0.50000" ]
+ node [ color="black" fontname="Arial" height="0.50000" shape="circle" width="0.50000" ]
  "0" -- "1"
  "1" -- "2"
  "2" -- "3"

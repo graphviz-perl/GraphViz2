@@ -2,28 +2,20 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($id)    = 2;
-my($graph) = GraphViz2 -> new
-(
-	edge   => {color => 'grey'},
+my $id    = 2;
+my $graph = GraphViz2->new(
 	global => {directed => 1},
 	graph  => {
           label => "HTML label demo # $id - Using \\<\\<table\\> ... " .
             "\\</table\\>\\>",
-          rankdir => 'TB',
         },
-	node   => {shape => 'oval'},
 );
 
-$graph -> add_node
-(
-	label =>
-q|
+$graph->add_node(
+	label => q|
 <<table bgcolor = 'white'>
 <tr>
 	<td bgcolor = 'palegreen'>The green node is the start node</td>

@@ -2,18 +2,15 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($graph) = GraphViz2 -> new
-	(
-	 edge   => {color => 'grey'},
-	 global => {directed => 1},
-	 graph  => {rankdir => 'TB'},
-	 node   => {shape => 'oval'},
-	);
+my $graph = GraphViz2->new(
+ edge   => {color => 'grey'},
+ global => {directed => 1},
+ graph  => {rankdir => 'TB'},
+ node   => {shape => 'oval'},
+);
 
 $graph -> add_node(name => '', label => ''); # Same as add_node().
 $graph -> add_node(name => 'Anonymous label 1', label => '');

@@ -1,6 +1,5 @@
 'digraph Perl {
  graph [ compound="true" label="Macro demo 5 - Compound cluster sub-graphs" rankdir="TB" ]
- node [ shape="oval" ]
  edge [ color="grey" ]
 
  subgraph "cluster 1" {

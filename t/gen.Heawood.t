@@ -4,33 +4,24 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($graph) = GraphViz2 -> new
-	(
-	 global => {name => 'Heawood'},
-	 graph  => {rankdir => 'TB'},
-	);
+my $graph = GraphViz2 -> new(
+	global => {name => 'Heawood'},
+	graph  => {rankdir => 'TB'},
+);
 
-$graph -> default_edge(color => 'black');
-$graph -> default_node
-(
+$graph->default_edge(color => 'black');
+$graph->default_node(
  fontname => "Arial",
- label    => "\\N",
  shape    => "circle",
  width    => "0.50000",
- height   => "0.500000",
+ height   => "0.50000",
  color    => "black",
 );
 
-for my $i (0 .. 12)
-{
-	$graph -> add_edge(from => $i, to => ($i + 1) );
-}
-
+$graph->add_edge(from => $_, to => ($_ + 1) ) for 0 .. 12;
 $graph -> add_edge(from => 13, to =>  0);
 $graph -> add_edge(from =>  0, to =>  5, len => 2.5);
 $graph -> add_edge(from =>  2, to =>  7, len => 2.5);

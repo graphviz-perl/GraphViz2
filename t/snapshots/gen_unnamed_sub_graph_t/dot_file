@@ -1,6 +1,5 @@
 'digraph Perl {
  graph [ label="Named and unnamed subgraphs" rankdir="TB" ]
- node [ shape="oval" ]
  edge [ color="grey" ]
 
  subgraph {
@@ -14,9 +13,9 @@
 
  subgraph {
   graph [ label="" rankdir="TB" ]
-  node [ color="blue3" shape="diamond" ]
+  node [ color="magenta" shape="diamond" ]
   edge [ color="grey" ]
-  "Glen Waverley" [ shape="pentagon" ]
+  "Glen Waverley" [ color="blue3" shape="pentagon" ]
   "Mount Waverley" [ color="darkslategrey" shape="rectangle" ]
   "Glen Waverley" -> "Mount Waverley"
  }

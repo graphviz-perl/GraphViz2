@@ -2,9 +2,7 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 use GraphViz2::Parse::STT;
 
@@ -14,17 +12,16 @@ sub read_file {
   <$fh>;
 }
 
-my($graph)  = GraphViz2 -> new
-	(
-	 edge   => {color => 'grey'},
-	 global => {directed => 1},
-	 graph  => {rankdir => 'LR'},
-	 node   => {color => 'green', shape => 'oval'},
-	);
-my($g)  = GraphViz2::Parse::STT -> new(graph => $graph);
-my $stt = read_file(File::Spec -> catfile('t', 'sample.stt.1.dat') );
+my $graph = GraphViz2->new(
+	edge   => {color => 'grey'},
+	global => {directed => 1},
+	graph  => {rankdir => 'LR'},
+	node   => {color => 'green', shape => 'oval'},
+);
+my $g = GraphViz2::Parse::STT->new(graph => $graph);
+my $stt = read_file(File::Spec->catfile('t', 'sample.stt.1.dat') );
 
-$g -> create(stt => $stt);
+$g->create(stt => $stt);
 
 if (@ARGV) {
   my($format)      = shift || 'svg';

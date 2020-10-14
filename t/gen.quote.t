@@ -2,25 +2,33 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($graph) = GraphViz2 -> new
-	(
-	 edge   => {color => 'grey'},
-	 global => {directed => 1},
-	 graph  => {rankdir => 'LR'},
-	 node   => {shape => 'oval'},
-	);
+my $graph = GraphViz2->new(
+	global => {directed => 1},
+	graph  => {rankdir => 'LR'},
+	node   => {shape => 'oval'},
+);
 
-$graph -> add_node(name => "Embedded\\nnewline\\nnode\\nname");
-$graph -> add_node(name => "Embedded newline label name", label => "Embedded\\nnewline\\nlabel");
-$graph -> add_node(name => "Embedded\\ndouble-quote\\nnode\\nname\\n\\\"");
-$graph -> add_node(name => "Embedded\\double-quote\\label", label => qq|Embedded\\ndouble-quote\\nlabel\\n\"|);
-$graph -> add_node(name => 'Line justification 1', label => "A short line\\rA much longer line");
-$graph -> add_node(name => 'Line justification 2', label => "A much longer line\\rA short line");
+$graph->add_node(name => "Embedded\\nnewline\\nnode\\nname");
+$graph->add_node(
+	name => "Embedded newline label name",
+	label => "Embedded\\nnewline\\nlabel",
+);
+$graph->add_node(name => "Embedded\\ndouble-quote\\nnode\\nname\\n\\\"");
+$graph->add_node(
+	name => "Embedded\\double-quote\\label",
+	label => qq|Embedded\\ndouble-quote\\nlabel\\n\"|,
+);
+$graph->add_node(
+	name => 'Line justification 1',
+	label => "A short line\\rA much longer line",
+);
+$graph->add_node(
+	name => 'Line justification 2',
+	label => "A much longer line\\rA short line",
+);
 
 if (@ARGV) {
   my($format)      = shift || 'svg';

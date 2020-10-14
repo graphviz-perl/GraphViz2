@@ -2,15 +2,11 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($id)    = '3';
-my($graph) = GraphViz2 -> new
-(
-	edge   => {color => 'grey'},
+my $id    = '3';
+my $graph = GraphViz2->new(
 	global => {directed => 1},
 	graph  => {
           label => "Record demo $id - Deeply nested records " .
@@ -19,7 +15,7 @@ my($graph) = GraphViz2 -> new
 	node   => {shape => 'record'},
 );
 
-$graph -> add_node(name => 'Alphabet',
+$graph->add_node(name => 'Alphabet',
 label => join('|',
   '<port_a> a:port_a ',
   '{<port_b> b:port_b ',

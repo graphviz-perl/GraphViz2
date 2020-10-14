@@ -2,13 +2,10 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($graph) = GraphViz2 -> new
-(
+my $graph = GraphViz2->new(
 	edge   => {color => 'grey'},
 	global => {directed => 1},
 	graph  => {

@@ -1,6 +1,5 @@
 'digraph Perl {
  graph [ label="Macro demo 3 - Cluster sub-graphs" rankdir="TB" ]
- node [ shape="oval" ]
  edge [ color="grey" ]
 
  subgraph "cluster 1" {

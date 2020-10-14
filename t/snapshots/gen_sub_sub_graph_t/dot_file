@@ -8,7 +8,7 @@
  "Murrumbeena" -> "Carnegie" [ arrowsize="2" ]
  "Murrumbeena" -> "Oakleigh" [ color="brown" ]
 
- subgraph "subgraph_1" {
+ subgraph "cluster_subgraph_1" {
   graph [ label="Child" rankdir="TB" ]
   node [ color="magenta" shape="diamond" ]
   edge [ color="grey" ]

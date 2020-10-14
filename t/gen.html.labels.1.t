@@ -2,22 +2,19 @@
 
 use strict;
 use warnings;
-
 use File::Spec;
-
 use GraphViz2;
 
-my($id)    = 1;
-my($graph) = GraphViz2 -> new
-(
+my $id    = 1;
+my $graph = GraphViz2->new(
 	edge   => {color => 'grey'},
 	global => {directed => 1},
 	graph  => {
-	  label => "HTML label demo # $id - Using \\< ... \\>", rankdir => 'TB'
+	  label => "HTML label demo # $id - Using \\< ... \\>",
+          rankdir => 'TB',
         },
 	node   => {shape => 'oval'},
 );
-
 $graph -> default_node(shape     => 'circle', style => 'filled');
 $graph -> default_edge(arrowsize => 4);
 
