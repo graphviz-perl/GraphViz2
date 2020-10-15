@@ -387,7 +387,7 @@ sub default_edge
 	$self->validate_params('edge', \%arg);
 
 	my $scope    = $self->scope->[-1];
-	$$scope{edge} = {%{$$scope{edge} }, %arg};
+	$$scope{edge} = {%{$$scope{edge} || {}}, %arg};
 
 	push @{ $self->command }, _indent($self->stringify_attributes('edge', $$scope{edge}), $self->scope);
 	$self -> log(debug => 'Default edge: ' . join(', ', map{"$_ => $$scope{edge}{$_}"} sort keys %{$$scope{edge} }) );
@@ -405,7 +405,7 @@ sub default_graph
 	$self->validate_params('graph', \%arg);
 
 	my $scope    = $self->scope->[-1];
-	$$scope{graph} = {%{$$scope{graph} }, %arg};
+	$$scope{graph} = {%{$$scope{graph} || {}}, %arg};
 
 	push @{ $self->command }, _indent($self->stringify_attributes('graph', $$scope{graph}), $self->scope);
 	$self -> log(debug => 'Default graph: ' . join(', ', map{"$_ => $$scope{graph}{$_}"} sort keys %{$$scope{graph} }) );
@@ -423,7 +423,7 @@ sub default_node
 	$self->validate_params('node', \%arg);
 
 	my $scope    = $self->scope->[-1];
-	$$scope{node} = {%{$$scope{node} }, %arg};
+	$$scope{node} = {%{$$scope{node} || {}}, %arg};
 
 	push @{ $self->command }, _indent($self->stringify_attributes('node', $$scope{node}), $self->scope);
 	$self -> log(debug => 'Default node: ' . join(', ', map{"$_ => $$scope{node}{$_}"} sort keys %{$$scope{node} }) );
@@ -441,7 +441,7 @@ sub default_subgraph
 	$self->validate_params('subgraph', \%arg);
 
 	my $scope    = $self->scope->[-1];
-	$$scope{subgraph} = {%{$$scope{subgraph} }, %arg};
+	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %arg};
 
 	push @{ $self->command }, _indent($self->stringify_attributes('subgraph', $$scope{subgraph}), $self->scope);
 	$self -> log(debug => 'Default subgraph: ' . join(', ', map{"$_ => $$scope{subgraph}{$_}"} sort keys %{$$scope{subgraph} }) );
@@ -530,15 +530,10 @@ sub push_subgraph
 	$self->validate_params('edge',     $arg{edge});
 	$self->validate_params('subgraph', $arg{subgraph});
 
-	# Child inherits parent attributes.
-	my $scope         = { %{ $self->scope->[-1] } };
-	$$scope{edge}     = {%{$$scope{edge} || {}}, %{$arg{edge} || {}}};
-	$$scope{graph}    = {%{$$scope{graph} || {}}, %{$arg{graph} || {}}};
-	$$scope{node}     = {%{$$scope{node} || {}}, %{$arg{node} || {}}};
-	$$scope{subgraph} = {%{$$scope{subgraph} || {}}, %{$arg{subgraph} || {}}};
+	$arg{subgraph} = { %{ $self->subgraph||{} }, %{$arg{subgraph}||{}} };
 
 	push @{ $self->command }, "\n" . _indent(join(' ', grep length, "subgraph", $name, "{\n"), $self->scope);
-	push @{ $self->scope }, $scope;
+	push @{ $self->scope }, \%arg;
 	$self -> default_graph;
 	$self -> default_node;
 	$self -> default_edge;

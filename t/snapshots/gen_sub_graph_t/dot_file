@@ -9,9 +9,8 @@
  "Murrumbeena" -> "Oakleigh" [ color="brown" ]
 
  subgraph "cluster_1" {
-  graph [ label="Child" rankdir="TB" ]
+  graph [ label="Child" ]
   node [ color="magenta" shape="diamond" ]
-  edge [ color="grey" ]
   "Chadstone" [ shape="hexagon" ]
   "Waverley" [ color="orange" ]
   "Chadstone" -> "Waverley"

@@ -7,9 +7,8 @@
  "One" -> "Two" [ color="maroon" ]
 
  subgraph "cluster First subgraph" {
-  graph [ label="Child the First" rankdir="TB" ]
+  graph [ label="Child the First" ]
   node [ color="magenta" shape="diamond" ]
-  edge [ color="grey" penwidth="3" ]
   pencolor="white" 
   "Three"
   "Four" [ color="orange" shape="rectangle" ]
@@ -17,9 +16,8 @@
  }
 
  subgraph "cluster Second subgraph" {
-  graph [ label="Child the Second" rankdir="TB" ]
+  graph [ label="Child the Second" ]
   node [ color="magenta" shape="diamond" ]
-  edge [ color="grey" penwidth="3" ]
   pencolor="purple" 
   "Five" [ color="blue" ]
   "Six" [ color="orange" shape="rectangle" ]
@@ -27,9 +25,8 @@
  }
 
  subgraph "Third subgraph" {
-  graph [ label="Child the Third" rankdir="TB" ]
+  graph [ label="Child the Third" ]
   node [ color="magenta" shape="diamond" ]
-  edge [ color="grey" penwidth="3" ]
   "Seven" [ color="blue" shape="doubleoctagon" ]
   "Eight" [ color="orange" shape="rectangle" ]
   "Seven" -> "Eight"

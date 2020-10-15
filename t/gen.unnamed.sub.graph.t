@@ -20,9 +20,7 @@ $graph->add_node(name => 'Waverley', color => 'orange');
 $graph->add_edge(from => 'Chadstone', to => 'Waverley');
 $graph->pop_subgraph;
 
-$graph->push_subgraph(
-	graph => {label => ''},
-);
+$graph->push_subgraph;
 $graph->add_node(name => 'Glen Waverley', color => 'blue3', shape => 'pentagon');
 $graph->add_node(name => 'Mount Waverley', color => 'darkslategrey', shape => 'rectangle');
 $graph->add_edge(from => 'Glen Waverley', to => 'Mount Waverley');
