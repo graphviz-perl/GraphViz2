@@ -36,8 +36,6 @@ WriteMakefile(
   },
   TEST_REQUIRES => {
     'Test::More' => 1.001002,
-    'charnames' => 0,
-    'open' => 0,
     'Test::Snapshot' => '0.06',
   },
   VERSION_FROM => 'lib/GraphViz2.pm',
