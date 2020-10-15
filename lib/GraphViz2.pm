@@ -1073,6 +1073,8 @@ this issue, including a special color of 'invisible'.
 =head1 Image Maps
 
 As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
+For web use, note that these options also take effect when generating SVGs,
+for a much lighter-weight solution to hyperlinking graph nodes and edges.
 
 =head2 The Default URL
 
