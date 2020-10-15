@@ -742,14 +742,6 @@ See L<https://graphviz-perl.github.io/>.
 	my $output_file = shift || File::Spec->catfile('html', "sub.graph.$format");
 	$graph->run(format => $format, output_file => $output_file);
 
-This program ships as scripts/sub.graph.pl. See L</Scripts Shipped with this Module>.
-
-=head3 Image Maps Usage
-
-As of V 2.43, C<GraphViz2> supports image maps, both client and server side.
-
-See L</Image Maps> below.
-
 =head1 Description
 
 =head2 Overview
