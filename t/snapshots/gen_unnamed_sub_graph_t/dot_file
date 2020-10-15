@@ -13,7 +13,6 @@
 
  subgraph {
   graph [ label="" rankdir="TB" ]
-  node [ color="magenta" shape="diamond" ]
   edge [ color="grey" ]
   "Glen Waverley" [ color="blue3" shape="pentagon" ]
   "Mount Waverley" [ color="darkslategrey" shape="rectangle" ]

@@ -25,7 +25,7 @@
    "Glen Waverley" -> "Mount Waverley"
   }
  }
- node [ color="cyan" shape="triangle" ]
+ node [ color="cyan" shape="oval" ]
  "Malvern"
  "Prahran" [ shape="trapezium" ]
  "Malvern" -> "Prahran"

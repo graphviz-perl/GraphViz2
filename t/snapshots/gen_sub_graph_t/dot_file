@@ -16,7 +16,7 @@
   "Waverley" [ color="orange" ]
   "Chadstone" -> "Waverley"
  }
- node [ color="cyan" shape="diamond" ]
+ node [ color="cyan" shape="oval" ]
  "Malvern"
  "Prahran" [ shape="trapezium" ]
  "Malvern" -> "Prahran"

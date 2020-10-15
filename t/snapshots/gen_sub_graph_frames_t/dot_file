@@ -30,7 +30,6 @@
   graph [ label="Child the Third" rankdir="TB" ]
   node [ color="magenta" shape="diamond" ]
   edge [ color="grey" penwidth="3" ]
-  pencolor="purple" 
   "Seven" [ color="blue" shape="doubleoctagon" ]
   "Eight" [ color="orange" shape="rectangle" ]
   "Seven" -> "Eight"

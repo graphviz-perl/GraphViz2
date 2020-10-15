@@ -531,8 +531,7 @@ sub push_subgraph
 	$self->validate_params('subgraph', $arg{subgraph});
 
 	# Child inherits parent attributes.
-
-	my $scope        = $self->scope->[-1];
+	my $scope         = { %{ $self->scope->[-1] } };
 	$$scope{edge}     = {%{$$scope{edge} || {}}, %{$arg{edge} || {}}};
 	$$scope{graph}    = {%{$$scope{graph} || {}}, %{$arg{graph} || {}}};
 	$$scope{node}     = {%{$$scope{node} || {}}, %{$arg{node} || {}}};
