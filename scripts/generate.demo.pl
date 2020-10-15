@@ -15,6 +15,7 @@ for my $key (sort keys %script) {
   local @ARGV = ($format, "$outdir/$key.$format");
   print "$file @ARGV\n";
   do "./$file";
+  die if $@;
 }
 
 $utils->generate_demo_index;
