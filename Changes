@@ -1,3 +1,4 @@
+2.57 2020-10-15
 - drop unnecessary use of "open" and "charnames"
 - setting defaults for subgraphs no longer affects outside those
 - now let DOT figure out inheritance rather than respecifying everything in subgraphs
