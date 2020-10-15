@@ -194,30 +194,6 @@ Key-value pairs accepted in the parameter list:
 
         This key is optional.
 
-    - o subgraph => $hashref
-
-        The _subgraph_ key points to a hashref which is used to set attributes for all subgraphs, unless overridden
-        for specific subgraphs in a call of the form push\_subgraph(subgraph => {$attribute => $string}).
-
-        Valid keys within this hashref are:
-
-        - o rank => $string
-
-            This option affects the content of all subgraphs, unless overridden later.
-
-            A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
-            are constrained to be horizontally aligned.
-
-            See scripts/rank.sub.graph.\[12\].pl for sample code.
-
-            Possible values for $string are: max, min, same, sink and source.
-
-            See the [Graphviz 'rank' docs](http://www.graphviz.org/doc/info/attrs.html#d:rank) for details.
-
-        The default is {}.
-
-        This key is optional.
-
     - o timeout => $integer
 
         This option specifies how long to wait for the external program before exiting with an error.
@@ -263,6 +239,30 @@ Key-value pairs accepted in the parameter list:
     The _node_ key points to a hashref which is used to set default attributes for nodes.
 
     Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
+
+    The default is {}.
+
+    This key is optional.
+
+- o subgraph => $hashref
+
+    The _subgraph_ key points to a hashref which is used to set attributes for all subgraphs, unless overridden
+    for specific subgraphs in a call of the form push\_subgraph(subgraph => {$attribute => $string}).
+
+    Valid keys within this hashref are:
+
+    - o rank => $string
+
+        This option affects the content of all subgraphs, unless overridden later.
+
+        A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
+        are constrained to be horizontally aligned.
+
+        See scripts/rank.sub.graph.1.pl for sample code.
+
+        Possible values for $string are: max, min, same, sink and source.
+
+        See the [Graphviz 'rank' docs](http://www.graphviz.org/doc/info/attrs.html#d:rank) for details.
 
     The default is {}.
 

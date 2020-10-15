@@ -1,6 +1,7 @@
 - drop unnecessary use of "open" and "charnames"
 - setting defaults for subgraphs no longer affects outside those
 - now let DOT figure out inheritance rather than respecifying everything in subgraphs
+- fixed docs on controlling subgraph attributes
 
 2.56 2020-10-13
 - fix problem when "which" returns empty list not scalar - thanks @eserte for report

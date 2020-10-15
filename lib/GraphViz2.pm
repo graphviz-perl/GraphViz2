@@ -190,7 +190,6 @@ sub BUILD
 		name			=> $$globals{name} // 'Perl',
 		record_shape	=> ($$globals{record_shape} && $$globals{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
 		strict			=> $$globals{strict} //  0,
-		subgraph		=> $$globals{subgraph} || {},
 		timeout			=> $$globals{timeout} // 10,
 	};
 	my($im_metas)	= $self -> im_meta;
@@ -876,34 +875,6 @@ The default is 0.
 
 This key is optional.
 
-=item o subgraph => $hashref
-
-The I<subgraph> key points to a hashref which is used to set attributes for all subgraphs, unless overridden
-for specific subgraphs in a call of the form push_subgraph(subgraph => {$attribute => $string}).
-
-Valid keys within this hashref are:
-
-=over 4
-
-=item o rank => $string
-
-This option affects the content of all subgraphs, unless overridden later.
-
-A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
-are constrained to be horizontally aligned.
-
-See scripts/rank.sub.graph.[12].pl for sample code.
-
-Possible values for $string are: max, min, same, sink and source.
-
-See the L<Graphviz 'rank' docs|http://www.graphviz.org/doc/info/attrs.html#d:rank> for details.
-
-=back
-
-The default is {}.
-
-This key is optional.
-
 =item o timeout => $integer
 
 This option specifies how long to wait for the external program before exiting with an error.
@@ -951,6 +922,34 @@ This key is optional.
 The I<node> key points to a hashref which is used to set default attributes for nodes.
 
 Hence, allowable keys and values within that hashref are anything supported by L<Graphviz|http://www.graphviz.org/>.
+
+The default is {}.
+
+This key is optional.
+
+=item o subgraph => $hashref
+
+The I<subgraph> key points to a hashref which is used to set attributes for all subgraphs, unless overridden
+for specific subgraphs in a call of the form push_subgraph(subgraph => {$attribute => $string}).
+
+Valid keys within this hashref are:
+
+=over 4
+
+=item o rank => $string
+
+This option affects the content of all subgraphs, unless overridden later.
+
+A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
+are constrained to be horizontally aligned.
+
+See scripts/rank.sub.graph.1.pl for sample code.
+
+Possible values for $string are: max, min, same, sink and source.
+
+See the L<Graphviz 'rank' docs|http://www.graphviz.org/doc/info/attrs.html#d:rank> for details.
+
+=back
 
 The default is {}.
 
@@ -1988,7 +1987,6 @@ label
 name
 record_shape
 strict
-subgraph
 timeout
 
 @@ im_meta
