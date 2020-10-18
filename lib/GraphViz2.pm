@@ -624,41 +624,21 @@ sub run_mapless
 	return $self;
 } # End of run_mapless.
 
-# -----------------------------------------------
-
-sub stringify_attributes
-{
+sub stringify_attributes {
 	my($self, $context, $option) = @_;
-	my($dot) = '';
-
 	# Add double-quotes around anything (e.g. labels) which does not look like HTML.
-
-	for my $key (sort keys %$option)
-	{
-		$$option{$key} //= '';
-		$$option{$key} =~ s/^\s+(<)/$1/;
-		$$option{$key} =~ s/(>)\s+$/$1/;
-		$dot           .= ($$option{$key} =~ /^<.+>$/s) ? qq|$key=$$option{$key} | : qq|$key="$$option{$key}" |;
+	my @pairs;
+	for my $key (sort keys %$option) {
+		my $text = $$option{$key} // '';
+		$text =~ s/^\s+(<)/$1/;
+		$text =~ s/(>)\s+$/$1/;
+		$text = qq|"$text"| if $text !~ /^<.+>$/s;
+		push @pairs, qq|$key=$text|;
 	}
-
-	if ($context eq 'subgraph')
-	{
-		$dot .= "\n";
-	}
-	elsif ($dot)
-	{
-		$dot = "$context [ $dot]\n";
-	}
-	else
-	{
-		$dot = $context =~ /^(?:edge|graph|node)/ ? '' : "$context\n";
-	}
-
-	return $dot;
-
-} # End of stringify_attributes.
-
-# -----------------------------------------------
+	return join(' ', @pairs) . "\n" if $context eq 'subgraph';
+	return join(' ', $context, '[', @pairs, ']') . "\n" if @pairs;
+	$context =~ /^(?:edge|graph|node)/ ? '' : "$context\n";
+}
 
 sub validate_params
 {
