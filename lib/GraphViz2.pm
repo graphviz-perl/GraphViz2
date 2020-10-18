@@ -779,7 +779,7 @@ Key-value pairs accepted in the parameter list:
 
 =over 4
 
-=item o edge => $hashref
+=item * edge => $hashref
 
 The I<edge> key points to a hashref which is used to set default attributes for edges.
 
@@ -789,7 +789,7 @@ The default is {}.
 
 This key is optional.
 
-=item o global => $hashref
+=item * global => $hashref
 
 The I<global> key points to a hashref which is used to set attributes for the output stream.
 
@@ -797,7 +797,7 @@ Valid keys within this hashref are:
 
 =over 4
 
-=item o directed => $Boolean
+=item * directed => $Boolean
 
 This option affects the content of the output stream.
 
@@ -810,7 +810,7 @@ The default is 0.
 
 This key is optional.
 
-=item o driver => $program_name
+=item * driver => $program_name
 
 This option specifies which external program to run to process the output stream.
 
@@ -818,7 +818,7 @@ The default is to use L<File::Which>'s which() method to find the 'dot' program.
 
 This key is optional.
 
-=item o format => $string
+=item * format => $string
 
 This option specifies what type of output file to create.
 
@@ -829,7 +829,7 @@ the first ':' is validated by L<GraphViz2>.
 
 This key is optional.
 
-=item o label => $string
+=item * label => $string
 
 This option specifies what an edge looks like: '->' for directed graphs and '--' for undirected graphs.
 
@@ -839,7 +839,7 @@ The default is '->' if directed is 1, and '--' if directed is 0.
 
 This key is optional.
 
-=item o name => $string
+=item * name => $string
 
 This option affects the content of the output stream.
 
@@ -849,7 +849,7 @@ The default is 'Perl' :-).
 
 This key is optional.
 
-=item o record_shape => /^(?:M?record)$/
+=item * record_shape => /^(?:M?record)$/
 
 This option affects the shape of records. The value must be 'Mrecord' or 'record'.
 
@@ -859,7 +859,7 @@ The default is 'Mrecord'.
 
 See L<Record shapes|http://www.graphviz.org/doc/info/shapes.html#record> for details.
 
-=item o strict => $Boolean
+=item * strict => $Boolean
 
 This option affects the content of the output stream.
 
@@ -869,7 +869,7 @@ The default is 0.
 
 This key is optional.
 
-=item o timeout => $integer
+=item * timeout => $integer
 
 This option specifies how long to wait for the external program before exiting with an error.
 
@@ -881,7 +881,7 @@ This key is optional.
 
 This key (global) is optional.
 
-=item o graph => $hashref
+=item * graph => $hashref
 
 The I<graph> key points to a hashref which is used to set default attributes for graphs.
 
@@ -891,7 +891,7 @@ The default is {}.
 
 This key is optional.
 
-=item o logger => $logger_object
+=item * logger => $logger_object
 
 Provides a logger object so $logger_object -> $level($message) can be called at certain times. Any object with C<debug> and C<error> methods
 will do, since these are the only levels emitted by this module.
@@ -911,7 +911,7 @@ See also the verbose option, which can interact with the logger option.
 
 This key is optional.
 
-=item o node => $hashref
+=item * node => $hashref
 
 The I<node> key points to a hashref which is used to set default attributes for nodes.
 
@@ -921,7 +921,7 @@ The default is {}.
 
 This key is optional.
 
-=item o subgraph => $hashref
+=item * subgraph => $hashref
 
 The I<subgraph> key points to a hashref which is used to set attributes for all subgraphs, unless overridden
 for specific subgraphs in a call of the form push_subgraph(subgraph => {$attribute => $string}).
@@ -930,7 +930,7 @@ Valid keys within this hashref are:
 
 =over 4
 
-=item o rank => $string
+=item * rank => $string
 
 This option affects the content of all subgraphs, unless overridden later.
 
@@ -949,7 +949,7 @@ The default is {}.
 
 This key is optional.
 
-=item o verbose => $Boolean
+=item * verbose => $Boolean
 
 Provides a way to control the amount of output when a logger is not specified.
 
@@ -1026,23 +1026,23 @@ At the moment, due to design defects (IMHO) in the underlying L<Graphviz|http://
 
 =over 4
 
-=item o A global frame
+=item * A global frame
 
 I can't see how to make the graph as a whole (at level 0 in the scope stack) have a frame.
 
-=item o Frame color
+=item * Frame color
 
 When you specify graph => {color => 'red'} at the parent level, the subgraph has a red frame.
 
 I think a subgraph should control its own frame.
 
-=item o Parent and child frames
+=item * Parent and child frames
 
 When you specify graph => {color => 'red'} at the subgraph level, both that subgraph and it children have red frames.
 
 This contradicts what happens at the global level, in that specifying color there does not given the whole graph a frame.
 
-=item o Frame visibility
+=item * Frame visibility
 
 A subgraph whose name starts with 'cluster' is currently forced to have a frame, unless you rig it by specifying a
 color the same as the background.
@@ -1115,13 +1115,13 @@ That line was copied from maps/demo.3.pl, and there is an identical line in maps
 
 =over 4
 
-=item o im_format => $str
+=item * im_format => $str
 
 Expected values: 'imap' (server-side) and 'cmapx' (client-side).
 
 Default value: 'cmapx'.
 
-=item o im_output_file => $file_name
+=item * im_output_file => $file_name
 
 The name of the output map file.
 
@@ -1141,7 +1141,7 @@ page, or click anywhere else in the image to jump to a third page.
 
 =over 4
 
-=item o demo.1.*
+=item * demo.1.*
 
 This set demonstrates a server-side image map but does not use C<GraphViz2>.
 
@@ -1149,7 +1149,7 @@ You have to run demo.1.sh which generates demo.1.map, and then you FTP the whole
 
 URL: your.domain.name/maps/demo.1.html.
 
-=item o demo.2.*
+=item * demo.2.*
 
 This set demonstrates a client-side image map but does not use C<GraphViz2>.
 
@@ -1158,7 +1158,7 @@ replacing any version of the map already present. After that you FTP the whole d
 
 URL: your.domain.name/maps/demo.2.html.
 
-=item o demo.3.*
+=item * demo.3.*
 
 This set demonstrates a server-side image map using C<GraphViz2> via demo.3.pl.
 
@@ -1166,7 +1166,7 @@ Note line 54 of demo.3.pl which sets the default C<im_format> to 'imap'.
 
 URL: your.domain.name/maps/demo.3.html.
 
-=item o demo.4.*
+=item * demo.4.*
 
 This set demonstrates a client-side image map using C<GraphViz2> via demo.4.pl.
 
@@ -1236,7 +1236,7 @@ The string may contain ports and orientation markers ({}).
 
 =over 4
 
-=item o The node is forced to be a record
+=item * The node is forced to be a record
 
 The actual shape, 'record' or 'Mrecord', is set globally, with:
 
@@ -1250,15 +1250,15 @@ Or set locally with:
 
 	$graph -> add_node(name => 'Three', label => ['Good', 'Bad'], shape => 'record');
 
-=item o Each element in the array defines a field in the record
+=item * Each element in the array defines a field in the record
 
 These fields are combined into a single node
 
-=item o Each element is treated as a label
+=item * Each element is treated as a label
 
-=item o Each label is given a port name (1 .. N) of the form "port<$port_count>"
+=item * Each label is given a port name (1 .. N) of the form "port<$port_count>"
 
-=item o Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
+=item * Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
 =back
 
@@ -1266,23 +1266,23 @@ These fields are combined into a single node
 
 =over 4
 
-=item o The node is forced to be a record
+=item * The node is forced to be a record
 
 The actual shape, 'record' or 'Mrecord', can be set globally or locally, as explained just above.
 
-=item o Each element in the array defines a field in the record
+=item * Each element in the array defines a field in the record
 
-=item o Each element is treated as a hashref with keys 'text' and 'port'
+=item * Each element is treated as a hashref with keys 'text' and 'port'
 
 The 'port' key is optional.
 
-=item o The value of the 'text' key is the label
+=item * The value of the 'text' key is the label
 
-=item o The value of the 'port' key is the port
+=item * The value of the 'port' key is the port
 
 The format is "<$port_name>".
 
-=item o Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
+=item * Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
 =back
 
@@ -1549,15 +1549,15 @@ This method performs a series of tasks:
 
 =over 4
 
-=item o Run the chosen external program on the L</dot_input>
+=item * Run the chosen external program on the L</dot_input>
 
-=item o Capture STDOUT and STDERR from that program
+=item * Capture STDOUT and STDERR from that program
 
-=item o Die if STDERR contains anything
+=item * Die if STDERR contains anything
 
-=item o Copies STDOUT to the buffer controlled by the dot_output() method
+=item * Copies STDOUT to the buffer controlled by the dot_output() method
 
-=item o Write the captured contents of STDOUT to $output_file, if $output_file has a value
+=item * Write the captured contents of STDOUT to $output_file, if $output_file has a value
 
 =back
 
@@ -1622,9 +1622,9 @@ The L<Graphviz|http://www.graphviz.org/> syntax for ports is a bit unusual:
 
 =over 4
 
-=item o This works: "node_name":port5
+=item * This works: "node_name":port5
 
-=item o This doesn't: "node_name:port5"
+=item * This doesn't: "node_name:port5"
 
 =back
 
@@ -1640,7 +1640,7 @@ You can specify labels with ports in these ways:
 
 =over 4
 
-=item o As a string
+=item * As a string
 
 	$graph -> add_node(name => 'struct3', label => "hello\nworld |{ b |{c|<here> d|e}| f}| g | h");
 
@@ -1654,7 +1654,7 @@ Then you use $graph -> add_edge(...) to refer to those ports, if desired:
 
 The same label is specified in the next case.
 
-=item o As an arrayref of hashrefs
+=item * As an arrayref of hashrefs
 
 From scripts/record.2.pl:
 
@@ -1695,7 +1695,7 @@ Then you use $graph -> add_edge(...) to refer to those ports, if desired. Again,
 
 The same label is specified in the previous case.
 
-=item o As an arrayref of strings
+=item * As an arrayref of strings
 
 From scripts/html.labels.1.pl:
 
@@ -1735,11 +1735,11 @@ An example attribute is C<pencolor>, which is used for clusters but not for subg
 
 =over 4
 
-=item o Handle edges such as 1 -> 2 -> {A B}, as seen in L<Graphviz|http://www.graphviz.org/>'s graphs/directed/switch.gv
+=item * Handle edges such as 1 -> 2 -> {A B}, as seen in L<Graphviz|http://www.graphviz.org/>'s graphs/directed/switch.gv
 
 But how?
 
-=item o Validate parameters more carefully, e.g. to reject non-hashref arguments where appropriate
+=item * Validate parameters more carefully, e.g. to reject non-hashref arguments where appropriate
 
 Some method parameter lists take keys whose value must be a hashref.
 
