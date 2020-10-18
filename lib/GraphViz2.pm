@@ -299,86 +299,48 @@ sub _indent {
 	(' ' x @$scope) . $text;
 }
 
-# -----------------------------------------------
-
-sub add_node
-{
+sub add_node {
 	my($self, %arg) = @_;
 	my $name = delete $arg{name} // '';
-
 	$self->validate_params('node', \%arg);
-
-	my($node)                 = $self -> node_hash;
-	$$node{$name}{attributes} = {%{$$node{$name}{attributes} || {}}, %arg};
-	%arg                      = %{$$node{$name}{attributes} };
-	my($label)                = $arg{label} // '';
-	$label                    =~ s/^\s+(<)/$1/;
-	$label                    =~ s/(>)\s+$/$1/;
-	$label                    =~ s/^(<)\n/$1/;
-	$label                    =~ s/\n(>)$/$1/;
-	$arg{label}               = $label if (defined $arg{label});
-
+	my $node                  = $self->node_hash;
+	%arg                      = (%{$$node{$name}{attributes} || {}}, %arg);
+	$$node{$name}{attributes} = \%arg;
+	my $label                 = $arg{label} // '';
+	$label                    =~ s/^\s*(<)\n?/$1/;
+	$label                    =~ s/\n?(>)\s*$/$1/;
+	$arg{label}               = $label if defined $arg{label};
 	# Handle ports.
-
-	if (ref $label eq 'ARRAY')
-	{
+	if (ref $label eq 'ARRAY') {
 		my($port_count) = 0;
-
-		my(@label);
-		my($port);
-		my($text);
-
-		for my $index (0 .. scalar @$label - 1)
-		{
-			if (ref $$label[$index] eq 'HASH')
-			{
-				$port = $$label[$index]{port} || 0;
-				$text = $$label[$index]{text} || '';
+		my (@labels, $port, $text);
+		for my $l (@$label) {
+			if (ref $l eq 'HASH') {
+				$port = $l->{port} || 0;
+				$text = $l->{text} // '';
+				if ($port) {
+					$port =~ s/^\s*<?/</;
+					$port =~ s/>?\s*$/>/;
+				}
+			} else {
+				$port = "<port".++$port_count.">";
+				$text = $l;
 			}
-			else
-			{
-				$port_count++;
-
-				$port = "<port$port_count>";
-				$text = $$label[$index];
-			}
-
-			$text = $self -> escape_some_chars($text);
-
-			if (ref $$label[$index] eq 'HASH')
-			{
-				push @label, $port ? "$port $text" : $text;
-			}
-			else
-			{
-				push @label, "$port $text";
-			}
+			$text = $self->escape_some_chars($text);
+			push @labels, $port ? "$port $text" : $text;
 		}
-
-		$arg{label} = join('|', @label);
-		my(%global) = %{$self -> global};
-		$arg{shape} = $arg{shape} || $global{record_shape};
-	}
-	elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) )
-	{
+		$arg{label} = join('|', @labels);
+		$arg{shape} ||= $self->global->{record_shape};
+	} elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) ) {
 		# Do not escape anything.
+	} elsif ($label) {
+		$arg{label} = $self->escape_some_chars($arg{label});
 	}
-	elsif ($label)
-	{
-		$arg{label} = $self -> escape_some_chars($arg{label});
-	}
-
-	$$node{$name}{attributes} = {%arg};
-	my($dot)                  = $self -> stringify_attributes(qq|"$name"|, {%arg});
-
+	my $dot = $self->stringify_attributes(qq|"$name"|, \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
-	$self -> log(debug => "Added node: $dot");
-
+	$self->log(debug => "Added node: $dot");
 	return $self;
-
-} # End of add_node.
-
-# -----------------------------------------------
+}
 
 sub default_edge
 {
@@ -1278,8 +1240,6 @@ The 'port' key is optional.
 =item * The value of the 'text' key is the label
 
 =item * The value of the 'port' key is the port
-
-The format is "<$port_name>".
 
 =item * Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 

@@ -25,7 +25,7 @@ $graph->add_node(name => 'struct3', label => [
 		text => '{c',
 	},
 	{
-		port => '<here>',
+		port => 'here',
 		text => 'd',
 	},
 	{

@@ -594,9 +594,6 @@ structure will switch the orientation between horizontal and vertical.
 
 - The value of the 'text' key is the label
 - The value of the 'port' key is the port
-
-    The format is "&lt;$port\_name>".
-
 - Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
 See scripts/html.labels.\*.pl and scripts/record.\*.pl for sample code.

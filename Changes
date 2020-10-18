@@ -1,4 +1,5 @@
 - add combine_node_and_port global option
+- add_node(label => [{port=>...}]) no need <>
 
 2.57 2020-10-15
 - drop unnecessary use of "open" and "charnames"
