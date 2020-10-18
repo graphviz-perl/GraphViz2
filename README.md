@@ -106,183 +106,183 @@ It returns a new object of type `GraphViz2`.
 
 Key-value pairs accepted in the parameter list:
 
-- edge => $hashref
+### edge => $hashref
 
-    The _edge_ key points to a hashref which is used to set default attributes for edges.
+The _edge_ key points to a hashref which is used to set default attributes for edges.
 
-    Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
+Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
 
-    The default is {}.
+The default is {}.
 
-    This key is optional.
+This key is optional.
 
-- global => $hashref
+### global => $hashref
 
-    The _global_ key points to a hashref which is used to set attributes for the output stream.
+The _global_ key points to a hashref which is used to set attributes for the output stream.
 
-    Valid keys within this hashref are:
+This key is optional.
 
-    - directed => $Boolean
+Valid keys within this hashref are:
 
-        This option affects the content of the output stream.
+#### directed => $Boolean
 
-        directed => 1 outputs 'digraph name {...}', while directed => 0 outputs 'graph name {...}'.
+This option affects the content of the output stream.
 
-        At the Perl level, directed graphs have edges with arrow heads, such as '->', while undirected graphs have
-        unadorned edges, such as '--'.
+directed => 1 outputs 'digraph name {...}', while directed => 0 outputs 'graph name {...}'.
 
-        The default is 0.
+At the Perl level, directed graphs have edges with arrow heads, such as '->', while undirected graphs have
+unadorned edges, such as '--'.
 
-        This key is optional.
+The default is 0.
 
-    - driver => $program\_name
+This key is optional.
 
-        This option specifies which external program to run to process the output stream.
+#### driver => $program\_name
 
-        The default is to use [File::Which](https://metacpan.org/pod/File::Which)'s which() method to find the 'dot' program.
+This option specifies which external program to run to process the output stream.
 
-        This key is optional.
+The default is to use [File::Which](https://metacpan.org/pod/File::Which)'s which() method to find the 'dot' program.
 
-    - format => $string
+This key is optional.
 
-        This option specifies what type of output file to create.
+#### format => $string
 
-        The default is 'svg'.
+This option specifies what type of output file to create.
 
-        Output formats of the form 'png:gd' etc are also supported, but only the component before
-        the first ':' is validated by [GraphViz2](https://metacpan.org/pod/GraphViz2).
+The default is 'svg'.
 
-        This key is optional.
+Output formats of the form 'png:gd' etc are also supported, but only the component before
+the first ':' is validated by [GraphViz2](https://metacpan.org/pod/GraphViz2).
 
-    - label => $string
+This key is optional.
 
-        This option specifies what an edge looks like: '->' for directed graphs and '--' for undirected graphs.
+#### label => $string
 
-        You wouldn't normally need to use this option.
+This option specifies what an edge looks like: '->' for directed graphs and '--' for undirected graphs.
 
-        The default is '->' if directed is 1, and '--' if directed is 0.
+You wouldn't normally need to use this option.
 
-        This key is optional.
+The default is '->' if directed is 1, and '--' if directed is 0.
 
-    - name => $string
+This key is optional.
 
-        This option affects the content of the output stream.
+#### name => $string
 
-        name => 'G666' outputs 'digraph G666 {...}'.
+This option affects the content of the output stream.
 
-        The default is 'Perl' :-).
+name => 'G666' outputs 'digraph G666 {...}'.
 
-        This key is optional.
+The default is 'Perl' :-).
 
-    - record\_shape => /^(?:M?record)$/
+This key is optional.
 
-        This option affects the shape of records. The value must be 'Mrecord' or 'record'.
+#### record\_shape => /^(?:M?record)$/
 
-        Mrecords have nice, rounded corners, whereas plain old records have square corners.
+This option affects the shape of records. The value must be 'Mrecord' or 'record'.
 
-        The default is 'Mrecord'.
+Mrecords have nice, rounded corners, whereas plain old records have square corners.
 
-        See [Record shapes](http://www.graphviz.org/doc/info/shapes.html#record) for details.
+The default is 'Mrecord'.
 
-    - strict => $Boolean
+See [Record shapes](http://www.graphviz.org/doc/info/shapes.html#record) for details.
 
-        This option affects the content of the output stream.
+#### strict => $Boolean
 
-        strict => 1 outputs 'strict digraph name {...}', while strict => 0 outputs 'digraph name {...}'.
+This option affects the content of the output stream.
 
-        The default is 0.
+strict => 1 outputs 'strict digraph name {...}', while strict => 0 outputs 'digraph name {...}'.
 
-        This key is optional.
+The default is 0.
 
-    - timeout => $integer
+This key is optional.
 
-        This option specifies how long to wait for the external program before exiting with an error.
+#### timeout => $integer
 
-        The default is 10 (seconds).
+This option specifies how long to wait for the external program before exiting with an error.
 
-        This key is optional.
+The default is 10 (seconds).
 
-    This key (global) is optional.
+This key is optional.
 
-- graph => $hashref
+### graph => $hashref
 
-    The _graph_ key points to a hashref which is used to set default attributes for graphs.
+The _graph_ key points to a hashref which is used to set default attributes for graphs.
 
-    Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
+Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
 
-    The default is {}.
+The default is {}.
 
-    This key is optional.
+This key is optional.
 
-- logger => $logger\_object
+### logger => $logger\_object
 
-    Provides a logger object so $logger\_object -> $level($message) can be called at certain times. Any object with `debug` and `error` methods
-    will do, since these are the only levels emitted by this module.
-    One option is a [Log::Handler](https://metacpan.org/pod/Log::Handler) object.
+Provides a logger object so $logger\_object -> $level($message) can be called at certain times. Any object with `debug` and `error` methods
+will do, since these are the only levels emitted by this module.
+One option is a [Log::Handler](https://metacpan.org/pod/Log::Handler) object.
 
-    Retrieve and update the value with the logger() method.
+Retrieve and update the value with the logger() method.
 
-    By default (i.e. without a logger object), [GraphViz2](https://metacpan.org/pod/GraphViz2) prints warning and debug messages to STDOUT,
-    and dies upon errors.
+By default (i.e. without a logger object), [GraphViz2](https://metacpan.org/pod/GraphViz2) prints warning and debug messages to STDOUT,
+and dies upon errors.
 
-    However, by supplying a log object, you can capture these events.
+However, by supplying a log object, you can capture these events.
 
-    Not only that, you can change the behaviour of your log object at any time, by calling
-    ["logger($logger\_object)"](#logger-logger_object).
+Not only that, you can change the behaviour of your log object at any time, by calling
+["logger($logger\_object)"](#logger-logger_object).
 
-    See also the verbose option, which can interact with the logger option.
+See also the verbose option, which can interact with the logger option.
 
-    This key is optional.
+This key is optional.
 
-- node => $hashref
+### node => $hashref
 
-    The _node_ key points to a hashref which is used to set default attributes for nodes.
+The _node_ key points to a hashref which is used to set default attributes for nodes.
 
-    Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
+Hence, allowable keys and values within that hashref are anything supported by [Graphviz](http://www.graphviz.org/).
 
-    The default is {}.
+The default is {}.
 
-    This key is optional.
+This key is optional.
 
-- subgraph => $hashref
+### subgraph => $hashref
 
-    The _subgraph_ key points to a hashref which is used to set attributes for all subgraphs, unless overridden
-    for specific subgraphs in a call of the form push\_subgraph(subgraph => {$attribute => $string}).
+The _subgraph_ key points to a hashref which is used to set attributes for all subgraphs, unless overridden
+for specific subgraphs in a call of the form push\_subgraph(subgraph => {$attribute => $string}).
 
-    Valid keys within this hashref are:
+Valid keys within this hashref are:
 
-    - rank => $string
+- rank => $string
 
-        This option affects the content of all subgraphs, unless overridden later.
+    This option affects the content of all subgraphs, unless overridden later.
 
-        A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
-        are constrained to be horizontally aligned.
+    A typical usage would be new(subgraph => {rank => 'same'}) so that all nodes mentioned within each subgraph
+    are constrained to be horizontally aligned.
 
-        See scripts/rank.sub.graph.1.pl for sample code.
+    See scripts/rank.sub.graph.1.pl for sample code.
 
-        Possible values for $string are: max, min, same, sink and source.
+    Possible values for $string are: max, min, same, sink and source.
 
-        See the [Graphviz 'rank' docs](http://www.graphviz.org/doc/info/attrs.html#d:rank) for details.
+    See the [Graphviz 'rank' docs](http://www.graphviz.org/doc/info/attrs.html#d:rank) for details.
 
-    The default is {}.
+The default is {}.
 
-    This key is optional.
+This key is optional.
 
-- verbose => $Boolean
+### verbose => $Boolean
 
-    Provides a way to control the amount of output when a logger is not specified.
+Provides a way to control the amount of output when a logger is not specified.
 
-    Setting verbose to 0 means print nothing.
+Setting verbose to 0 means print nothing.
 
-    Setting verbose to 1 means print the log level and the message to STDOUT, when a logger is not specified.
+Setting verbose to 1 means print the log level and the message to STDOUT, when a logger is not specified.
 
-    Retrieve and update the value with the verbose() method.
+Retrieve and update the value with the verbose() method.
 
-    The default is 0.
+The default is 0.
 
-    See also the logger option, which can interact with the verbose option.
+See also the logger option, which can interact with the verbose option.
 
-    This key is optional.
+This key is optional.
 
 ## Validating Parameters
 

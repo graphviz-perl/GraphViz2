@@ -777,9 +777,7 @@ It returns a new object of type C<GraphViz2>.
 
 Key-value pairs accepted in the parameter list:
 
-=over 4
-
-=item * edge => $hashref
+=head3 edge => $hashref
 
 The I<edge> key points to a hashref which is used to set default attributes for edges.
 
@@ -789,15 +787,15 @@ The default is {}.
 
 This key is optional.
 
-=item * global => $hashref
+=head3 global => $hashref
 
 The I<global> key points to a hashref which is used to set attributes for the output stream.
 
+This key is optional.
+
 Valid keys within this hashref are:
 
-=over 4
-
-=item * directed => $Boolean
+=head4 directed => $Boolean
 
 This option affects the content of the output stream.
 
@@ -810,7 +808,7 @@ The default is 0.
 
 This key is optional.
 
-=item * driver => $program_name
+=head4 driver => $program_name
 
 This option specifies which external program to run to process the output stream.
 
@@ -818,7 +816,7 @@ The default is to use L<File::Which>'s which() method to find the 'dot' program.
 
 This key is optional.
 
-=item * format => $string
+=head4 format => $string
 
 This option specifies what type of output file to create.
 
@@ -829,7 +827,7 @@ the first ':' is validated by L<GraphViz2>.
 
 This key is optional.
 
-=item * label => $string
+=head4 label => $string
 
 This option specifies what an edge looks like: '->' for directed graphs and '--' for undirected graphs.
 
@@ -839,7 +837,7 @@ The default is '->' if directed is 1, and '--' if directed is 0.
 
 This key is optional.
 
-=item * name => $string
+=head4 name => $string
 
 This option affects the content of the output stream.
 
@@ -849,7 +847,7 @@ The default is 'Perl' :-).
 
 This key is optional.
 
-=item * record_shape => /^(?:M?record)$/
+=head4 record_shape => /^(?:M?record)$/
 
 This option affects the shape of records. The value must be 'Mrecord' or 'record'.
 
@@ -859,7 +857,7 @@ The default is 'Mrecord'.
 
 See L<Record shapes|http://www.graphviz.org/doc/info/shapes.html#record> for details.
 
-=item * strict => $Boolean
+=head4 strict => $Boolean
 
 This option affects the content of the output stream.
 
@@ -869,7 +867,7 @@ The default is 0.
 
 This key is optional.
 
-=item * timeout => $integer
+=head4 timeout => $integer
 
 This option specifies how long to wait for the external program before exiting with an error.
 
@@ -877,11 +875,7 @@ The default is 10 (seconds).
 
 This key is optional.
 
-=back
-
-This key (global) is optional.
-
-=item * graph => $hashref
+=head3 graph => $hashref
 
 The I<graph> key points to a hashref which is used to set default attributes for graphs.
 
@@ -891,7 +885,7 @@ The default is {}.
 
 This key is optional.
 
-=item * logger => $logger_object
+=head3 logger => $logger_object
 
 Provides a logger object so $logger_object -> $level($message) can be called at certain times. Any object with C<debug> and C<error> methods
 will do, since these are the only levels emitted by this module.
@@ -911,7 +905,7 @@ See also the verbose option, which can interact with the logger option.
 
 This key is optional.
 
-=item * node => $hashref
+=head3 node => $hashref
 
 The I<node> key points to a hashref which is used to set default attributes for nodes.
 
@@ -921,7 +915,7 @@ The default is {}.
 
 This key is optional.
 
-=item * subgraph => $hashref
+=head3 subgraph => $hashref
 
 The I<subgraph> key points to a hashref which is used to set attributes for all subgraphs, unless overridden
 for specific subgraphs in a call of the form push_subgraph(subgraph => {$attribute => $string}).
@@ -949,7 +943,7 @@ The default is {}.
 
 This key is optional.
 
-=item * verbose => $Boolean
+=head3 verbose => $Boolean
 
 Provides a way to control the amount of output when a logger is not specified.
 
@@ -964,8 +958,6 @@ The default is 0.
 See also the logger option, which can interact with the verbose option.
 
 This key is optional.
-
-=back
 
 =head2 Validating Parameters
 
