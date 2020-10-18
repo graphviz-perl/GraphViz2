@@ -130,15 +130,9 @@ has verbose =>
 	required => 0,
 );
 
-has valid_attributes =>
-(
-	is       => 'lazy',
-	isa      => HashRef,
-	required => 0,
-);
-
+my $VALID_ATTRIBUTES = _build_valid_attributes();
+sub valid_attributes { $VALID_ATTRIBUTES }
 sub _build_valid_attributes {
-	my($self) = @_;
 	my %data = map +($_ => [
 		grep !/^$/ && !/^(?:\s*)#/, split /\n/, $$DATA_SECTION{$_}
 	]), keys %$DATA_SECTION;
@@ -662,7 +656,7 @@ sub stringify_attributes
 sub validate_params
 {
 	my($self, $context, $attributes) = @_;
-	my $valid = $self->valid_attributes->{$context};
+	my $valid = $VALID_ATTRIBUTES->{$context};
 	my @invalid = grep !exists $valid->{$_}, keys %$attributes;
 	$self->log(error => "Error: '$_' is not a valid attribute in the '$context' context") for sort @invalid;
 	return $self;
