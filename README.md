@@ -709,12 +709,6 @@ it contains a leading ':'. Likewise for _to\_port_.
 
 See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.1.pl) for a complete example.
 
-## escape\_some\_chars($s)
-
-Escapes various chars in various circumstances, because some chars are treated specially by Graphviz.
-
-See ["Special characters in node names and labels"](#special-characters-in-node-names-and-labels) for a discussion of this tricky topic.
-
 ## log(\[$level, $message\])
 
 Logs the message at the given log level.

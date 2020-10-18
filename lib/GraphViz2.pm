@@ -326,7 +326,7 @@ sub add_node {
 				$port = "<port".++$port_count.">";
 				$text = $l;
 			}
-			$text = $self->escape_some_chars($text);
+			$text = escape_some_chars($text);
 			push @labels, $port ? "$port $text" : $text;
 		}
 		$arg{label} = join('|', @labels);
@@ -334,7 +334,7 @@ sub add_node {
 	} elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) ) {
 		# Do not escape anything.
 	} elsif ($label) {
-		$arg{label} = $self->escape_some_chars($arg{label});
+		$arg{label} = escape_some_chars($arg{label});
 	}
 	my $dot = $self->stringify_attributes(qq|"$name"|, \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
@@ -412,42 +412,28 @@ sub default_subgraph
 
 } # End of default_subgraph.
 
-sub escape_some_chars
-{
-	my($self, $s) = @_;
-	my(@s)        = split(//, $s);
-	my($label)    = '';
-
-	for my $i (0 .. $#s)
-	{
-		if ( ($s[$i] eq '[') || ($s[$i] eq ']') )
-		{
+sub escape_some_chars {
+	my ($s) = @_;
+	my @s        = split(//, $s);
+	my $label    = '';
+	for my $i (0 .. $#s) {
+		if ( ($s[$i] eq '[') || ($s[$i] eq ']') ) {
 			# Escape if not escaped.
-
-			if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) )
-			{
+			if (($i == 0) || (($i > 0) && ($s[$i - 1] ne '\\'))) {
 				$label .= '\\';
 			}
-		}
-		elsif ($s[$i] eq '"')
-		{
-			if (substr($s, 0, 1) ne '<')
-			{
+		} elsif ($s[$i] eq '"') {
+			if (substr($s, 0, 1) ne '<') {
 				# It's not a HTML label. Escape if not escaped.
-
-				if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) )
-				{
+				if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) ) {
 					$label .= '\\';
 				}
 			}
 		}
-
 		$label .= $s[$i];
 	}
-
 	return $label;
-
-} # End of escape_some_chars.
+}
 
 sub log
 {
@@ -1357,12 +1343,6 @@ If I<from_port> is not provided by the caller, it defaults to '' (the empty stri
 it contains a leading ':'. Likewise for I<to_port>.
 
 See scripts/report.nodes.and.edges.pl (a version of scripts/html.labels.1.pl) for a complete example.
-
-=head2 escape_some_chars($s)
-
-Escapes various chars in various circumstances, because some chars are treated specially by Graphviz.
-
-See L</Special characters in node names and labels> for a discussion of this tricky topic.
 
 =head2 log([$level, $message])
 
