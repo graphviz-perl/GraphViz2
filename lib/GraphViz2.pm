@@ -14,6 +14,7 @@ use Types::Standard qw/Any ArrayRef HasMethods HashRef Int Str/;
 our $VERSION = '2.57';
 
 my $DATA_SECTION = get_data_section; # load once
+my $DEFAULT_COMBINE = 1; # default for combine_node_and_port
 
 has command =>
 (
@@ -176,6 +177,7 @@ sub BUILD
 	my($globals) = $self -> global;
 	my($global)  =
 	{
+		combine_node_and_port	=> $$globals{combine_node_and_port} // $DEFAULT_COMBINE,
 		directed		=> $$globals{directed} ? 'digraph' : 'graph',
 		driver			=> $$globals{driver} || scalar(which('dot')),
 		format			=> $$globals{format} ||	'svg',
@@ -262,9 +264,14 @@ sub add_edge
 	$self->validate_params('edge', \%arg);
 
 	my @nodes;
-	for my $name ($from, $to) {
-		# overwrite $name for use after the loop
-		($name, my $port) = $self->_edge_name_port($name);
+	for my $tuple ([ $from, 'tailport' ], [ $to, 'headport' ]) {
+		my ($name, $argname) = @$tuple;
+		my $port = '';
+		if ($self->global->{combine_node_and_port}) {
+			($name, $port) = $self->_edge_name_port($name);
+		} elsif (exists $arg{$argname}) {
+			$port = ':' . delete $arg{$argname};
+		}
 		push @nodes, [ $name, $port ];
 		next if (my $nh = $self->node_hash)->{$name};
 		$self->log(debug => "Implicitly added node: $name");
@@ -272,14 +279,14 @@ sub add_edge
 	}
 
 	# Add this edge to the hashref of all edges.
-	push @{$self->edge_hash->{$from}{$to}}, {
+	push @{$self->edge_hash->{$nodes[0][0]}{$nodes[1][0]}}, {
 		attributes => \%arg,
 		from_port  => $nodes[0][1],
 		to_port    => $nodes[1][1],
 	};
 
 	# Add this edge to the DOT output string.
-	my $dot = $self->stringify_attributes(qq|"$from"$nodes[0][1] ${$self -> global}{label} "$to"$nodes[1][1]|, \%arg);
+	my $dot = $self->stringify_attributes(join(" ${$self->global}{label} ", map qq|"$_->[0]"$_->[1]|, @nodes), \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
 	$self -> log(debug => "Added edge: $dot");
 
@@ -795,6 +802,19 @@ This key is optional.
 
 Valid keys within this hashref are:
 
+=head4 combine_node_and_port
+
+New in 2.58. It defaults to true, but in due course (currently planned
+May 2021) it will default to false. When true, C<add_node> and C<add_edge>
+will escape only some characters in the label and names, and in particular
+the "from" and "to" parameters on edges will combine the node name
+and port in one string, with a C<:> in the middle (except for special
+treatment of double-colons).
+
+When the option is false, any name may be given to nodes, and edges can
+be created between them. To specify ports, give the additional parameter
+of C<tailport> or C<headport>.
+
 =head4 directed => $Boolean
 
 This option affects the content of the output stream.
@@ -1199,6 +1219,8 @@ L<Graphviz attributes|https://www.graphviz.org/doc/info/attrs.html>.
 These are validated in exactly the same way as the edge parameters in the calls to
 default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
 
+To make the edge start or finish on a port, see L</combine_node_and_port>.
+
 =head2 add_node(name => $node_name, [%hash])
 
 Adds a node to the graph.
@@ -1220,9 +1242,14 @@ The attribute name 'label' may point to a string or an arrayref.
 
 =head3 If it is a string...
 
-The string is the label.
+The string is the label. If the C<shape> is a record, you can give any
+text and it will be passed for interpretation by Graphviz. This means
+you will need to quote E<lt> and E<gt> (port specifiers), C<|> (cell
+separator) and C<{> C<}> (structure depth) with C<\> to make them appear
+literally.
 
-The string may contain ports and orientation markers ({}).
+For records, the cells start horizontal. Each additional layer of
+structure will switch the orientation between horizontal and vertical.
 
 =head3 If it is an arrayref of strings...
 
@@ -1248,7 +1275,7 @@ These fields are combined into a single node
 
 =item * Each element is treated as a label
 
-=item * Each label is given a port name (1 .. N) of the form "port<$port_count>"
+=item * Each label is given a port name (1 .. N) of the form "port$port_count"
 
 =item * Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
@@ -1965,6 +1992,7 @@ xlp => node, edge
 z => node
 
 @@ global
+combine_node_and_port
 directed
 driver
 format

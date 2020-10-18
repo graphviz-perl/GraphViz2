@@ -124,6 +124,19 @@ This key is optional.
 
 Valid keys within this hashref are:
 
+#### combine\_node\_and\_port
+
+New in 2.58. It defaults to true, but in due course (currently planned
+May 2021) it will default to false. When true, `add_node` and `add_edge`
+will escape only some characters in the label and names, and in particular
+the "from" and "to" parameters on edges will combine the node name
+and port in one string, with a `:` in the middle (except for special
+treatment of double-colons).
+
+When the option is false, any name may be given to nodes, and edges can
+be created between them. To specify ports, give the additional parameter
+of `tailport` or `headport`.
+
 #### directed => $Boolean
 
 This option affects the content of the output stream.
@@ -512,6 +525,8 @@ before calling add\_edge(...).
 These are validated in exactly the same way as the edge parameters in the calls to
 default\_edge(%hash), new(edge => {}) and push\_subgraph(edge => {}).
 
+To make the edge start or finish on a port, see ["combine\_node\_and\_port"](#combine_node_and_port).
+
 ## add\_node(name => $node\_name, \[%hash\])
 
 Adds a node to the graph.
@@ -533,9 +548,14 @@ The attribute name 'label' may point to a string or an arrayref.
 
 ### If it is a string...
 
-The string is the label.
+The string is the label. If the `shape` is a record, you can give any
+text and it will be passed for interpretation by Graphviz. This means
+you will need to quote < and > (port specifiers), `|` (cell
+separator) and `{` `}` (structure depth) with `\` to make them appear
+literally.
 
-The string may contain ports and orientation markers ({}).
+For records, the cells start horizontal. Each additional layer of
+structure will switch the orientation between horizontal and vertical.
 
 ### If it is an arrayref of strings...
 
@@ -558,7 +578,7 @@ The string may contain ports and orientation markers ({}).
     These fields are combined into a single node
 
 - Each element is treated as a label
-- Each label is given a port name (1 .. N) of the form "port&lt;$port\_count>"
+- Each label is given a port name (1 .. N) of the form "port$port\_count"
 - Judicious use of '{' and '}' in the label can make this record appear horizontally or vertically, and even nested
 
 ### If it is an arrayref of hashrefs...
