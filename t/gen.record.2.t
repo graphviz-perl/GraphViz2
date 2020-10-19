@@ -15,31 +15,18 @@ my $graph = GraphViz2->new(
 $graph->add_node(name => 'struct1', label => '<f0> left|<f1> mid dle|<f2> right');
 $graph->add_node(name => 'struct2', label => '<f0> one|<f1> two');
 $graph->add_node(name => 'struct3', label => [
-	{
-		text => "hello\\nworld",
-	},
-	{
-		text => '{b',
-	},
-	{
-		text => '{c',
-	},
-	{
-		port => 'here',
-		text => 'd',
-	},
-	{
-		text => 'e}',
-	},
-	{
-		text => 'f}',
-	},
-	{
-		text => 'g',
-	},
-	{
-		text => 'h',
-	},
+	{ text => "hello\\nworld" },
+	[
+		{ text => 'b' },
+		[
+			{ text => 'c{|}<>""' },
+			{ text => 'd', port => 'here' },
+			{ text => 'e' },
+		],
+		{ text => 'f' },
+	],
+	{ text => 'g' },
+	{ text => 'h' },
 ]);
 
 $graph->add_edge(from => 'struct1', tailport => 'f1', to => 'struct2', headport => 'f0',   color => 'blue');

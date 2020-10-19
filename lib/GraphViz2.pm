@@ -299,8 +299,34 @@ sub _indent {
 	(' ' x @$scope) . $text;
 }
 
+sub _compile_record {
+	my ($port_count, $item, $add_braces, $quote_more) = @_;
+	my $text;
+	if (ref $item eq 'ARRAY') {
+		my @parts;
+		for my $l (@$item) {
+			($port_count, my $t) = _compile_record($port_count, $l, 1, $quote_more);
+			push @parts, $t;
+		}
+		$text = join '|', @parts;
+		$text = "{$text}" if $add_braces;
+	} elsif (ref $item eq 'HASH') {
+		my $port = $item->{port} || 0;
+		$text = escape_some_chars($item->{text} // '', $quote_more);
+		if ($port) {
+			$port =~ s/^\s*<?/</;
+			$port =~ s/>?\s*$/>/;
+			$text = $text;
+			$text = "$port $text";
+		}
+	} else {
+		$text = "<port".++$port_count."> " . escape_some_chars($item, $quote_more);
+	}
+	($port_count, $text);
+}
+
 sub add_node {
-	my($self, %arg) = @_;
+	my ($self, %arg) = @_;
 	my $name = delete $arg{name} // '';
 	$self->validate_params('node', \%arg);
 	my $node                  = $self->node_hash;
@@ -312,24 +338,7 @@ sub add_node {
 	$arg{label}               = $label if defined $arg{label};
 	# Handle ports.
 	if (ref $label eq 'ARRAY') {
-		my($port_count) = 0;
-		my (@labels, $port, $text);
-		for my $l (@$label) {
-			if (ref $l eq 'HASH') {
-				$port = $l->{port} || 0;
-				$text = $l->{text} // '';
-				if ($port) {
-					$port =~ s/^\s*<?/</;
-					$port =~ s/>?\s*$/>/;
-				}
-			} else {
-				$port = "<port".++$port_count.">";
-				$text = $l;
-			}
-			$text = escape_some_chars($text);
-			push @labels, $port ? "$port $text" : $text;
-		}
-		$arg{label} = join('|', @labels);
+		(undef, $arg{label}) = _compile_record(0, $label, 0, !$self->global->{combine_node_and_port});
 		$arg{shape} ||= $self->global->{record_shape};
 	} elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) ) {
 		# Do not escape anything.
@@ -413,7 +422,7 @@ sub default_subgraph
 } # End of default_subgraph.
 
 sub escape_some_chars {
-	my ($s) = @_;
+	my ($s, $quote_more) = @_;
 	my @s        = split(//, $s);
 	my $label    = '';
 	for my $i (0 .. $#s) {
@@ -424,6 +433,8 @@ sub escape_some_chars {
 			if (substr($s, 0, 1) ne '<') {
 				$maybe = 1; # It's not a HTML label
 			}
+		} elsif ($quote_more and $s[$i] =~ /[\{\}\|<>"]/) {
+			$maybe = 1;
 		}
 		# Escape if not escaped.
 		if ($maybe && (($i == 0) || (($i > 0) && ($s[$i - 1] ne '\\')))) {
@@ -740,7 +751,8 @@ treatment of double-colons).
 
 When the option is false, any name may be given to nodes, and edges can
 be created between them. To specify ports, give the additional parameter
-of C<tailport> or C<headport>.
+of C<tailport> or C<headport>. Also, C<add_node>'s treatment of labels
+is more DWIM, with C<{> etc being transparently quoted.
 
 =head4 directed => $Boolean
 
@@ -1149,6 +1161,22 @@ default_edge(%hash), new(edge => {}) and push_subgraph(edge => {}).
 To make the edge start or finish on a port, see L</combine_node_and_port>.
 
 =head2 add_node(name => $node_name, [%hash])
+
+	my $graph = GraphViz2->new(global => {combine_node_and_port => 0});
+	$graph->add_node(name => 'struct3', shape => 'record', label => [
+		{ text => "hello\\nworld" },
+		[
+			{ text => 'b' },
+			[
+				{ text => 'c{}' }, # reproduced literally
+				{ text => 'd', port => 'here' },
+				{ text => 'e' },
+			]
+			{ text => 'f' },
+		],
+		{ text => 'g' },
+		{ text => 'h' },
+	]);
 
 Adds a node to the graph.
 

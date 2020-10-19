@@ -135,7 +135,8 @@ treatment of double-colons).
 
 When the option is false, any name may be given to nodes, and edges can
 be created between them. To specify ports, give the additional parameter
-of `tailport` or `headport`.
+of `tailport` or `headport`. Also, `add_node`'s treatment of labels
+is more DWIM, with `{` etc being transparently quoted.
 
 #### directed => $Boolean
 
@@ -528,6 +529,22 @@ default\_edge(%hash), new(edge => {}) and push\_subgraph(edge => {}).
 To make the edge start or finish on a port, see ["combine\_node\_and\_port"](#combine_node_and_port).
 
 ## add\_node(name => $node\_name, \[%hash\])
+
+        my $graph = GraphViz2->new(global => {combine_node_and_port => 0});
+        $graph->add_node(name => 'struct3', shape => 'record', label => [
+                { text => "hello\\nworld" },
+                [
+                        { text => 'b' },
+                        [
+                                { text => 'c{}' }, # reproduced literally
+                                { text => 'd', port => 'here' },
+                                { text => 'e' },
+                        ]
+                        { text => 'f' },
+                ],
+                { text => 'g' },
+                { text => 'h' },
+        ]);
 
 Adds a node to the graph.
 
