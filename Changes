@@ -1,3 +1,4 @@
+2.58 2020-10-19
 - add combine_node_and_port global option
 - add_node(label => [{port=>...}]) no need <>
 
