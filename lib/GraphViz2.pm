@@ -417,18 +417,17 @@ sub escape_some_chars {
 	my @s        = split(//, $s);
 	my $label    = '';
 	for my $i (0 .. $#s) {
+		my $maybe = 0;
 		if ( ($s[$i] eq '[') || ($s[$i] eq ']') ) {
-			# Escape if not escaped.
-			if (($i == 0) || (($i > 0) && ($s[$i - 1] ne '\\'))) {
-				$label .= '\\';
-			}
+			$maybe = 1;
 		} elsif ($s[$i] eq '"') {
 			if (substr($s, 0, 1) ne '<') {
-				# It's not a HTML label. Escape if not escaped.
-				if ( ($i == 0) || ( ($i > 0) && ($s[$i - 1] ne '\\') ) ) {
-					$label .= '\\';
-				}
+				$maybe = 1; # It's not a HTML label
 			}
+		}
+		# Escape if not escaped.
+		if ($maybe && (($i == 0) || (($i > 0) && ($s[$i - 1] ne '\\')))) {
+			$label .= '\\';
 		}
 		$label .= $s[$i];
 	}
