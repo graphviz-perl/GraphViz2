@@ -13,14 +13,29 @@
  "22" -> "24"
  "24" [ label="END \\$3" ]
  "24" -> "26"
- "26" [ label="END \\$1" ]
+ "26" [ label="REPEAT" ]
+ "26" -> "26" [ label="{0, 1}" ]
  "26" -> "28"
- "28" [ label="END" ]
+ "26" -> "30" [ style="dashed" ]
+ "30" [ label="END \\$1" ]
+ "30" -> "32"
+ "32" [ label="REPEAT" ]
+ "32" -> "32" [ label="*" ]
+ "32" -> "33" [ style="dashed" ]
+ "32" -> "35"
+ "35" [ label="REPEAT" ]
+ "35" -> "35" [ label="{1, 2}" ]
+ "35" -> "37"
+ "35" -> "39" [ style="dashed" ]
+ "39" [ label="END" ]
+ "37" [ label="y" shape="box" ]
+ "33" [ label="x" shape="box" ]
+ "28" [ label="n" shape="box" ]
  "4" [ label="START \\$2" ]
  "4" -> "6"
  "6" [ label="\\[0-9a-d\\]" shape="box" ]
  "6" -> "17"
  "17" [ label="END \\$2" ]
- "17" -> "26"
+ "17" -> "30"
 }
 '

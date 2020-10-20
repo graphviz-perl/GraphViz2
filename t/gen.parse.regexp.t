@@ -14,7 +14,7 @@ my $graph = GraphViz2->new(
 );
 my $g = GraphViz2::Parse::Regexp->new(graph => $graph);
 
-$g->create(regexp => '(([abcd0-9])|(foo))');
+$g->create(regexp => '(([abcd0-9])|(foo)n?)x*y{1,2}');
 
 if (@ARGV) {
   my($format)      = shift || 'svg';
