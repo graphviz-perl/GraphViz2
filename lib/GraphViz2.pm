@@ -608,6 +608,33 @@ sub validate_params
 
 } # End of validate_params.
 
+sub from_graph {
+	my ($self, $g) = @_;
+	die "from_graph: '$g' not a Graph" if !$g->isa('Graph');
+	my %g_attrs = %{ $g->get_graph_attribute('graphviz') || {} };
+	my $global = { directed => $g->is_directed, %{delete $g_attrs{global}||{}} };
+	my $groups = delete $g_attrs{groups} || [];
+	if (ref $self) {
+		$self->$_($g_attrs{$_}) for sort keys %g_attrs;
+	} else {
+		$self = $self->new(global => $global, %g_attrs);
+	}
+	for my $group (@$groups) {
+		$self->push_subgraph(%{ $group->{attributes} || {} });
+		$self->add_node(name => $_) for @{ $group->{nodes} || [] };
+		$self->pop_subgraph;
+	}
+	for my $v (sort $g->vertices) {
+		my $attrs = $g->get_vertex_attribute($v, 'graphviz');
+		$self->add_node(name => $v, %{$attrs||{}});
+		for my $e (sort {$a->[1] cmp $b->[1]} $g->edges_from($v)) {
+			my $e_a = $g->get_edge_attribute(@$e, 'graphviz')||{};
+			$self->add_edge(from => $v, to => $e->[1], %$e_a);
+		}
+	}
+	$self;
+}
+
 # -----------------------------------------------
 
 1;
@@ -934,6 +961,56 @@ These are then copied manually into the source code of L<GraphViz2>, meaning any
 L<Graphviz|http://www.graphviz.org/> web site, it's a trivial matter to update the lists stored within this module.
 
 See L<GraphViz2/Scripts Shipped with this Module>.
+
+=head2 Alternate constructor and object method
+
+=head3 from_graph
+
+	my $gv = GraphViz2->from_graph($g);
+
+	# alternatively
+	my $gv = GraphViz2->new;
+	$gv->from_graph($g);
+
+	# for handy debugging of arbitrary graphs:
+	GraphViz2->from_graph($g)->run(format => 'svg', output_file => 'output.svg');
+
+Takes a L<Graph> object. This module will figure out various defaults from it,
+including whether it is directed or not.
+
+Will also use any node-, edge-, and graph-level attributes named
+C<graphviz> as a hash-ref for setting attributes on the corresponding
+entities in the constructed GraphViz2 object. These will override the
+figured-out defaults referred to above.
+
+Will only set the C<global> attribute if called as a constructor. This
+will be dropped from any passed-in graph-level C<graphviz> attribute
+when called as an object method.
+
+A special graph-level attribute (under C<graphviz>) called C<groups> will
+be given further special meaning: it is an array-ref of hash-refs. Those
+will have keys, used to create subgraphs:
+
+=over
+
+=item * attributes
+
+Hash-ref of arguments to supply to C<push_subgraph> for this subgraph.
+
+=item * nodes
+
+Array-ref of node names to put in this subgraph.
+
+=back
+
+Example:
+
+	$g->set_graph_attribute(graphviz => {
+		groups => [
+			{nodes => [1, 2], attributes => {subgraph=>{rank => 'same'}}},
+		],
+		# other graph-level attributes...
+	});
 
 =head1 Attribute Scope
 
