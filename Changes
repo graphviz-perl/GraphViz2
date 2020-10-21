@@ -1,5 +1,5 @@
 - GraphViz2->from_graph, dep on Graph, use as intermediate in Parse::Regexp
-- convert Parse::Yapp to graph-based
+- convert Parse::Yacc, Parse::Yapp to graph-based
 
 2.58 2020-10-19
 - add combine_node_and_port global option

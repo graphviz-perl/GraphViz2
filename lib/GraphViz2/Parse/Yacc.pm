@@ -8,18 +8,33 @@ our $VERSION = '2.47';
 
 use GraphViz2;
 use Moo;
+use Graph::Directed;
+
+my %EDGEATTR = (headport => 'port1');
+my %GRAPHVIZ_ARGS = (
+    edge   => {color => 'grey'},
+    global => {directed => 1, combine_node_and_port => 0},
+    graph  => {rankdir => 'TB'},
+    node   => {color => 'blue', shape => 'oval'},
+);
+
+has as_graph => (
+    is       => 'lazy',
+    required => 0,
+);
+sub _build_as_graph { to_graph($_[0]->file_name) }
 
 has graph => (
-    default  => sub {
-        GraphViz2->new(
-            edge   => {color => 'grey'},
-            global => {directed => 1, combine_node_and_port => 0},
-            graph  => {rankdir => 'TB'},
-            node   => {color => 'blue', shape => 'oval'},
-        )
-    },
-    is       => 'rw',
+    is       => 'lazy',
     #isa     => 'GraphViz2',
+    required => 0,
+);
+sub _build_graph {
+    GraphViz2->new(%GRAPHVIZ_ARGS)->from_graph(graphvizify($_[0]->as_graph));
+}
+
+has file_name => (
+    is       => 'rw',
     required => 0,
 );
 
@@ -28,12 +43,18 @@ sub read_file {
   map +((chomp, $_)[1]), <$fh>;
 }
 
-sub _quote { my $t = $_[0]; $t =~ s/\\/\\\\/g; $t; }
-
 sub create {
     my ($self, %arg) = @_;
+    $self->file_name($arg{file_name});
+    $self->graph->from_graph(graphvizify($self->as_graph));
+    return $self;
+}
+
+sub to_graph {
+    my ($file_name) = @_;
+    my $g = Graph::Directed->new;
     my (%edges, %labels, $rule);
-    for my $line (read_file($arg{file_name}) ) {
+    for my $line (read_file($file_name)) {
         next if ($line !~ /\w/) || ($line !~ /^\s+\d+\s+/);
         $line =~ s/^\s+\d+\s+//;
         $rule = $1 if $line =~ s/([^ ]+) : ?//;
@@ -42,12 +63,25 @@ sub create {
         @{$edges{$rule}}{split ' ', $text} = (); # only needs to exist
         push @{$labels{$rule}}, $text;
     }
-    for my $f (sort keys %edges) {
-        $self->graph->add_node(name => $f, label => [$f, [ map _quote($_).'\l', @{$labels{$f}} ]]);
-        $self->graph->add_edge(from => $f, to => $_, headport => 'port1')
-            for sort grep $edges{$_}, keys %{$edges{$f} };
+    for my $f (keys %edges) {
+        $g->add_edges(map [$f, $_], grep $edges{$_}, keys %{$edges{$f}});
+        $g->set_vertex_attribute($f, labels => $labels{$f});
     }
-    return $self;
+    $g;
+}
+
+sub _quote { my $t = $_[0]; $t =~ s/\\/\\\\/g; $t; }
+
+sub graphvizify {
+    my ($g) = @_;
+    for my $v ($g->vertices) {
+        $g->set_vertex_attribute($v, graphviz => {
+            label => [$v, [ map _quote($_).'\\l', @{$g->get_vertex_attribute($v, 'labels')} ]],
+        });
+        $g->set_edge_attribute(@$_, graphviz => \%EDGEATTR) for $g->edges_from($v);
+    }
+    $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global} });
+    $g;
 }
 
 1;
@@ -56,77 +90,124 @@ sub create {
 
 L<GraphViz2::Parse::Yacc> - Visualize a yacc grammar as a graph
 
-=head1 Synopsis
+=head1 SYNOPSIS
 
-    use GraphViz2;
     use GraphViz2::Parse::Yacc;
-    my($graph)  = GraphViz2->new(
-        edge   => {color => 'grey'},
-        global => {directed => 1, combine_node_and_port => 0},
-        graph  => {concentrate => 1, rankdir => 'TB'},
-        node   => {color => 'blue', shape => 'oval'},
-    );
-    my $g = GraphViz2::Parse::Yacc->new(graph => $graph);
-    $g->create(file_name => 't/calc3.output');
+    # no objects - quicker
+    my $gd = GraphViz2::Parse::Yacc::to_graph('t/calc3.output');
+
+    # populate a GraphViz2 object with a Graph::Directed of a parser
+    my $gv = GraphViz2->from_graph(GraphViz2::Parse::Yacc::graphvizify($gd));
+
+    # OO interface, using lazy-built attributes
+    my $gvp = GraphViz2::Parse::Yacc->new(file_name => $file_name);
+    my $gd = $gvp->as_graph; # Graph::Directed object
+    # or supply a suitable Graph::Directed object
+    my $gvp = GraphViz2::Parse::Yacc->new(as_graph => $gd);
+    # then get the GraphViz2 object
+    my $gv = $gvp->graph;
+
+    # DEPRECATED ways to get $gvp with populated $gv
+    my $gvp = GraphViz2::Parse::Yacc->new;
+    $gvp->create(file_name => 't/calc3.output');
+    my $gv = $gvp->graph;
+    # or give it a pre-set-up GraphViz2 object
+    my $gv = GraphViz2->new(...);
+    my $gvp = GraphViz2::Parse::Yacc->new(graph => $gv);
+    # call ->create as above
+
+    # produce a visualisation
     my $format = shift || 'svg';
-    my $output_file = shift || "output.$format");
-    $graph->run(format => $format, output_file => $output_file);
+    my $output_file = shift || "output.$format";
+    $gv->run(format => $format, output_file => $output_file);
 
-See scripts/parse.yacc.pl (L<GraphViz2/Scripts Shipped with this Module>).
+See F<t/gen.parse.yacc.pl>.
 
-=head1 Description
+=head1 DESCRIPTION
 
-Takes a yacc grammar and converts it into a graph.
+Takes a yacc grammar and converts it into a L<Graph::Directed>
+object, or directly into a L<GraphViz2> object.
 
-=head1 Constructor and Initialization
+=head1 FUNCTIONS
 
-=head2 Calling new()
+This is the recommended interface.
 
-C<new()> is called as C<< my($obj) = GraphViz2::Parse::Yacc->new(k1 => v1, k2 => v2, ...) >>.
+=head2 to_graph
 
-It returns a new object of type C<GraphViz2::Parse::Yacc>.
+    my $gd = GraphViz2::Parse::Yacc::to_graph('t/calc3.output');
 
-Key-value pairs accepted in the parameter list:
+Given a yacc grammar, returns a L<Graph::Directed> object
+describing the finite state machine for it.
 
-=over 4
+=head2 graphvizify
 
-=item o graph => $graphviz_object
+    my $gv = GraphViz2->from_graph(GraphViz2::Parse::Yacc::graphvizify($gd));
 
-This option specifies the GraphViz2 object to use. This allows you to configure it as desired.
+Mutates the given graph object to add to it the C<graphviz> attributes
+visualisation "hints" that will make the L<GraphViz2/from_graph> method
+visualise this regular expression in the most meaningful way, including
+labels and groupings.
 
-The default is GraphViz2->new. The default attributes are the same as in the synopsis, above.
+It is idempotent as it simply sets the C<graphviz> attribute of the
+relevant graph entities.
 
-This key is optional.
+Returns the graph object for convenience.
 
-=back
+=head1 METHODS
 
-=head1 Methods
+This is a L<Moo> class, but with a recommended functional interface.
 
-=head2 create(file_name => $file_name)
+=head2 Constructor attributes
 
-Creates the graph, which is accessible via the graph() method, or via the graph object you passed to new().
+=head3 file_name
+
+The name of a yacc output file. See F<t/calc3.output>.
+
+This key is optional. You need to provide it by the time you access
+either the L</as_graph> or L</graph>.
+
+=head3 as_graph
+
+The L<Graph::Directed> object to use. If not given, will be lazily built
+on access, from the L</regexp>.
+
+=head3 graph
+
+The L<GraphViz2> object to use. This allows you to configure it as desired.
+
+This key is optional. If provided, the C<create> method will populate it.
+If not, it will have these defaults, lazy-built and populated from the
+L</as_graph>.
+
+    my $gv = GraphViz2->new(
+            edge   => {color => 'grey'},
+            global => {directed => 1},
+            graph  => {rankdir => 'TB'},
+            node   => {color => 'blue', shape => 'oval'},
+    );
+
+=head2 create(regexp => $regexp)
+
+DEPRECATED. Mutates the object to set the C<file_name> attribute, then
+accesses the C<as_graph> attribute (possibly lazy-building it), then
+C<graphvizify>s its C<as_graph> attribute with that information, then
+C<from_graph>s its C<graph>.
 
 Returns $self for method chaining.
 
-$file_name is the name of a yacc output file. See t/calc3.output.
-
-=head2 graph()
-
-Returns the graph object, either the one supplied to new() or the one created during the call to new().
-
-=head1 Thanks
+=head1 THANKS
 
 Many thanks are due to the people who chose to make L<Graphviz|http://www.graphviz.org/> Open Source.
 
 And thanks to L<Leon Brocard|http://search.cpan.org/~lbrocard/>, who wrote L<GraphViz>, and kindly gave me co-maint of the module.
 
-=head1 Author
+=head1 AUTHOR
 
 L<GraphViz2> was written by Ron Savage I<E<lt>ron@savage.net.auE<gt>> in 2011.
 
 Home page: L<http://savage.net.au/index.html>.
 
-=head1 Copyright
+=head1 COPYRIGHT
 
 Australian copyright (c) 2011, Ron Savage.
 
