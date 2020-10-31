@@ -53,7 +53,6 @@ sub to_graph {
     for my $line (split /\n/, $stt) {
         $line =~ s/^\s*\[?//;
         $line =~ s/\s*(],?)?$//;
-        # The first 2 '\'s are just to fix the syntax highlighting in UltraEdit.
         my ($f, $re, $t) = quotewords('\s*,\s*', 0, $line);
         $g->set_edge_attribute($f, $t, re => $re);
     }
