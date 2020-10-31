@@ -11,7 +11,7 @@ use Moo;
 use IPC::Run3; # For run3().
 use Types::Standard qw/Any ArrayRef HasMethods HashRef Int Str/;
 
-our $VERSION = '2.58';
+our $VERSION = '2.59';
 
 my $DATA_SECTION = get_data_section; # load once
 my $DEFAULT_COMBINE = 1; # default for combine_node_and_port

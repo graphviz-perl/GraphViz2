@@ -1,3 +1,4 @@
+2.59 2020-10-31
 - GraphViz2->from_graph, dep on Graph, use as intermediate in Parse::Regexp
 - convert Parse::Yacc, Parse::Yapp, Parse::STT to graph-based
 
