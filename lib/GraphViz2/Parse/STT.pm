@@ -25,30 +25,19 @@ has graph => (
 
 sub create {
 	my ($self, %arg) = @_;
-	my (%edge, %seen);
+	my %edge;
+	my $g = $self->graph;
 	for my $line (split(/\n/, $arg{stt}) ) {
-		$line  =~ s/^\s+//;
-		$line  =~ s/\s+$//;
-		$line  =~ s/^\[//;
-		$line  =~ s/],?$//;
-		my @field = split(/\s*,\s*/, $line);
+		$line =~ s/^\s*\[?//;
+		$line =~ s/\s*(],?)?$//;
 		# The first 2 '\'s are just to fix the syntax highlighting in UltraEdit.
-		@field = map{s/^([\"\'])(.+)\1/$2/; $_} @field;
-		for my $i (0, 2) {
-			if (! $seen{$field[$i]}) {
-				$seen{$field[$i]} = 1;
-				$self->graph->add_node(name => $field[$i]);
-			}
-		}
-		$edge{$field[0]}            = {} if (! $edge{$field[0]});
-		$edge{$field[0]}{$field[2]} = [] if (! $edge{$field[0]}{$field[2]});
-		push @{$edge{$field[0]}{$field[2]} }, $field[1];
+		my ($f, $re, $t) = map{s/^([\"\'])(.+)\1/$2/; $_} split /\s*,\s*/, $line;
+		push @{$edge{$f}{$t}}, $re;
 	}
 	for my $from (sort keys %edge) {
 		for my $to (sort keys %{$edge{$from} }) {
-			for my $edge (@{$edge{$from}{$to} }) {
-				$self->graph->add_edge(from => $from, to => $to, label => "/$edge/");
-			}
+			$g->add_edge(from => $from, to => $to, label => "/$_/")
+				for @{$edge{$from}{$to}};
 		}
 	}
 	return $self;

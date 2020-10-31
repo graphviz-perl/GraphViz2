@@ -2,9 +2,6 @@
  graph [ rankdir="LR" ]
  node [ color="green" shape="oval" ]
  edge [ color="grey" ]
- "foo"
- "bar"
- "baz"
  "bar" -> "bar" [ label="/b/" ]
  "bar" -> "baz" [ label="/c/" ]
  "bar" -> "foo" [ label="/a/" ]
