@@ -169,7 +169,7 @@ either the L</as_graph> or L</graph>.
 =head3 as_graph
 
 The L<Graph::Directed> object to use. If not given, will be lazily built
-on access, from the L</regexp>.
+on access, from the L</file_name>.
 
 =head3 graph
 
@@ -186,7 +186,7 @@ L</as_graph>.
             node   => {color => 'blue', shape => 'oval'},
     );
 
-=head2 create(regexp => $regexp)
+=head2 create(file_name => $file_name)
 
 DEPRECATED. Mutates the object to set the C<file_name> attribute, then
 accesses the C<as_graph> attribute (possibly lazy-building it), then
