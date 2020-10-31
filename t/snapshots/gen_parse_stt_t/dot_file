@@ -1,5 +1,4 @@
 'digraph Perl {
- graph [ rankdir="LR" ]
  node [ color="green" shape="oval" ]
  edge [ color="grey" ]
  "attribute" -> "attribute" [ label="/[\\\\w :;]+/" ]

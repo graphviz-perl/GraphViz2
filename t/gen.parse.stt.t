@@ -15,7 +15,6 @@ sub read_file {
 my $graph = GraphViz2->new(
 	edge   => {color => 'grey'},
 	global => {directed => 1, combine_node_and_port => 0},
-	graph  => {rankdir => 'LR'},
 	node   => {color => 'green', shape => 'oval'},
 );
 my $g = GraphViz2::Parse::STT->new(graph => $graph);
