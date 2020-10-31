@@ -8,12 +8,13 @@ our $VERSION = '2.47';
 
 use GraphViz2;
 use Moo;
+use Text::ParseWords;
 
 has graph => (
 	default  => sub {
 		GraphViz2->new(
 			edge   => {color => 'grey'},
-			global => {directed => 1},
+			global => {directed => 1, combine_node_and_port => 0},
 			graph  => {rankdir => 'TB'},
 			node   => {color => 'blue', shape => 'oval'},
 		)
@@ -23,6 +24,8 @@ has graph => (
 	required => 0,
 );
 
+sub _quote { my $t = $_[0]; $t =~ s/\\/\\\\/g; $t; }
+
 sub create {
 	my ($self, %arg) = @_;
 	my %edge;
@@ -31,12 +34,12 @@ sub create {
 		$line =~ s/^\s*\[?//;
 		$line =~ s/\s*(],?)?$//;
 		# The first 2 '\'s are just to fix the syntax highlighting in UltraEdit.
-		my ($f, $re, $t) = map{s/^([\"\'])(.+)\1/$2/; $_} split /\s*,\s*/, $line;
+		my ($f, $re, $t) = quotewords('\s*,\s*', 0, $line);
 		push @{$edge{$f}{$t}}, $re;
 	}
 	for my $from (sort keys %edge) {
 		for my $to (sort keys %{$edge{$from} }) {
-			$g->add_edge(from => $from, to => $to, label => "/$_/")
+			$g->add_edge(from => $from, to => $to, label => _quote("/$_/"))
 				for @{$edge{$from}{$to}};
 		}
 	}

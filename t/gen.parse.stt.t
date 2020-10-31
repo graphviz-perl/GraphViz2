@@ -14,12 +14,12 @@ sub read_file {
 
 my $graph = GraphViz2->new(
 	edge   => {color => 'grey'},
-	global => {directed => 1},
+	global => {directed => 1, combine_node_and_port => 0},
 	graph  => {rankdir => 'LR'},
 	node   => {color => 'green', shape => 'oval'},
 );
 my $g = GraphViz2::Parse::STT->new(graph => $graph);
-my $stt = read_file(File::Spec->catfile('t', 'sample.stt.1.dat') );
+my $stt = read_file(File::Spec->catfile('t', 'sample.stt.2.dat') );
 
 $g->create(stt => $stt);
 
