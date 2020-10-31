@@ -625,8 +625,8 @@ sub from_graph {
 		$self->pop_subgraph;
 	}
 	for my $v (sort $g->vertices) {
-		my $attrs = $g->get_vertex_attribute($v, 'graphviz');
-		$self->add_node(name => $v, %{$attrs||{}});
+		my $attrs = $g->get_vertex_attribute($v, 'graphviz') || {};
+		$self->add_node(name => $v, %$attrs) if keys %$attrs;
 		for my $e (sort {$a->[1] cmp $b->[1]} $g->edges_from($v)) {
 			my $e_a = $g->get_edge_attribute(@$e, 'graphviz')||{};
 			$self->add_edge(from => $v, to => $e->[1], %$e_a);
