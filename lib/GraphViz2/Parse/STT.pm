@@ -54,20 +54,38 @@ sub to_graph {
         $line =~ s/^\s*\[?//;
         $line =~ s/\s*(],?)?$//;
         my ($f, $re, $t) = quotewords('\s*,\s*', 0, $line);
-        $g->set_edge_attribute($f, $t, re => $re);
+        my $re_node_id = "$re:$t";
+        $g->set_vertex_attributes($re_node_id, { type => 're', re => $re });
+        $g->set_vertex_attribute($_, type => 'state') for $f, $t;
+        $g->add_edge($f, $re_node_id);
+        $g->add_edge($re_node_id, $t);
     }
     return $g;
 }
 
 sub graphvizify {
     my ($g) = @_;
-    for my $v ($g->vertices) {
-        $g->set_edge_attribute(
-            @$_,
-            graphviz => { label => "/" . _quote($g->get_edge_attribute(@$_, 're')) . "/" },
-        ) for $g->edges_from($v);
+    my %state2res;
+    for (grep $g->get_vertex_attribute($_, 'type') eq 're', $g->vertices) {
+        my $re_quoted = _quote($g->get_vertex_attribute($_, 're'));
+        my ($to) = $g->edges_from($_);
+        push @{ $state2res{$to->[1]} }, $_;
+        $g->set_vertex_attribute(
+            $_,
+            graphviz => { label => "/$re_quoted/", color => 'black', shape => 'box' },
+        );
     }
-    $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global} });
+    my @groups = map +{
+        attributes => { name => "cluster_$_", subgraph => { rank => "TB" } },
+        nodes => [ $_, sort @{$state2res{$_}} ],
+    }, sort keys %state2res;
+    $g->set_graph_attribute(
+        graphviz => {
+            global => $GRAPHVIZ_ARGS{global},
+            graph => { clusterrank => 'local', compound => 1 },
+            groups => \@groups,
+        }
+    );
     $g;
 }
 

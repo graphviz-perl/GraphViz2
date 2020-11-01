@@ -1,78 +1,276 @@
 'digraph Perl {
  node [ color="green" shape="oval" ]
  edge [ color="grey" ]
- "attribute" -> "attribute" [ label="/[\\\\w :;]+/" ]
- "attribute" -> "post_attribute" [ label="/}/" ]
- "class" -> "class" [ label="/\\\\s+/" ]
- "class" -> "class_daisy_chain" [ label="/,/" ]
- "class" -> "edge" [ label="/[-<=>~.]+/" ]
- "class" -> "start_class_attribute" [ label="/{/" ]
- "class" -> "start_group" [ label="/\\\\(/" ]
- "class" -> "start_node" [ label="/\\\\[/" ]
- "class" -> "start_subclass" [ label="/\\\\./" ]
- "class_attribute" -> "class_attribute" [ label="/[\\\\w :;]+/" ]
- "class_attribute" -> "post_class_attribute" [ label="/}/" ]
- "class_daisy_chain" -> "class" [ label="/[a-z][a-z0-9_]*/" ]
- "class_daisy_chain" -> "class_daisy_chain" [ label="/\\\\s+/" ]
- "class_daisy_chain" -> "subclass" [ label="/\\\\./" ]
- "daisy_chain" -> "daisy_chain" [ label="/\\\\s+/" ]
- "daisy_chain" -> "edge" [ label="/[-<=>~.]+/" ]
- "daisy_chain" -> "start_node" [ label="/\\\\[/" ]
- "edge" -> "daisy_chain" [ label="/,/" ]
- "edge" -> "edge" [ label="/\\\\s+/" ]
- "edge" -> "post_group" [ label="/\\\\)/" ]
- "edge" -> "start_attribute" [ label="/{/" ]
- "edge" -> "start_group" [ label="/\\\\(/" ]
- "edge" -> "start_node" [ label="/\\\\[/" ]
- "global" -> "class" [ label="/[a-z][a-z0-9_]*/" ]
- "global" -> "edge" [ label="/[-<=>~.]+/" ]
- "global" -> "global" [ label="/\\\\s+/" ]
- "global" -> "start_class_attribute" [ label="/{/" ]
- "global" -> "start_group" [ label="/\\\\(/" ]
- "global" -> "start_node" [ label="/\\\\[/" ]
- "group" -> "class" [ label="/[a-z][a-z0-9_]*/" ]
- "group" -> "edge" [ label="/[-<=>~.]+/" ]
- "group" -> "group" [ label="/\\\\s+/" ]
- "group" -> "start_node" [ label="/\\\\[/" ]
- "node" -> "node" [ label="/\\\\s+/" ]
- "node" -> "post_node" [ label="/]/" ]
- "post_attribute" -> "daisy_chain" [ label="/,/" ]
- "post_attribute" -> "edge" [ label="/[-<=>~.]+/" ]
- "post_attribute" -> "post_attribute" [ label="/\\\\s+/" ]
- "post_attribute" -> "post_group" [ label="/\\\\)/" ]
- "post_attribute" -> "start_node" [ label="/\\\\[/" ]
- "post_class_attribute" -> "class" [ label="/[a-z][a-z0-9_]*/" ]
- "post_class_attribute" -> "daisy_chain" [ label="/,/" ]
- "post_class_attribute" -> "edge" [ label="/[-<=>~.]+/" ]
- "post_class_attribute" -> "post_class_attribute" [ label="/\\\\s+/" ]
- "post_class_attribute" -> "start_group" [ label="/\\\\(/" ]
- "post_class_attribute" -> "start_node" [ label="/\\\\[/" ]
- "post_group" -> "edge" [ label="/[-<=>~.]+/" ]
- "post_group" -> "post_group" [ label="/\\\\s+/" ]
- "post_group" -> "start_group" [ label="/\\\\(/" ]
- "post_group" -> "start_node" [ label="/\\\\[/" ]
- "post_node" -> "daisy_chain" [ label="/,/" ]
- "post_node" -> "edge" [ label="/[-<=>~.]+/" ]
- "post_node" -> "post_group" [ label="/\\\\)/" ]
- "post_node" -> "post_node" [ label="/\\\\s+/" ]
- "post_node" -> "start_attribute" [ label="/{/" ]
- "post_node" -> "start_group" [ label="/\\\\(/" ]
- "post_node" -> "start_node" [ label="/\\\\[/" ]
- "start_attribute" -> "attribute" [ label="/[\\\\w :;]+/" ]
- "start_class_attribute" -> "class_attribute" [ label="/[\\\\w :;]+/" ]
- "start_group" -> "edge" [ label="/[-<=>~.]+/" ]
- "start_group" -> "group" [ label="/[\\\\w.]+:/" ]
- "start_group" -> "post_group" [ label="/\\\\)/" ]
- "start_group" -> "start_group" [ label="/\\\\s+/" ]
- "start_node" -> "node" [ label="/[\\\\w.]+/" ]
- "start_node" -> "post_node" [ label="/]/" ]
- "start_node" -> "start_node" [ label="/\\\\s+/" ]
- "start_subclass" -> "subclass" [ label="/[a-z][a-z0-9_]*/" ]
- "subclass" -> "class_daisy_chain" [ label="/,/" ]
- "subclass" -> "edge" [ label="/[-<=>~.]+/" ]
- "subclass" -> "node" [ label="/\\\\[/" ]
- "subclass" -> "start_class_attribute" [ label="/{/" ]
- "subclass" -> "start_group" [ label="/\\\\(/" ]
- "subclass" -> "subclass" [ label="/\\\\s+/" ]
+ graph [ clusterrank="local" compound="1" ]
+
+ subgraph "cluster_attribute" {
+  rank="TB"
+  "attribute"
+  "[\\w :;]+:attribute"
+ }
+
+ subgraph "cluster_class" {
+  rank="TB"
+  "class"
+  "[a-z][a-z0-9_]*:class"
+  "\\s+:class"
+ }
+
+ subgraph "cluster_class_attribute" {
+  rank="TB"
+  "class_attribute"
+  "[\\w :;]+:class_attribute"
+ }
+
+ subgraph "cluster_class_daisy_chain" {
+  rank="TB"
+  "class_daisy_chain"
+  ",:class_daisy_chain"
+  "\\s+:class_daisy_chain"
+ }
+
+ subgraph "cluster_daisy_chain" {
+  rank="TB"
+  "daisy_chain"
+  ",:daisy_chain"
+  "\\s+:daisy_chain"
+ }
+
+ subgraph "cluster_edge" {
+  rank="TB"
+  "edge"
+  "[-<=>~.]+:edge"
+  "\\s+:edge"
+ }
+
+ subgraph "cluster_global" {
+  rank="TB"
+  "global"
+  "\\s+:global"
+ }
+
+ subgraph "cluster_group" {
+  rank="TB"
+  "group"
+  "[\\w.]+::group"
+  "\\s+:group"
+ }
+
+ subgraph "cluster_node" {
+  rank="TB"
+  "node"
+  "[\\w.]+:node"
+  "\\[:node"
+  "\\s+:node"
+ }
+
+ subgraph "cluster_post_attribute" {
+  rank="TB"
+  "post_attribute"
+  "\\s+:post_attribute"
+  "}:post_attribute"
+ }
+
+ subgraph "cluster_post_class_attribute" {
+  rank="TB"
+  "post_class_attribute"
+  "\\s+:post_class_attribute"
+  "}:post_class_attribute"
+ }
+
+ subgraph "cluster_post_group" {
+  rank="TB"
+  "post_group"
+  "\\):post_group"
+  "\\s+:post_group"
+ }
+
+ subgraph "cluster_post_node" {
+  rank="TB"
+  "post_node"
+  "\\s+:post_node"
+  "]:post_node"
+ }
+
+ subgraph "cluster_start_attribute" {
+  rank="TB"
+  "start_attribute"
+  "{:start_attribute"
+ }
+
+ subgraph "cluster_start_class_attribute" {
+  rank="TB"
+  "start_class_attribute"
+  "{:start_class_attribute"
+ }
+
+ subgraph "cluster_start_group" {
+  rank="TB"
+  "start_group"
+  "\\(:start_group"
+  "\\s+:start_group"
+ }
+
+ subgraph "cluster_start_node" {
+  rank="TB"
+  "start_node"
+  "\\[:start_node"
+  "\\s+:start_node"
+ }
+
+ subgraph "cluster_start_subclass" {
+  rank="TB"
+  "start_subclass"
+  "\\.:start_subclass"
+ }
+
+ subgraph "cluster_subclass" {
+  rank="TB"
+  "subclass"
+  "[a-z][a-z0-9_]*:subclass"
+  "\\.:subclass"
+  "\\s+:subclass"
+ }
+ ",:class_daisy_chain" [ color="black" label="/,/" shape="box" ]
+ ",:class_daisy_chain" -> "class_daisy_chain"
+ ",:daisy_chain" [ color="black" label="/,/" shape="box" ]
+ ",:daisy_chain" -> "daisy_chain"
+ "[-<=>~.]+:edge" [ color="black" label="/\\[-<=>~.\\]+/" shape="box" ]
+ "[-<=>~.]+:edge" -> "edge"
+ "[\\w :;]+:attribute" [ color="black" label="/\\[\\\\w :;\\]+/" shape="box" ]
+ "[\\w :;]+:attribute" -> "attribute"
+ "[\\w :;]+:class_attribute" [ color="black" label="/\\[\\\\w :;\\]+/" shape="box" ]
+ "[\\w :;]+:class_attribute" -> "class_attribute"
+ "[\\w.]+::group" [ color="black" label="/\\[\\\\w.\\]+:/" shape="box" ]
+ "[\\w.]+::group" -> "group"
+ "[\\w.]+:node" [ color="black" label="/\\[\\\\w.\\]+/" shape="box" ]
+ "[\\w.]+:node" -> "node"
+ "[a-z][a-z0-9_]*:class" [ color="black" label="/\\[a-z\\]\\[a-z0-9_\\]*/" shape="box" ]
+ "[a-z][a-z0-9_]*:class" -> "class"
+ "[a-z][a-z0-9_]*:subclass" [ color="black" label="/\\[a-z\\]\\[a-z0-9_\\]*/" shape="box" ]
+ "[a-z][a-z0-9_]*:subclass" -> "subclass"
+ "\\(:start_group" [ color="black" label="/\\\\(/" shape="box" ]
+ "\\(:start_group" -> "start_group"
+ "\\):post_group" [ color="black" label="/\\\\)/" shape="box" ]
+ "\\):post_group" -> "post_group"
+ "\\.:start_subclass" [ color="black" label="/\\\\./" shape="box" ]
+ "\\.:start_subclass" -> "start_subclass"
+ "\\.:subclass" [ color="black" label="/\\\\./" shape="box" ]
+ "\\.:subclass" -> "subclass"
+ "\\[:node" [ color="black" label="/\\\\[/" shape="box" ]
+ "\\[:node" -> "node"
+ "\\[:start_node" [ color="black" label="/\\\\[/" shape="box" ]
+ "\\[:start_node" -> "start_node"
+ "\\s+:class" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:class" -> "class"
+ "\\s+:class_daisy_chain" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:class_daisy_chain" -> "class_daisy_chain"
+ "\\s+:daisy_chain" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:daisy_chain" -> "daisy_chain"
+ "\\s+:edge" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:edge" -> "edge"
+ "\\s+:global" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:global" -> "global"
+ "\\s+:group" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:group" -> "group"
+ "\\s+:node" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:node" -> "node"
+ "\\s+:post_attribute" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:post_attribute" -> "post_attribute"
+ "\\s+:post_class_attribute" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:post_class_attribute" -> "post_class_attribute"
+ "\\s+:post_group" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:post_group" -> "post_group"
+ "\\s+:post_node" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:post_node" -> "post_node"
+ "\\s+:start_group" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:start_group" -> "start_group"
+ "\\s+:start_node" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:start_node" -> "start_node"
+ "\\s+:subclass" [ color="black" label="/\\\\s+/" shape="box" ]
+ "\\s+:subclass" -> "subclass"
+ "]:post_node" [ color="black" label="/\\]/" shape="box" ]
+ "]:post_node" -> "post_node"
+ "attribute" -> "[\\w :;]+:attribute"
+ "attribute" -> "}:post_attribute"
+ "class" -> ",:class_daisy_chain"
+ "class" -> "[-<=>~.]+:edge"
+ "class" -> "\\(:start_group"
+ "class" -> "\\.:start_subclass"
+ "class" -> "\\[:start_node"
+ "class" -> "\\s+:class"
+ "class" -> "{:start_class_attribute"
+ "class_attribute" -> "[\\w :;]+:class_attribute"
+ "class_attribute" -> "}:post_class_attribute"
+ "class_daisy_chain" -> "[a-z][a-z0-9_]*:class"
+ "class_daisy_chain" -> "\\.:subclass"
+ "class_daisy_chain" -> "\\s+:class_daisy_chain"
+ "daisy_chain" -> "[-<=>~.]+:edge"
+ "daisy_chain" -> "\\[:start_node"
+ "daisy_chain" -> "\\s+:daisy_chain"
+ "edge" -> ",:daisy_chain"
+ "edge" -> "\\(:start_group"
+ "edge" -> "\\):post_group"
+ "edge" -> "\\[:start_node"
+ "edge" -> "\\s+:edge"
+ "edge" -> "{:start_attribute"
+ "global" -> "[-<=>~.]+:edge"
+ "global" -> "[a-z][a-z0-9_]*:class"
+ "global" -> "\\(:start_group"
+ "global" -> "\\[:start_node"
+ "global" -> "\\s+:global"
+ "global" -> "{:start_class_attribute"
+ "group" -> "[-<=>~.]+:edge"
+ "group" -> "[a-z][a-z0-9_]*:class"
+ "group" -> "\\[:start_node"
+ "group" -> "\\s+:group"
+ "node" -> "\\s+:node"
+ "node" -> "]:post_node"
+ "post_attribute" -> ",:daisy_chain"
+ "post_attribute" -> "[-<=>~.]+:edge"
+ "post_attribute" -> "\\):post_group"
+ "post_attribute" -> "\\[:start_node"
+ "post_attribute" -> "\\s+:post_attribute"
+ "post_class_attribute" -> ",:daisy_chain"
+ "post_class_attribute" -> "[-<=>~.]+:edge"
+ "post_class_attribute" -> "[a-z][a-z0-9_]*:class"
+ "post_class_attribute" -> "\\(:start_group"
+ "post_class_attribute" -> "\\[:start_node"
+ "post_class_attribute" -> "\\s+:post_class_attribute"
+ "post_group" -> "[-<=>~.]+:edge"
+ "post_group" -> "\\(:start_group"
+ "post_group" -> "\\[:start_node"
+ "post_group" -> "\\s+:post_group"
+ "post_node" -> ",:daisy_chain"
+ "post_node" -> "[-<=>~.]+:edge"
+ "post_node" -> "\\(:start_group"
+ "post_node" -> "\\):post_group"
+ "post_node" -> "\\[:start_node"
+ "post_node" -> "\\s+:post_node"
+ "post_node" -> "{:start_attribute"
+ "start_attribute" -> "[\\w :;]+:attribute"
+ "start_class_attribute" -> "[\\w :;]+:class_attribute"
+ "start_group" -> "[-<=>~.]+:edge"
+ "start_group" -> "[\\w.]+::group"
+ "start_group" -> "\\):post_group"
+ "start_group" -> "\\s+:start_group"
+ "start_node" -> "[\\w.]+:node"
+ "start_node" -> "\\s+:start_node"
+ "start_node" -> "]:post_node"
+ "start_subclass" -> "[a-z][a-z0-9_]*:subclass"
+ "subclass" -> ",:class_daisy_chain"
+ "subclass" -> "[-<=>~.]+:edge"
+ "subclass" -> "\\(:start_group"
+ "subclass" -> "\\[:node"
+ "subclass" -> "\\s+:subclass"
+ "subclass" -> "{:start_class_attribute"
+ "{:start_attribute" [ color="black" label="/{/" shape="box" ]
+ "{:start_attribute" -> "start_attribute"
+ "{:start_class_attribute" [ color="black" label="/{/" shape="box" ]
+ "{:start_class_attribute" -> "start_class_attribute"
+ "}:post_attribute" [ color="black" label="/}/" shape="box" ]
+ "}:post_attribute" -> "post_attribute"
+ "}:post_class_attribute" [ color="black" label="/}/" shape="box" ]
+ "}:post_class_attribute" -> "post_class_attribute"
 }
 '
