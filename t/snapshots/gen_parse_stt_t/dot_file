@@ -1,7 +1,8 @@
 'digraph Perl {
- node [ color="green" shape="oval" ]
+ graph [ rankdir="TB" ]
+ node [ color="blue" shape="oval" ]
  edge [ color="grey" ]
- graph [ clusterrank="local" compound="1" ]
+ graph [ clusterrank="local" compound="1" rankdir="TB" ]
 
  subgraph "cluster_attribute" {
   rank="TB"

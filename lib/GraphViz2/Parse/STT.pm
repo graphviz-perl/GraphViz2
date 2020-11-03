@@ -30,10 +30,15 @@ has graph => (
     required => 0,
 );
 sub _build_graph {
-    GraphViz2->new(%GRAPHVIZ_ARGS)->from_graph(graphvizify($_[0]->as_graph));
+    GraphViz2->new(%GRAPHVIZ_ARGS)->from_graph(graphvizify($_[0]->as_graph, $_[0]->mode));
 }
 
 has stt => (
+    is       => 'rw',
+    required => 0,
+);
+
+has mode => (
     is       => 'rw',
     required => 0,
 );
@@ -43,7 +48,8 @@ sub _quote { my $t = $_[0]; $t =~ s/\\/\\\\/g; $t; }
 sub create {
     my ($self, %arg) = @_;
     $self->stt($arg{stt});
-    $self->graph->from_graph(graphvizify($self->as_graph));
+    $self->mode($arg{mode}) if exists $arg{mode};
+    $self->graph->from_graph(graphvizify($self->as_graph, $self->mode));
     return $self;
 }
 
@@ -54,38 +60,57 @@ sub to_graph {
         $line =~ s/^\s*\[?//;
         $line =~ s/\s*(],?)?$//;
         my ($f, $re, $t) = quotewords('\s*,\s*', 0, $line);
-        my $re_node_id = "$re:$t";
-        $g->set_vertex_attributes($re_node_id, { type => 're', re => $re });
+        $g->set_edge_attributes($f, $t, { type => 'transition', re => $re });
         $g->set_vertex_attribute($_, type => 'state') for $f, $t;
-        $g->add_edge($f, $re_node_id);
-        $g->add_edge($re_node_id, $t);
     }
     return $g;
 }
 
 sub graphvizify {
-    my ($g) = @_;
-    my %state2res;
-    for (grep $g->get_vertex_attribute($_, 'type') eq 're', $g->vertices) {
-        my $re_quoted = _quote($g->get_vertex_attribute($_, 're'));
-        my ($to) = $g->edges_from($_);
-        push @{ $state2res{$to->[1]} }, $_;
-        $g->set_vertex_attribute(
-            $_,
-            graphviz => { label => "/$re_quoted/", color => 'black', shape => 'box' },
-        );
-    }
-    my @groups = map +{
-        attributes => { name => "cluster_$_", subgraph => { rank => "TB" } },
-        nodes => [ $_, sort @{$state2res{$_}} ],
-    }, sort keys %state2res;
-    $g->set_graph_attribute(
-        graphviz => {
-            global => $GRAPHVIZ_ARGS{global},
-            graph => { clusterrank => 'local', compound => 1 },
-            groups => \@groups,
+    my ($g, $mode) = @_;
+    $mode //= 're_nodes';
+    if ($mode eq 're_nodes') {
+        my %state2re_s;
+        for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
+            for my $e (grep $g->get_edge_attribute(@$_, 'type') eq 'transition', $g->edges_from($v)) {
+                my ($re, $t) = ($g->get_edge_attribute(@$e, 're'), $e->[1]);
+                $state2re_s{$t}{ my $re_node_id = "$re:$t" } = 1;
+                $g->set_vertex_attributes($re_node_id, {
+                    type => 're',
+                    graphviz => {
+                        label => "/" . _quote($re) . "/",
+                        color => 'black', shape => 'box',
+                    },
+                });
+                $g->set_edge_attribute($v, $re_node_id, type => 'state_re');
+                $g->set_edge_attribute($re_node_id, $t, type => 're_state');
+                $g->delete_edge(@$e);
+            }
         }
-    );
+        my @groups = map +{
+            attributes => { name => "cluster_$_", subgraph => { rank => "TB" } },
+            nodes => [ $_, sort keys %{$state2re_s{$_}} ],
+        }, sort keys %state2re_s;
+        $g->set_graph_attribute(
+            graphviz => {
+                global => $GRAPHVIZ_ARGS{global},
+                graph => { clusterrank => 'local', compound => 1 },
+                groups => \@groups,
+            },
+        );
+    } elsif ($mode eq 're_edges') {
+        for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
+            for my $e (grep $g->get_edge_attribute(@$_, 'type') eq 'transition', $g->edges_from($v)) {
+                $g->set_edge_attribute(
+                    @$e,
+                    graphviz => { label => "/" . _quote($g->get_edge_attribute(@$e, 're')) . "/" },
+                );
+            }
+        }
+        $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global} });
+    } else {
+        die "Unknown STT visualisation mode '$mode'";
+    }
     $g;
 }
 
@@ -108,8 +133,11 @@ L<GraphViz2::Parse::STT> - Visualize a Set::FA::Element state transition table a
     # populate a GraphViz2 object with a Graph::Directed of a parser
     my $gv = GraphViz2->from_graph(GraphViz2::Parse::STT::graphvizify($gd));
 
+    # visualise with another mode
+    $gd = GraphViz2::Parse::STT::graphvizify($gd, 're_nodes'); # or 're_edges'
+
     # OO interface, using lazy-built attributes
-    my $gvp = GraphViz2::Parse::STT->new(stt => $stt);
+    my $gvp = GraphViz2::Parse::STT->new(stt => $stt, mode => 're_nodes');
     my $gd = $gvp->as_graph; # Graph::Directed object
     # or supply a suitable Graph::Directed object
     my $gvp = GraphViz2::Parse::STT->new(as_graph => $gd);
@@ -151,17 +179,24 @@ This is the recommended interface.
 Given STT text, returns a L<Graph::Directed> object describing the finite
 state machine for it.
 
+The nodes are all states, and the edges are regular expressions that
+cause a transition to another state.
+
 =head2 graphvizify
 
-    my $gv = GraphViz2->from_graph(GraphViz2::Parse::STT::graphvizify($gd));
+    my $gv = GraphViz2->from_graph(GraphViz2::Parse::STT::graphvizify($gd, $mode));
 
 Mutates the given graph object to add to it the C<graphviz> attributes
 visualisation "hints" that will make the L<GraphViz2/from_graph> method
 visualise this regular expression in the most meaningful way, including
 labels and groupings.
 
-It is idempotent as it simply sets the C<graphviz> attribute of the
-relevant graph entities.
+It is idempotent, but in C<re_nodes> mode, it deletes the transition
+edges and replaces them with additional nodes and edges.
+
+If a second argument is given, it will be the visualisation "mode". The
+default is C<re_nodes>. Also available is C<re_edges>, where the regular
+expressions are simply added as labels to the state-transition edges.
 
 Returns the graph object for convenience.
 
@@ -220,7 +255,11 @@ L</as_graph>.
             node   => {color => 'blue', shape => 'oval'},
     );
 
-=head2 create(regexp => $regexp)
+=head3 mode
+
+The mode to be used by L</graphvizify>.
+
+=head2 create(regexp => $regexp, mode => $mode)
 
 DEPRECATED. Mutates the object to set the C<stt> attribute, then
 accesses the C<as_graph> attribute (possibly lazy-building it), then
