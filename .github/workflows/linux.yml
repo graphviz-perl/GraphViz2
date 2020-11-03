@@ -58,3 +58,19 @@ jobs:
         run: perl -V
       - name: Run tests
         run: prove -l t
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@v2
+      - name: Install Graphviz, Perl and dependencies (MacOS)
+        run: |
+          choco install graphviz perl
+          curl -L https://cpanmin.us | perl - -n --installdeps .
+      - name: perl -V
+        run: perl -V
+      - name: Run tests
+        run: prove -l t
