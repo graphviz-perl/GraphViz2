@@ -1,0 +1,39 @@
+name: perl
+on:
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
+  pull_request:
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - perl-version: '5.30'
+            release-test: true
+          - perl-version: '5.10'
+          - perl-version: '5.14'
+          - perl-version: '5.20'
+    container: perl:${{ matrix.perl-version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Graphviz, Perl and dependencies
+        run: |
+          apt-get -y update && apt-get -y install graphviz
+          cpanm -n --installdeps .
+      - name: perl -V
+        run: perl -V
+      - name: Run release tests # before others as may install useful stuff
+        if: ${{ matrix.release-test }}
+        env:
+          RELEASE_TESTING: 1
+        run: |
+          cpanm -n --installdeps --with-develop .
+          prove -lr xt
+      - name: Run tests (no coverage)
+        if: ${{ !matrix.coverage }}
+        run: prove -l t
