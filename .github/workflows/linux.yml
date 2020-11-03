@@ -46,3 +46,15 @@ jobs:
           cpanm -n Devel::Cover::Report::Coveralls
           perl -MDevel::Cover::Report::Coveralls -mTest::More -e 'package Devel::Cover::Report::Coveralls; print Test::More::explain +{ %{ get_config() }, %{ get_git_info() } }'
           cover -test -report Coveralls
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Graphviz, Perl and dependencies (MacOS)
+        run: |
+          brew install graphviz perl
+          curl -L https://cpanmin.us | perl - -n --installdeps .
+      - name: perl -V
+        run: perl -V
+      - name: Run tests
+        run: prove -l t
