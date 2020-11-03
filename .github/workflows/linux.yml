@@ -15,6 +15,7 @@ jobs:
         include:
           - perl-version: '5.30'
             release-test: true
+            coverage: true
           - perl-version: '5.10'
           - perl-version: '5.14'
           - perl-version: '5.20'
@@ -37,3 +38,11 @@ jobs:
       - name: Run tests (no coverage)
         if: ${{ !matrix.coverage }}
         run: prove -l t
+      - name: Run tests (with coverage)
+        if: ${{ matrix.coverage }}
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cpanm -n Devel::Cover::Report::Coveralls
+          perl -MDevel::Cover::Report::Coveralls -mTest::More -e 'package Devel::Cover::Report::Coveralls; print Test::More::explain +{ %{ get_config() }, %{ get_git_info() } }'
+          cover -test -report Coveralls
