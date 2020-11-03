@@ -615,7 +615,10 @@ sub from_graph {
 	my $global = { directed => $g->is_directed, %{delete $g_attrs{global}||{}} };
 	my $groups = delete $g_attrs{groups} || [];
 	if (ref $self) {
-		$self->$_($g_attrs{$_}) for sort keys %g_attrs;
+		for (sort keys %g_attrs) {
+			my $method = "default_$_";
+			$self->$method(%{ $g_attrs{$_} });
+		}
 	} else {
 		$self = $self->new(global => $global, %g_attrs);
 	}
