@@ -1,5 +1,6 @@
 - fix GraphViz2->from_graph object method
 - Parse::STT add visualise modes: REs become nodes for clearer transitions
+- more robust quoting for record ports
 
 2.59 2020-10-31
 - GraphViz2->from_graph, dep on Graph, use as intermediate in Parse::Regexp

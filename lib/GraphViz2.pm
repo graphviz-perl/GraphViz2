@@ -15,6 +15,12 @@ our $VERSION = '2.59';
 
 my $DATA_SECTION = get_data_section; # load once
 my $DEFAULT_COMBINE = 1; # default for combine_node_and_port
+my %CONTEXT_QUOTING = (
+	label => '\\{\\}\\|<>\\s"',
+	label_legacy => '"',
+);
+my %PORT_QUOTING = map +($_ => sprintf "%%%02x", ord $_), qw(% \\ : " { } | < >);
+my $PORT_QUOTE_CHARS = join '', '[', (map quotemeta, sort keys %PORT_QUOTING), ']';
 
 has command =>
 (
@@ -270,7 +276,7 @@ sub add_edge
 		if ($self->global->{combine_node_and_port}) {
 			($name, $port) = $self->_edge_name_port($name);
 		} elsif (exists $arg{$argname}) {
-			$port = ':' . delete $arg{$argname};
+			$port = ':"' . escape_port(delete $arg{$argname}) . '"';
 		}
 		push @nodes, [ $name, $port ];
 		next if (my $nh = $self->node_hash)->{$name};
@@ -312,15 +318,15 @@ sub _compile_record {
 		$text = "{$text}" if $add_braces;
 	} elsif (ref $item eq 'HASH') {
 		my $port = $item->{port} || 0;
-		$text = escape_some_chars($item->{text} // '', $quote_more);
+		$text = escape_some_chars($item->{text} // '', $CONTEXT_QUOTING{$quote_more ? 'label' : 'label_legacy'});
 		if ($port) {
-			$port =~ s/^\s*<?/</;
-			$port =~ s/>?\s*$/>/;
-			$text = $text;
-			$text = "$port $text";
+			$port =~ s/^\s*<?//;
+			$port =~ s/>?\s*$//;
+			$port = escape_port($port);
+			$text = "<$port> $text";
 		}
 	} else {
-		$text = "<port".++$port_count."> " . escape_some_chars($item, $quote_more);
+		$text = "<port".++$port_count."> " . escape_some_chars($item, $CONTEXT_QUOTING{$quote_more ? 'label' : 'label_legacy'});
 	}
 	($port_count, $text);
 }
@@ -343,7 +349,7 @@ sub add_node {
 	} elsif ($arg{shape} && ( ($arg{shape} =~ /M?record/) || ( ($arg{shape} =~ /(?:none|plaintext)/) && ($label =~ /^</) ) ) ) {
 		# Do not escape anything.
 	} elsif ($label) {
-		$arg{label} = escape_some_chars($arg{label});
+		$arg{label} = escape_some_chars($arg{label}, $CONTEXT_QUOTING{label_legacy});
 	}
 	my $dot = $self->stringify_attributes(qq|"$name"|, \%arg);
 	push @{ $self->command }, _indent($dot, $self->scope);
@@ -421,8 +427,14 @@ sub default_subgraph
 
 } # End of default_subgraph.
 
+sub escape_port {
+	my ($s) = @_;
+	$s =~ s/($PORT_QUOTE_CHARS)/$PORT_QUOTING{$1}/g;
+	$s;
+}
+
 sub escape_some_chars {
-	my ($s, $quote_more) = @_;
+	my ($s, $quote_chars) = @_;
 	my @s        = split(//, $s);
 	my $label    = '';
 	for my $i (0 .. $#s) {
@@ -433,7 +445,7 @@ sub escape_some_chars {
 			if (substr($s, 0, 1) ne '<') {
 				$maybe = 1; # It's not a HTML label
 			}
-		} elsif ($quote_more and $s[$i] =~ /[\{\}\|<>"]/) {
+		} elsif ($quote_chars and $s[$i] =~ /[$quote_chars]/) {
 			$maybe = 1;
 		}
 		# Escape if not escaped.
