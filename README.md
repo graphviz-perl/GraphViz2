@@ -135,8 +135,10 @@ treatment of double-colons).
 
 When the option is false, any name may be given to nodes, and edges can
 be created between them. To specify ports, give the additional parameter
-of `tailport` or `headport`. Also, `add_node`'s treatment of labels
-is more DWIM, with `{` etc being transparently quoted.
+of `tailport` or `headport`. To specify a compass point in addition,
+give array-refs with two values for these parameters. Also, `add_node`'s
+treatment of labels is more DWIM, with `{` etc being transparently
+quoted.
 
 #### directed => $Boolean
 
@@ -561,11 +563,6 @@ Here, \[\] indicate optional parameters.
 Add a edge from 1 node to another.
 
 $from\_node\_name and $to\_node\_name default to ''.
-
-If either of these node names is unknown, add\_node(name => $node\_name) is called automatically. The lack of
-attributes in this call means such nodes are created with the default set of attributes, and that may not
-be what you want. To avoid this, you have to call add\_node(...) yourself, with the appropriate attributes,
-before calling add\_edge(...).
 
 %hash is any edge attributes accepted as
 [Graphviz attributes](https://www.graphviz.org/doc/info/attrs.html).

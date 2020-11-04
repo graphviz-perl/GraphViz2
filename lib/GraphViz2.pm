@@ -275,8 +275,8 @@ sub add_edge
 		my $port = '';
 		if ($self->global->{combine_node_and_port}) {
 			($name, $port) = $self->_edge_name_port($name);
-		} elsif (exists $arg{$argname}) {
-			$port = ':"' . escape_port(delete $arg{$argname}) . '"';
+		} elsif (defined(my $value = delete $arg{$argname})) {
+			$port = join ':', '', map qq{"$_"}, map escape_port($_), ref $value ? @$value : $value;
 		}
 		push @nodes, [ $name, $port ];
 		next if (my $nh = $self->node_hash)->{$name};
@@ -793,8 +793,10 @@ treatment of double-colons).
 
 When the option is false, any name may be given to nodes, and edges can
 be created between them. To specify ports, give the additional parameter
-of C<tailport> or C<headport>. Also, C<add_node>'s treatment of labels
-is more DWIM, with C<{> etc being transparently quoted.
+of C<tailport> or C<headport>. To specify a compass point in addition,
+give array-refs with two values for these parameters. Also, C<add_node>'s
+treatment of labels is more DWIM, with C<{> etc being transparently
+quoted.
 
 =head4 directed => $Boolean
 
@@ -1239,11 +1241,6 @@ Here, [] indicate optional parameters.
 Add a edge from 1 node to another.
 
 $from_node_name and $to_node_name default to ''.
-
-If either of these node names is unknown, add_node(name => $node_name) is called automatically. The lack of
-attributes in this call means such nodes are created with the default set of attributes, and that may not
-be what you want. To avoid this, you have to call add_node(...) yourself, with the appropriate attributes,
-before calling add_edge(...).
 
 %hash is any edge attributes accepted as
 L<Graphviz attributes|https://www.graphviz.org/doc/info/attrs.html>.
