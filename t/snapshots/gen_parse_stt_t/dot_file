@@ -2,6 +2,7 @@
  graph [ rankdir="TB" ]
  node [ color="blue" shape="oval" ]
  edge [ color="grey" ]
+ graph [ concentrate="true" rankdir="TB" ]
  "attribute" [ label="{<[%5cw %3a;]+> /\\[\\\\w\\ :;\\]+/}|<state> attribute" shape="record" ]
  "attribute":"state" -> "attribute":"[%5cw %3a;]+":"w"
  "attribute":"state" -> "post_attribute":"%7d":"w"

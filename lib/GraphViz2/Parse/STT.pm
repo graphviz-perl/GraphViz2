@@ -116,7 +116,7 @@ sub graphvizify {
                 ],
             });
         }
-        $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global} });
+        $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global}, graph => { concentrate => 'true' } });
     } elsif ($mode eq 're_edges') {
         for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
             for my $e (grep $g->get_edge_attribute(@$_, 'type') eq 'transition', $g->edges_from($v)) {
