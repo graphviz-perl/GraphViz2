@@ -13,7 +13,7 @@ sub read_file {
 }
 
 my $stt = read_file(File::Spec->catfile('t', 'sample.stt.2.dat'));
-my $g = GraphViz2::Parse::STT->new(stt => $stt, mode => 're_nodes');
+my $g = GraphViz2::Parse::STT->new(stt => $stt, mode => 're_structs');
 
 if (@ARGV) {
   my $format = shift || 'svg';

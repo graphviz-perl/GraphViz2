@@ -1,5 +1,5 @@
 - fix GraphViz2->from_graph object method
-- Parse::STT add visualise modes: REs become nodes for clearer transitions
+- Parse::STT add visualise modes: REs become nodes or ports for clearer transitions
 - more robust quoting for record ports
 - add handling array-ref for record ports
 

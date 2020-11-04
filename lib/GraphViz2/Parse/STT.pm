@@ -68,7 +68,7 @@ sub to_graph {
 
 sub graphvizify {
     my ($g, $mode) = @_;
-    $mode //= 're_nodes';
+    $mode //= 're_structs';
     if ($mode eq 're_nodes') {
         my %state2re_s;
         for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
@@ -98,6 +98,25 @@ sub graphvizify {
                 groups => \@groups,
             },
         );
+    } elsif ($mode eq 're_structs') {
+        for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
+            my @ins = grep $_->[1] eq 'transition',
+                map [ $_->[0], @{ $g->get_edge_attributes(@$_) }{qw(type re)} ],
+                $g->edges_to($v);
+            $g->set_edge_attribute(
+                $_->[0], $v,
+                graphviz => { tailport => 'state', headport => [ $_->[2], 'w' ] },
+            ) for @ins;
+            my %unique_re = map +($_->[2] => undef), @ins;
+            $g->set_vertex_attribute($v, graphviz => {
+                shape => 'record',
+                label => [
+                    [ map +{ text => "/"._quote($_)."/", port => $_ }, sort keys %unique_re ],
+                    { text => _quote($v), port => 'state' },
+                ],
+            });
+        }
+        $g->set_graph_attribute(graphviz => { global => $GRAPHVIZ_ARGS{global} });
     } elsif ($mode eq 're_edges') {
         for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
             for my $e (grep $g->get_edge_attribute(@$_, 'type') eq 'transition', $g->edges_from($v)) {
@@ -137,7 +156,7 @@ L<GraphViz2::Parse::STT> - Visualize a Set::FA::Element state transition table a
     $gd = GraphViz2::Parse::STT::graphvizify($gd, 're_nodes'); # or 're_edges'
 
     # OO interface, using lazy-built attributes
-    my $gvp = GraphViz2::Parse::STT->new(stt => $stt, mode => 're_nodes');
+    my $gvp = GraphViz2::Parse::STT->new(stt => $stt, mode => 're_structs');
     my $gd = $gvp->as_graph; # Graph::Directed object
     # or supply a suitable Graph::Directed object
     my $gvp = GraphViz2::Parse::STT->new(as_graph => $gd);
@@ -195,8 +214,9 @@ It is idempotent, but in C<re_nodes> mode, it deletes the transition
 edges and replaces them with additional nodes and edges.
 
 If a second argument is given, it will be the visualisation "mode". The
-default is C<re_nodes>. Also available is C<re_edges>, where the regular
-expressions are simply added as labels to the state-transition edges.
+default is C<re_structs>. Also available is C<re_nodes>, and C<re_edges>
+where the regular expressions are simply added as labels to the
+state-transition edges.
 
 Returns the graph object for convenience.
 
