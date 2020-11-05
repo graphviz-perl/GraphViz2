@@ -58,10 +58,9 @@ jobs:
       - uses: shogo82148/actions-setup-perl@v1
         with:
           distribution: strawberry # ignored non-windows
-      - uses: perl-actions/install-with-cpanm@stable
+      - uses: perl-actions/install-with-cpanm@v1
         with:
-          args: -n --installdeps
-          install: .
+          args: -n --installdeps .
       - name: perl -V
         run: perl -V
       - name: Run tests
