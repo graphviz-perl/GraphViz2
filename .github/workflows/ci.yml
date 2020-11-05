@@ -51,15 +51,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: macos-latest
-            pkg: brew
-          - os: windows-latest
+        os: [macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: ts-graphviz/setup-graphviz@v1
-      - run: ${{ matrix.pkg }} install perl
-        if: ${{ matrix.pkg }}
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          distribution: strawberry # ignored non-windows
       - uses: perl-actions/install-with-cpanm@stable
         with:
           args: -n --installdeps
