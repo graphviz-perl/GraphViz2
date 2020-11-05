@@ -22,12 +22,10 @@ jobs:
     container: perl:${{ matrix.perl-version }}
     steps:
       - uses: actions/checkout@v2
-      - name: Install Graphviz, Perl and dependencies
-        run: |
-          apt-get -y update && apt-get -y install graphviz
-          cpanm -n --installdeps .
+      - uses: ts-graphviz/setup-graphviz@52f9474
       - name: perl -V
         run: perl -V
+      - run: cpanm -n --installdeps .
       - name: Run release tests # before others as may install useful stuff
         if: ${{ matrix.release-test }}
         env:
