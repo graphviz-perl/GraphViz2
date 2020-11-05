@@ -50,9 +50,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install Graphviz, Perl and dependencies (MacOS)
+      - uses: ts-graphviz/setup-graphviz@v1
+      - name: Install Perl and dependencies (MacOS)
         run: |
-          brew install graphviz perl
+          brew install perl
           curl -L https://cpanmin.us | perl - -n --installdeps .
       - name: perl -V
         run: perl -V
@@ -66,10 +67,11 @@ jobs:
           git config --global core.autocrlf false
           git config --global core.eol lf
       - uses: actions/checkout@v2
-      - name: Install Graphviz, Perl and dependencies (MacOS)
+      - uses: ts-graphviz/setup-graphviz@v1
+      - name: Install Perl and dependencies (Windows)
         run: |
-          choco install graphviz perl
-          curl -L https://cpanmin.us | perl - -n --installdeps .
+          choco install perl
+          cpanm -n --installdeps .
       - name: perl -V
         run: perl -V
       - name: Run tests
