@@ -26,8 +26,7 @@ jobs:
         run: |
           apt-get -y update && apt-get -y install graphviz
           cpanm -n --installdeps .
-      - name: perl -V
-        run: perl -V
+      - run: perl -V
       - name: Run release tests # before others as may install useful stuff
         if: ${{ matrix.release-test }}
         env:
@@ -37,14 +36,14 @@ jobs:
           prove -lr xt
       - name: Run tests (no coverage)
         if: ${{ !matrix.coverage }}
-        run: prove -l t
+        run: prove -l -j4 t
       - name: Run tests (with coverage)
         if: ${{ matrix.coverage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cpanm -n Devel::Cover::Report::Coveralls
-          cover -test -report Coveralls
+          HARNESS_OPTIONS='j4' cover -test -report Coveralls
   non-linux:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -60,7 +59,6 @@ jobs:
       - uses: perl-actions/install-with-cpanm@v1
         with:
           args: -n --installdeps .
-      - name: perl -V
-        run: perl -V
+      - run: perl -V
       - name: Run tests
-        run: prove -l t
+        run: prove -l -j4 t
