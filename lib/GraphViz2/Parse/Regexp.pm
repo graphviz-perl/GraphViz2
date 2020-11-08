@@ -78,9 +78,9 @@ sub to_graph {
     while (@todo) {
         my $id = pop @todo;
         next if !$id or $done{$id}++;
-        my $state     = $states{$id};
+        my $state     = $states{$id} || '';
         my $following = $following{$id};
-        $state =~ s/\s+\((\d+)\)$//;
+        $state =~ s/\s*\((\d+)\)$//;
         my $next = $1;
         push @todo, $following;
         push @todo, $next if $next;
@@ -100,7 +100,7 @@ sub to_graph {
             my $branch = $next;
             my @children;
             push @children, $following;
-            while ($branch && $states{$branch} =~ /^BRANCH|TAIL/ ) {
+            while ($branch && ($states{$branch}||'') =~ /^BRANCH|TAIL/ ) {
                 $done{$branch}++;
                 push @children, $following{$branch};
                 push @todo, $following{$branch};
@@ -127,7 +127,7 @@ sub to_graph {
             $g->add_edge($id, $next);
         } else {
             $g->set_vertex_attributes($id, { type => lc $state });
-            $g->add_edge($id, $next) if $next != 0;
+            $g->add_edge($id, $next) if ($next||0) != 0;
         }
     }
     $g;
@@ -162,7 +162,7 @@ sub graphvizify {
         my $attrs = $g->get_vertex_attributes($v);
         my $type = $attrs->{type};
         my $labelmaker = $TYPE2LABEL{$type};
-        my $label = $labelmaker ? $labelmaker->($attrs->{content} // '') : uc $type;
+        my $label = $labelmaker ? $labelmaker->(GraphViz2::_dor($attrs->{content}, '')) : uc $type;
         $g->set_vertex_attribute($v, graphviz => { label => $label, %{$NODETYPE2ARGS{$type}||{}} });
         for my $e (sort {$a->[1] cmp $b->[1]} $g->edges_from($v)) {
             my $e_attrs = $g->get_edge_attributes(@$e);

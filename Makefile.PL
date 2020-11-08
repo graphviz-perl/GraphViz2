@@ -25,7 +25,7 @@ is_dot_installed();
 WriteMakefile(
   AUTHOR => 'Ron Savage <ron@savage.net.au>',
   ABSTRACT => "A wrapper for AT&T's Graphviz",
-  MIN_PERL_VERSION => 5.010001,
+  MIN_PERL_VERSION => 5.008008,
   NAME => 'GraphViz2',
   PREREQ_PM => {
     'Data::Section::Simple' => 0.02,
@@ -36,7 +36,7 @@ WriteMakefile(
     'Graph' => '0.9706',
   },
   TEST_REQUIRES => {
-    'Test::More' => 1.001002,
+    'Test::More' => '0.88', # done_testing
     'Test::Snapshot' => '0.06',
   },
   VERSION_FROM => 'lib/GraphViz2.pm',

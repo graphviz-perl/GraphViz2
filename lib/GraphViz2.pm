@@ -175,7 +175,7 @@ sub _build_valid_output_format {
 	+{ map +($_ => undef), split /\s+/, $stderr };
 }
 
-# -----------------------------------------------
+sub _dor { return $_[0] if defined $_[0]; $_[1] } # //
 
 sub BUILD
 {
@@ -183,16 +183,16 @@ sub BUILD
 	my($globals) = $self -> global;
 	my($global)  =
 	{
-		combine_node_and_port	=> $$globals{combine_node_and_port} // $DEFAULT_COMBINE,
+		combine_node_and_port	=> _dor($$globals{combine_node_and_port}, $DEFAULT_COMBINE),
 		directed		=> $$globals{directed} ? 'digraph' : 'graph',
 		driver			=> $$globals{driver} || scalar(which('dot')),
 		format			=> $$globals{format} ||	'svg',
 		im_format		=> $$globals{im_format} || 'cmapx',
 		label			=> $$globals{directed} ? '->' : '--',
-		name			=> $$globals{name} // 'Perl',
+		name			=> _dor($$globals{name}, 'Perl'),
 		record_shape	=> ($$globals{record_shape} && $$globals{record_shape} =~ /^(M?record)$/) ? $1 : 'Mrecord',
-		strict			=> $$globals{strict} //  0,
-		timeout			=> $$globals{timeout} // 10,
+		strict			=> _dor($$globals{strict},  0),
+		timeout			=> _dor($$globals{timeout}, 10),
 	};
 	my($im_metas)	= $self -> im_meta;
 	my($im_meta)	=
@@ -241,7 +241,7 @@ sub BUILD
 
 sub _edge_name_port {
 	my ($self, $name) = @_;
-	$name //= '';
+	$name = _dor($name, '');
 	# Remove :port:compass, if any, from name.
 	# But beware Perl-style node names like 'A::Class'.
 	my @field = split /(:(?!:))/, $name;
@@ -260,9 +260,9 @@ sub _edge_name_port {
 sub add_edge
 {
 	my($self, %arg) = @_;
-	my $from    = delete $arg{from} // '';
-	my $to      = delete $arg{to} // '';
-	my $label   = $arg{label} // '';
+	my $from    = _dor(delete $arg{from}, '');
+	my $to      = _dor(delete $arg{to}, '');
+	my $label   = _dor($arg{label}, '');
 	$label      =~ s/^\s*(<)\n?/$1/;
 	$label      =~ s/\n?(>)\s*$/$1/;
 	$arg{label} = $label if (defined $arg{label});
@@ -318,7 +318,7 @@ sub _compile_record {
 		$text = "{$text}" if $add_braces;
 	} elsif (ref $item eq 'HASH') {
 		my $port = $item->{port} || 0;
-		$text = escape_some_chars($item->{text} // '', $CONTEXT_QUOTING{$quote_more ? 'label' : 'label_legacy'});
+		$text = escape_some_chars(_dor($item->{text}, ''), $CONTEXT_QUOTING{$quote_more ? 'label' : 'label_legacy'});
 		if ($port) {
 			$port =~ s/^\s*<?//;
 			$port =~ s/>?\s*$//;
@@ -333,12 +333,12 @@ sub _compile_record {
 
 sub add_node {
 	my ($self, %arg) = @_;
-	my $name = delete $arg{name} // '';
+	my $name = _dor(delete $arg{name}, '');
 	$self->validate_params('node', \%arg);
 	my $node                  = $self->node_hash;
 	%arg                      = (%{$$node{$name}{attributes} || {}}, %arg);
 	$$node{$name}{attributes} = \%arg;
-	my $label                 = $arg{label} // '';
+	my $label                 = _dor($arg{label}, '');
 	$label                    =~ s/^\s*(<)\n?/$1/;
 	$label                    =~ s/\n?(>)\s*$/$1/;
 	$arg{label}               = $label if defined $arg{label};
@@ -599,7 +599,7 @@ sub stringify_attributes {
 	# Add double-quotes around anything (e.g. labels) which does not look like HTML.
 	my @pairs;
 	for my $key (sort keys %$option) {
-		my $text = $$option{$key} // '';
+		my $text = _dor($$option{$key}, '');
 		$text =~ s/^\s+(<)/$1/;
 		$text =~ s/(>)\s+$/$1/;
 		$text = qq|"$text"| if $text !~ /^<.+>$/s;

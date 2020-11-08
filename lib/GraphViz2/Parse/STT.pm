@@ -68,7 +68,7 @@ sub to_graph {
 
 sub graphvizify {
     my ($g, $mode) = @_;
-    $mode //= 're_structs';
+    $mode = GraphViz2::_dor($mode, 're_structs');
     if ($mode eq 're_nodes') {
         my %state2re_s;
         for my $v (grep $g->get_vertex_attribute($_, 'type') eq 'state', $g->vertices) {
