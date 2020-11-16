@@ -439,9 +439,7 @@ sub escape_some_chars {
 	my $label    = '';
 	for my $i (0 .. $#s) {
 		my $maybe = 0;
-		if ( ($s[$i] eq '[') || ($s[$i] eq ']') ) {
-			$maybe = 1;
-		} elsif ($s[$i] eq '"') {
+		if ($s[$i] eq '"') {
 			if (substr($s, 0, 1) ne '<') {
 				$maybe = 1; # It's not a HTML label
 			}
