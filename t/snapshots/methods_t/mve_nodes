@@ -1,0 +1,10 @@
+{
+  'a' => {
+    'attributes' => {
+      'label' => 'L1'
+    }
+  },
+  'b' => {
+    'attributes' => {}
+  }
+}

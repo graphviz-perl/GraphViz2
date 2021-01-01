@@ -1,3 +1,5 @@
+- from_graph to handle multigraphs
+
 2.62 2020-11-16
 - fix label quoting
 

@@ -1,0 +1,20 @@
+{
+  'a' => {
+    'b' => [
+      {
+        'attributes' => {
+          'label' => 'E1'
+        },
+        'from_port' => '',
+        'to_port' => ''
+      },
+      {
+        'attributes' => {
+          'label' => 'E2'
+        },
+        'from_port' => '',
+        'to_port' => ''
+      }
+    ]
+  }
+}

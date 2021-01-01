@@ -6,7 +6,9 @@ use warnings qw(FATAL utf8);	   # Fatalize encoding glitches.
 use File::Spec;
 use File::Temp;
 use GraphViz2;
+use Graph;
 use Test::More;
+use Test::Snapshot;
 
 # ------------------------------------------------
 
@@ -58,5 +60,14 @@ foreach my $tuple ( @methods ) {
 }
 
 is GraphViz2::escape_some_chars(q{\\\\"}, '\\{\\}\\|<>\\s"'), '\\\\\\"', 'quoting';
+
+my $g = Graph->new(multiedged => 1, multivertexed => 1);
+$g->set_edge_attribute_by_id(qw(a b), 'x', graphviz => { label => 'E1' });
+$g->set_edge_attribute_by_id(qw(a b), 'y', graphviz => { label => 'E2' });
+$g->set_vertex_attribute_by_id(qw(a), 'w', graphviz => { label => 'L1' });
+$g->set_vertex_attribute_by_id(qw(a), 'z', graphviz => { label => 'L2' });
+my $gv = GraphViz2->from_graph($g);
+is_deeply_snapshot $gv->node_hash, 'mve nodes';
+is_deeply_snapshot $gv->edge_hash, 'mve edges';
 
 done_testing;
