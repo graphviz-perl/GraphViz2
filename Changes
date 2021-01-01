@@ -1,3 +1,5 @@
+- fix multigraph-handling
+
 2.63 2021-01-01
 - from_graph to handle multigraphs
 

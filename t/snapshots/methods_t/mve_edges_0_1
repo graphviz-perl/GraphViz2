@@ -3,14 +3,14 @@
     'b' => [
       {
         'attributes' => {
-          'label' => 'E1'
+          'label' => 'a b x'
         },
         'from_port' => '',
         'to_port' => ''
       },
       {
         'attributes' => {
-          'label' => 'E2'
+          'label' => 'a b y'
         },
         'from_port' => '',
         'to_port' => ''

@@ -1,7 +1,7 @@
 {
   'a' => {
     'attributes' => {
-      'label' => 'L1'
+      'label' => 'a'
     }
   },
   'b' => {

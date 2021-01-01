@@ -635,7 +635,7 @@ sub from_graph {
 		my $attrs = @vargs ? $g->$v_attr(@vargs, 'graphviz') || {} : {};
 		$self->add_node(name => $v, %$attrs) if keys %$attrs;
 		for my $e (sort {$a->[1] cmp $b->[1]} $g->edges_from($v)) {
-			my @edges = $is_multiv
+			my @edges = $is_multie
 				? map $g->$e_attr(@$e, $_, 'graphviz') || {}, sort $g->get_multiedge_ids(@$e)
 				: $g->$e_attr(@$e, 'graphviz')||{};
 			$self->add_edge(from => $v, to => $e->[1], %$_) for @edges;

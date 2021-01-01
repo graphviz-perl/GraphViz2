@@ -61,13 +61,19 @@ foreach my $tuple ( @methods ) {
 
 is GraphViz2::escape_some_chars(q{\\\\"}, '\\{\\}\\|<>\\s"'), '\\\\\\"', 'quoting';
 
-my $g = Graph->new(multiedged => 1, multivertexed => 1);
-$g->set_edge_attribute_by_id(qw(a b), 'x', graphviz => { label => 'E1' });
-$g->set_edge_attribute_by_id(qw(a b), 'y', graphviz => { label => 'E2' });
-$g->set_vertex_attribute_by_id(qw(a), 'w', graphviz => { label => 'L1' });
-$g->set_vertex_attribute_by_id(qw(a), 'z', graphviz => { label => 'L2' });
-my $gv = GraphViz2->from_graph($g);
-is_deeply_snapshot $gv->node_hash, 'mve nodes';
-is_deeply_snapshot $gv->edge_hash, 'mve edges';
+for ([0,0], [0,1], [1,0], [1,1]) {
+  my ($is_multiv, $is_multie) = @$_;
+  my ($v_attr, $e_attr) = qw(set_vertex_attribute set_edge_attribute);
+  $v_attr .= '_by_id' if $is_multiv;
+  $e_attr .= '_by_id' if $is_multie;
+  my $g = Graph->new(multiedged => $is_multie, multivertexed => $is_multiv);
+  $g->$v_attr(@$_, graphviz => { label => "@$_" })
+    for $is_multiv ? ([ qw(a w) ], [ qw(a z) ]) : [ qw(a) ];
+  $g->$e_attr(@$_, graphviz => { label => "@$_" })
+    for $is_multie ? ([ qw(a b x) ], [ qw(a b y) ]) : [ qw(a b) ];
+  my $gv = GraphViz2->from_graph($g);
+  is_deeply_snapshot $gv->node_hash, "mve nodes $is_multiv $is_multie";
+  is_deeply_snapshot $gv->edge_hash, "mve edges $is_multiv $is_multie";
+}
 
 done_testing;
