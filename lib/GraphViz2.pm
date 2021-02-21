@@ -640,7 +640,7 @@ sub from_graph {
 			@vargs = defined $found_id ? (@vargs, $found_id) : ();
 		}
 		my $attrs = @vargs ? $g->$v_attr(@vargs, 'graphviz') || {} : {};
-		$self->add_node(name => $v, %$attrs) if keys %$attrs;
+		$self->add_node(name => $v, %$attrs) if keys %$attrs or $g->is_isolated_vertex($v);
 		$self->add_edge(@$_) for @{ $first2edges{$v} };
 	}
 	$self;
