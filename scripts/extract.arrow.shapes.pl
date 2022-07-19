@@ -11,7 +11,7 @@ my $result     = $root->parse($$client{content}) || die "Can't parse: $page_name
 my(@node)      = $root -> look_down(_tag => 'table');
 my @td         = $node[1]->look_down(_tag => 'td');
 
-my @shape = map /"(.+)"/ ? $1 : (), map +($_->content_list)[0], @td;
+my @shape = grep { length $_ } map { $_->as_text() } @td;
 
 my $file_name = File::Spec -> catfile('data', 'arrow.shapes.dat');
 open my $fh, '>', $file_name or die "Can't open(> $file_name): $!";
