@@ -9,7 +9,7 @@ die "Failed to get $page_name: $$client{reason}. \n" if !$$client{success};
 my($root)    = HTML::TreeBuilder -> new();
 my($result)  = $root->parse($$client{content}) || die "Can't parse: $page_name";
 my(@node)    = $root -> look_down(_tag => 'table');
-my @td       = $node[3]->look_down(_tag => 'td');
+my @td       = $node[0]->look_down(_tag => 'td');
 my($column)  = 0;
 my(%context) =
 	(
@@ -20,11 +20,10 @@ my(%context) =
 	 S => 'subgraph',
 	);
 
-my(@content, @column);
-my(@row);
-my(@user);
+my(@column, @user);
 
-for my $c0 (map ref() ? [ $_->content_list ]->[0] : $_, map [ $_->content_list ]->[0], @td) {
+for my $c0 (map { $_->as_text() } @td) {
+	# Column 0 = 'Name', column 1 = 'Used By':
 	if ($column == 0) {
 		push @column, $c0;
 	} elsif ($column == 1) {
