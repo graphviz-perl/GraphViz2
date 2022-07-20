@@ -22,7 +22,7 @@ my(%context) =
 
 my(@column, @user);
 
-for my $c0 (map { $_->as_text() } @td) {
+for my $c0 (map $_->as_text, @td) {
 	# Column 0 = 'Name', column 1 = 'Used By':
 	if ($column == 0) {
 		push @column, $c0;
