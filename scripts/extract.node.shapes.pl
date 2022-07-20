@@ -16,7 +16,7 @@ $root->ignore_unknown(0);
 my($result)    = $root->parse($$client{content}) || die "Can't parse: $file_name";
 
 my(@node) = $root->look_down(_tag => 'figcaption', class => 'gv-shape-caption');
-my @shape = map { $_->as_text() } @node;
+my @shape = map $_->as_text, @node;
 
 my $file_name = File::Spec->catfile('data', 'node.shapes.dat');
 open my $fh, '>', $file_name or die "Can't open(> $file_name): $!";
