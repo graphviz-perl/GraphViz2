@@ -810,6 +810,7 @@ This key is optional.
 =head4 driver => $program_name
 
 This option specifies which external program to run to process the output stream.
+It is the equivalent of the C<-K> command-line option.
 
 The default is to use L<File::Which>'s which() method to find the 'dot' program.
 
@@ -1583,6 +1584,7 @@ Returns $self to allow method chaining.
 Here, [] indicate optional parameters.
 
 $driver is the name of the external program to run.
+It is the equivalent of the C<-K> command-line option.
 
 It defaults to the value supplied in the call to new(global => {driver => '...'}), which in turn defaults
 to L<File::Which>'s which('dot') return value.
