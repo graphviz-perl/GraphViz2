@@ -48,6 +48,7 @@ t/gen.unnamed.sub.graph.t
 t/gen.utf8.1.t
 t/methods.t
 t/record.old.t
+t/run.t
 t/sample.stt.1.dat
 t/sample.stt.2.dat
 t/snapshots/gen_anonymous_t/dot_file

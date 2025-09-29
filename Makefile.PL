@@ -38,6 +38,7 @@ WriteMakefile(
   TEST_REQUIRES => {
     'Test::More' => '0.88', # done_testing
     'Test::Snapshot' => '0.06',
+    'Test::Exception' => '0.43',
   },
   VERSION_FROM => 'lib/GraphViz2.pm',
   LICENSE => 'perl',

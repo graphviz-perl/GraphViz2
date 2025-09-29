@@ -565,7 +565,10 @@ sub run_mapless
 			binmode_stdout => ':raw',
 			binmode_stderr => ':raw',
 		};
-	die $stderr if ($stderr);
+    my $ec = $? >> 8;
+    die $stderr || "driver exited with code: $ec" if $ec;
+    die "driver generated no output\n" unless $stdout;
+    $self -> log( debug => "stderr from driver: $stderr") if $stderr;
 	$self -> dot_output($stdout);
 	if ($output_file)
 	{
