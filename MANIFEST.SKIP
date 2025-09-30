@@ -41,6 +41,9 @@
 \.prj$
 \.pui$
 
+# Avoid JetBrains IDEA files.
+\B\.idea\b
+
 ^MYMETA\.
 
 ^GraphViz2-.*
